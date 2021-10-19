@@ -1,0 +1,404 @@
+-- Merging decision tree log ---
+manifest
+ADDED from C:\Users\tewat\AndroidStudioProjects\ComplaMap\app\src\main\AndroidManifest.xml:2:1-33:12
+INJECTED from C:\Users\tewat\AndroidStudioProjects\ComplaMap\app\src\main\AndroidManifest.xml:2:1-33:12
+INJECTED from C:\Users\tewat\AndroidStudioProjects\ComplaMap\app\src\main\AndroidManifest.xml:2:1-33:12
+INJECTED from C:\Users\tewat\AndroidStudioProjects\ComplaMap\app\src\main\AndroidManifest.xml:2:1-33:12
+MERGED from [androidx.databinding:viewbinding:7.0.3] C:\Users\tewat\.gradle\caches\transforms-3\1fc6e00197c7d378fa65f6b11113f002\transformed\jetified-viewbinding-7.0.3\AndroidManifest.xml:17:1-22:12
+MERGED from [androidx.core:core-ktx:1.6.0] C:\Users\tewat\.gradle\caches\transforms-3\62e2f5cedf41e67febd361904eb25b0a\transformed\jetified-core-ktx-1.6.0\AndroidManifest.xml:2:1-9:12
+MERGED from [com.google.android.material:material:1.4.0] C:\Users\tewat\.gradle\caches\transforms-3\4f09b7f07416c9161a21367b6c637a56\transformed\material-1.4.0\AndroidManifest.xml:17:1-24:12
+MERGED from [androidx.constraintlayout:constraintlayout:2.1.1] C:\Users\tewat\.gradle\caches\transforms-3\ecddbcb34e4e884e16b237570ada680f\transformed\constraintlayout-2.1.1\AndroidManifest.xml:2:1-11:12
+MERGED from [androidx.appcompat:appcompat:1.3.1] C:\Users\tewat\.gradle\caches\transforms-3\4f80d78309cb694f7f84359eb8702d5c\transformed\appcompat-1.3.1\AndroidManifest.xml:17:1-24:12
+MERGED from [com.yandex.android:maps.mobile:4.0.0-lite] C:\Users\tewat\.gradle\caches\transforms-3\d215c3b7b11693d624c517576a4a94b8\transformed\jetified-maps.mobile-4.0.0-lite\AndroidManifest.xml:3:1-72:12
+MERGED from [androidx.viewpager2:viewpager2:1.0.0] C:\Users\tewat\.gradle\caches\transforms-3\c81f0889b676f53a3c695117793779ec\transformed\jetified-viewpager2-1.0.0\AndroidManifest.xml:17:1-24:12
+MERGED from [com.google.android.gms:play-services-location:16.0.0] C:\Users\tewat\.gradle\caches\transforms-3\bdb9f3e60cf2d753439a597ca3f5ef1a\transformed\jetified-play-services-location-16.0.0\AndroidManifest.xml:2:1-9:12
+MERGED from [com.google.android.gms:play-services-base:16.0.1] C:\Users\tewat\.gradle\caches\transforms-3\d4728fd7ab6a28d30c1e801db8e0065e\transformed\jetified-play-services-base-16.0.1\AndroidManifest.xml:17:1-29:12
+MERGED from [com.google.android.gms:play-services-places-placereport:16.0.0] C:\Users\tewat\.gradle\caches\transforms-3\a923aea494fde406bdb27c421120b65b\transformed\jetified-play-services-places-placereport-16.0.0\AndroidManifest.xml:17:1-24:12
+MERGED from [com.google.android.gms:play-services-tasks:16.0.1] C:\Users\tewat\.gradle\caches\transforms-3\8deed3fb5ac6258de90ae8563c2ba3b6\transformed\jetified-play-services-tasks-16.0.1\AndroidManifest.xml:2:1-9:12
+MERGED from [com.google.android.gms:play-services-basement:16.0.1] C:\Users\tewat\.gradle\caches\transforms-3\2af8b95b32d8e426d2a3f1e5e2423d54\transformed\jetified-play-services-basement-16.0.1\AndroidManifest.xml:17:1-28:12
+MERGED from [androidx.legacy:legacy-support-v4:1.0.0] C:\Users\tewat\.gradle\caches\transforms-3\bb3703b7e8027f4036562e5dc4cc42b5\transformed\legacy-support-v4-1.0.0\AndroidManifest.xml:17:1-22:12
+MERGED from [androidx.fragment:fragment:1.3.6] C:\Users\tewat\.gradle\caches\transforms-3\fc67c7fb9471a579a44bc5064895f536\transformed\fragment-1.3.6\AndroidManifest.xml:17:1-24:12
+MERGED from [androidx.activity:activity:1.2.4] C:\Users\tewat\.gradle\caches\transforms-3\bd00a4619fdb9bf6314f0c6eeb763d71\transformed\jetified-activity-1.2.4\AndroidManifest.xml:17:1-24:12
+MERGED from [androidx.appcompat:appcompat-resources:1.3.1] C:\Users\tewat\.gradle\caches\transforms-3\7e2bfbb4e1272901c3731524b4507f04\transformed\jetified-appcompat-resources-1.3.1\AndroidManifest.xml:17:1-24:12
+MERGED from [androidx.legacy:legacy-support-core-ui:1.0.0] C:\Users\tewat\.gradle\caches\transforms-3\7ce8a509fe503e60fd29750e16345c8e\transformed\legacy-support-core-ui-1.0.0\AndroidManifest.xml:17:1-22:12
+MERGED from [androidx.drawerlayout:drawerlayout:1.0.0] C:\Users\tewat\.gradle\caches\transforms-3\18fbcccabe51d7517c41d9253cb19813\transformed\drawerlayout-1.0.0\AndroidManifest.xml:17:1-22:12
+MERGED from [androidx.coordinatorlayout:coordinatorlayout:1.1.0] C:\Users\tewat\.gradle\caches\transforms-3\996cb55609ab16c753ffcf5bce770df6\transformed\coordinatorlayout-1.1.0\AndroidManifest.xml:17:1-24:12
+MERGED from [androidx.dynamicanimation:dynamicanimation:1.0.0] C:\Users\tewat\.gradle\caches\transforms-3\492e7286a70fa155ee49b6992cf6c39d\transformed\dynamicanimation-1.0.0\AndroidManifest.xml:17:1-22:12
+MERGED from [androidx.transition:transition:1.2.0] C:\Users\tewat\.gradle\caches\transforms-3\2319cf3fc3da5c5435b76fcd82ee1ade\transformed\transition-1.2.0\AndroidManifest.xml:17:1-24:12
+MERGED from [androidx.vectordrawable:vectordrawable-animated:1.1.0] C:\Users\tewat\.gradle\caches\transforms-3\ea832e28a0d896f535ef1366e99188e7\transformed\vectordrawable-animated-1.1.0\AndroidManifest.xml:17:1-24:12
+MERGED from [androidx.vectordrawable:vectordrawable:1.1.0] C:\Users\tewat\.gradle\caches\transforms-3\1fcc58705be535d81ca2122cd82fb2dd\transformed\vectordrawable-1.1.0\AndroidManifest.xml:17:1-24:12
+MERGED from [androidx.viewpager:viewpager:1.0.0] C:\Users\tewat\.gradle\caches\transforms-3\29a7f96b1635356672387b8a2fd2b8c6\transformed\viewpager-1.0.0\AndroidManifest.xml:17:1-22:12
+MERGED from [androidx.legacy:legacy-support-core-utils:1.0.0] C:\Users\tewat\.gradle\caches\transforms-3\471f5d6be1a1611dedd6ac1e307b9336\transformed\legacy-support-core-utils-1.0.0\AndroidManifest.xml:17:1-22:12
+MERGED from [androidx.loader:loader:1.0.0] C:\Users\tewat\.gradle\caches\transforms-3\936e10ab5147e35a87205426e48f3c1a\transformed\loader-1.0.0\AndroidManifest.xml:17:1-22:12
+MERGED from [androidx.recyclerview:recyclerview:1.1.0] C:\Users\tewat\.gradle\caches\transforms-3\8b79b2d8cb1ed6befa651c39b4af930a\transformed\recyclerview-1.1.0\AndroidManifest.xml:17:1-24:12
+MERGED from [androidx.slidingpanelayout:slidingpanelayout:1.0.0] C:\Users\tewat\.gradle\caches\transforms-3\4eadf7e2cc53f04481de60f72160e063\transformed\slidingpanelayout-1.0.0\AndroidManifest.xml:17:1-22:12
+MERGED from [androidx.customview:customview:1.0.0] C:\Users\tewat\.gradle\caches\transforms-3\2b36b5095d5e21f336fa59dc4d2e4a62\transformed\customview-1.0.0\AndroidManifest.xml:17:1-22:12
+MERGED from [androidx.media:media:1.0.0] C:\Users\tewat\.gradle\caches\transforms-3\83098043d1bf23470a00f558053d7ced\transformed\media-1.0.0\AndroidManifest.xml:17:1-22:12
+MERGED from [androidx.swiperefreshlayout:swiperefreshlayout:1.0.0] C:\Users\tewat\.gradle\caches\transforms-3\84af4391412877bfc8897d9f24d89067\transformed\swiperefreshlayout-1.0.0\AndroidManifest.xml:17:1-22:12
+MERGED from [androidx.asynclayoutinflater:asynclayoutinflater:1.0.0] C:\Users\tewat\.gradle\caches\transforms-3\3e656b9b66d71525ea1abad4f76f012b\transformed\asynclayoutinflater-1.0.0\AndroidManifest.xml:17:1-22:12
+MERGED from [androidx.core:core:1.6.0] C:\Users\tewat\.gradle\caches\transforms-3\ae30daa42fdcb5a7b0eee51e92264d91\transformed\core-1.6.0\AndroidManifest.xml:17:1-26:12
+MERGED from [androidx.cursoradapter:cursoradapter:1.0.0] C:\Users\tewat\.gradle\caches\transforms-3\4028e17a5ae7423d0e5c6e221d879097\transformed\cursoradapter-1.0.0\AndroidManifest.xml:17:1-22:12
+MERGED from [androidx.lifecycle:lifecycle-viewmodel-savedstate:2.3.1] C:\Users\tewat\.gradle\caches\transforms-3\97ac01458938c12998f7635c2b5fc845\transformed\jetified-lifecycle-viewmodel-savedstate-2.3.1\AndroidManifest.xml:17:1-24:12
+MERGED from [androidx.savedstate:savedstate:1.1.0] C:\Users\tewat\.gradle\caches\transforms-3\6a53d1bd4e81ce3320ca1dba92d0cd3d\transformed\jetified-savedstate-1.1.0\AndroidManifest.xml:17:1-24:12
+MERGED from [androidx.lifecycle:lifecycle-runtime:2.3.1] C:\Users\tewat\.gradle\caches\transforms-3\a7db284f84f6b7560fa5f0cacef4a396\transformed\lifecycle-runtime-2.3.1\AndroidManifest.xml:17:1-24:12
+MERGED from [androidx.lifecycle:lifecycle-viewmodel:2.3.1] C:\Users\tewat\.gradle\caches\transforms-3\1ae6fcd0c074d03ce421d154e7534b25\transformed\lifecycle-viewmodel-2.3.1\AndroidManifest.xml:17:1-24:12
+MERGED from [androidx.cardview:cardview:1.0.0] C:\Users\tewat\.gradle\caches\transforms-3\4df0b7afd0eb09cd2c587ba1fc0af795\transformed\cardview-1.0.0\AndroidManifest.xml:17:1-22:12
+MERGED from [androidx.versionedparcelable:versionedparcelable:1.1.1] C:\Users\tewat\.gradle\caches\transforms-3\0872e19b344265a0f14b376edd67805b\transformed\versionedparcelable-1.1.1\AndroidManifest.xml:17:1-27:12
+MERGED from [androidx.tracing:tracing:1.0.0] C:\Users\tewat\.gradle\caches\transforms-3\a01d72cb6dfb2dad1ff25965c59c470c\transformed\jetified-tracing-1.0.0\AndroidManifest.xml:17:1-24:12
+MERGED from [androidx.lifecycle:lifecycle-livedata:2.0.0] C:\Users\tewat\.gradle\caches\transforms-3\42eb83a5cfe1555af3660a647b227e91\transformed\lifecycle-livedata-2.0.0\AndroidManifest.xml:17:1-22:12
+MERGED from [androidx.lifecycle:lifecycle-livedata-core:2.3.1] C:\Users\tewat\.gradle\caches\transforms-3\6c08129ab95377b3ae733b92092f7a86\transformed\lifecycle-livedata-core-2.3.1\AndroidManifest.xml:17:1-24:12
+MERGED from [androidx.arch.core:core-runtime:2.1.0] C:\Users\tewat\.gradle\caches\transforms-3\abeb796b28f2eaa28b9454a568b92c3a\transformed\core-runtime-2.1.0\AndroidManifest.xml:17:1-24:12
+MERGED from [androidx.interpolator:interpolator:1.0.0] C:\Users\tewat\.gradle\caches\transforms-3\f8f847d2daac12340270db8b770ae69f\transformed\interpolator-1.0.0\AndroidManifest.xml:17:1-22:12
+MERGED from [androidx.documentfile:documentfile:1.0.0] C:\Users\tewat\.gradle\caches\transforms-3\1443f574b341202221d94456fa89e971\transformed\documentfile-1.0.0\AndroidManifest.xml:17:1-22:12
+MERGED from [androidx.localbroadcastmanager:localbroadcastmanager:1.0.0] C:\Users\tewat\.gradle\caches\transforms-3\c74b55c3c5584443101dd642cc397648\transformed\localbroadcastmanager-1.0.0\AndroidManifest.xml:17:1-22:12
+MERGED from [androidx.print:print:1.0.0] C:\Users\tewat\.gradle\caches\transforms-3\fe0cd59e24e2a1979051b858ccb0c943\transformed\print-1.0.0\AndroidManifest.xml:17:1-22:12
+MERGED from [androidx.annotation:annotation-experimental:1.1.0] C:\Users\tewat\.gradle\caches\transforms-3\927e4759aab70058587d14372a662a15\transformed\jetified-annotation-experimental-1.1.0\AndroidManifest.xml:17:1-24:12
+INJECTED from C:\Users\tewat\AndroidStudioProjects\ComplaMap\app\src\main\AndroidManifest.xml:2:1-33:12
+INJECTED from C:\Users\tewat\AndroidStudioProjects\ComplaMap\app\src\main\AndroidManifest.xml:2:1-33:12
+INJECTED from C:\Users\tewat\AndroidStudioProjects\ComplaMap\app\src\main\AndroidManifest.xml:2:1-33:12
+	package
+		ADDED from C:\Users\tewat\AndroidStudioProjects\ComplaMap\app\src\main\AndroidManifest.xml:3:5-36
+		INJECTED from C:\Users\tewat\AndroidStudioProjects\ComplaMap\app\src\main\AndroidManifest.xml
+		INJECTED from C:\Users\tewat\AndroidStudioProjects\ComplaMap\app\src\main\AndroidManifest.xml
+	android:versionName
+		INJECTED from C:\Users\tewat\AndroidStudioProjects\ComplaMap\app\src\main\AndroidManifest.xml
+		ADDED from C:\Users\tewat\AndroidStudioProjects\ComplaMap\app\src\main\AndroidManifest.xml:2:1-33:12
+		INJECTED from C:\Users\tewat\AndroidStudioProjects\ComplaMap\app\src\main\AndroidManifest.xml
+	android:versionCode
+		INJECTED from C:\Users\tewat\AndroidStudioProjects\ComplaMap\app\src\main\AndroidManifest.xml
+		ADDED from C:\Users\tewat\AndroidStudioProjects\ComplaMap\app\src\main\AndroidManifest.xml:2:1-33:12
+		INJECTED from C:\Users\tewat\AndroidStudioProjects\ComplaMap\app\src\main\AndroidManifest.xml
+	xmlns:android
+		ADDED from C:\Users\tewat\AndroidStudioProjects\ComplaMap\app\src\main\AndroidManifest.xml:2:11-69
+uses-permission#android.permission.INTERNET
+ADDED from C:\Users\tewat\AndroidStudioProjects\ComplaMap\app\src\main\AndroidManifest.xml:4:5-66
+MERGED from [com.yandex.android:maps.mobile:4.0.0-lite] C:\Users\tewat\.gradle\caches\transforms-3\d215c3b7b11693d624c517576a4a94b8\transformed\jetified-maps.mobile-4.0.0-lite\AndroidManifest.xml:14:5-67
+MERGED from [com.yandex.android:maps.mobile:4.0.0-lite] C:\Users\tewat\.gradle\caches\transforms-3\d215c3b7b11693d624c517576a4a94b8\transformed\jetified-maps.mobile-4.0.0-lite\AndroidManifest.xml:14:5-67
+	android:name
+		ADDED from C:\Users\tewat\AndroidStudioProjects\ComplaMap\app\src\main\AndroidManifest.xml:4:22-64
+uses-permission#android.permission.ACCESS_COARSE_LOCATION
+ADDED from C:\Users\tewat\AndroidStudioProjects\ComplaMap\app\src\main\AndroidManifest.xml:5:5-80
+	android:name
+		ADDED from C:\Users\tewat\AndroidStudioProjects\ComplaMap\app\src\main\AndroidManifest.xml:5:22-78
+uses-permission#android.permission.ACCESS_FINE_LOCATION
+ADDED from C:\Users\tewat\AndroidStudioProjects\ComplaMap\app\src\main\AndroidManifest.xml:6:5-78
+MERGED from [com.yandex.android:maps.mobile:4.0.0-lite] C:\Users\tewat\.gradle\caches\transforms-3\d215c3b7b11693d624c517576a4a94b8\transformed\jetified-maps.mobile-4.0.0-lite\AndroidManifest.xml:18:5-79
+MERGED from [com.yandex.android:maps.mobile:4.0.0-lite] C:\Users\tewat\.gradle\caches\transforms-3\d215c3b7b11693d624c517576a4a94b8\transformed\jetified-maps.mobile-4.0.0-lite\AndroidManifest.xml:18:5-79
+	android:name
+		ADDED from C:\Users\tewat\AndroidStudioProjects\ComplaMap\app\src\main\AndroidManifest.xml:6:22-76
+uses-permission#android.permission.WRITE_EXTERNAL_STORAGE
+ADDED from C:\Users\tewat\AndroidStudioProjects\ComplaMap\app\src\main\AndroidManifest.xml:7:5-80
+MERGED from [com.yandex.android:maps.mobile:4.0.0-lite] C:\Users\tewat\.gradle\caches\transforms-3\d215c3b7b11693d624c517576a4a94b8\transformed\jetified-maps.mobile-4.0.0-lite\AndroidManifest.xml:15:5-81
+MERGED from [com.yandex.android:maps.mobile:4.0.0-lite] C:\Users\tewat\.gradle\caches\transforms-3\d215c3b7b11693d624c517576a4a94b8\transformed\jetified-maps.mobile-4.0.0-lite\AndroidManifest.xml:15:5-81
+	android:name
+		ADDED from C:\Users\tewat\AndroidStudioProjects\ComplaMap\app\src\main\AndroidManifest.xml:7:22-78
+uses-permission#android.permission.ACCESS_NETWORK_STATE
+ADDED from C:\Users\tewat\AndroidStudioProjects\ComplaMap\app\src\main\AndroidManifest.xml:8:5-78
+MERGED from [com.yandex.android:maps.mobile:4.0.0-lite] C:\Users\tewat\.gradle\caches\transforms-3\d215c3b7b11693d624c517576a4a94b8\transformed\jetified-maps.mobile-4.0.0-lite\AndroidManifest.xml:13:5-79
+MERGED from [com.yandex.android:maps.mobile:4.0.0-lite] C:\Users\tewat\.gradle\caches\transforms-3\d215c3b7b11693d624c517576a4a94b8\transformed\jetified-maps.mobile-4.0.0-lite\AndroidManifest.xml:13:5-79
+	android:name
+		ADDED from C:\Users\tewat\AndroidStudioProjects\ComplaMap\app\src\main\AndroidManifest.xml:8:22-76
+uses-permission#android.permission.WAKE_LOCK
+ADDED from C:\Users\tewat\AndroidStudioProjects\ComplaMap\app\src\main\AndroidManifest.xml:9:5-67
+MERGED from [com.yandex.android:maps.mobile:4.0.0-lite] C:\Users\tewat\.gradle\caches\transforms-3\d215c3b7b11693d624c517576a4a94b8\transformed\jetified-maps.mobile-4.0.0-lite\AndroidManifest.xml:19:5-68
+MERGED from [com.yandex.android:maps.mobile:4.0.0-lite] C:\Users\tewat\.gradle\caches\transforms-3\d215c3b7b11693d624c517576a4a94b8\transformed\jetified-maps.mobile-4.0.0-lite\AndroidManifest.xml:19:5-68
+	android:name
+		ADDED from C:\Users\tewat\AndroidStudioProjects\ComplaMap\app\src\main\AndroidManifest.xml:9:22-65
+uses-permission#android.permission.ACCESS_WIFI_STATE
+ADDED from C:\Users\tewat\AndroidStudioProjects\ComplaMap\app\src\main\AndroidManifest.xml:10:5-75
+MERGED from [com.yandex.android:maps.mobile:4.0.0-lite] C:\Users\tewat\.gradle\caches\transforms-3\d215c3b7b11693d624c517576a4a94b8\transformed\jetified-maps.mobile-4.0.0-lite\AndroidManifest.xml:16:5-76
+MERGED from [com.yandex.android:maps.mobile:4.0.0-lite] C:\Users\tewat\.gradle\caches\transforms-3\d215c3b7b11693d624c517576a4a94b8\transformed\jetified-maps.mobile-4.0.0-lite\AndroidManifest.xml:16:5-76
+	android:name
+		ADDED from C:\Users\tewat\AndroidStudioProjects\ComplaMap\app\src\main\AndroidManifest.xml:10:22-73
+uses-permission#android.permission.CHANGE_WIFI_STATE
+ADDED from C:\Users\tewat\AndroidStudioProjects\ComplaMap\app\src\main\AndroidManifest.xml:11:5-75
+MERGED from [com.yandex.android:maps.mobile:4.0.0-lite] C:\Users\tewat\.gradle\caches\transforms-3\d215c3b7b11693d624c517576a4a94b8\transformed\jetified-maps.mobile-4.0.0-lite\AndroidManifest.xml:17:5-76
+MERGED from [com.yandex.android:maps.mobile:4.0.0-lite] C:\Users\tewat\.gradle\caches\transforms-3\d215c3b7b11693d624c517576a4a94b8\transformed\jetified-maps.mobile-4.0.0-lite\AndroidManifest.xml:17:5-76
+	android:name
+		ADDED from C:\Users\tewat\AndroidStudioProjects\ComplaMap\app\src\main\AndroidManifest.xml:11:22-73
+uses-permission#android.permission.READ_PHONE_STATE
+ADDED from C:\Users\tewat\AndroidStudioProjects\ComplaMap\app\src\main\AndroidManifest.xml:12:5-74
+	android:name
+		ADDED from C:\Users\tewat\AndroidStudioProjects\ComplaMap\app\src\main\AndroidManifest.xml:12:22-72
+application
+ADDED from C:\Users\tewat\AndroidStudioProjects\ComplaMap\app\src\main\AndroidManifest.xml:13:5-31:19
+MERGED from [com.google.android.material:material:1.4.0] C:\Users\tewat\.gradle\caches\transforms-3\4f09b7f07416c9161a21367b6c637a56\transformed\material-1.4.0\AndroidManifest.xml:22:5-20
+MERGED from [com.google.android.material:material:1.4.0] C:\Users\tewat\.gradle\caches\transforms-3\4f09b7f07416c9161a21367b6c637a56\transformed\material-1.4.0\AndroidManifest.xml:22:5-20
+MERGED from [androidx.constraintlayout:constraintlayout:2.1.1] C:\Users\tewat\.gradle\caches\transforms-3\ecddbcb34e4e884e16b237570ada680f\transformed\constraintlayout-2.1.1\AndroidManifest.xml:9:5-20
+MERGED from [androidx.constraintlayout:constraintlayout:2.1.1] C:\Users\tewat\.gradle\caches\transforms-3\ecddbcb34e4e884e16b237570ada680f\transformed\constraintlayout-2.1.1\AndroidManifest.xml:9:5-20
+MERGED from [com.yandex.android:maps.mobile:4.0.0-lite] C:\Users\tewat\.gradle\caches\transforms-3\d215c3b7b11693d624c517576a4a94b8\transformed\jetified-maps.mobile-4.0.0-lite\AndroidManifest.xml:24:5-70:19
+MERGED from [com.yandex.android:maps.mobile:4.0.0-lite] C:\Users\tewat\.gradle\caches\transforms-3\d215c3b7b11693d624c517576a4a94b8\transformed\jetified-maps.mobile-4.0.0-lite\AndroidManifest.xml:24:5-70:19
+MERGED from [com.google.android.gms:play-services-location:16.0.0] C:\Users\tewat\.gradle\caches\transforms-3\bdb9f3e60cf2d753439a597ca3f5ef1a\transformed\jetified-play-services-location-16.0.0\AndroidManifest.xml:7:5-20
+MERGED from [com.google.android.gms:play-services-location:16.0.0] C:\Users\tewat\.gradle\caches\transforms-3\bdb9f3e60cf2d753439a597ca3f5ef1a\transformed\jetified-play-services-location-16.0.0\AndroidManifest.xml:7:5-20
+MERGED from [com.google.android.gms:play-services-base:16.0.1] C:\Users\tewat\.gradle\caches\transforms-3\d4728fd7ab6a28d30c1e801db8e0065e\transformed\jetified-play-services-base-16.0.1\AndroidManifest.xml:22:5-27:19
+MERGED from [com.google.android.gms:play-services-base:16.0.1] C:\Users\tewat\.gradle\caches\transforms-3\d4728fd7ab6a28d30c1e801db8e0065e\transformed\jetified-play-services-base-16.0.1\AndroidManifest.xml:22:5-27:19
+MERGED from [com.google.android.gms:play-services-places-placereport:16.0.0] C:\Users\tewat\.gradle\caches\transforms-3\a923aea494fde406bdb27c421120b65b\transformed\jetified-play-services-places-placereport-16.0.0\AndroidManifest.xml:22:5-20
+MERGED from [com.google.android.gms:play-services-places-placereport:16.0.0] C:\Users\tewat\.gradle\caches\transforms-3\a923aea494fde406bdb27c421120b65b\transformed\jetified-play-services-places-placereport-16.0.0\AndroidManifest.xml:22:5-20
+MERGED from [com.google.android.gms:play-services-tasks:16.0.1] C:\Users\tewat\.gradle\caches\transforms-3\8deed3fb5ac6258de90ae8563c2ba3b6\transformed\jetified-play-services-tasks-16.0.1\AndroidManifest.xml:7:5-20
+MERGED from [com.google.android.gms:play-services-tasks:16.0.1] C:\Users\tewat\.gradle\caches\transforms-3\8deed3fb5ac6258de90ae8563c2ba3b6\transformed\jetified-play-services-tasks-16.0.1\AndroidManifest.xml:7:5-20
+MERGED from [com.google.android.gms:play-services-basement:16.0.1] C:\Users\tewat\.gradle\caches\transforms-3\2af8b95b32d8e426d2a3f1e5e2423d54\transformed\jetified-play-services-basement-16.0.1\AndroidManifest.xml:22:5-26:19
+MERGED from [com.google.android.gms:play-services-basement:16.0.1] C:\Users\tewat\.gradle\caches\transforms-3\2af8b95b32d8e426d2a3f1e5e2423d54\transformed\jetified-play-services-basement-16.0.1\AndroidManifest.xml:22:5-26:19
+MERGED from [androidx.core:core:1.6.0] C:\Users\tewat\.gradle\caches\transforms-3\ae30daa42fdcb5a7b0eee51e92264d91\transformed\core-1.6.0\AndroidManifest.xml:24:5-89
+MERGED from [androidx.core:core:1.6.0] C:\Users\tewat\.gradle\caches\transforms-3\ae30daa42fdcb5a7b0eee51e92264d91\transformed\core-1.6.0\AndroidManifest.xml:24:5-89
+MERGED from [androidx.versionedparcelable:versionedparcelable:1.1.1] C:\Users\tewat\.gradle\caches\transforms-3\0872e19b344265a0f14b376edd67805b\transformed\versionedparcelable-1.1.1\AndroidManifest.xml:24:5-25:19
+MERGED from [androidx.versionedparcelable:versionedparcelable:1.1.1] C:\Users\tewat\.gradle\caches\transforms-3\0872e19b344265a0f14b376edd67805b\transformed\versionedparcelable-1.1.1\AndroidManifest.xml:24:5-25:19
+	android:appComponentFactory
+		ADDED from [androidx.core:core:1.6.0] C:\Users\tewat\.gradle\caches\transforms-3\ae30daa42fdcb5a7b0eee51e92264d91\transformed\core-1.6.0\AndroidManifest.xml:24:18-86
+	android:supportsRtl
+		ADDED from C:\Users\tewat\AndroidStudioProjects\ComplaMap\app\src\main\AndroidManifest.xml:18:9-35
+	android:label
+		ADDED from C:\Users\tewat\AndroidStudioProjects\ComplaMap\app\src\main\AndroidManifest.xml:16:9-41
+	tools:ignore
+		ADDED from [com.yandex.android:maps.mobile:4.0.0-lite] C:\Users\tewat\.gradle\caches\transforms-3\d215c3b7b11693d624c517576a4a94b8\transformed\jetified-maps.mobile-4.0.0-lite\AndroidManifest.xml:24:18-44
+	android:roundIcon
+		ADDED from C:\Users\tewat\AndroidStudioProjects\ComplaMap\app\src\main\AndroidManifest.xml:17:9-54
+	android:icon
+		ADDED from C:\Users\tewat\AndroidStudioProjects\ComplaMap\app\src\main\AndroidManifest.xml:15:9-43
+	android:allowBackup
+		ADDED from C:\Users\tewat\AndroidStudioProjects\ComplaMap\app\src\main\AndroidManifest.xml:14:9-35
+	android:theme
+		ADDED from C:\Users\tewat\AndroidStudioProjects\ComplaMap\app\src\main\AndroidManifest.xml:19:9-47
+activity#com.example.complamap.MainActivity
+ADDED from C:\Users\tewat\AndroidStudioProjects\ComplaMap\app\src\main\AndroidManifest.xml:20:9-28:20
+	android:exported
+		ADDED from C:\Users\tewat\AndroidStudioProjects\ComplaMap\app\src\main\AndroidManifest.xml:22:13-36
+	android:name
+		ADDED from C:\Users\tewat\AndroidStudioProjects\ComplaMap\app\src\main\AndroidManifest.xml:21:13-41
+intent-filter#action:name:android.intent.action.MAIN+category:name:android.intent.category.LAUNCHER
+ADDED from C:\Users\tewat\AndroidStudioProjects\ComplaMap\app\src\main\AndroidManifest.xml:23:13-27:29
+action#android.intent.action.MAIN
+ADDED from C:\Users\tewat\AndroidStudioProjects\ComplaMap\app\src\main\AndroidManifest.xml:24:17-69
+	android:name
+		ADDED from C:\Users\tewat\AndroidStudioProjects\ComplaMap\app\src\main\AndroidManifest.xml:24:25-66
+category#android.intent.category.LAUNCHER
+ADDED from C:\Users\tewat\AndroidStudioProjects\ComplaMap\app\src\main\AndroidManifest.xml:26:17-77
+	android:name
+		ADDED from C:\Users\tewat\AndroidStudioProjects\ComplaMap\app\src\main\AndroidManifest.xml:26:27-74
+activity#com.example.complamap.CreateComplaintActivity
+ADDED from C:\Users\tewat\AndroidStudioProjects\ComplaMap\app\src\main\AndroidManifest.xml:29:9-30:54
+	android:name
+		ADDED from C:\Users\tewat\AndroidStudioProjects\ComplaMap\app\src\main\AndroidManifest.xml:30:13-52
+uses-sdk
+INJECTED from C:\Users\tewat\AndroidStudioProjects\ComplaMap\app\src\main\AndroidManifest.xml reason: use-sdk injection requested
+INJECTED from C:\Users\tewat\AndroidStudioProjects\ComplaMap\app\src\main\AndroidManifest.xml
+INJECTED from C:\Users\tewat\AndroidStudioProjects\ComplaMap\app\src\main\AndroidManifest.xml
+MERGED from [androidx.databinding:viewbinding:7.0.3] C:\Users\tewat\.gradle\caches\transforms-3\1fc6e00197c7d378fa65f6b11113f002\transformed\jetified-viewbinding-7.0.3\AndroidManifest.xml:20:5-44
+MERGED from [androidx.databinding:viewbinding:7.0.3] C:\Users\tewat\.gradle\caches\transforms-3\1fc6e00197c7d378fa65f6b11113f002\transformed\jetified-viewbinding-7.0.3\AndroidManifest.xml:20:5-44
+MERGED from [androidx.core:core-ktx:1.6.0] C:\Users\tewat\.gradle\caches\transforms-3\62e2f5cedf41e67febd361904eb25b0a\transformed\jetified-core-ktx-1.6.0\AndroidManifest.xml:5:5-7:41
+MERGED from [androidx.core:core-ktx:1.6.0] C:\Users\tewat\.gradle\caches\transforms-3\62e2f5cedf41e67febd361904eb25b0a\transformed\jetified-core-ktx-1.6.0\AndroidManifest.xml:5:5-7:41
+MERGED from [com.google.android.material:material:1.4.0] C:\Users\tewat\.gradle\caches\transforms-3\4f09b7f07416c9161a21367b6c637a56\transformed\material-1.4.0\AndroidManifest.xml:20:5-44
+MERGED from [com.google.android.material:material:1.4.0] C:\Users\tewat\.gradle\caches\transforms-3\4f09b7f07416c9161a21367b6c637a56\transformed\material-1.4.0\AndroidManifest.xml:20:5-44
+MERGED from [androidx.constraintlayout:constraintlayout:2.1.1] C:\Users\tewat\.gradle\caches\transforms-3\ecddbcb34e4e884e16b237570ada680f\transformed\constraintlayout-2.1.1\AndroidManifest.xml:5:5-7:41
+MERGED from [androidx.constraintlayout:constraintlayout:2.1.1] C:\Users\tewat\.gradle\caches\transforms-3\ecddbcb34e4e884e16b237570ada680f\transformed\constraintlayout-2.1.1\AndroidManifest.xml:5:5-7:41
+MERGED from [androidx.appcompat:appcompat:1.3.1] C:\Users\tewat\.gradle\caches\transforms-3\4f80d78309cb694f7f84359eb8702d5c\transformed\appcompat-1.3.1\AndroidManifest.xml:20:5-22:41
+MERGED from [androidx.appcompat:appcompat:1.3.1] C:\Users\tewat\.gradle\caches\transforms-3\4f80d78309cb694f7f84359eb8702d5c\transformed\appcompat-1.3.1\AndroidManifest.xml:20:5-22:41
+MERGED from [com.yandex.android:maps.mobile:4.0.0-lite] C:\Users\tewat\.gradle\caches\transforms-3\d215c3b7b11693d624c517576a4a94b8\transformed\jetified-maps.mobile-4.0.0-lite\AndroidManifest.xml:9:5-11:41
+MERGED from [com.yandex.android:maps.mobile:4.0.0-lite] C:\Users\tewat\.gradle\caches\transforms-3\d215c3b7b11693d624c517576a4a94b8\transformed\jetified-maps.mobile-4.0.0-lite\AndroidManifest.xml:9:5-11:41
+MERGED from [androidx.viewpager2:viewpager2:1.0.0] C:\Users\tewat\.gradle\caches\transforms-3\c81f0889b676f53a3c695117793779ec\transformed\jetified-viewpager2-1.0.0\AndroidManifest.xml:20:5-22:41
+MERGED from [androidx.viewpager2:viewpager2:1.0.0] C:\Users\tewat\.gradle\caches\transforms-3\c81f0889b676f53a3c695117793779ec\transformed\jetified-viewpager2-1.0.0\AndroidManifest.xml:20:5-22:41
+MERGED from [com.google.android.gms:play-services-location:16.0.0] C:\Users\tewat\.gradle\caches\transforms-3\bdb9f3e60cf2d753439a597ca3f5ef1a\transformed\jetified-play-services-location-16.0.0\AndroidManifest.xml:5:5-44
+MERGED from [com.google.android.gms:play-services-location:16.0.0] C:\Users\tewat\.gradle\caches\transforms-3\bdb9f3e60cf2d753439a597ca3f5ef1a\transformed\jetified-play-services-location-16.0.0\AndroidManifest.xml:5:5-44
+MERGED from [com.google.android.gms:play-services-base:16.0.1] C:\Users\tewat\.gradle\caches\transforms-3\d4728fd7ab6a28d30c1e801db8e0065e\transformed\jetified-play-services-base-16.0.1\AndroidManifest.xml:20:5-44
+MERGED from [com.google.android.gms:play-services-base:16.0.1] C:\Users\tewat\.gradle\caches\transforms-3\d4728fd7ab6a28d30c1e801db8e0065e\transformed\jetified-play-services-base-16.0.1\AndroidManifest.xml:20:5-44
+MERGED from [com.google.android.gms:play-services-places-placereport:16.0.0] C:\Users\tewat\.gradle\caches\transforms-3\a923aea494fde406bdb27c421120b65b\transformed\jetified-play-services-places-placereport-16.0.0\AndroidManifest.xml:20:5-44
+MERGED from [com.google.android.gms:play-services-places-placereport:16.0.0] C:\Users\tewat\.gradle\caches\transforms-3\a923aea494fde406bdb27c421120b65b\transformed\jetified-play-services-places-placereport-16.0.0\AndroidManifest.xml:20:5-44
+MERGED from [com.google.android.gms:play-services-tasks:16.0.1] C:\Users\tewat\.gradle\caches\transforms-3\8deed3fb5ac6258de90ae8563c2ba3b6\transformed\jetified-play-services-tasks-16.0.1\AndroidManifest.xml:5:5-44
+MERGED from [com.google.android.gms:play-services-tasks:16.0.1] C:\Users\tewat\.gradle\caches\transforms-3\8deed3fb5ac6258de90ae8563c2ba3b6\transformed\jetified-play-services-tasks-16.0.1\AndroidManifest.xml:5:5-44
+MERGED from [com.google.android.gms:play-services-basement:16.0.1] C:\Users\tewat\.gradle\caches\transforms-3\2af8b95b32d8e426d2a3f1e5e2423d54\transformed\jetified-play-services-basement-16.0.1\AndroidManifest.xml:20:5-44
+MERGED from [com.google.android.gms:play-services-basement:16.0.1] C:\Users\tewat\.gradle\caches\transforms-3\2af8b95b32d8e426d2a3f1e5e2423d54\transformed\jetified-play-services-basement-16.0.1\AndroidManifest.xml:20:5-44
+MERGED from [androidx.legacy:legacy-support-v4:1.0.0] C:\Users\tewat\.gradle\caches\transforms-3\bb3703b7e8027f4036562e5dc4cc42b5\transformed\legacy-support-v4-1.0.0\AndroidManifest.xml:20:5-44
+MERGED from [androidx.legacy:legacy-support-v4:1.0.0] C:\Users\tewat\.gradle\caches\transforms-3\bb3703b7e8027f4036562e5dc4cc42b5\transformed\legacy-support-v4-1.0.0\AndroidManifest.xml:20:5-44
+MERGED from [androidx.fragment:fragment:1.3.6] C:\Users\tewat\.gradle\caches\transforms-3\fc67c7fb9471a579a44bc5064895f536\transformed\fragment-1.3.6\AndroidManifest.xml:20:5-22:41
+MERGED from [androidx.fragment:fragment:1.3.6] C:\Users\tewat\.gradle\caches\transforms-3\fc67c7fb9471a579a44bc5064895f536\transformed\fragment-1.3.6\AndroidManifest.xml:20:5-22:41
+MERGED from [androidx.activity:activity:1.2.4] C:\Users\tewat\.gradle\caches\transforms-3\bd00a4619fdb9bf6314f0c6eeb763d71\transformed\jetified-activity-1.2.4\AndroidManifest.xml:20:5-22:41
+MERGED from [androidx.activity:activity:1.2.4] C:\Users\tewat\.gradle\caches\transforms-3\bd00a4619fdb9bf6314f0c6eeb763d71\transformed\jetified-activity-1.2.4\AndroidManifest.xml:20:5-22:41
+MERGED from [androidx.appcompat:appcompat-resources:1.3.1] C:\Users\tewat\.gradle\caches\transforms-3\7e2bfbb4e1272901c3731524b4507f04\transformed\jetified-appcompat-resources-1.3.1\AndroidManifest.xml:20:5-22:41
+MERGED from [androidx.appcompat:appcompat-resources:1.3.1] C:\Users\tewat\.gradle\caches\transforms-3\7e2bfbb4e1272901c3731524b4507f04\transformed\jetified-appcompat-resources-1.3.1\AndroidManifest.xml:20:5-22:41
+MERGED from [androidx.legacy:legacy-support-core-ui:1.0.0] C:\Users\tewat\.gradle\caches\transforms-3\7ce8a509fe503e60fd29750e16345c8e\transformed\legacy-support-core-ui-1.0.0\AndroidManifest.xml:20:5-44
+MERGED from [androidx.legacy:legacy-support-core-ui:1.0.0] C:\Users\tewat\.gradle\caches\transforms-3\7ce8a509fe503e60fd29750e16345c8e\transformed\legacy-support-core-ui-1.0.0\AndroidManifest.xml:20:5-44
+MERGED from [androidx.drawerlayout:drawerlayout:1.0.0] C:\Users\tewat\.gradle\caches\transforms-3\18fbcccabe51d7517c41d9253cb19813\transformed\drawerlayout-1.0.0\AndroidManifest.xml:20:5-44
+MERGED from [androidx.drawerlayout:drawerlayout:1.0.0] C:\Users\tewat\.gradle\caches\transforms-3\18fbcccabe51d7517c41d9253cb19813\transformed\drawerlayout-1.0.0\AndroidManifest.xml:20:5-44
+MERGED from [androidx.coordinatorlayout:coordinatorlayout:1.1.0] C:\Users\tewat\.gradle\caches\transforms-3\996cb55609ab16c753ffcf5bce770df6\transformed\coordinatorlayout-1.1.0\AndroidManifest.xml:20:5-22:41
+MERGED from [androidx.coordinatorlayout:coordinatorlayout:1.1.0] C:\Users\tewat\.gradle\caches\transforms-3\996cb55609ab16c753ffcf5bce770df6\transformed\coordinatorlayout-1.1.0\AndroidManifest.xml:20:5-22:41
+MERGED from [androidx.dynamicanimation:dynamicanimation:1.0.0] C:\Users\tewat\.gradle\caches\transforms-3\492e7286a70fa155ee49b6992cf6c39d\transformed\dynamicanimation-1.0.0\AndroidManifest.xml:20:5-44
+MERGED from [androidx.dynamicanimation:dynamicanimation:1.0.0] C:\Users\tewat\.gradle\caches\transforms-3\492e7286a70fa155ee49b6992cf6c39d\transformed\dynamicanimation-1.0.0\AndroidManifest.xml:20:5-44
+MERGED from [androidx.transition:transition:1.2.0] C:\Users\tewat\.gradle\caches\transforms-3\2319cf3fc3da5c5435b76fcd82ee1ade\transformed\transition-1.2.0\AndroidManifest.xml:20:5-22:41
+MERGED from [androidx.transition:transition:1.2.0] C:\Users\tewat\.gradle\caches\transforms-3\2319cf3fc3da5c5435b76fcd82ee1ade\transformed\transition-1.2.0\AndroidManifest.xml:20:5-22:41
+MERGED from [androidx.vectordrawable:vectordrawable-animated:1.1.0] C:\Users\tewat\.gradle\caches\transforms-3\ea832e28a0d896f535ef1366e99188e7\transformed\vectordrawable-animated-1.1.0\AndroidManifest.xml:20:5-22:41
+MERGED from [androidx.vectordrawable:vectordrawable-animated:1.1.0] C:\Users\tewat\.gradle\caches\transforms-3\ea832e28a0d896f535ef1366e99188e7\transformed\vectordrawable-animated-1.1.0\AndroidManifest.xml:20:5-22:41
+MERGED from [androidx.vectordrawable:vectordrawable:1.1.0] C:\Users\tewat\.gradle\caches\transforms-3\1fcc58705be535d81ca2122cd82fb2dd\transformed\vectordrawable-1.1.0\AndroidManifest.xml:20:5-22:41
+MERGED from [androidx.vectordrawable:vectordrawable:1.1.0] C:\Users\tewat\.gradle\caches\transforms-3\1fcc58705be535d81ca2122cd82fb2dd\transformed\vectordrawable-1.1.0\AndroidManifest.xml:20:5-22:41
+MERGED from [androidx.viewpager:viewpager:1.0.0] C:\Users\tewat\.gradle\caches\transforms-3\29a7f96b1635356672387b8a2fd2b8c6\transformed\viewpager-1.0.0\AndroidManifest.xml:20:5-44
+MERGED from [androidx.viewpager:viewpager:1.0.0] C:\Users\tewat\.gradle\caches\transforms-3\29a7f96b1635356672387b8a2fd2b8c6\transformed\viewpager-1.0.0\AndroidManifest.xml:20:5-44
+MERGED from [androidx.legacy:legacy-support-core-utils:1.0.0] C:\Users\tewat\.gradle\caches\transforms-3\471f5d6be1a1611dedd6ac1e307b9336\transformed\legacy-support-core-utils-1.0.0\AndroidManifest.xml:20:5-44
+MERGED from [androidx.legacy:legacy-support-core-utils:1.0.0] C:\Users\tewat\.gradle\caches\transforms-3\471f5d6be1a1611dedd6ac1e307b9336\transformed\legacy-support-core-utils-1.0.0\AndroidManifest.xml:20:5-44
+MERGED from [androidx.loader:loader:1.0.0] C:\Users\tewat\.gradle\caches\transforms-3\936e10ab5147e35a87205426e48f3c1a\transformed\loader-1.0.0\AndroidManifest.xml:20:5-44
+MERGED from [androidx.loader:loader:1.0.0] C:\Users\tewat\.gradle\caches\transforms-3\936e10ab5147e35a87205426e48f3c1a\transformed\loader-1.0.0\AndroidManifest.xml:20:5-44
+MERGED from [androidx.recyclerview:recyclerview:1.1.0] C:\Users\tewat\.gradle\caches\transforms-3\8b79b2d8cb1ed6befa651c39b4af930a\transformed\recyclerview-1.1.0\AndroidManifest.xml:20:5-22:41
+MERGED from [androidx.recyclerview:recyclerview:1.1.0] C:\Users\tewat\.gradle\caches\transforms-3\8b79b2d8cb1ed6befa651c39b4af930a\transformed\recyclerview-1.1.0\AndroidManifest.xml:20:5-22:41
+MERGED from [androidx.slidingpanelayout:slidingpanelayout:1.0.0] C:\Users\tewat\.gradle\caches\transforms-3\4eadf7e2cc53f04481de60f72160e063\transformed\slidingpanelayout-1.0.0\AndroidManifest.xml:20:5-44
+MERGED from [androidx.slidingpanelayout:slidingpanelayout:1.0.0] C:\Users\tewat\.gradle\caches\transforms-3\4eadf7e2cc53f04481de60f72160e063\transformed\slidingpanelayout-1.0.0\AndroidManifest.xml:20:5-44
+MERGED from [androidx.customview:customview:1.0.0] C:\Users\tewat\.gradle\caches\transforms-3\2b36b5095d5e21f336fa59dc4d2e4a62\transformed\customview-1.0.0\AndroidManifest.xml:20:5-44
+MERGED from [androidx.customview:customview:1.0.0] C:\Users\tewat\.gradle\caches\transforms-3\2b36b5095d5e21f336fa59dc4d2e4a62\transformed\customview-1.0.0\AndroidManifest.xml:20:5-44
+MERGED from [androidx.media:media:1.0.0] C:\Users\tewat\.gradle\caches\transforms-3\83098043d1bf23470a00f558053d7ced\transformed\media-1.0.0\AndroidManifest.xml:20:5-44
+MERGED from [androidx.media:media:1.0.0] C:\Users\tewat\.gradle\caches\transforms-3\83098043d1bf23470a00f558053d7ced\transformed\media-1.0.0\AndroidManifest.xml:20:5-44
+MERGED from [androidx.swiperefreshlayout:swiperefreshlayout:1.0.0] C:\Users\tewat\.gradle\caches\transforms-3\84af4391412877bfc8897d9f24d89067\transformed\swiperefreshlayout-1.0.0\AndroidManifest.xml:20:5-44
+MERGED from [androidx.swiperefreshlayout:swiperefreshlayout:1.0.0] C:\Users\tewat\.gradle\caches\transforms-3\84af4391412877bfc8897d9f24d89067\transformed\swiperefreshlayout-1.0.0\AndroidManifest.xml:20:5-44
+MERGED from [androidx.asynclayoutinflater:asynclayoutinflater:1.0.0] C:\Users\tewat\.gradle\caches\transforms-3\3e656b9b66d71525ea1abad4f76f012b\transformed\asynclayoutinflater-1.0.0\AndroidManifest.xml:20:5-44
+MERGED from [androidx.asynclayoutinflater:asynclayoutinflater:1.0.0] C:\Users\tewat\.gradle\caches\transforms-3\3e656b9b66d71525ea1abad4f76f012b\transformed\asynclayoutinflater-1.0.0\AndroidManifest.xml:20:5-44
+MERGED from [androidx.core:core:1.6.0] C:\Users\tewat\.gradle\caches\transforms-3\ae30daa42fdcb5a7b0eee51e92264d91\transformed\core-1.6.0\AndroidManifest.xml:20:5-22:41
+MERGED from [androidx.core:core:1.6.0] C:\Users\tewat\.gradle\caches\transforms-3\ae30daa42fdcb5a7b0eee51e92264d91\transformed\core-1.6.0\AndroidManifest.xml:20:5-22:41
+MERGED from [androidx.cursoradapter:cursoradapter:1.0.0] C:\Users\tewat\.gradle\caches\transforms-3\4028e17a5ae7423d0e5c6e221d879097\transformed\cursoradapter-1.0.0\AndroidManifest.xml:20:5-44
+MERGED from [androidx.cursoradapter:cursoradapter:1.0.0] C:\Users\tewat\.gradle\caches\transforms-3\4028e17a5ae7423d0e5c6e221d879097\transformed\cursoradapter-1.0.0\AndroidManifest.xml:20:5-44
+MERGED from [androidx.lifecycle:lifecycle-viewmodel-savedstate:2.3.1] C:\Users\tewat\.gradle\caches\transforms-3\97ac01458938c12998f7635c2b5fc845\transformed\jetified-lifecycle-viewmodel-savedstate-2.3.1\AndroidManifest.xml:20:5-22:41
+MERGED from [androidx.lifecycle:lifecycle-viewmodel-savedstate:2.3.1] C:\Users\tewat\.gradle\caches\transforms-3\97ac01458938c12998f7635c2b5fc845\transformed\jetified-lifecycle-viewmodel-savedstate-2.3.1\AndroidManifest.xml:20:5-22:41
+MERGED from [androidx.savedstate:savedstate:1.1.0] C:\Users\tewat\.gradle\caches\transforms-3\6a53d1bd4e81ce3320ca1dba92d0cd3d\transformed\jetified-savedstate-1.1.0\AndroidManifest.xml:20:5-22:41
+MERGED from [androidx.savedstate:savedstate:1.1.0] C:\Users\tewat\.gradle\caches\transforms-3\6a53d1bd4e81ce3320ca1dba92d0cd3d\transformed\jetified-savedstate-1.1.0\AndroidManifest.xml:20:5-22:41
+MERGED from [androidx.lifecycle:lifecycle-runtime:2.3.1] C:\Users\tewat\.gradle\caches\transforms-3\a7db284f84f6b7560fa5f0cacef4a396\transformed\lifecycle-runtime-2.3.1\AndroidManifest.xml:20:5-22:41
+MERGED from [androidx.lifecycle:lifecycle-runtime:2.3.1] C:\Users\tewat\.gradle\caches\transforms-3\a7db284f84f6b7560fa5f0cacef4a396\transformed\lifecycle-runtime-2.3.1\AndroidManifest.xml:20:5-22:41
+MERGED from [androidx.lifecycle:lifecycle-viewmodel:2.3.1] C:\Users\tewat\.gradle\caches\transforms-3\1ae6fcd0c074d03ce421d154e7534b25\transformed\lifecycle-viewmodel-2.3.1\AndroidManifest.xml:20:5-22:41
+MERGED from [androidx.lifecycle:lifecycle-viewmodel:2.3.1] C:\Users\tewat\.gradle\caches\transforms-3\1ae6fcd0c074d03ce421d154e7534b25\transformed\lifecycle-viewmodel-2.3.1\AndroidManifest.xml:20:5-22:41
+MERGED from [androidx.cardview:cardview:1.0.0] C:\Users\tewat\.gradle\caches\transforms-3\4df0b7afd0eb09cd2c587ba1fc0af795\transformed\cardview-1.0.0\AndroidManifest.xml:20:5-44
+MERGED from [androidx.cardview:cardview:1.0.0] C:\Users\tewat\.gradle\caches\transforms-3\4df0b7afd0eb09cd2c587ba1fc0af795\transformed\cardview-1.0.0\AndroidManifest.xml:20:5-44
+MERGED from [androidx.versionedparcelable:versionedparcelable:1.1.1] C:\Users\tewat\.gradle\caches\transforms-3\0872e19b344265a0f14b376edd67805b\transformed\versionedparcelable-1.1.1\AndroidManifest.xml:20:5-22:41
+MERGED from [androidx.versionedparcelable:versionedparcelable:1.1.1] C:\Users\tewat\.gradle\caches\transforms-3\0872e19b344265a0f14b376edd67805b\transformed\versionedparcelable-1.1.1\AndroidManifest.xml:20:5-22:41
+MERGED from [androidx.tracing:tracing:1.0.0] C:\Users\tewat\.gradle\caches\transforms-3\a01d72cb6dfb2dad1ff25965c59c470c\transformed\jetified-tracing-1.0.0\AndroidManifest.xml:20:5-22:41
+MERGED from [androidx.tracing:tracing:1.0.0] C:\Users\tewat\.gradle\caches\transforms-3\a01d72cb6dfb2dad1ff25965c59c470c\transformed\jetified-tracing-1.0.0\AndroidManifest.xml:20:5-22:41
+MERGED from [androidx.lifecycle:lifecycle-livedata:2.0.0] C:\Users\tewat\.gradle\caches\transforms-3\42eb83a5cfe1555af3660a647b227e91\transformed\lifecycle-livedata-2.0.0\AndroidManifest.xml:20:5-44
+MERGED from [androidx.lifecycle:lifecycle-livedata:2.0.0] C:\Users\tewat\.gradle\caches\transforms-3\42eb83a5cfe1555af3660a647b227e91\transformed\lifecycle-livedata-2.0.0\AndroidManifest.xml:20:5-44
+MERGED from [androidx.lifecycle:lifecycle-livedata-core:2.3.1] C:\Users\tewat\.gradle\caches\transforms-3\6c08129ab95377b3ae733b92092f7a86\transformed\lifecycle-livedata-core-2.3.1\AndroidManifest.xml:20:5-22:41
+MERGED from [androidx.lifecycle:lifecycle-livedata-core:2.3.1] C:\Users\tewat\.gradle\caches\transforms-3\6c08129ab95377b3ae733b92092f7a86\transformed\lifecycle-livedata-core-2.3.1\AndroidManifest.xml:20:5-22:41
+MERGED from [androidx.arch.core:core-runtime:2.1.0] C:\Users\tewat\.gradle\caches\transforms-3\abeb796b28f2eaa28b9454a568b92c3a\transformed\core-runtime-2.1.0\AndroidManifest.xml:20:5-22:41
+MERGED from [androidx.arch.core:core-runtime:2.1.0] C:\Users\tewat\.gradle\caches\transforms-3\abeb796b28f2eaa28b9454a568b92c3a\transformed\core-runtime-2.1.0\AndroidManifest.xml:20:5-22:41
+MERGED from [androidx.interpolator:interpolator:1.0.0] C:\Users\tewat\.gradle\caches\transforms-3\f8f847d2daac12340270db8b770ae69f\transformed\interpolator-1.0.0\AndroidManifest.xml:20:5-44
+MERGED from [androidx.interpolator:interpolator:1.0.0] C:\Users\tewat\.gradle\caches\transforms-3\f8f847d2daac12340270db8b770ae69f\transformed\interpolator-1.0.0\AndroidManifest.xml:20:5-44
+MERGED from [androidx.documentfile:documentfile:1.0.0] C:\Users\tewat\.gradle\caches\transforms-3\1443f574b341202221d94456fa89e971\transformed\documentfile-1.0.0\AndroidManifest.xml:20:5-44
+MERGED from [androidx.documentfile:documentfile:1.0.0] C:\Users\tewat\.gradle\caches\transforms-3\1443f574b341202221d94456fa89e971\transformed\documentfile-1.0.0\AndroidManifest.xml:20:5-44
+MERGED from [androidx.localbroadcastmanager:localbroadcastmanager:1.0.0] C:\Users\tewat\.gradle\caches\transforms-3\c74b55c3c5584443101dd642cc397648\transformed\localbroadcastmanager-1.0.0\AndroidManifest.xml:20:5-44
+MERGED from [androidx.localbroadcastmanager:localbroadcastmanager:1.0.0] C:\Users\tewat\.gradle\caches\transforms-3\c74b55c3c5584443101dd642cc397648\transformed\localbroadcastmanager-1.0.0\AndroidManifest.xml:20:5-44
+MERGED from [androidx.print:print:1.0.0] C:\Users\tewat\.gradle\caches\transforms-3\fe0cd59e24e2a1979051b858ccb0c943\transformed\print-1.0.0\AndroidManifest.xml:20:5-44
+MERGED from [androidx.print:print:1.0.0] C:\Users\tewat\.gradle\caches\transforms-3\fe0cd59e24e2a1979051b858ccb0c943\transformed\print-1.0.0\AndroidManifest.xml:20:5-44
+MERGED from [androidx.annotation:annotation-experimental:1.1.0] C:\Users\tewat\.gradle\caches\transforms-3\927e4759aab70058587d14372a662a15\transformed\jetified-annotation-experimental-1.1.0\AndroidManifest.xml:20:5-22:41
+MERGED from [androidx.annotation:annotation-experimental:1.1.0] C:\Users\tewat\.gradle\caches\transforms-3\927e4759aab70058587d14372a662a15\transformed\jetified-annotation-experimental-1.1.0\AndroidManifest.xml:20:5-22:41
+INJECTED from C:\Users\tewat\AndroidStudioProjects\ComplaMap\app\src\main\AndroidManifest.xml
+INJECTED from C:\Users\tewat\AndroidStudioProjects\ComplaMap\app\src\main\AndroidManifest.xml
+	android:targetSdkVersion
+		INJECTED from C:\Users\tewat\AndroidStudioProjects\ComplaMap\app\src\main\AndroidManifest.xml
+		ADDED from C:\Users\tewat\AndroidStudioProjects\ComplaMap\app\src\main\AndroidManifest.xml
+		INJECTED from C:\Users\tewat\AndroidStudioProjects\ComplaMap\app\src\main\AndroidManifest.xml
+	android:minSdkVersion
+		INJECTED from C:\Users\tewat\AndroidStudioProjects\ComplaMap\app\src\main\AndroidManifest.xml
+		ADDED from C:\Users\tewat\AndroidStudioProjects\ComplaMap\app\src\main\AndroidManifest.xml
+		INJECTED from C:\Users\tewat\AndroidStudioProjects\ComplaMap\app\src\main\AndroidManifest.xml
+uses-permission#android.permission.RECEIVE_BOOT_COMPLETED
+ADDED from [com.yandex.android:maps.mobile:4.0.0-lite] C:\Users\tewat\.gradle\caches\transforms-3\d215c3b7b11693d624c517576a4a94b8\transformed\jetified-maps.mobile-4.0.0-lite\AndroidManifest.xml:20:5-81
+	android:name
+		ADDED from [com.yandex.android:maps.mobile:4.0.0-lite] C:\Users\tewat\.gradle\caches\transforms-3\d215c3b7b11693d624c517576a4a94b8\transformed\jetified-maps.mobile-4.0.0-lite\AndroidManifest.xml:20:22-78
+uses-permission#android.permission.BLUETOOTH
+ADDED from [com.yandex.android:maps.mobile:4.0.0-lite] C:\Users\tewat\.gradle\caches\transforms-3\d215c3b7b11693d624c517576a4a94b8\transformed\jetified-maps.mobile-4.0.0-lite\AndroidManifest.xml:21:5-68
+	android:name
+		ADDED from [com.yandex.android:maps.mobile:4.0.0-lite] C:\Users\tewat\.gradle\caches\transforms-3\d215c3b7b11693d624c517576a4a94b8\transformed\jetified-maps.mobile-4.0.0-lite\AndroidManifest.xml:21:22-65
+uses-permission#android.permission.BLUETOOTH_ADMIN
+ADDED from [com.yandex.android:maps.mobile:4.0.0-lite] C:\Users\tewat\.gradle\caches\transforms-3\d215c3b7b11693d624c517576a4a94b8\transformed\jetified-maps.mobile-4.0.0-lite\AndroidManifest.xml:22:5-74
+	android:name
+		ADDED from [com.yandex.android:maps.mobile:4.0.0-lite] C:\Users\tewat\.gradle\caches\transforms-3\d215c3b7b11693d624c517576a4a94b8\transformed\jetified-maps.mobile-4.0.0-lite\AndroidManifest.xml:22:22-71
+meta-data#yandex.maps.runtime.stl.linkage
+ADDED from [com.yandex.android:maps.mobile:4.0.0-lite] C:\Users\tewat\.gradle\caches\transforms-3\d215c3b7b11693d624c517576a4a94b8\transformed\jetified-maps.mobile-4.0.0-lite\AndroidManifest.xml:25:9-27:38
+	android:value
+		ADDED from [com.yandex.android:maps.mobile:4.0.0-lite] C:\Users\tewat\.gradle\caches\transforms-3\d215c3b7b11693d624c517576a4a94b8\transformed\jetified-maps.mobile-4.0.0-lite\AndroidManifest.xml:27:13-35
+	android:name
+		ADDED from [com.yandex.android:maps.mobile:4.0.0-lite] C:\Users\tewat\.gradle\caches\transforms-3\d215c3b7b11693d624c517576a4a94b8\transformed\jetified-maps.mobile-4.0.0-lite\AndroidManifest.xml:26:13-59
+service#com.evernote.android.job.patched.internal.v21.PlatformJobService
+ADDED from [com.yandex.android:maps.mobile:4.0.0-lite] C:\Users\tewat\.gradle\caches\transforms-3\d215c3b7b11693d624c517576a4a94b8\transformed\jetified-maps.mobile-4.0.0-lite\AndroidManifest.xml:29:9-32:72
+	android:exported
+		ADDED from [com.yandex.android:maps.mobile:4.0.0-lite] C:\Users\tewat\.gradle\caches\transforms-3\d215c3b7b11693d624c517576a4a94b8\transformed\jetified-maps.mobile-4.0.0-lite\AndroidManifest.xml:31:13-37
+	android:permission
+		ADDED from [com.yandex.android:maps.mobile:4.0.0-lite] C:\Users\tewat\.gradle\caches\transforms-3\d215c3b7b11693d624c517576a4a94b8\transformed\jetified-maps.mobile-4.0.0-lite\AndroidManifest.xml:32:13-69
+	android:name
+		ADDED from [com.yandex.android:maps.mobile:4.0.0-lite] C:\Users\tewat\.gradle\caches\transforms-3\d215c3b7b11693d624c517576a4a94b8\transformed\jetified-maps.mobile-4.0.0-lite\AndroidManifest.xml:30:13-92
+service#com.evernote.android.job.patched.internal.v14.PlatformAlarmService
+ADDED from [com.yandex.android:maps.mobile:4.0.0-lite] C:\Users\tewat\.gradle\caches\transforms-3\d215c3b7b11693d624c517576a4a94b8\transformed\jetified-maps.mobile-4.0.0-lite\AndroidManifest.xml:33:9-36:72
+	android:exported
+		ADDED from [com.yandex.android:maps.mobile:4.0.0-lite] C:\Users\tewat\.gradle\caches\transforms-3\d215c3b7b11693d624c517576a4a94b8\transformed\jetified-maps.mobile-4.0.0-lite\AndroidManifest.xml:35:13-37
+	android:permission
+		ADDED from [com.yandex.android:maps.mobile:4.0.0-lite] C:\Users\tewat\.gradle\caches\transforms-3\d215c3b7b11693d624c517576a4a94b8\transformed\jetified-maps.mobile-4.0.0-lite\AndroidManifest.xml:36:13-69
+	android:name
+		ADDED from [com.yandex.android:maps.mobile:4.0.0-lite] C:\Users\tewat\.gradle\caches\transforms-3\d215c3b7b11693d624c517576a4a94b8\transformed\jetified-maps.mobile-4.0.0-lite\AndroidManifest.xml:34:13-94
+service#com.evernote.android.job.patched.internal.v14.PlatformAlarmServiceExact
+ADDED from [com.yandex.android:maps.mobile:4.0.0-lite] C:\Users\tewat\.gradle\caches\transforms-3\d215c3b7b11693d624c517576a4a94b8\transformed\jetified-maps.mobile-4.0.0-lite\AndroidManifest.xml:37:9-39:40
+	android:exported
+		ADDED from [com.yandex.android:maps.mobile:4.0.0-lite] C:\Users\tewat\.gradle\caches\transforms-3\d215c3b7b11693d624c517576a4a94b8\transformed\jetified-maps.mobile-4.0.0-lite\AndroidManifest.xml:39:13-37
+	android:name
+		ADDED from [com.yandex.android:maps.mobile:4.0.0-lite] C:\Users\tewat\.gradle\caches\transforms-3\d215c3b7b11693d624c517576a4a94b8\transformed\jetified-maps.mobile-4.0.0-lite\AndroidManifest.xml:38:13-99
+receiver#com.evernote.android.job.patched.internal.v14.PlatformAlarmReceiver
+ADDED from [com.yandex.android:maps.mobile:4.0.0-lite] C:\Users\tewat\.gradle\caches\transforms-3\d215c3b7b11693d624c517576a4a94b8\transformed\jetified-maps.mobile-4.0.0-lite\AndroidManifest.xml:41:9-50:20
+	android:exported
+		ADDED from [com.yandex.android:maps.mobile:4.0.0-lite] C:\Users\tewat\.gradle\caches\transforms-3\d215c3b7b11693d624c517576a4a94b8\transformed\jetified-maps.mobile-4.0.0-lite\AndroidManifest.xml:43:13-37
+	android:name
+		ADDED from [com.yandex.android:maps.mobile:4.0.0-lite] C:\Users\tewat\.gradle\caches\transforms-3\d215c3b7b11693d624c517576a4a94b8\transformed\jetified-maps.mobile-4.0.0-lite\AndroidManifest.xml:42:13-95
+intent-filter#action:name:com.evernote.android.job.patched.internal.v14.RUN_JOB+action:name:net.vrallev.android.job.v14.RUN_JOB
+ADDED from [com.yandex.android:maps.mobile:4.0.0-lite] C:\Users\tewat\.gradle\caches\transforms-3\d215c3b7b11693d624c517576a4a94b8\transformed\jetified-maps.mobile-4.0.0-lite\AndroidManifest.xml:44:13-49:29
+action#com.evernote.android.job.patched.internal.v14.RUN_JOB
+ADDED from [com.yandex.android:maps.mobile:4.0.0-lite] C:\Users\tewat\.gradle\caches\transforms-3\d215c3b7b11693d624c517576a4a94b8\transformed\jetified-maps.mobile-4.0.0-lite\AndroidManifest.xml:47:17-96
+	android:name
+		ADDED from [com.yandex.android:maps.mobile:4.0.0-lite] C:\Users\tewat\.gradle\caches\transforms-3\d215c3b7b11693d624c517576a4a94b8\transformed\jetified-maps.mobile-4.0.0-lite\AndroidManifest.xml:47:25-93
+action#net.vrallev.android.job.v14.RUN_JOB
+ADDED from [com.yandex.android:maps.mobile:4.0.0-lite] C:\Users\tewat\.gradle\caches\transforms-3\d215c3b7b11693d624c517576a4a94b8\transformed\jetified-maps.mobile-4.0.0-lite\AndroidManifest.xml:48:17-78
+	android:name
+		ADDED from [com.yandex.android:maps.mobile:4.0.0-lite] C:\Users\tewat\.gradle\caches\transforms-3\d215c3b7b11693d624c517576a4a94b8\transformed\jetified-maps.mobile-4.0.0-lite\AndroidManifest.xml:48:25-75
+receiver#com.evernote.android.job.patched.internal.JobBootReceiver
+ADDED from [com.yandex.android:maps.mobile:4.0.0-lite] C:\Users\tewat\.gradle\caches\transforms-3\d215c3b7b11693d624c517576a4a94b8\transformed\jetified-maps.mobile-4.0.0-lite\AndroidManifest.xml:51:9-60:20
+	android:exported
+		ADDED from [com.yandex.android:maps.mobile:4.0.0-lite] C:\Users\tewat\.gradle\caches\transforms-3\d215c3b7b11693d624c517576a4a94b8\transformed\jetified-maps.mobile-4.0.0-lite\AndroidManifest.xml:53:13-37
+	android:name
+		ADDED from [com.yandex.android:maps.mobile:4.0.0-lite] C:\Users\tewat\.gradle\caches\transforms-3\d215c3b7b11693d624c517576a4a94b8\transformed\jetified-maps.mobile-4.0.0-lite\AndroidManifest.xml:52:13-85
+intent-filter#action:name:android.intent.action.BOOT_COMPLETED+action:name:android.intent.action.MY_PACKAGE_REPLACED+action:name:android.intent.action.QUICKBOOT_POWERON+action:name:com.htc.intent.action.QUICKBOOT_POWERON
+ADDED from [com.yandex.android:maps.mobile:4.0.0-lite] C:\Users\tewat\.gradle\caches\transforms-3\d215c3b7b11693d624c517576a4a94b8\transformed\jetified-maps.mobile-4.0.0-lite\AndroidManifest.xml:54:13-59:29
+action#android.intent.action.BOOT_COMPLETED
+ADDED from [com.yandex.android:maps.mobile:4.0.0-lite] C:\Users\tewat\.gradle\caches\transforms-3\d215c3b7b11693d624c517576a4a94b8\transformed\jetified-maps.mobile-4.0.0-lite\AndroidManifest.xml:55:17-79
+	android:name
+		ADDED from [com.yandex.android:maps.mobile:4.0.0-lite] C:\Users\tewat\.gradle\caches\transforms-3\d215c3b7b11693d624c517576a4a94b8\transformed\jetified-maps.mobile-4.0.0-lite\AndroidManifest.xml:55:25-76
+action#android.intent.action.QUICKBOOT_POWERON
+ADDED from [com.yandex.android:maps.mobile:4.0.0-lite] C:\Users\tewat\.gradle\caches\transforms-3\d215c3b7b11693d624c517576a4a94b8\transformed\jetified-maps.mobile-4.0.0-lite\AndroidManifest.xml:56:17-82
+	android:name
+		ADDED from [com.yandex.android:maps.mobile:4.0.0-lite] C:\Users\tewat\.gradle\caches\transforms-3\d215c3b7b11693d624c517576a4a94b8\transformed\jetified-maps.mobile-4.0.0-lite\AndroidManifest.xml:56:25-79
+action#com.htc.intent.action.QUICKBOOT_POWERON
+ADDED from [com.yandex.android:maps.mobile:4.0.0-lite] C:\Users\tewat\.gradle\caches\transforms-3\d215c3b7b11693d624c517576a4a94b8\transformed\jetified-maps.mobile-4.0.0-lite\AndroidManifest.xml:57:17-82
+	android:name
+		ADDED from [com.yandex.android:maps.mobile:4.0.0-lite] C:\Users\tewat\.gradle\caches\transforms-3\d215c3b7b11693d624c517576a4a94b8\transformed\jetified-maps.mobile-4.0.0-lite\AndroidManifest.xml:57:25-79
+action#android.intent.action.MY_PACKAGE_REPLACED
+ADDED from [com.yandex.android:maps.mobile:4.0.0-lite] C:\Users\tewat\.gradle\caches\transforms-3\d215c3b7b11693d624c517576a4a94b8\transformed\jetified-maps.mobile-4.0.0-lite\AndroidManifest.xml:58:17-84
+	android:name
+		ADDED from [com.yandex.android:maps.mobile:4.0.0-lite] C:\Users\tewat\.gradle\caches\transforms-3\d215c3b7b11693d624c517576a4a94b8\transformed\jetified-maps.mobile-4.0.0-lite\AndroidManifest.xml:58:25-81
+service#com.evernote.android.job.patched.internal.JobRescheduleService
+ADDED from [com.yandex.android:maps.mobile:4.0.0-lite] C:\Users\tewat\.gradle\caches\transforms-3\d215c3b7b11693d624c517576a4a94b8\transformed\jetified-maps.mobile-4.0.0-lite\AndroidManifest.xml:62:9-65:72
+	android:exported
+		ADDED from [com.yandex.android:maps.mobile:4.0.0-lite] C:\Users\tewat\.gradle\caches\transforms-3\d215c3b7b11693d624c517576a4a94b8\transformed\jetified-maps.mobile-4.0.0-lite\AndroidManifest.xml:64:13-37
+	android:permission
+		ADDED from [com.yandex.android:maps.mobile:4.0.0-lite] C:\Users\tewat\.gradle\caches\transforms-3\d215c3b7b11693d624c517576a4a94b8\transformed\jetified-maps.mobile-4.0.0-lite\AndroidManifest.xml:65:13-69
+	android:name
+		ADDED from [com.yandex.android:maps.mobile:4.0.0-lite] C:\Users\tewat\.gradle\caches\transforms-3\d215c3b7b11693d624c517576a4a94b8\transformed\jetified-maps.mobile-4.0.0-lite\AndroidManifest.xml:63:13-90
+service#com.yandex.runtime.connectivity.internal.ConnectivityService
+ADDED from [com.yandex.android:maps.mobile:4.0.0-lite] C:\Users\tewat\.gradle\caches\transforms-3\d215c3b7b11693d624c517576a4a94b8\transformed\jetified-maps.mobile-4.0.0-lite\AndroidManifest.xml:66:9-69:72
+	android:exported
+		ADDED from [com.yandex.android:maps.mobile:4.0.0-lite] C:\Users\tewat\.gradle\caches\transforms-3\d215c3b7b11693d624c517576a4a94b8\transformed\jetified-maps.mobile-4.0.0-lite\AndroidManifest.xml:68:13-36
+	android:permission
+		ADDED from [com.yandex.android:maps.mobile:4.0.0-lite] C:\Users\tewat\.gradle\caches\transforms-3\d215c3b7b11693d624c517576a4a94b8\transformed\jetified-maps.mobile-4.0.0-lite\AndroidManifest.xml:69:13-69
+	android:name
+		ADDED from [com.yandex.android:maps.mobile:4.0.0-lite] C:\Users\tewat\.gradle\caches\transforms-3\d215c3b7b11693d624c517576a4a94b8\transformed\jetified-maps.mobile-4.0.0-lite\AndroidManifest.xml:67:13-88
+uses-permission#android.permission.READ_EXTERNAL_STORAGE
+IMPLIED from C:\Users\tewat\AndroidStudioProjects\ComplaMap\app\src\main\AndroidManifest.xml:2:1-33:12 reason: com.yandex.maps.mobile requested WRITE_EXTERNAL_STORAGE
+activity#com.google.android.gms.common.api.GoogleApiActivity
+ADDED from [com.google.android.gms:play-services-base:16.0.1] C:\Users\tewat\.gradle\caches\transforms-3\d4728fd7ab6a28d30c1e801db8e0065e\transformed\jetified-play-services-base-16.0.1\AndroidManifest.xml:23:9-26:75
+	android:exported
+		ADDED from [com.google.android.gms:play-services-base:16.0.1] C:\Users\tewat\.gradle\caches\transforms-3\d4728fd7ab6a28d30c1e801db8e0065e\transformed\jetified-play-services-base-16.0.1\AndroidManifest.xml:25:13-37
+	android:theme
+		ADDED from [com.google.android.gms:play-services-base:16.0.1] C:\Users\tewat\.gradle\caches\transforms-3\d4728fd7ab6a28d30c1e801db8e0065e\transformed\jetified-play-services-base-16.0.1\AndroidManifest.xml:26:13-72
+	android:name
+		ADDED from [com.google.android.gms:play-services-base:16.0.1] C:\Users\tewat\.gradle\caches\transforms-3\d4728fd7ab6a28d30c1e801db8e0065e\transformed\jetified-play-services-base-16.0.1\AndroidManifest.xml:24:13-79
+meta-data#com.google.android.gms.version
+ADDED from [com.google.android.gms:play-services-basement:16.0.1] C:\Users\tewat\.gradle\caches\transforms-3\2af8b95b32d8e426d2a3f1e5e2423d54\transformed\jetified-play-services-basement-16.0.1\AndroidManifest.xml:23:9-25:69
+	android:value
+		ADDED from [com.google.android.gms:play-services-basement:16.0.1] C:\Users\tewat\.gradle\caches\transforms-3\2af8b95b32d8e426d2a3f1e5e2423d54\transformed\jetified-play-services-basement-16.0.1\AndroidManifest.xml:25:13-66
+	android:name
+		ADDED from [com.google.android.gms:play-services-basement:16.0.1] C:\Users\tewat\.gradle\caches\transforms-3\2af8b95b32d8e426d2a3f1e5e2423d54\transformed\jetified-play-services-basement-16.0.1\AndroidManifest.xml:24:13-58

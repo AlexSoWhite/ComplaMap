@@ -1,0 +1,195 @@
+1<?xml version="1.0" encoding="utf-8"?>
+2<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+3    package="com.example.complamap"
+4    android:versionCode="1"
+5    android:versionName="1.0" >
+6
+7    <uses-sdk
+8        android:minSdkVersion="21"
+8-->C:\Users\tewat\AndroidStudioProjects\ComplaMap\app\src\main\AndroidManifest.xml
+9        android:targetSdkVersion="31" />
+9-->C:\Users\tewat\AndroidStudioProjects\ComplaMap\app\src\main\AndroidManifest.xml
+10
+11    <uses-permission android:name="android.permission.INTERNET" />
+11-->C:\Users\tewat\AndroidStudioProjects\ComplaMap\app\src\main\AndroidManifest.xml:4:5-66
+11-->C:\Users\tewat\AndroidStudioProjects\ComplaMap\app\src\main\AndroidManifest.xml:4:22-64
+12    <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
+12-->C:\Users\tewat\AndroidStudioProjects\ComplaMap\app\src\main\AndroidManifest.xml:5:5-80
+12-->C:\Users\tewat\AndroidStudioProjects\ComplaMap\app\src\main\AndroidManifest.xml:5:22-78
+13    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
+13-->C:\Users\tewat\AndroidStudioProjects\ComplaMap\app\src\main\AndroidManifest.xml:6:5-78
+13-->C:\Users\tewat\AndroidStudioProjects\ComplaMap\app\src\main\AndroidManifest.xml:6:22-76
+14    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+14-->C:\Users\tewat\AndroidStudioProjects\ComplaMap\app\src\main\AndroidManifest.xml:7:5-80
+14-->C:\Users\tewat\AndroidStudioProjects\ComplaMap\app\src\main\AndroidManifest.xml:7:22-78
+15    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+15-->C:\Users\tewat\AndroidStudioProjects\ComplaMap\app\src\main\AndroidManifest.xml:8:5-78
+15-->C:\Users\tewat\AndroidStudioProjects\ComplaMap\app\src\main\AndroidManifest.xml:8:22-76
+16    <uses-permission android:name="android.permission.WAKE_LOCK" />
+16-->C:\Users\tewat\AndroidStudioProjects\ComplaMap\app\src\main\AndroidManifest.xml:9:5-67
+16-->C:\Users\tewat\AndroidStudioProjects\ComplaMap\app\src\main\AndroidManifest.xml:9:22-65
+17    <uses-permission android:name="android.permission.ACCESS_WIFI_STATE" />
+17-->C:\Users\tewat\AndroidStudioProjects\ComplaMap\app\src\main\AndroidManifest.xml:10:5-75
+17-->C:\Users\tewat\AndroidStudioProjects\ComplaMap\app\src\main\AndroidManifest.xml:10:22-73
+18    <uses-permission android:name="android.permission.CHANGE_WIFI_STATE" />
+18-->C:\Users\tewat\AndroidStudioProjects\ComplaMap\app\src\main\AndroidManifest.xml:11:5-75
+18-->C:\Users\tewat\AndroidStudioProjects\ComplaMap\app\src\main\AndroidManifest.xml:11:22-73
+19    <uses-permission android:name="android.permission.READ_PHONE_STATE" />
+19-->C:\Users\tewat\AndroidStudioProjects\ComplaMap\app\src\main\AndroidManifest.xml:12:5-74
+19-->C:\Users\tewat\AndroidStudioProjects\ComplaMap\app\src\main\AndroidManifest.xml:12:22-72
+20    <uses-permission android:name="android.permission.RECEIVE_BOOT_COMPLETED" />
+20-->[com.yandex.android:maps.mobile:4.0.0-lite] C:\Users\tewat\.gradle\caches\transforms-3\d215c3b7b11693d624c517576a4a94b8\transformed\jetified-maps.mobile-4.0.0-lite\AndroidManifest.xml:20:5-81
+20-->[com.yandex.android:maps.mobile:4.0.0-lite] C:\Users\tewat\.gradle\caches\transforms-3\d215c3b7b11693d624c517576a4a94b8\transformed\jetified-maps.mobile-4.0.0-lite\AndroidManifest.xml:20:22-78
+21    <uses-permission android:name="android.permission.BLUETOOTH" />
+21-->[com.yandex.android:maps.mobile:4.0.0-lite] C:\Users\tewat\.gradle\caches\transforms-3\d215c3b7b11693d624c517576a4a94b8\transformed\jetified-maps.mobile-4.0.0-lite\AndroidManifest.xml:21:5-68
+21-->[com.yandex.android:maps.mobile:4.0.0-lite] C:\Users\tewat\.gradle\caches\transforms-3\d215c3b7b11693d624c517576a4a94b8\transformed\jetified-maps.mobile-4.0.0-lite\AndroidManifest.xml:21:22-65
+22    <uses-permission android:name="android.permission.BLUETOOTH_ADMIN" />
+22-->[com.yandex.android:maps.mobile:4.0.0-lite] C:\Users\tewat\.gradle\caches\transforms-3\d215c3b7b11693d624c517576a4a94b8\transformed\jetified-maps.mobile-4.0.0-lite\AndroidManifest.xml:22:5-74
+22-->[com.yandex.android:maps.mobile:4.0.0-lite] C:\Users\tewat\.gradle\caches\transforms-3\d215c3b7b11693d624c517576a4a94b8\transformed\jetified-maps.mobile-4.0.0-lite\AndroidManifest.xml:22:22-71
+23    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
+24
+25    <application
+25-->C:\Users\tewat\AndroidStudioProjects\ComplaMap\app\src\main\AndroidManifest.xml:13:5-31:19
+26        android:allowBackup="true"
+26-->C:\Users\tewat\AndroidStudioProjects\ComplaMap\app\src\main\AndroidManifest.xml:14:9-35
+27        android:appComponentFactory="androidx.core.app.CoreComponentFactory"
+27-->[androidx.core:core:1.6.0] C:\Users\tewat\.gradle\caches\transforms-3\ae30daa42fdcb5a7b0eee51e92264d91\transformed\core-1.6.0\AndroidManifest.xml:24:18-86
+28        android:debuggable="true"
+29        android:icon="@mipmap/ic_launcher"
+29-->C:\Users\tewat\AndroidStudioProjects\ComplaMap\app\src\main\AndroidManifest.xml:15:9-43
+30        android:label="@string/app_name"
+30-->C:\Users\tewat\AndroidStudioProjects\ComplaMap\app\src\main\AndroidManifest.xml:16:9-41
+31        android:roundIcon="@mipmap/ic_launcher_round"
+31-->C:\Users\tewat\AndroidStudioProjects\ComplaMap\app\src\main\AndroidManifest.xml:17:9-54
+32        android:supportsRtl="true"
+32-->C:\Users\tewat\AndroidStudioProjects\ComplaMap\app\src\main\AndroidManifest.xml:18:9-35
+33        android:testOnly="true"
+34        android:theme="@style/Theme.ComplaMap" >
+34-->C:\Users\tewat\AndroidStudioProjects\ComplaMap\app\src\main\AndroidManifest.xml:19:9-47
+35        <activity
+35-->C:\Users\tewat\AndroidStudioProjects\ComplaMap\app\src\main\AndroidManifest.xml:20:9-28:20
+36            android:name="com.example.complamap.MainActivity"
+36-->C:\Users\tewat\AndroidStudioProjects\ComplaMap\app\src\main\AndroidManifest.xml:21:13-41
+37            android:exported="true" >
+37-->C:\Users\tewat\AndroidStudioProjects\ComplaMap\app\src\main\AndroidManifest.xml:22:13-36
+38            <intent-filter>
+38-->C:\Users\tewat\AndroidStudioProjects\ComplaMap\app\src\main\AndroidManifest.xml:23:13-27:29
+39                <action android:name="android.intent.action.MAIN" />
+39-->C:\Users\tewat\AndroidStudioProjects\ComplaMap\app\src\main\AndroidManifest.xml:24:17-69
+39-->C:\Users\tewat\AndroidStudioProjects\ComplaMap\app\src\main\AndroidManifest.xml:24:25-66
+40
+41                <category android:name="android.intent.category.LAUNCHER" />
+41-->C:\Users\tewat\AndroidStudioProjects\ComplaMap\app\src\main\AndroidManifest.xml:26:17-77
+41-->C:\Users\tewat\AndroidStudioProjects\ComplaMap\app\src\main\AndroidManifest.xml:26:27-74
+42            </intent-filter>
+43        </activity>
+44        <activity android:name="com.example.complamap.CreateComplaintActivity" />
+44-->C:\Users\tewat\AndroidStudioProjects\ComplaMap\app\src\main\AndroidManifest.xml:29:9-30:54
+44-->C:\Users\tewat\AndroidStudioProjects\ComplaMap\app\src\main\AndroidManifest.xml:30:13-52
+45
+46        <meta-data
+46-->[com.yandex.android:maps.mobile:4.0.0-lite] C:\Users\tewat\.gradle\caches\transforms-3\d215c3b7b11693d624c517576a4a94b8\transformed\jetified-maps.mobile-4.0.0-lite\AndroidManifest.xml:25:9-27:38
+47            android:name="yandex.maps.runtime.stl.linkage"
+47-->[com.yandex.android:maps.mobile:4.0.0-lite] C:\Users\tewat\.gradle\caches\transforms-3\d215c3b7b11693d624c517576a4a94b8\transformed\jetified-maps.mobile-4.0.0-lite\AndroidManifest.xml:26:13-59
+48            android:value="static" />
+48-->[com.yandex.android:maps.mobile:4.0.0-lite] C:\Users\tewat\.gradle\caches\transforms-3\d215c3b7b11693d624c517576a4a94b8\transformed\jetified-maps.mobile-4.0.0-lite\AndroidManifest.xml:27:13-35
+49
+50        <service
+50-->[com.yandex.android:maps.mobile:4.0.0-lite] C:\Users\tewat\.gradle\caches\transforms-3\d215c3b7b11693d624c517576a4a94b8\transformed\jetified-maps.mobile-4.0.0-lite\AndroidManifest.xml:29:9-32:72
+51            android:name="com.evernote.android.job.patched.internal.v21.PlatformJobService"
+51-->[com.yandex.android:maps.mobile:4.0.0-lite] C:\Users\tewat\.gradle\caches\transforms-3\d215c3b7b11693d624c517576a4a94b8\transformed\jetified-maps.mobile-4.0.0-lite\AndroidManifest.xml:30:13-92
+52            android:exported="false"
+52-->[com.yandex.android:maps.mobile:4.0.0-lite] C:\Users\tewat\.gradle\caches\transforms-3\d215c3b7b11693d624c517576a4a94b8\transformed\jetified-maps.mobile-4.0.0-lite\AndroidManifest.xml:31:13-37
+53            android:permission="android.permission.BIND_JOB_SERVICE" />
+53-->[com.yandex.android:maps.mobile:4.0.0-lite] C:\Users\tewat\.gradle\caches\transforms-3\d215c3b7b11693d624c517576a4a94b8\transformed\jetified-maps.mobile-4.0.0-lite\AndroidManifest.xml:32:13-69
+54        <service
+54-->[com.yandex.android:maps.mobile:4.0.0-lite] C:\Users\tewat\.gradle\caches\transforms-3\d215c3b7b11693d624c517576a4a94b8\transformed\jetified-maps.mobile-4.0.0-lite\AndroidManifest.xml:33:9-36:72
+55            android:name="com.evernote.android.job.patched.internal.v14.PlatformAlarmService"
+55-->[com.yandex.android:maps.mobile:4.0.0-lite] C:\Users\tewat\.gradle\caches\transforms-3\d215c3b7b11693d624c517576a4a94b8\transformed\jetified-maps.mobile-4.0.0-lite\AndroidManifest.xml:34:13-94
+56            android:exported="false"
+56-->[com.yandex.android:maps.mobile:4.0.0-lite] C:\Users\tewat\.gradle\caches\transforms-3\d215c3b7b11693d624c517576a4a94b8\transformed\jetified-maps.mobile-4.0.0-lite\AndroidManifest.xml:35:13-37
+57            android:permission="android.permission.BIND_JOB_SERVICE" />
+57-->[com.yandex.android:maps.mobile:4.0.0-lite] C:\Users\tewat\.gradle\caches\transforms-3\d215c3b7b11693d624c517576a4a94b8\transformed\jetified-maps.mobile-4.0.0-lite\AndroidManifest.xml:36:13-69
+58        <service
+58-->[com.yandex.android:maps.mobile:4.0.0-lite] C:\Users\tewat\.gradle\caches\transforms-3\d215c3b7b11693d624c517576a4a94b8\transformed\jetified-maps.mobile-4.0.0-lite\AndroidManifest.xml:37:9-39:40
+59            android:name="com.evernote.android.job.patched.internal.v14.PlatformAlarmServiceExact"
+59-->[com.yandex.android:maps.mobile:4.0.0-lite] C:\Users\tewat\.gradle\caches\transforms-3\d215c3b7b11693d624c517576a4a94b8\transformed\jetified-maps.mobile-4.0.0-lite\AndroidManifest.xml:38:13-99
+60            android:exported="false" />
+60-->[com.yandex.android:maps.mobile:4.0.0-lite] C:\Users\tewat\.gradle\caches\transforms-3\d215c3b7b11693d624c517576a4a94b8\transformed\jetified-maps.mobile-4.0.0-lite\AndroidManifest.xml:39:13-37
+61
+62        <receiver
+62-->[com.yandex.android:maps.mobile:4.0.0-lite] C:\Users\tewat\.gradle\caches\transforms-3\d215c3b7b11693d624c517576a4a94b8\transformed\jetified-maps.mobile-4.0.0-lite\AndroidManifest.xml:41:9-50:20
+63            android:name="com.evernote.android.job.patched.internal.v14.PlatformAlarmReceiver"
+63-->[com.yandex.android:maps.mobile:4.0.0-lite] C:\Users\tewat\.gradle\caches\transforms-3\d215c3b7b11693d624c517576a4a94b8\transformed\jetified-maps.mobile-4.0.0-lite\AndroidManifest.xml:42:13-95
+64            android:exported="false" >
+64-->[com.yandex.android:maps.mobile:4.0.0-lite] C:\Users\tewat\.gradle\caches\transforms-3\d215c3b7b11693d624c517576a4a94b8\transformed\jetified-maps.mobile-4.0.0-lite\AndroidManifest.xml:43:13-37
+65            <intent-filter>
+65-->[com.yandex.android:maps.mobile:4.0.0-lite] C:\Users\tewat\.gradle\caches\transforms-3\d215c3b7b11693d624c517576a4a94b8\transformed\jetified-maps.mobile-4.0.0-lite\AndroidManifest.xml:44:13-49:29
+66
+67                <!-- Keep the filter for legacy intents -->
+68                <action android:name="com.evernote.android.job.patched.internal.v14.RUN_JOB" />
+68-->[com.yandex.android:maps.mobile:4.0.0-lite] C:\Users\tewat\.gradle\caches\transforms-3\d215c3b7b11693d624c517576a4a94b8\transformed\jetified-maps.mobile-4.0.0-lite\AndroidManifest.xml:47:17-96
+68-->[com.yandex.android:maps.mobile:4.0.0-lite] C:\Users\tewat\.gradle\caches\transforms-3\d215c3b7b11693d624c517576a4a94b8\transformed\jetified-maps.mobile-4.0.0-lite\AndroidManifest.xml:47:25-93
+69                <action android:name="net.vrallev.android.job.v14.RUN_JOB" />
+69-->[com.yandex.android:maps.mobile:4.0.0-lite] C:\Users\tewat\.gradle\caches\transforms-3\d215c3b7b11693d624c517576a4a94b8\transformed\jetified-maps.mobile-4.0.0-lite\AndroidManifest.xml:48:17-78
+69-->[com.yandex.android:maps.mobile:4.0.0-lite] C:\Users\tewat\.gradle\caches\transforms-3\d215c3b7b11693d624c517576a4a94b8\transformed\jetified-maps.mobile-4.0.0-lite\AndroidManifest.xml:48:25-75
+70            </intent-filter>
+71        </receiver>
+72        <receiver
+72-->[com.yandex.android:maps.mobile:4.0.0-lite] C:\Users\tewat\.gradle\caches\transforms-3\d215c3b7b11693d624c517576a4a94b8\transformed\jetified-maps.mobile-4.0.0-lite\AndroidManifest.xml:51:9-60:20
+73            android:name="com.evernote.android.job.patched.internal.JobBootReceiver"
+73-->[com.yandex.android:maps.mobile:4.0.0-lite] C:\Users\tewat\.gradle\caches\transforms-3\d215c3b7b11693d624c517576a4a94b8\transformed\jetified-maps.mobile-4.0.0-lite\AndroidManifest.xml:52:13-85
+74            android:exported="false" >
+74-->[com.yandex.android:maps.mobile:4.0.0-lite] C:\Users\tewat\.gradle\caches\transforms-3\d215c3b7b11693d624c517576a4a94b8\transformed\jetified-maps.mobile-4.0.0-lite\AndroidManifest.xml:53:13-37
+75            <intent-filter>
+75-->[com.yandex.android:maps.mobile:4.0.0-lite] C:\Users\tewat\.gradle\caches\transforms-3\d215c3b7b11693d624c517576a4a94b8\transformed\jetified-maps.mobile-4.0.0-lite\AndroidManifest.xml:54:13-59:29
+76                <action android:name="android.intent.action.BOOT_COMPLETED" />
+76-->[com.yandex.android:maps.mobile:4.0.0-lite] C:\Users\tewat\.gradle\caches\transforms-3\d215c3b7b11693d624c517576a4a94b8\transformed\jetified-maps.mobile-4.0.0-lite\AndroidManifest.xml:55:17-79
+76-->[com.yandex.android:maps.mobile:4.0.0-lite] C:\Users\tewat\.gradle\caches\transforms-3\d215c3b7b11693d624c517576a4a94b8\transformed\jetified-maps.mobile-4.0.0-lite\AndroidManifest.xml:55:25-76
+77                <action android:name="android.intent.action.QUICKBOOT_POWERON" />
+77-->[com.yandex.android:maps.mobile:4.0.0-lite] C:\Users\tewat\.gradle\caches\transforms-3\d215c3b7b11693d624c517576a4a94b8\transformed\jetified-maps.mobile-4.0.0-lite\AndroidManifest.xml:56:17-82
+77-->[com.yandex.android:maps.mobile:4.0.0-lite] C:\Users\tewat\.gradle\caches\transforms-3\d215c3b7b11693d624c517576a4a94b8\transformed\jetified-maps.mobile-4.0.0-lite\AndroidManifest.xml:56:25-79
+78                <action android:name="com.htc.intent.action.QUICKBOOT_POWERON" />
+78-->[com.yandex.android:maps.mobile:4.0.0-lite] C:\Users\tewat\.gradle\caches\transforms-3\d215c3b7b11693d624c517576a4a94b8\transformed\jetified-maps.mobile-4.0.0-lite\AndroidManifest.xml:57:17-82
+78-->[com.yandex.android:maps.mobile:4.0.0-lite] C:\Users\tewat\.gradle\caches\transforms-3\d215c3b7b11693d624c517576a4a94b8\transformed\jetified-maps.mobile-4.0.0-lite\AndroidManifest.xml:57:25-79
+79                <action android:name="android.intent.action.MY_PACKAGE_REPLACED" />
+79-->[com.yandex.android:maps.mobile:4.0.0-lite] C:\Users\tewat\.gradle\caches\transforms-3\d215c3b7b11693d624c517576a4a94b8\transformed\jetified-maps.mobile-4.0.0-lite\AndroidManifest.xml:58:17-84
+79-->[com.yandex.android:maps.mobile:4.0.0-lite] C:\Users\tewat\.gradle\caches\transforms-3\d215c3b7b11693d624c517576a4a94b8\transformed\jetified-maps.mobile-4.0.0-lite\AndroidManifest.xml:58:25-81
+80            </intent-filter>
+81        </receiver>
+82
+83        <service
+83-->[com.yandex.android:maps.mobile:4.0.0-lite] C:\Users\tewat\.gradle\caches\transforms-3\d215c3b7b11693d624c517576a4a94b8\transformed\jetified-maps.mobile-4.0.0-lite\AndroidManifest.xml:62:9-65:72
+84            android:name="com.evernote.android.job.patched.internal.JobRescheduleService"
+84-->[com.yandex.android:maps.mobile:4.0.0-lite] C:\Users\tewat\.gradle\caches\transforms-3\d215c3b7b11693d624c517576a4a94b8\transformed\jetified-maps.mobile-4.0.0-lite\AndroidManifest.xml:63:13-90
+85            android:exported="false"
+85-->[com.yandex.android:maps.mobile:4.0.0-lite] C:\Users\tewat\.gradle\caches\transforms-3\d215c3b7b11693d624c517576a4a94b8\transformed\jetified-maps.mobile-4.0.0-lite\AndroidManifest.xml:64:13-37
+86            android:permission="android.permission.BIND_JOB_SERVICE" />
+86-->[com.yandex.android:maps.mobile:4.0.0-lite] C:\Users\tewat\.gradle\caches\transforms-3\d215c3b7b11693d624c517576a4a94b8\transformed\jetified-maps.mobile-4.0.0-lite\AndroidManifest.xml:65:13-69
+87        <service
+87-->[com.yandex.android:maps.mobile:4.0.0-lite] C:\Users\tewat\.gradle\caches\transforms-3\d215c3b7b11693d624c517576a4a94b8\transformed\jetified-maps.mobile-4.0.0-lite\AndroidManifest.xml:66:9-69:72
+88            android:name="com.yandex.runtime.connectivity.internal.ConnectivityService"
+88-->[com.yandex.android:maps.mobile:4.0.0-lite] C:\Users\tewat\.gradle\caches\transforms-3\d215c3b7b11693d624c517576a4a94b8\transformed\jetified-maps.mobile-4.0.0-lite\AndroidManifest.xml:67:13-88
+89            android:exported="true"
+89-->[com.yandex.android:maps.mobile:4.0.0-lite] C:\Users\tewat\.gradle\caches\transforms-3\d215c3b7b11693d624c517576a4a94b8\transformed\jetified-maps.mobile-4.0.0-lite\AndroidManifest.xml:68:13-36
+90            android:permission="android.permission.BIND_JOB_SERVICE" />
+90-->[com.yandex.android:maps.mobile:4.0.0-lite] C:\Users\tewat\.gradle\caches\transforms-3\d215c3b7b11693d624c517576a4a94b8\transformed\jetified-maps.mobile-4.0.0-lite\AndroidManifest.xml:69:13-69
+91
+92        <activity
+92-->[com.google.android.gms:play-services-base:16.0.1] C:\Users\tewat\.gradle\caches\transforms-3\d4728fd7ab6a28d30c1e801db8e0065e\transformed\jetified-play-services-base-16.0.1\AndroidManifest.xml:23:9-26:75
+93            android:name="com.google.android.gms.common.api.GoogleApiActivity"
+93-->[com.google.android.gms:play-services-base:16.0.1] C:\Users\tewat\.gradle\caches\transforms-3\d4728fd7ab6a28d30c1e801db8e0065e\transformed\jetified-play-services-base-16.0.1\AndroidManifest.xml:24:13-79
+94            android:exported="false"
+94-->[com.google.android.gms:play-services-base:16.0.1] C:\Users\tewat\.gradle\caches\transforms-3\d4728fd7ab6a28d30c1e801db8e0065e\transformed\jetified-play-services-base-16.0.1\AndroidManifest.xml:25:13-37
+95            android:theme="@android:style/Theme.Translucent.NoTitleBar" />
+95-->[com.google.android.gms:play-services-base:16.0.1] C:\Users\tewat\.gradle\caches\transforms-3\d4728fd7ab6a28d30c1e801db8e0065e\transformed\jetified-play-services-base-16.0.1\AndroidManifest.xml:26:13-72
+96
+97        <meta-data
+97-->[com.google.android.gms:play-services-basement:16.0.1] C:\Users\tewat\.gradle\caches\transforms-3\2af8b95b32d8e426d2a3f1e5e2423d54\transformed\jetified-play-services-basement-16.0.1\AndroidManifest.xml:23:9-25:69
+98            android:name="com.google.android.gms.version"
+98-->[com.google.android.gms:play-services-basement:16.0.1] C:\Users\tewat\.gradle\caches\transforms-3\2af8b95b32d8e426d2a3f1e5e2423d54\transformed\jetified-play-services-basement-16.0.1\AndroidManifest.xml:24:13-58
+99            android:value="@integer/google_play_services_version" />
+99-->[com.google.android.gms:play-services-basement:16.0.1] C:\Users\tewat\.gradle\caches\transforms-3\2af8b95b32d8e426d2a3f1e5e2423d54\transformed\jetified-play-services-basement-16.0.1\AndroidManifest.xml:25:13-66
+100    </application>
+101
+102</manifest>
