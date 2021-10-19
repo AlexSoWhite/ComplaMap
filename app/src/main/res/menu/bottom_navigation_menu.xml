@@ -15,6 +15,10 @@
         android:enabled="true"
         app:showAsAction="always" />
     <item
+        android:id="@+id/space"
+        android:title=""
+        app:showAsAction="always" />
+    <item
         android:id="@+id/photo"
         android:icon="@drawable/ic_photo_24"
         android:title="Сделать фото"
