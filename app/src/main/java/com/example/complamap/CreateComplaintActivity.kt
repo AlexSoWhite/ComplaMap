@@ -40,7 +40,7 @@ class CreateComplaintActivity : AppCompatActivity() {
         TransitionManager.beginDelayedTransition(rootLayout)
         popupWindow.showAtLocation(rootLayout, Gravity.CENTER, 0, 0)
 
-        val closeButton = view.findViewById<Button>(R.id.closePopup) //нажатие на крестик
+        val closeButton = view.findViewById<Button>(R.id.closePopup) // нажатие на крестик
         closeButton.setOnClickListener {
             popupWindow.dismiss()
         }
