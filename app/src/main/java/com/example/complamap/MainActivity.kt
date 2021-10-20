@@ -3,11 +3,14 @@ import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import com.example.complamap.databinding.ActivityMainBinding
+import com.yandex.mapkit.MapKitFactory
 
 class MainActivity : AppCompatActivity() {
     private lateinit var binding: ActivityMainBinding
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        MapKitFactory.setApiKey(resources.getString(R.string.MapKitApi_Key))
+        MapKitFactory.initialize(this)
         supportActionBar?.hide();
         binding = ActivityMainBinding.inflate(layoutInflater)
         val view = binding.root
