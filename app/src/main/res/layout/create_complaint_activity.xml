@@ -1,29 +1,27 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/root_layout"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical"
     android:layout_marginStart="30dp"
-    android:layout_marginEnd="30dp"
     android:layout_marginTop="20dp"
+    android:layout_marginEnd="30dp"
     android:layout_marginBottom="20dp"
-    >
+    android:orientation="vertical">
+
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Адрес"
-        android:textSize="20dp"
-        />
+        android:textSize="20dp" />
+
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="horizontal"
         android:gravity="center"
-        >
+        android:orientation="horizontal">
 
         <EditText
             android:layout_width="300dp"
@@ -34,67 +32,70 @@
             android:paddingStart="5dp"
             android:paddingEnd="5dp"
             tools:ignore="SpeakableTextPresentCheck" />
+
         <Button
             android:layout_width="match_parent"
             android:layout_height="30dp"
 
             />
     </LinearLayout>
+
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Описание проблемы"
-        android:textSize="20dp"
-        />
+        android:textSize="20dp" />
+
     <EditText
         android:layout_width="match_parent"
         android:layout_height="200dp"
         android:background="@drawable/rounded_rectangle_background"
-        android:inputType="textMultiLine"
-        android:padding="5dp"
         android:gravity="start|top"
-        />
+        android:inputType="textMultiLine"
+        android:padding="5dp" />
+
     <TextView
         android:layout_width="match_parent"
         android:layout_height="30dp"
         android:text="Категория проблемы"
-        android:textSize="20dp"
-        />
+        android:textSize="20dp" />
+
     <Spinner
         android:layout_width="match_parent"
         android:layout_height="30dp"
-        android:entries="@array/SpinnerItems"
-        />
+        android:entries="@array/SpinnerItems" />
+
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Фото"
-        android:textSize="20dp"
         android:layout_marginBottom="20dp"
-        />
+        android:text="Фото"
+        android:textSize="20dp" />
+
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="horizontal">
+
         <Button
-            android:layout_height="80dp"
             android:layout_width="wrap_content"
+            android:layout_height="80dp"
             android:text="Добавить фото"
             android:textSize="15dp"
 
             />
+
         <ImageView
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            />
+            android:layout_height="wrap_content" />
     </LinearLayout>
+
     <Button
+        android:id="@+id/AddButton"
         android:layout_width="60dp"
         android:layout_height="60dp"
-        android:id="@+id/AddButton"
 
         android:layout_gravity="center"
-        android:layout_marginTop="50dp"
-        />
+        android:layout_marginTop="50dp" />
 
 </LinearLayout>

@@ -2,76 +2,76 @@
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="400dp"
     android:layout_height="wrap_content"
-    android:layout_marginEnd="40dp"
-    android:layout_marginStart="40dp"
     android:layout_gravity="center"
+    android:layout_marginStart="40dp"
+    android:layout_marginEnd="40dp"
     android:background="@drawable/rounded_rectangle_background"
 
     >
-<LinearLayout
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:orientation="vertical"
-    android:padding="5dp"
-    >
 
-    <Button
-        android:layout_width="50dp"
-        android:layout_height="50dp"
-        android:text="X"
-        android:id="@+id/closePopup"
-        android:textSize="20dp"
-        android:gravity="center"
-        android:background="@drawable/rounded_rectangle_background"
-        />
-<RadioGroup
-    android:layout_width="match_parent"
-    android:layout_height="match_parent">
-        <RadioButton
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="опубликовать анонимно"
-            android:textSize="20dp"
-
-            />
-    <TextView
-        android:paddingStart="30dp"
-        android:padding="5dp"
-        android:paddingTop="5dp"
+    <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:textSize="15dp"
-        android:text=
-"-ваше имя пользователя и рейтинг не будут указаны\n
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        android:padding="5dp">
+
+        <Button
+            android:id="@+id/closePopup"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:background="@drawable/rounded_rectangle_background"
+            android:gravity="center"
+            android:text="X"
+            android:textSize="20dp" />
+
+        <RadioGroup
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <RadioButton
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="опубликовать анонимно"
+                android:textSize="20dp"
+
+                />
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:padding="5dp"
+                android:paddingStart="30dp"
+                android:paddingTop="5dp"
+                android:text="-ваше имя пользователя и рейтинг не будут указаны\n
 -отслеживание жалобы будет недоступно\n
 -ваш рейтинг не будет увеличен в случае подтверждения жалобы"
-/>
-    <RadioButton
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="опубликовать неанонимно"
-        android:textSize="20dp"
+                android:textSize="15dp" />
 
-        />
-    <TextView
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text=
-"-имя пользователя и рейтинг видны всем\n
+            <RadioButton
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="опубликовать неанонимно"
+                android:textSize="20dp"
+
+                />
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:padding="5dp"
+                android:paddingStart="30dp"
+                android:text="-имя пользователя и рейтинг видны всем\n
 -доступно отслежвание жалобы в разделе профиль -> мои жалобы\n
--в случае подтверждения жалобы ваш рейтинг увеличится; в случае опровержения - уменьшится"
-        android:paddingStart="30dp"
-        android:padding="5dp"
-        />
-</RadioGroup>
-<Button
-    android:layout_width="wrap_content"
-    android:layout_height="wrap_content"
-    android:textSize="15dp"
-    android:text="опубликовать"
-    android:layout_gravity="center"
-    />
+-в случае подтверждения жалобы ваш рейтинг увеличится; в случае опровержения - уменьшится" />
+        </RadioGroup>
+
+        <Button
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:text="опубликовать"
+            android:textSize="15dp" />
 
 
-</LinearLayout>
+    </LinearLayout>
 </androidx.constraintlayout.widget.ConstraintLayout>

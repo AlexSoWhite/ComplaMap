@@ -1,4 +1,5 @@
 package com.example.complamap
+
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import com.example.complamap.databinding.CreateComplaintActivityBinding
@@ -25,9 +26,7 @@ class CreateComplaintActivity : AppCompatActivity() {
         addButton.setOnClickListener {//обработка нажатия на кнопку внизу
             showPopup()
         }
-
     }
-
 
     private fun showPopup() {
         val rootLayout = findViewById<ViewGroup>(R.id.root_layout)
