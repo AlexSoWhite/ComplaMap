@@ -22,8 +22,8 @@ class CreateComplaintActivity : AppCompatActivity() {
         setContentView(view)
 
         setContentView(R.layout.create_complaint_activity)
-        val addButton: Button = findViewById(R.id.AddButton)//кнопка внизу
-        addButton.setOnClickListener {//обработка нажатия на кнопку внизу
+        val addButton: Button = findViewById(R.id.AddButton) // кнопка внизу
+        addButton.setOnClickListener { // обработка нажатия на кнопку внизу
             showPopup()
         }
     }
