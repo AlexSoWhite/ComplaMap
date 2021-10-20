@@ -1,3 +1,5 @@
 <resources>
     <string name="app_name">ComplaMap</string>
+    <string name="camera">Камера</string>
+    <string name="gallery">Галерея</string>
 </resources>
