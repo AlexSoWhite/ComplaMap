@@ -13,6 +13,7 @@ class MainActivity : AppCompatActivity() {
         MapKitFactory.initialize(this)
         supportActionBar?.hide();
         binding = ActivityMainBinding.inflate(layoutInflater)
+        binding.mainActivity.getForeground().setAlpha(0)
         val view = binding.root
         setContentView(view)
         if (savedInstanceState == null) {
