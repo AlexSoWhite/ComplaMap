@@ -3,6 +3,7 @@
   <component name="DesignSurface">
     <option name="filePathToZoomLevelMap">
       <map>
+
         <entry key="..\:/ComplaMap/app/src/main/res/drawable-v24/ic_add_24.xml" value="0.22291666666666668" />
         <entry key="..\:/ComplaMap/app/src/main/res/drawable-v24/ic_launcher_foreground.xml" value="0.22291666666666668" />
         <entry key="..\:/ComplaMap/app/src/main/res/drawable-v24/ic_list_24.xml" value="0.22291666666666668" />
@@ -23,6 +24,8 @@
         <entry key="app/src/main/res/layout/fragment_photo.xml" value="0.35625" />
         <entry key="app/src/main/res/menu/bottom_navigation_menu.xml" value="0.35625" />
         <entry key="app/src/main/res/xml/file_paths.xml" value="0.35625" />
+        <entry key="..\:/Users/ktox/Desktop/ComplaMap/app/src/main/res/drawable/rounded_rectangle_background.xml" value="0.1359375" />
+        <entry key="..\:/Users/ktox/Desktop/ComplaMap/app/src/main/res/layout/create_complaint_activity.xml" value="0.22" />
       </map>
     </option>
   </component>
@@ -32,4 +35,5 @@
   <component name="ProjectType">
     <option name="id" value="Android" />
   </component>
+  <component name="ExternalStorageConfigurationManager" enabled="true" />
 </project>
