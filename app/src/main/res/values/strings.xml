@@ -10,4 +10,10 @@
     <string name="search_hint">Поиск места...</string>
     <string name="camera">Камера</string>
     <string name="gallery">Галерея</string>
+    <string name="LogIn">Войти</string>
+    <string name="nMap">Карта</string>
+    <string name="nList">Список</string>
+    <string name="nPhoto">Фото</string>
+    <string name="nProfile">Профиль</string>
+    <string name="helpStr">Как я могу помочь?</string>
 </resources>
