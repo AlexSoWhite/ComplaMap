@@ -39,12 +39,13 @@
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:padding="5dp"
-                android:paddingStart="30dp"
-                android:paddingTop="5dp"
-                android:text="-ваше имя пользователя и рейтинг не будут указаны\n
--отслеживание жалобы будет недоступно\n
--ваш рейтинг не будет увеличен в случае подтверждения жалобы"
+
+
+
+                android:text="
+● ваше имя пользователя и рейтинг не будут указаны\n
+● отслеживание жалобы будет недоступно\n
+● ваш рейтинг не будет увеличен в случае подтверждения жалобы"
                 android:textSize="15dp" />
 
             <RadioButton
@@ -58,11 +59,11 @@
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:padding="5dp"
-                android:paddingStart="30dp"
-                android:text="-имя пользователя и рейтинг видны всем\n
--доступно отслежвание жалобы в разделе профиль -> мои жалобы\n
--в случае подтверждения жалобы ваш рейтинг увеличится; в случае опровержения - уменьшится" />
+
+                android:text="
+● имя пользователя и рейтинг видны всем\n
+● доступно отслежвание жалобы в разделе профиль -> мои жалобы\n
+● в случае подтверждения жалобы ваш рейтинг увеличится; в случае опровержения - уменьшится" />
         </RadioGroup>
 
         <Button

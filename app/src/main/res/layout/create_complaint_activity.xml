@@ -8,9 +8,9 @@
     android:layout_marginStart="30dp"
     android:layout_marginTop="20dp"
     android:layout_marginEnd="30dp"
-    android:layout_marginBottom="20dp"
     android:orientation="vertical">
 <ImageButton
+
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:drawableStart="@drawable/ic_backward_24"
@@ -22,7 +22,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Адрес"
-        android:textSize="20dp"
+        android:textSize="25dp"
 
         />
 
@@ -32,7 +32,7 @@
             android:layout_height="40dp"
             android:background="@drawable/rounded_rectangle_background"
             android:drawableEnd="@drawable/ic_location_24"
-
+android:id="@+id/Address"
             android:inputType="text"
             android:paddingStart="5dp"
             android:paddingEnd="5dp"
@@ -42,7 +42,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Описание проблемы"
-        android:textSize="20dp" />
+        android:textSize="25dp" />
 
     <EditText
         android:layout_width="match_parent"
@@ -50,17 +50,19 @@
         android:background="@drawable/rounded_rectangle_background"
         android:gravity="start|top"
         android:inputType="textMultiLine"
-        android:padding="5dp" />
+        android:padding="5dp"
+            />
 
     <TextView
         android:layout_width="match_parent"
         android:layout_height="40dp"
         android:text="Категория проблемы"
-        android:textSize="20dp"
+        android:textSize="25dp"
         android:gravity="center|left"
             />
 
     <Spinner
+
         android:layout_width="match_parent"
         android:layout_height="40dp"
         android:entries="@array/SpinnerItems"
@@ -72,33 +74,33 @@
         android:layout_height="40dp"
         android:gravity="left|center"
         android:text="Фото"
-        android:textSize="20dp" />
+        android:textSize="25dp" />
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="horizontal">
 
-        <Button
+        <ImageButton
             android:layout_width="wrap_content"
-            android:layout_height="80dp"
-            android:text="Добавить фото"
-            android:textSize="15dp"
+            android:layout_height="wrap_content"
+                android:src="@drawable/ic_baseline_add_photo_24"
+                android:id="@+id/AddPhotoButton"
             />
 
         <ImageView
             android:layout_width="wrap_content"
             android:layout_height="80dp"
-                android:src="@drawable/photo"/>
+                android:src="@drawable/photo"
+                android:id="@+id/Image"/>
     </LinearLayout>
     <ImageButton
-
             style="@style/Widget.Design.FloatingActionButton"
             android:id="@+id/AddButton"
-            android:layout_gravity="center"
+            android:layout_gravity="bottom|center"
             android:layout_height="60dp"
-            android:layout_marginTop="50dp"
             android:layout_width="60dp"
+            android:layout_marginTop="75dp"
             android:src="@drawable/ic_check_24"
             />
 

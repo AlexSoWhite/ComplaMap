@@ -2,21 +2,28 @@ package com.example.complamap
 
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
-import com.example.complamap.databinding.CreateComplaintActivityBinding
 import android.content.Context
 import android.transition.TransitionManager
 import android.view.Gravity
 import android.view.LayoutInflater
 import android.view.ViewGroup
-import android.widget.Button
+import android.widget.EditText
 import android.widget.ImageButton
 import android.widget.LinearLayout
 import android.widget.PopupWindow
+import androidx.activity.result.contract.ActivityResultContracts
+import com.example.complamap.databinding.CreateComplaintActivityBinding
+import com.example.complamap.databinding.FragmentPhotoBinding
 
 
 class CreateComplaintActivity : AppCompatActivity() {
+
+    private val openGallery = registerForActivityResult(ActivityResultContracts.GetContent()){
+           binding.Image.setImageURI(it)
+    }
+
     private lateinit var binding: CreateComplaintActivityBinding
-    override fun onCreate(savedInstanceState: Bundle?) {
+     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         supportActionBar?.hide();
         binding = CreateComplaintActivityBinding.inflate(layoutInflater)
@@ -25,13 +32,21 @@ class CreateComplaintActivity : AppCompatActivity() {
 
         setContentView(R.layout.create_complaint_activity)
         val addButton: ImageButton = findViewById(R.id.AddButton) // кнопка внизу
+        val address: EditText = findViewById(R.id.Address)
         addButton.setOnClickListener { // обработка нажатия на кнопку внизу
-            showPopup()
+         address.isEnabled = false
+         addButton.isEnabled=false
+         showPopup()
         }
         val exitButton: ImageButton = findViewById(R.id.ExitButton)
         exitButton.setOnClickListener{
-            //TODO destroy createcomplaintactivity
+            onPause()
+            onStop()
         }
+        val addPhotoButton: ImageButton = findViewById(R.id.AddPhotoButton)
+         addPhotoButton.setOnClickListener {
+             openGallery.launch("image/*")
+         }
     }
 
     private fun showPopup() {
@@ -46,9 +61,16 @@ class CreateComplaintActivity : AppCompatActivity() {
         TransitionManager.beginDelayedTransition(rootLayout)
         popupWindow.showAtLocation(rootLayout, Gravity.CENTER, 0, 0)
 
+        val addButton: ImageButton = findViewById(R.id.AddButton) // кнопка внизу
+        val address: EditText = findViewById(R.id.Address)        //я не дебил 2 раза их объявлять просто хз как еще
+        
+
+
         val closeButton = view.findViewById<ImageButton>(R.id.closePopup) // нажатие на крестик
         closeButton.setOnClickListener {
             popupWindow.dismiss()
+            address.isEnabled = true
+            addButton.isEnabled=true
         }
     }
 }
