@@ -9,6 +9,7 @@ import android.view.Gravity
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import android.widget.Button
+import android.widget.ImageButton
 import android.widget.LinearLayout
 import android.widget.PopupWindow
 
@@ -23,9 +24,13 @@ class CreateComplaintActivity : AppCompatActivity() {
         setContentView(view)
 
         setContentView(R.layout.create_complaint_activity)
-        val addButton: Button = findViewById(R.id.AddButton) // кнопка внизу
+        val addButton: ImageButton = findViewById(R.id.AddButton) // кнопка внизу
         addButton.setOnClickListener { // обработка нажатия на кнопку внизу
             showPopup()
+        }
+        val exitButton: ImageButton = findViewById(R.id.ExitButton)
+        exitButton.setOnClickListener{
+            //TODO destroy createcomplaintactivity
         }
     }
 
@@ -41,7 +46,7 @@ class CreateComplaintActivity : AppCompatActivity() {
         TransitionManager.beginDelayedTransition(rootLayout)
         popupWindow.showAtLocation(rootLayout, Gravity.CENTER, 0, 0)
 
-        val closeButton = view.findViewById<Button>(R.id.closePopup) // нажатие на крестик
+        val closeButton = view.findViewById<ImageButton>(R.id.closePopup) // нажатие на крестик
         closeButton.setOnClickListener {
             popupWindow.dismiss()
         }
