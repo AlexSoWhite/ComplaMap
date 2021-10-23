@@ -10,35 +10,32 @@
     android:layout_marginEnd="30dp"
     android:layout_marginBottom="20dp"
     android:orientation="vertical">
+<Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:drawableStart="@drawable/ic_backward_24"
 
+    />
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Адрес"
         android:textSize="20dp" />
 
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:gravity="center"
-        android:orientation="horizontal">
 
         <EditText
-            android:layout_width="300dp"
-            android:layout_height="30dp"
+            android:layout_width="match_parent"
+            android:layout_height="40dp"
             android:background="@drawable/rounded_rectangle_background"
-            android:drawableEnd="@color/black"
+            android:drawableEnd="@drawable/ic_location_24"
+
             android:inputType="text"
             android:paddingStart="5dp"
             android:paddingEnd="5dp"
             tools:ignore="SpeakableTextPresentCheck" />
 
-        <Button
-            android:layout_width="match_parent"
-            android:layout_height="30dp"
 
-            />
-    </LinearLayout>
+
 
     <TextView
         android:layout_width="wrap_content"
@@ -56,19 +53,23 @@
 
     <TextView
         android:layout_width="match_parent"
-        android:layout_height="30dp"
+        android:layout_height="40dp"
         android:text="Категория проблемы"
-        android:textSize="20dp" />
+        android:textSize="20dp"
+        android:gravity="center|left"
+            />
 
     <Spinner
         android:layout_width="match_parent"
-        android:layout_height="30dp"
-        android:entries="@array/SpinnerItems" />
+        android:layout_height="40dp"
+        android:entries="@array/SpinnerItems"
+        android:background="@drawable/rounded_rectangle_background"
+            />
 
     <TextView
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginBottom="20dp"
+        android:layout_height="40dp"
+        android:gravity="left|center"
         android:text="Фото"
         android:textSize="20dp" />
 
@@ -90,12 +91,14 @@
             android:layout_height="wrap_content" />
     </LinearLayout>
 
-    <Button
-        android:id="@+id/AddButton"
-        android:layout_width="60dp"
-        android:layout_height="60dp"
+        <Button
+            android:id="@+id/AddButton"
+            android:layout_gravity="center"
+            android:layout_height="60dp"
 
-        android:layout_gravity="center"
-        android:layout_marginTop="50dp" />
+
+
+            android:layout_marginTop="50dp"
+            android:layout_width="60dp" />
 
 </LinearLayout>

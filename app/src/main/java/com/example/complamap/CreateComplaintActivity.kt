@@ -36,8 +36,7 @@ class CreateComplaintActivity : AppCompatActivity() {
         val view = inflater.inflate(R.layout.create_complaint_popup_menu, null)
         val popupWindow = PopupWindow(
             view,
-            LinearLayout.LayoutParams.MATCH_PARENT,
-            LinearLayout.LayoutParams.WRAP_CONTENT
+            1000, 1100
         )
         TransitionManager.beginDelayedTransition(rootLayout)
         popupWindow.showAtLocation(rootLayout, Gravity.CENTER, 0, 0)
