@@ -1,16 +1,15 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/root_layout"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:layout_marginStart="30dp"
+    android:layout_marginEnd="20dp"
+    android:layout_marginStart="20dp"
     android:layout_marginTop="20dp"
-    android:layout_marginEnd="30dp"
-    android:orientation="vertical">
+    android:orientation="vertical"
+        >
 <ImageButton
-
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:drawableStart="@drawable/ic_backward_24"
@@ -46,11 +45,12 @@ android:id="@+id/Address"
 
     <EditText
         android:layout_width="match_parent"
-        android:layout_height="200dp"
+        android:layout_height="150dp"
         android:background="@drawable/rounded_rectangle_background"
         android:gravity="start|top"
         android:inputType="textMultiLine"
         android:padding="5dp"
+        android:id="@+id/Description"
             />
 
     <TextView
@@ -67,6 +67,7 @@ android:id="@+id/Address"
         android:layout_height="40dp"
         android:entries="@array/SpinnerItems"
         android:background="@drawable/rounded_rectangle_background"
+
             />
 
     <TextView
@@ -78,23 +79,25 @@ android:id="@+id/Address"
 
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="150dp"
         android:orientation="horizontal">
 
         <ImageButton
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_width="150dp"
+            android:layout_height="150dp"
                 android:src="@drawable/ic_baseline_add_photo_24"
                 android:id="@+id/AddPhotoButton"
+                android:layout_gravity="center"
             />
 
         <ImageView
-            android:layout_width="wrap_content"
-            android:layout_height="80dp"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
                 android:src="@drawable/photo"
                 android:id="@+id/Image"/>
     </LinearLayout>
     <ImageButton
+
             style="@style/Widget.Design.FloatingActionButton"
             android:id="@+id/AddButton"
             android:layout_gravity="bottom|center"

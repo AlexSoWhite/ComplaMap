@@ -1,29 +1,43 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="400dp"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        xmlns:tools="http://schemas.android.com/tools"
+        android:layout_width="380dp"
+        android:id="@+id/PopupLayout"
     android:layout_height="wrap_content"
     android:layout_gravity="center"
-    android:layout_marginStart="40dp"
-    android:layout_marginEnd="40dp"
+    android:layout_margin="40dp"
     android:background="@drawable/rounded_rectangle_background"
-
+    android:orientation="vertical"
+    android:padding="5dp"
+        >
+<androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
     >
 
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:orientation="vertical"
-        android:padding="5dp">
-
-        <ImageButton
-            android:id="@+id/closePopup"
-            android:layout_width="50dp"
-            android:layout_height="50dp"
+    <ImageButton
             android:background="@drawable/rounded_rectangle_background"
             android:gravity="center"
+            android:id="@+id/closePopup"
+            android:layout_height="50dp"
+            android:layout_width="50dp"
             android:src="@drawable/ic_baseline_close_24"
-                />
+            app:layout_constraintStart_toStartOf="parent"
 
+            tools:ignore="MissingConstraints" />
+
+    <ImageButton
+            android:background="@drawable/rounded_rectangle_background"
+            android:id="@+id/imageButton"
+            android:layout_height="50dp"
+            android:layout_width="50dp"
+            app:layout_constraintEnd_toEndOf="parent"
+
+            android:src="@drawable/ic_baseline_check_40"
+            tools:layout_editor_absoluteY="0dp"
+            tools:ignore="MissingConstraints" />
+</androidx.constraintlayout.widget.ConstraintLayout>
         <RadioGroup
             android:layout_width="match_parent"
             android:layout_height="match_parent">
@@ -66,13 +80,6 @@
 ● в случае подтверждения жалобы ваш рейтинг увеличится; в случае опровержения - уменьшится" />
         </RadioGroup>
 
-        <Button
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center"
-            android:text="опубликовать"
-            android:textSize="15dp" />
 
 
-    </LinearLayout>
-</androidx.constraintlayout.widget.ConstraintLayout>
+</LinearLayout>
