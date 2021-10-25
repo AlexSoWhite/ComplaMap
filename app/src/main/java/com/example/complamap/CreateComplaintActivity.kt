@@ -69,7 +69,7 @@ class CreateComplaintActivity : AppCompatActivity() {
         val popupWindow = PopupWindow(
             view,
             1000,
-            1000
+            1100
         )
         TransitionManager.beginDelayedTransition(rootLayout)
         popupWindow.isOutsideTouchable = false

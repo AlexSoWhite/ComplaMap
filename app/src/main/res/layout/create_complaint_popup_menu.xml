@@ -47,7 +47,7 @@
                 android:layout_height="wrap_content"
                 android:text="опубликовать анонимно"
                 android:textSize="20dp"
-
+                    android:layout_marginTop="10dp"
                 />
 
             <TextView
@@ -67,7 +67,7 @@
                 android:layout_height="wrap_content"
                 android:text="опубликовать неанонимно"
                 android:textSize="20dp"
-
+android:layout_marginTop="10dp"
                 />
 
             <TextView
