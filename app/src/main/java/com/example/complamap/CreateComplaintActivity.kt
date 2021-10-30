@@ -18,7 +18,6 @@ import android.widget.ImageView
 import android.widget.PopupWindow
 import android.widget.Toast
 import androidx.activity.result.contract.ActivityResultContracts
-import androidx.fragment.app.FragmentContainerView
 import com.example.complamap.databinding.CreateComplaintActivityBinding
 
 
@@ -29,39 +28,34 @@ class CreateComplaintActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         supportActionBar?.hide();
         binding = CreateComplaintActivityBinding.inflate(layoutInflater)
-        val view = binding.root
-        setContentView(R.layout.create_complaint_activity)
-        val exitButton: ImageButton = findViewById(R.id.ExitButton)
-        exitButton.setOnClickListener{
+        setContentView(binding.root)
+        binding.ExitButton.setOnClickListener{
              finish()
          }
-        val address: EditText = findViewById(R.id.Address)
-        val description: EditText=findViewById(R.id.Description)
-        val addPhotoButton: ImageButton = findViewById(R.id.AddPhotoButton)
-        addPhotoButton.setOnClickListener {
+
+        binding.AddPhotoButton.setOnClickListener {
              openGallery.launch("image/*")
          }
-        val rootFrame: FrameLayout= findViewById(R.id.RootFrame)
-        rootFrame.foreground.alpha = 0
-        val addButton: ImageButton = findViewById(R.id.AddButton) // кнопка внизу
-        addButton.setOnClickListener { // обработка нажатия на кнопку внизу
-            if (address.length() == 0) {
+
+        binding.RootFrame.foreground.alpha = 0
+
+        binding.AddButton.setOnClickListener { // обработка нажатия на кнопку внизу
+            if (binding.Address.length() == 0) {
                 Toast.makeText(applicationContext, "Введите адрес", Toast.LENGTH_SHORT).show()
             }
             else{
-                rootFrame.foreground.alpha=50
-                address.isEnabled = false
-                addButton.isEnabled = false
-                description.isEnabled = false
-                exitButton.isEnabled = false
-                addPhotoButton.isEnabled=false
+                binding.RootFrame.foreground.alpha=50
+                binding.Address.isEnabled = false
+                binding.AddButton.isEnabled = false
+                binding.Description.isEnabled = false
+                binding.ExitButton.isEnabled = false
+                binding.AddPhotoButton.isEnabled=false
                 showPopup()
             }
         }
      }
     private val openGallery = registerForActivityResult(ActivityResultContracts.GetContent()){
-        val image: ImageView = findViewById(R.id.Image)
-        image.setImageURI(it)
+        binding.Image.setImageURI(it)
     }
     private fun showPopup() {
         val rootLayout: ViewGroup = findViewById(R.id.root_layout)
@@ -76,20 +70,21 @@ class CreateComplaintActivity : AppCompatActivity() {
        //popupWindow.setBackgroundDrawable(ColorDrawable(123))
         popupWindow.showAtLocation(rootLayout, Gravity.CENTER, 0, 0)
 
-        if(Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
-            val slideIn = Slide()
-            slideIn.slideEdge = Gravity.BOTTOM
-            popupWindow.enterTransition = slideIn
-        }
+      //  if(Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+           // val slideIn = Slide()
+          //  slideIn.slideEdge = Gravity.BOTTOM
+           // popupWindow.enterTransition = slideIn
+      //  }
 
         val addButton: ImageButton = findViewById(R.id.AddButton) // кнопка внизу
-        val address: EditText = findViewById(R.id.Address)        //я не дебил 2 раза их объявлять просто хз как еще
+        val address: EditText = findViewById(R.id.Address)
         val exitButton: ImageButton = findViewById(R.id.ExitButton)
-        val closeButton = view.findViewById<ImageButton>(R.id.closePopup) // нажатие на крестик
-        val addPhotoButton: ImageButton = findViewById(R.id.AddPhotoButton)
+        val addPhotoButton: Button = findViewById(R.id.AddPhotoButton)
         val rootFrame: FrameLayout= findViewById(R.id.RootFrame)
         val description: EditText=findViewById(R.id.Description)
         val publishButton: Button = view.findViewById(R.id.PublishButton)//опубликовать
+        val closeButton = view.findViewById<ImageButton>(R.id.closePopup) // нажатие на крестик
+
 
         publishButton.setOnClickListener {
             //setContentView(R.layout.fragment_complaint)
@@ -104,7 +99,6 @@ class CreateComplaintActivity : AppCompatActivity() {
             description.isEnabled = true
             exitButton.isEnabled=true
             addPhotoButton.isEnabled=true
-
         }
     }
 }
