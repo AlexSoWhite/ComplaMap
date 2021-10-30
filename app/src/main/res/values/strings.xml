@@ -1,7 +1,19 @@
 <resources>
     <string name="app_name">ComplaMap</string>
+    <string-array name="SpinnerItems">
+        <item>Категория 1</item>
+        <item>Категория 2</item>
+        <item>Категория 3</item>
+    </string-array>
+
     <string name="MapKitApi_Key">e0449f31-d8b1-4265-8719-1411e95ea9ed</string>
     <string name="search_hint">Поиск места...</string>
     <string name="camera">Камера</string>
     <string name="gallery">Галерея</string>
+    <string name="LogIn">Войти</string>
+    <string name="nMap">Карта</string>
+    <string name="nList">Список</string>
+    <string name="nPhoto">Фото</string>
+    <string name="nProfile">Профиль</string>
+    <string name="helpStr">Как я могу помочь?</string>
 </resources>
