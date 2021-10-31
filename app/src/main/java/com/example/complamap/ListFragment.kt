@@ -20,6 +20,6 @@ class ListFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        binding.textMock.text = "list"
+        binding.textMock.text = "list_test"
     }
 }
