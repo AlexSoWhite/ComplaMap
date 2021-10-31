@@ -1,6 +1,7 @@
 plugins {
     id 'com.android.application'
     id 'kotlin-android'
+    id 'com.google.gms.google-services'
 }
 
 android {
@@ -34,6 +35,9 @@ android {
     buildFeatures {
         viewBinding true
     }
+    buildFeatures {
+        dataBinding true
+    }
 }
 
 dependencies {
@@ -54,5 +58,13 @@ dependencies {
     implementation "androidx.navigation:navigation-ui-ktx:2.3.5"
 
     implementation 'androidx.cardview:cardview:1.0.0'
+
+    implementation platform('com.google.firebase:firebase-bom:28.4.2')
+    implementation 'com.google.firebase:firebase-firestore-ktx'
+    implementation 'com.google.firebase:firebase-storage'
+
+    implementation 'org.jetbrains.kotlinx:kotlinx-coroutines-core:1.0.1'
+    implementation 'org.jetbrains.kotlinx:kotlinx-coroutines-android:1.0.1'
+    implementation 'org.jetbrains.kotlinx:kotlinx-coroutines-play-services:1.2.1'
 
 }

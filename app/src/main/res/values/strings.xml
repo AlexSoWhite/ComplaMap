@@ -16,4 +16,5 @@
     <string name="nPhoto">Фото</string>
     <string name="nProfile">Профиль</string>
     <string name="helpStr">Как я могу помочь?</string>
+    <string name="send">отправить</string>
 </resources>

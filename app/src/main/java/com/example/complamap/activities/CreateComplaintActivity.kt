@@ -1,4 +1,4 @@
-package com.example.complamap
+package com.example.complamap.activities
 
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
@@ -21,6 +21,7 @@ import android.widget.PopupWindow
 import android.widget.Toast
 import androidx.activity.result.contract.ActivityResultContracts
 import com.example.complamap.databinding.CreateComplaintActivityBinding
+import com.example.complamap.R
 
 
 class CreateComplaintActivity : AppCompatActivity() {
@@ -28,7 +29,7 @@ class CreateComplaintActivity : AppCompatActivity() {
     private lateinit var binding: CreateComplaintActivityBinding
      override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        supportActionBar?.hide();
+        supportActionBar?.hide()
         binding = CreateComplaintActivityBinding.inflate(layoutInflater)
         setContentView(binding.root)
         binding.ExitButton.setOnClickListener{
