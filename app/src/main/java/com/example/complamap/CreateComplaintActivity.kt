@@ -3,9 +3,11 @@ package com.example.complamap
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import android.content.Context
+import android.graphics.Point
 import android.os.Build
 import android.transition.Slide
 import android.transition.TransitionManager
+import android.view.Display
 import android.view.Gravity
 import android.view.LayoutInflater
 import android.view.ViewGroup
@@ -63,11 +65,16 @@ class CreateComplaintActivity : AppCompatActivity() {
             getSystemService(Context.LAYOUT_INFLATER_SERVICE) as LayoutInflater
         val view = inflater.inflate(R.layout.create_complaint_popup_menu, null)
         val popupWindow = PopupWindow(view)
+
+        val display: Display = windowManager.defaultDisplay
+        val size = Point()
+        display.getSize(size)
+
         popupWindow.height = WindowManager.LayoutParams.WRAP_CONTENT
-        popupWindow.width = WindowManager.LayoutParams.WRAP_CONTENT
+        popupWindow.width = size.x - 70
+
         TransitionManager.beginDelayedTransition(rootLayout)
         popupWindow.isOutsideTouchable = false
-       //popupWindow.setBackgroundDrawable(ColorDrawable(123))
         popupWindow.showAtLocation(rootLayout, Gravity.CENTER, 0, 0)
 
       //  if(Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
