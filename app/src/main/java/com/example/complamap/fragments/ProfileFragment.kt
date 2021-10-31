@@ -1,4 +1,4 @@
-package com.example.complamap
+package com.example.complamap.fragments
 import android.content.Context.LAYOUT_INFLATER_SERVICE
 import android.os.Build
 import android.os.Bundle
@@ -13,12 +13,12 @@ import android.widget.PopupWindow
 import androidx.fragment.app.Fragment
 import com.example.complamap.databinding.FragmentProfileBinding
 import android.widget.FrameLayout
+import com.example.complamap.R
 
 
 class ProfileFragment : Fragment(R.layout.fragment_profile) {
     private lateinit var binding: FragmentProfileBinding
     private var mainLayout: FrameLayout? = null
-
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
@@ -37,13 +37,14 @@ class ProfileFragment : Fragment(R.layout.fragment_profile) {
         return binding.root
     }
 
+
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
     }
 
     private fun popUp(){
         val inflater:LayoutInflater =
-            (requireActivity().getSystemService(LAYOUT_INFLATER_SERVICE) as LayoutInflater)!!
+            (requireActivity().getSystemService(LAYOUT_INFLATER_SERVICE) as LayoutInflater)
         val view = inflater.inflate(R.layout.activity_pop_up_guide,null)
         val popupWindow = PopupWindow(
             view,

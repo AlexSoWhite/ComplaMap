@@ -1,8 +1,8 @@
-package com.example.complamap
+package com.example.complamap.activities
 
 import android.os.Bundle
-import android.os.PersistableBundle
 import androidx.appcompat.app.AppCompatActivity
+import com.example.complamap.R
 
 class SignIn:AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {

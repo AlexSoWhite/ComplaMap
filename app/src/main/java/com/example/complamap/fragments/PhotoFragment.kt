@@ -1,4 +1,4 @@
-package com.example.complamap
+package com.example.complamap.fragments
 
 import android.Manifest
 import android.net.Uri
@@ -14,6 +14,7 @@ import androidx.activity.result.contract.ActivityResultContracts.TakePicture
 import androidx.core.content.FileProvider
 import androidx.core.net.toUri
 import androidx.fragment.app.Fragment
+import com.example.complamap.R
 import com.example.complamap.databinding.FragmentPhotoBinding
 import com.google.firebase.storage.FirebaseStorage
 import java.io.File
