@@ -5,6 +5,9 @@
         <variable
                 name="complaint"
                 type="com.example.complamap.Complaint" />
+        <variable
+                name="creator"
+                type="String" />
     </data>
 <androidx.constraintlayout.widget.ConstraintLayout
 
@@ -15,7 +18,7 @@
             android:id="@+id/title"
             android:layout_height="wrap_content"
             android:layout_width="wrap_content"
-            android:text="@{complaint.title}"
+            android:text="@{creator}"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toTopOf="parent" />

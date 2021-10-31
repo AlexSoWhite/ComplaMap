@@ -5,7 +5,6 @@ import com.google.firebase.firestore.DocumentReference
 import com.google.firebase.firestore.GeoPoint
 
 data class Complaint(
-    val title: String? = null,
     val category: String? = null,
     val creation_date: Timestamp? = null,
     val location: GeoPoint? = null,
@@ -14,5 +13,5 @@ data class Complaint(
     val rejections: Long? = null,
     val status: String? = null,
     val followers: List<DocumentReference>? = null,
-    val user_ID: String? = null,
+    val creator: DocumentReference? = null,
 )
