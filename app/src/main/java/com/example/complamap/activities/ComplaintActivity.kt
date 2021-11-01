@@ -6,7 +6,7 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.databinding.DataBindingUtil
 import com.example.complamap.Complaint
 import com.example.complamap.R
-import com.example.complamap.databinding.ActivityComplaintBinding
+import com.example.complamap.databinding.TestActivityComplaintBinding
 import com.google.firebase.firestore.DocumentSnapshot
 import com.google.firebase.firestore.FirebaseFirestore
 import kotlinx.coroutines.GlobalScope
@@ -15,19 +15,20 @@ import kotlinx.coroutines.tasks.await
 
 class ComplaintActivity : AppCompatActivity() {
 
-    private lateinit var binding: ActivityComplaintBinding
+    private lateinit var binding: TestActivityComplaintBinding
     private val db = FirebaseFirestore.getInstance()
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         supportActionBar?.hide()
         binding = DataBindingUtil.setContentView(
-            this, R.layout.activity_complaint
+            this, R.layout.test_activity_complaint
         )
         binding.complaint = Complaint()
-        binding.button.setOnClickListener {
             GlobalScope.launch {
                 getData()
             }
+        binding.ExitButton.setOnClickListener {
+            finish()
         }
     }
 
