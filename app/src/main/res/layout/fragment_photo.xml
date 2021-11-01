@@ -6,8 +6,7 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:background="@color/take_photo_background_grey"
-        xmlns:app="http://schemas.android.com/apk/res-auto"
-        xmlns:tools="http://schemas.android.com/tools">
+        xmlns:app="http://schemas.android.com/apk/res-auto">
 
         <ImageView
             android:id="@+id/img"
@@ -17,33 +16,11 @@
             app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintBottom_toTopOf="@+id/take_photo_camera_btn"
             app:layout_constraintEnd_toEndOf="parent"
+            android:src="@drawable/photo"
             android:layout_marginBottom="20dp"
             android:layout_margin="20dp"
             />
 
-        <Button
-            android:id="@+id/send_button"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintBottom_toTopOf="@+id/take_photo_camera_btn"
-            android:layout_margin="20dp"
-            android:text="@string/send"
-            android:visibility="invisible"
-            android:clickable="true"
-            android:focusable="true" />
-
-        <TextView
-            android:id="@+id/send_status"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintBottom_toTopOf="@id/take_photo_gallery_btn"
-            app:layout_constraintTop_toBottomOf="@id/send_button"
-            android:textSize="11sp"
-            android:layout_margin="20dp"/>
 
         <FrameLayout
             android:id="@+id/take_photo_camera_btn"
