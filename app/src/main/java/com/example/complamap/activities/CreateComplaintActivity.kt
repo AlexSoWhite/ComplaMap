@@ -27,7 +27,6 @@ import com.google.firebase.firestore.FirebaseFirestore
 
 
 class CreateComplaintActivity : AppCompatActivity() {
-
     private lateinit var binding: CreateComplaintActivityBinding
      override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
