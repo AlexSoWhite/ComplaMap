@@ -22,7 +22,7 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.ComplaMap">
         <activity
-            android:name=".MainActivity"
+            android:name=".activities.MainActivity"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -31,7 +31,8 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".CreateComplaintActivity"/>
+            android:name=".activities.CreateComplaintActivity"/>
+        <activity android:name=".activities.ComplaintActivity"/>
         <provider
             android:authorities="${applicationId}.provider"
             android:name="androidx.core.content.FileProvider"
