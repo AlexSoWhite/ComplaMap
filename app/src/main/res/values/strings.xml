@@ -16,4 +16,12 @@
     <string name="nPhoto">Фото</string>
     <string name="nProfile">Профиль</string>
     <string name="helpStr">Как я могу помочь?</string>
+    <string name="send">отправить</string>
+    <string-array name="sampleComplains">
+        <item name = "Жалоба 1"/>
+        <item name = "Жалоба 2"/>
+        <item name = "Жалоба 3"/>
+        <item name = "Жалоба 4"/>
+        <item name = "Жалоба 5"/>
+    </string-array>
 </resources>
