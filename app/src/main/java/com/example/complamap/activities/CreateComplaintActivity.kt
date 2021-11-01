@@ -1,4 +1,4 @@
-package com.example.complamap
+package com.example.complamap.activities
 
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
@@ -11,13 +11,14 @@ import android.view.ViewGroup
 import android.widget.Button
 import android.widget.LinearLayout
 import android.widget.PopupWindow
+import com.example.complamap.R
 
 
 class CreateComplaintActivity : AppCompatActivity() {
     private lateinit var binding: CreateComplaintActivityBinding
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        supportActionBar?.hide();
+        supportActionBar?.hide()
         binding = CreateComplaintActivityBinding.inflate(layoutInflater)
         val view = binding.root
         setContentView(view)

@@ -1,0 +1,78 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res-auto">
+    <data>
+        <variable
+                name="complaint"
+                type="com.example.complamap.Complaint" />
+        <variable
+                name="creator"
+                type="String" />
+    </data>
+<androidx.constraintlayout.widget.ConstraintLayout
+
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+    <TextView
+            android:id="@+id/title"
+            android:layout_height="wrap_content"
+            android:layout_width="wrap_content"
+            android:text="@{creator}"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+    <TextView
+            android:id="@+id/descr"
+            android:layout_height="wrap_content"
+            android:layout_width="wrap_content"
+            android:text="@{complaint.description}"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/title" />
+
+    <TextView
+            android:id="@+id/status"
+            android:layout_height="wrap_content"
+            android:layout_width="wrap_content"
+            android:text="@{complaint.status}"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/descr" />
+    <TextView
+            android:id="@+id/category"
+            android:layout_height="wrap_content"
+            android:layout_width="wrap_content"
+            android:text="@{complaint.category}"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/status" />
+
+    <TextView
+            android:id="@+id/date"
+            android:layout_height="wrap_content"
+            android:layout_width="wrap_content"
+            android:text="@{complaint.creation_date.toDate().toString()}"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/category" />
+    <TextView
+            android:id="@+id/location"
+            android:layout_height="wrap_content"
+            android:layout_width="wrap_content"
+            android:text="@{complaint.location.toString()}"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/date" />
+
+    <Button
+            android:id="@+id/button"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Show Complaint"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/location" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>
+</layout>

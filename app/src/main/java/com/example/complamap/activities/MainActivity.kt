@@ -1,4 +1,4 @@
-package com.example.complamap
+package com.example.complamap.activities
 import android.content.Context
 import android.content.Intent
 import android.graphics.Rect
@@ -18,6 +18,11 @@ import android.widget.EditText
 import android.view.MotionEvent
 import android.view.inputmethod.InputMethodManager
 import androidx.constraintlayout.widget.ConstraintLayout
+import com.example.complamap.ListFragment
+import com.example.complamap.R
+import com.example.complamap.fragments.MapFragment
+import com.example.complamap.fragments.PhotoFragment
+import com.example.complamap.fragments.ProfileFragment
 
 
 class MainActivity : AppCompatActivity() {
