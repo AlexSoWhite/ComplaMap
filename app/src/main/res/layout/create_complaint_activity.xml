@@ -1,101 +1,150 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/root_layout"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:layout_marginStart="30dp"
-    android:layout_marginTop="20dp"
-    android:layout_marginEnd="30dp"
-    android:layout_marginBottom="20dp"
-    android:orientation="vertical">
-
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Адрес"
-        android:textSize="20dp" />
-
-    <LinearLayout
+<FrameLayout
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        xmlns:tools="http://schemas.android.com/tools"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:gravity="center"
-        android:orientation="horizontal">
+        android:layout_height="match_parent"
+        android:id="@+id/RootFrame"
+        android:foreground="#ff000000"
+
+        >
+    <androidx.fragment.app.FragmentContainerView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:id="@+id/Container"
+            />
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/root_layout"
+            android:layout_height="match_parent"
+            android:layout_marginEnd="20dp"
+            android:layout_marginStart="20dp"
+            android:layout_marginTop="20dp"
+            android:layout_width="match_parent"
+            android:orientation="vertical">
+
+        <ImageButton
+                android:background="@color/white"
+                android:id="@+id/ExitButton"
+                android:layout_height="wrap_content"
+                android:layout_width="wrap_content"
+                android:src="@drawable/ic_backward_24"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+
+                />
+
+        <TextView
+                android:id="@+id/textView10"
+                android:layout_height="wrap_content"
+                android:layout_width="wrap_content"
+                android:text="Адрес"
+            android:layout_marginTop="10dp"
+                android:textSize="20sp"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/ExitButton" />
+
 
         <EditText
-            android:layout_width="300dp"
-            android:layout_height="30dp"
-            android:background="@drawable/rounded_rectangle_background"
-            android:drawableEnd="@color/black"
-            android:inputType="text"
-            android:paddingStart="5dp"
-            android:paddingEnd="5dp"
-            tools:ignore="SpeakableTextPresentCheck" />
+                android:background="@drawable/rounded_rectangle_background"
+                android:drawableEnd="@drawable/ic_location_24"
+                android:id="@+id/Address"
+                android:inputType="text"
+                android:layout_height="40dp"
+                android:layout_width="match_parent"
+                android:paddingEnd="5dp"
+                android:paddingStart="5dp"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/textView10"
+                tools:ignore="SpeakableTextPresentCheck"
+                android:layout_marginTop="10dp"
+                />
 
-        <Button
-            android:layout_width="match_parent"
-            android:layout_height="30dp"
+        <TextView
+                android:id="@+id/textView9"
+                android:layout_height="wrap_content"
+                android:layout_width="wrap_content"
+                android:text="Описание проблемы"
+                android:layout_marginTop="10dp"
+                android:textSize="20sp"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/Address" />
 
+        <EditText
+                android:background="@drawable/rounded_rectangle_background"
+                android:gravity="start|top"
+                android:layout_marginTop="10dp"
+                android:id="@+id/Description"
+                android:inputType="textMultiLine"
+                android:layout_height="200dp"
+                android:layout_width="match_parent"
+                android:padding="5dp"
+                app:layout_constraintTop_toBottomOf="@+id/textView9" />
+
+        <TextView
+                android:id="@+id/textView11"
+                android:layout_height="wrap_content"
+                android:layout_width="wrap_content"
+                android:text="Категория проблемы"
+                android:textSize="20sp"
+                android:layout_marginTop="10dp"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/Description" />
+
+        <Spinner
+                android:entries="@array/SpinnerItems"
+                android:id="@+id/Spinner"
+                android:layout_height="40dp"
+                android:layout_marginTop="10dp"
+                android:layout_width="wrap_content"
+                android:background="@drawable/rounded_rectangle_background"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/textView11"
+                />
+
+        <LinearLayout
+                android:id="@+id/linearLayout"
+                android:layout_height="100dp"
+                android:layout_width="match_parent"
+                android:orientation="horizontal"
+                android:layout_marginTop="10dp"
+
+                app:layout_constraintTop_toBottomOf="@+id/Spinner">
+
+            <Button
+                    android:id="@+id/AddPhotoButton"
+                    android:layout_gravity="center"
+                    android:layout_height="match_parent"
+                    android:layout_width="wrap_content"
+                    android:text="добавить фото"
+                    android:textColor="@color/black"
+                    style="@style/Widget.MaterialComponents.Button.OutlinedButton"
+                    app:strokeWidth = "1dp"
+                    app:strokeColor = "@color/black"
             />
-    </LinearLayout>
-
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Описание проблемы"
-        android:textSize="20dp" />
-
-    <EditText
-        android:layout_width="match_parent"
-        android:layout_height="200dp"
-        android:background="@drawable/rounded_rectangle_background"
-        android:gravity="start|top"
-        android:inputType="textMultiLine"
-        android:padding="5dp" />
-
-    <TextView
-        android:layout_width="match_parent"
-        android:layout_height="30dp"
-        android:text="Категория проблемы"
-        android:textSize="20dp" />
-
-    <Spinner
-        android:layout_width="match_parent"
-        android:layout_height="30dp"
-        android:entries="@array/SpinnerItems" />
-
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginBottom="20dp"
-        android:text="Фото"
-        android:textSize="20dp" />
-
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal">
-
-        <Button
-            android:layout_width="wrap_content"
-            android:layout_height="80dp"
-            android:text="Добавить фото"
-            android:textSize="15dp"
-
+            <ImageView
+                    android:id="@+id/Image"
+                    android:layout_height="match_parent"
+                    android:layout_width="100dp"
+                    android:src="@drawable/ic_baseline_image_24"
+                    android:layout_marginStart="20dp"
             />
+        </LinearLayout>
 
-        <ImageView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content" />
-    </LinearLayout>
+        <androidx.coordinatorlayout.widget.CoordinatorLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+        <com.google.android.material.floatingactionbutton.FloatingActionButton
+                style="@style/Widget.Design.FloatingActionButton"
+                android:id="@+id/AddButton"
+                android:layout_height="wrap_content"
+                android:layout_width="wrap_content"
+                android:layout_margin="20dp"
+                android:src="@drawable/ic_check_24"
+                android:layout_gravity="center|bottom"
+                />
+        </androidx.coordinatorlayout.widget.CoordinatorLayout>
+    </androidx.constraintlayout.widget.ConstraintLayout>
 
-    <Button
-        android:id="@+id/AddButton"
-        android:layout_width="60dp"
-        android:layout_height="60dp"
-
-        android:layout_gravity="center"
-        android:layout_marginTop="50dp" />
-
-</LinearLayout>
+</FrameLayout>
