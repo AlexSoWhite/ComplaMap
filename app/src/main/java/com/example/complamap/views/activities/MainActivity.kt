@@ -1,4 +1,5 @@
 package com.example.complamap.views.activities
+
 import android.content.Context
 import android.content.Intent
 import android.graphics.Rect
@@ -12,6 +13,8 @@ import com.yandex.mapkit.MapKitFactory
 import android.widget.EditText
 import android.view.MotionEvent
 import android.view.inputmethod.InputMethodManager
+import androidx.core.view.isGone
+import androidx.core.view.isVisible
 import com.example.complamap.R
 import com.example.complamap.views.fragments.ListFragment
 import com.example.complamap.views.fragments.MapFragment
