@@ -1,4 +1,5 @@
 package com.example.complamap.views.fragments
+
 import android.content.Context.LAYOUT_INFLATER_SERVICE
 import android.os.Build
 import android.os.Bundle
@@ -13,47 +14,40 @@ import android.widget.PopupWindow
 import androidx.fragment.app.Fragment
 import com.example.complamap.databinding.FragmentProfileBinding
 import android.widget.FrameLayout
+import androidx.lifecycle.ViewModelProvider
 import com.example.complamap.R
-import com.google.firebase.auth.FirebaseAuth
-import com.google.firebase.auth.ktx.auth
-import com.google.firebase.ktx.Firebase
-
+import com.example.complamap.User
+import com.example.complamap.viewmodel.ProfileViewModel
+import kotlinx.coroutines.GlobalScope
+import kotlinx.coroutines.launch
 
 class ProfileFragment : Fragment(R.layout.fragment_profile) {
+
     private lateinit var binding: FragmentProfileBinding
     private var mainLayout: FrameLayout? = null
-    private lateinit var auth: FirebaseAuth
+    private lateinit var profileViewModel: ProfileViewModel
+
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
+    ): View {
         binding = FragmentProfileBinding.inflate(inflater)
-        mainLayout = getActivity()?.findViewById(R.id.main_activity)
-        auth = Firebase.auth
-        val user = auth.currentUser
-        if (user != null) {
-            val noAuthFragment = NoAuthFragment()
-            childFragmentManager.beginTransaction().apply {
-                add(R.id.profile_container, noAuthFragment)
-                commit()
-            }
-        }
-        else {
-            val authFragment = AuthFragment()
-            childFragmentManager.beginTransaction().apply {
-                add(R.id.profile_container, authFragment)
-            }
-        }
+        mainLayout = activity?.findViewById(R.id.main_activity)
+        profileViewModel = ViewModelProvider(this)[ProfileViewModel::class.java]
         binding.openPopupBt.setOnClickListener{
            popUp()
         }
         return binding.root
     }
 
-
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        val noAuthFragment = NoAuthFragment()
+        childFragmentManager.beginTransaction().apply {
+            add(R.id.profile_container, noAuthFragment)
+            commit()
+        }
     }
 
     private fun popUp(){
@@ -65,7 +59,7 @@ class ProfileFragment : Fragment(R.layout.fragment_profile) {
             LinearLayout.LayoutParams.WRAP_CONTENT, // Width of popup window
             LinearLayout.LayoutParams.WRAP_CONTENT // Window height
         )
-        popupWindow.setOutsideTouchable(true)
+        popupWindow.isOutsideTouchable = true
         popupWindow.elevation = 10.0F
         if(Build.VERSION.SDK_INT >= Build.VERSION_CODES.M){
             val slideIn = Slide()
@@ -74,7 +68,7 @@ class ProfileFragment : Fragment(R.layout.fragment_profile) {
 //            TODO exitTransition?
         }
         popupWindow.setOnDismissListener {
-            mainLayout?.getForeground()?.setAlpha(0)
+            mainLayout?.foreground?.alpha = 0
 
         }
         TransitionManager.beginDelayedTransition(binding.rootLayout)
@@ -84,7 +78,7 @@ class ProfileFragment : Fragment(R.layout.fragment_profile) {
             0,
             0
         )
-        mainLayout?.getForeground()?.setAlpha(50)
+        mainLayout?.foreground?.alpha = 50
     }
 }
 

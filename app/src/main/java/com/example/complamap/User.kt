@@ -7,5 +7,5 @@ data class User(
     val email: String? = null,
     val rating: Int? = null,
     val profilePic: Uri? = null,
-    val subs: Array<Complaint>? = null
+    val subs: Array<String>? = null
 )

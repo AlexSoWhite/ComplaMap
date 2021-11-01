@@ -18,10 +18,12 @@ import com.google.firebase.ktx.Firebase
 import kotlinx.coroutines.tasks.await
 
 class AppRepository(application: Application) {
+
     private var application: Application
     private var userMutableLiveData: MutableLiveData<FirebaseUser>
     private val auth: FirebaseAuth
     private val db = FirebaseFirestore.getInstance()
+
     init {
         this.application = application
         auth = Firebase.auth
@@ -56,6 +58,7 @@ class AppRepository(application: Application) {
             .addOnCompleteListener { task ->
                 if(task.isSuccessful) {
                     userMutableLiveData.postValue(auth.currentUser)
+                    Toast.makeText(application, "успешный вход", Toast.LENGTH_SHORT).show()
                 } else {
                     Toast.makeText(application, "неверный логин или пароль", Toast.LENGTH_SHORT).show()
                 }
@@ -66,7 +69,10 @@ class AppRepository(application: Application) {
         db.collection("users").document(auth.currentUser!!.uid).set(user)
     }
 
-    public suspend fun getUser(): User {
+    public suspend fun getUser(): User? {
+        if (auth.currentUser == null) {
+            return null
+        }
         val docRef = db.collection("users").document(auth.currentUser!!.uid)
         val querySnapshot = docRef.get().await()
         return User(
@@ -74,7 +80,7 @@ class AppRepository(application: Application) {
             querySnapshot.getString("email"),
             querySnapshot.get("rating") as Int?,
             querySnapshot.get("profilePic") as Uri?,
-            querySnapshot.get("subs") as Array<Complaint>?
+            querySnapshot.get("subs") as Array<String>?
         )
     }
 
