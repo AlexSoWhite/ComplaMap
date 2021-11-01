@@ -3,6 +3,7 @@ package com.example.complamap.activities
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import android.content.Context
+import android.content.Intent
 import android.graphics.Point
 import android.os.Build
 import android.transition.Slide
@@ -22,6 +23,7 @@ import android.widget.Toast
 import androidx.activity.result.contract.ActivityResultContracts
 import com.example.complamap.databinding.CreateComplaintActivityBinding
 import com.example.complamap.R
+import com.google.firebase.firestore.FirebaseFirestore
 
 
 class CreateComplaintActivity : AppCompatActivity() {
@@ -95,8 +97,10 @@ class CreateComplaintActivity : AppCompatActivity() {
 
 
         publishButton.setOnClickListener {
-            //setContentView(R.layout.fragment_complaint)
-       //  supportFragmentManager.beginTransaction().replace(R.id.Container, ComplaintFragment()).commit()
+            val db = FirebaseFirestore.getInstance()
+
+            val intent = Intent(this, ComplaintActivity::class.java)
+            startActivity(intent)
         }
 
         closeButton.setOnClickListener {
