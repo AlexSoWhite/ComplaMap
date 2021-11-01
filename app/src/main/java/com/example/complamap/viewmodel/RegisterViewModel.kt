@@ -1,8 +1,9 @@
-package com.example.complamap
+package com.example.complamap.viewmodel
 
 import android.app.Application
 import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.MutableLiveData
+import com.example.complamap.model.AppRepository
 import com.google.firebase.auth.FirebaseUser
 
 class RegisterViewModel(application: Application) : AndroidViewModel(application) {

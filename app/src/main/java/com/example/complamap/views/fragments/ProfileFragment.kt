@@ -1,4 +1,4 @@
-package com.example.complamap.fragments
+package com.example.complamap.views.fragments
 import android.content.Context.LAYOUT_INFLATER_SERVICE
 import android.os.Build
 import android.os.Bundle

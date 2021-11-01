@@ -1,4 +1,4 @@
-package com.example.complamap.fragments
+package com.example.complamap.views.fragments
 
 import android.os.Bundle
 import android.util.Log

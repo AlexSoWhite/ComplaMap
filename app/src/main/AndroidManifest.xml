@@ -22,7 +22,7 @@
             android:supportsRtl="true"
             android:theme="@style/Theme.ComplaMap">
         <activity
-            android:name=".activities.MainActivity"
+            android:name="com.example.complamap.views.activities.MainActivity"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -31,10 +31,10 @@
             </intent-filter>
         </activity>
         <activity
-                android:name=".activities.CreateComplaintActivity"/>
-        <activity android:name=".activities.ComplaintActivity"/>
-        <activity android:name=".activities.SignInActivity"/>
-        <activity android:name=".activities.RegisterActivity"/>
+                android:name="com.example.complamap.views.activities.CreateComplaintActivity"/>
+        <activity android:name="com.example.complamap.views.activities.ComplaintActivity"/>
+        <activity android:name="com.example.complamap.views.activities.SignInActivity"/>
+        <activity android:name="com.example.complamap.views.activities.RegisterActivity"/>
 
         <provider
                 android:authorities="${applicationId}.provider"

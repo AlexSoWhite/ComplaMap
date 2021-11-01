@@ -1,4 +1,4 @@
-package com.example.complamap.activities
+package com.example.complamap.views.activities
 
 import android.content.Intent
 import android.os.Bundle
@@ -6,7 +6,7 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.databinding.DataBindingUtil
 import androidx.lifecycle.ViewModelProvider
 import com.example.complamap.R
-import com.example.complamap.SignInViewModel
+import com.example.complamap.viewmodel.SignInViewModel
 import com.example.complamap.databinding.ActivitySignInBinding
 
 class SignInActivity : AppCompatActivity() {

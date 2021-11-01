@@ -1,27 +1,22 @@
-package com.example.complamap.activities
+package com.example.complamap.views.activities
 import android.content.Context
 import android.content.Intent
 import android.graphics.Rect
-import android.opengl.Visibility
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.util.Log
 import android.util.TypedValue
 import android.view.View
-import androidx.core.view.isGone
-import androidx.core.view.isVisible
 import com.example.complamap.databinding.ActivityMainBinding
 import com.google.android.material.bottomsheet.BottomSheetBehavior
 import com.yandex.mapkit.MapKitFactory
 import android.widget.EditText
 import android.view.MotionEvent
 import android.view.inputmethod.InputMethodManager
-import androidx.constraintlayout.widget.ConstraintLayout
 import com.example.complamap.R
-import com.example.complamap.fragments.ListFragment
-import com.example.complamap.fragments.MapFragment
-import com.example.complamap.fragments.PhotoFragment
-import com.example.complamap.fragments.ProfileFragment
+import com.example.complamap.views.fragments.ListFragment
+import com.example.complamap.views.fragments.MapFragment
+import com.example.complamap.views.fragments.PhotoFragment
+import com.example.complamap.views.fragments.ProfileFragment
 
 
 class MainActivity : AppCompatActivity() {

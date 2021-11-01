@@ -1,12 +1,10 @@
-package com.example.complamap.activities
+package com.example.complamap.views.activities
 
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import android.content.Context
 import android.content.Intent
 import android.graphics.Point
-import android.os.Build
-import android.transition.Slide
 import android.transition.TransitionManager
 import android.view.Display
 import android.view.Gravity
@@ -17,7 +15,6 @@ import android.widget.Button
 import android.widget.EditText
 import android.widget.FrameLayout
 import android.widget.ImageButton
-import android.widget.ImageView
 import android.widget.PopupWindow
 import android.widget.Toast
 import androidx.activity.result.contract.ActivityResultContracts

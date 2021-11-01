@@ -1,4 +1,4 @@
-package com.example.complamap.fragments
+package com.example.complamap.views.fragments
 
 import android.Manifest
 import android.net.Uri

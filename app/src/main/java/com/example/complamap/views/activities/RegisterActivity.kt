@@ -1,4 +1,4 @@
-package com.example.complamap.activities
+package com.example.complamap.views.activities
 
 import android.os.Bundle
 import android.widget.Toast
@@ -6,7 +6,7 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.databinding.DataBindingUtil
 import androidx.lifecycle.ViewModelProvider
 import com.example.complamap.R
-import com.example.complamap.RegisterViewModel
+import com.example.complamap.viewmodel.RegisterViewModel
 import com.example.complamap.databinding.ActivityRegistrationBinding
 import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.launch

@@ -1,11 +1,13 @@
-package com.example.complamap
+package com.example.complamap.model
 
 import android.app.Application
 import android.net.Uri
 import android.util.Log
 import android.widget.Toast
 import androidx.lifecycle.MutableLiveData
-import com.example.complamap.activities.TAG
+import com.example.complamap.Complaint
+import com.example.complamap.User
+import com.example.complamap.views.activities.TAG
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.FirebaseAuthUserCollisionException
 import com.google.firebase.auth.FirebaseAuthWeakPasswordException
