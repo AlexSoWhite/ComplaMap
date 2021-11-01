@@ -2,7 +2,7 @@ package com.example.complamap.activities
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import com.example.complamap.ListFragment
+import com.example.complamap.fragments.ListFragment
 import com.example.complamap.R
 import com.example.complamap.databinding.ActivityMainBinding
 import com.example.complamap.fragments.MapFragment

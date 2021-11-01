@@ -6,7 +6,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
-import com.example.complamap.activities.ComplaintActivity
+import com.example.complamap.activities.SignInActivity
 import com.example.complamap.databinding.FragmentNoAuthBinding
 
 class NoAuthFragment : Fragment() {
@@ -23,7 +23,7 @@ class NoAuthFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         binding.textButton.setOnClickListener{
-            val intent = Intent(getActivity(), ComplaintActivity::class.java)
+            val intent = Intent(activity, SignInActivity::class.java)
             startActivity(intent)
         }
     }

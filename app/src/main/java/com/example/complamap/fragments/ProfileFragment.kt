@@ -14,11 +14,15 @@ import androidx.fragment.app.Fragment
 import com.example.complamap.databinding.FragmentProfileBinding
 import android.widget.FrameLayout
 import com.example.complamap.R
+import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.auth.ktx.auth
+import com.google.firebase.ktx.Firebase
 
 
 class ProfileFragment : Fragment(R.layout.fragment_profile) {
     private lateinit var binding: FragmentProfileBinding
     private var mainLayout: FrameLayout? = null
+    private lateinit var auth: FirebaseAuth
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
@@ -26,10 +30,20 @@ class ProfileFragment : Fragment(R.layout.fragment_profile) {
     ): View? {
         binding = FragmentProfileBinding.inflate(inflater)
         mainLayout = getActivity()?.findViewById(R.id.main_activity)
-        val authFragment = NoAuthFragment()
-        childFragmentManager.beginTransaction().apply {
-            add(R.id.profile_container, authFragment)
-            commit()
+        auth = Firebase.auth
+        val user = auth.currentUser
+        if (user != null) {
+            val noAuthFragment = NoAuthFragment()
+            childFragmentManager.beginTransaction().apply {
+                add(R.id.profile_container, noAuthFragment)
+                commit()
+            }
+        }
+        else {
+            val authFragment = AuthFragment()
+            childFragmentManager.beginTransaction().apply {
+                add(R.id.profile_container, authFragment)
+            }
         }
         binding.openPopupBt.setOnClickListener{
            popUp()

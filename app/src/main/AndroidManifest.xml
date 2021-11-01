@@ -33,6 +33,8 @@
         <activity
                 android:name=".activities.CreateComplaintActivity"/>
         <activity android:name=".activities.ComplaintActivity"/>
+        <activity android:name=".activities.SignInActivity"/>
+        <activity android:name=".activities.RegisterActivity"/>
         <provider
                 android:authorities="${applicationId}.provider"
                 android:name="androidx.core.content.FileProvider"
