@@ -13,6 +13,7 @@ import com.yandex.mapkit.MapKitFactory
 import android.widget.EditText
 import android.view.MotionEvent
 import android.view.inputmethod.InputMethodManager
+import androidx.appcompat.app.AppCompatDelegate
 import androidx.core.view.isGone
 import androidx.core.view.isVisible
 import com.example.complamap.R
@@ -25,6 +26,7 @@ import com.example.complamap.views.fragments.ProfileFragment
 class MainActivity : AppCompatActivity() {
     private lateinit var binding: ActivityMainBinding
     override fun onCreate(savedInstanceState: Bundle?) {
+        AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO)
         super.onCreate(savedInstanceState)
         MapKitFactory.setApiKey(resources.getString(R.string.MapKitApi_Key))
         MapKitFactory.initialize(this)

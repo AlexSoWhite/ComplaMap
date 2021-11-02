@@ -5,7 +5,8 @@
 
     <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_height="wrap_content"
-            android:layout_width="match_parent">
+            android:layout_width="match_parent"
+            android:id="@+id/sign_in_fragment">
 
         <TextView
                 android:id="@+id/enter_text"
@@ -49,7 +50,7 @@
                 android:layout_marginTop="27dp"
                 android:layout_width="wrap_content"
                 android:paddingStart="5dp"
-                app:layout_constraintBottom_toTopOf="@id/buttons"
+                app:layout_constraintBottom_toTopOf="@id/login"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@id/email_frame">
@@ -64,51 +65,29 @@
                     android:layout_width="290dp" />
         </FrameLayout>
 
+
         <FrameLayout
-                android:id="@+id/buttons"
+                android:background="@drawable/sign_in_button_background"
+                android:clickable="true"
+                android:focusable="true"
+                android:id="@+id/login"
+                android:layout_gravity="end"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="27dp"
-                android:layout_width="300dp"
+                android:layout_width="wrap_content"
                 app:layout_constraintBottom_toTopOf="@id/forgot_password"
                 app:layout_constraintEnd_toEndOf="@id/password_frame"
                 app:layout_constraintStart_toStartOf="@id/password_frame"
-                app:layout_constraintTop_toBottomOf="@id/password_frame">
+                app:layout_constraintTop_toBottomOf="@id/password_frame"
+                android:layout_marginTop="27dp">
 
-            <FrameLayout
-                    android:background="@drawable/go_to_register_button_background"
-                    android:clickable="true"
-                    android:focusable="true"
-                    android:id="@+id/go_to_registration"
-                    android:layout_gravity="start"
+            <TextView
+                    android:layout_gravity="center"
                     android:layout_height="wrap_content"
-                    android:layout_width="wrap_content">
-
-                <TextView
-                        android:layout_gravity="center"
-                        android:layout_height="wrap_content"
-                        android:layout_width="wrap_content"
-                        android:text="Регистрация"
-                        android:textSize="18sp" />
-            </FrameLayout>
-
-            <FrameLayout
-                    android:background="@drawable/enter_button_background"
-                    android:clickable="true"
-                    android:focusable="true"
-                    android:id="@+id/login"
-                    android:layout_gravity="end"
-                    android:layout_height="wrap_content"
-                    android:layout_width="wrap_content">
-
-                <TextView
-                        android:layout_gravity="center"
-                        android:layout_height="wrap_content"
-                        android:layout_width="wrap_content"
-                        android:text="Вход"
-                        android:textSize="18sp" />
-            </FrameLayout>
-
+                    android:layout_width="wrap_content"
+                    android:text="Вход"
+                    android:textSize="18sp" />
         </FrameLayout>
+
 
         <TextView
                 android:id="@+id/forgot_password"
@@ -121,7 +100,7 @@
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/buttons" />
+                app:layout_constraintTop_toBottomOf="@id/login" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

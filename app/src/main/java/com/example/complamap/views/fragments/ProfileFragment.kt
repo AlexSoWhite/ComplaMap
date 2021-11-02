@@ -16,10 +16,8 @@ import com.example.complamap.databinding.FragmentProfileBinding
 import android.widget.FrameLayout
 import androidx.lifecycle.ViewModelProvider
 import com.example.complamap.R
-import com.example.complamap.User
+import com.example.complamap.model.UserManager
 import com.example.complamap.viewmodel.ProfileViewModel
-import kotlinx.coroutines.GlobalScope
-import kotlinx.coroutines.launch
 
 class ProfileFragment : Fragment(R.layout.fragment_profile) {
 
@@ -43,10 +41,19 @@ class ProfileFragment : Fragment(R.layout.fragment_profile) {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        val noAuthFragment = NoAuthFragment()
-        childFragmentManager.beginTransaction().apply {
-            add(R.id.profile_container, noAuthFragment)
-            commit()
+
+        val user = UserManager.getCurrentUser()
+        // здесь идем за данными и выбираем, какую страницу нарисовать - авторизованную или нет
+        if (user == null) {
+            childFragmentManager.beginTransaction().apply {
+                add(R.id.profile_container, NoAuthFragment())
+                commit()
+            }
+        } else {
+            childFragmentManager.beginTransaction().apply {
+                add(R.id.profile_container, AuthorizedUserFragment())
+                commit()
+            }
         }
     }
 

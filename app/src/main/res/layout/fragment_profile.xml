@@ -9,56 +9,58 @@
         android:id="@+id/profile_container"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="30sp"
+        android:layout_marginTop="30dp"
         android:gravity="center"
-        android:minHeight="100sp"
+        android:minHeight="100dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintBottom_toTopOf="@id/profile_footer"/>
 
     <RelativeLayout
+        android:id="@+id/profile_footer"
         android:layout_width="match_parent"
-        android:layout_height="80sp"
-        android:layout_marginTop="300sp"
-        app:layout_constraintTop_toBottomOf="@+id/profile_container">
+        android:layout_height="80dp"
+        android:layout_marginBottom="100dp"
+        app:layout_constraintBottom_toBottomOf="parent">
 
 
         <androidx.appcompat.widget.LinearLayoutCompat
-            android:layout_width="match_parent"
-            android:layout_height="70sp"
-            android:layout_alignParentBottom="true"
-            android:background="?attr/colorSecondary"
-            android:gravity="center">
+                android:background="?attr/colorSecondary"
+                android:gravity="center"
+                android:layout_alignParentBottom="true"
+                android:layout_height="70dp"
+                android:layout_width="match_parent">
 
             <TextView
-                android:id="@+id/text"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="110sp"
-                android:layout_marginEnd="30sp"
-                android:text="@string/helpStr"
-                android:textColor="@color/black"
-                android:textSize="20sp" />
+                    android:id="@+id/text"
+                    android:layout_height="wrap_content"
+                    android:layout_marginEnd="30dp"
+                    android:layout_marginStart="110dp"
+                    android:layout_width="wrap_content"
+                    android:text="@string/helpStr"
+                    android:textColor="@color/black"
+                    android:textSize="20sp" />
 
             <Button
-                android:id="@+id/open_popup_bt"
-                android:layout_width="35sp"
-                android:layout_height="wrap_content"
-                android:layout_marginEnd="20sp"
-                android:background="@android:color/transparent"
-                android:fontFamily="sans-serif-light"
-                android:textSize="18sp"
-                app:icon="@drawable/ic_forward_24"
-                app:iconTint="@color/icon"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toEndOf="@+id/text" />
+                    android:background="@android:color/transparent"
+                    android:fontFamily="sans-serif-light"
+                    android:id="@+id/open_popup_bt"
+                    android:layout_height="wrap_content"
+                    android:layout_marginEnd="20dp"
+                    android:layout_width="35dp"
+                    android:textSize="18sp"
+                    app:icon="@drawable/ic_forward_24"
+                    app:iconTint="@color/icon"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toEndOf="@+id/text" />
 
         </androidx.appcompat.widget.LinearLayoutCompat>
 
         <ImageView
             android:id="@+id/pic"
-            android:layout_width="74sp"
-            android:layout_height="80sp"
+            android:layout_width="74dp"
+            android:layout_height="80dp"
             android:foregroundGravity="top"
             app:srcCompat="@drawable/tree" />
 

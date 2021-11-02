@@ -1,11 +1,9 @@
 package com.example.complamap
 
-import android.net.Uri
-
 data class User(
-    val username: String? = null,
-    val email: String? = null,
-    val rating: Int? = null,
-    val profilePic: Uri? = null,
-    val subs: Array<String>? = null
+    var username: String? = null,
+    var email: String? = null,
+    var rating: Int? = null,
+    var profilePic: String? = null,
+    var subs: Array<String>? = null
 )

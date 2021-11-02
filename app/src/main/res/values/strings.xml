@@ -10,7 +10,8 @@
     <string name="search_hint">Поиск места...</string>
     <string name="camera">Камера</string>
     <string name="gallery">Галерея</string>
-    <string name="LogIn">Войти</string>
+    <string name="SignIn">Войти</string>
+    <string name="SignUp">Регистрация</string>
     <string name="nMap">Карта</string>
     <string name="nList">Список</string>
     <string name="nPhoto">Фото</string>
