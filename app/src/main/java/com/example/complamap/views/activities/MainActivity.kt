@@ -16,8 +16,8 @@ import android.view.inputmethod.InputMethodManager
 import androidx.appcompat.app.AppCompatDelegate
 import androidx.core.view.isGone
 import androidx.core.view.isVisible
+import com.example.complamap.ListFragment
 import com.example.complamap.R
-import com.example.complamap.views.fragments.ListFragment
 import com.example.complamap.views.fragments.MapFragment
 import com.example.complamap.views.fragments.PhotoFragment
 import com.example.complamap.views.fragments.ProfileFragment
