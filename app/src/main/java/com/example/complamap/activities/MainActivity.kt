@@ -17,6 +17,7 @@ import android.widget.EditText
 
 import android.view.MotionEvent
 import android.view.inputmethod.InputMethodManager
+import androidx.appcompat.app.AppCompatDelegate
 import androidx.constraintlayout.widget.ConstraintLayout
 import com.example.complamap.ListFragment
 import com.example.complamap.R
@@ -28,6 +29,7 @@ import com.example.complamap.fragments.ProfileFragment
 class MainActivity : AppCompatActivity() {
     private lateinit var binding: ActivityMainBinding
     override fun onCreate(savedInstanceState: Bundle?) {
+        AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO)
         super.onCreate(savedInstanceState)
         MapKitFactory.setApiKey(resources.getString(R.string.MapKitApi_Key))
         MapKitFactory.initialize(this)
