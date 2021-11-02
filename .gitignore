@@ -1,11 +1,10 @@
 *.iml
 .gradle
 /local.properties
-/.idea
-!/.idea/codeStyles
+.idea/*
+!.idea/codeStyles
 .DS_Store
 /build
 /captures
 .externalNativeBuild
 .cxx
-local.properties
