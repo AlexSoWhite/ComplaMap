@@ -5,8 +5,6 @@ import androidx.appcompat.app.AppCompatActivity
 import android.content.Context
 import android.content.Intent
 import android.graphics.Point
-import android.os.Build
-import android.transition.Slide
 import android.transition.TransitionManager
 import android.view.Display
 import android.view.Gravity
@@ -17,13 +15,16 @@ import android.widget.Button
 import android.widget.EditText
 import android.widget.FrameLayout
 import android.widget.ImageButton
-import android.widget.ImageView
 import android.widget.PopupWindow
+import android.widget.RadioButton
 import android.widget.Toast
 import androidx.activity.result.contract.ActivityResultContracts
+import com.example.complamap.Complaint
 import com.example.complamap.databinding.CreateComplaintActivityBinding
 import com.example.complamap.R
-import com.google.firebase.firestore.FirebaseFirestore
+import com.google.firebase.firestore.DocumentReference
+import com.google.firebase.firestore.ktx.firestore
+import com.google.firebase.ktx.Firebase
 
 
 class CreateComplaintActivity : AppCompatActivity() {
@@ -71,7 +72,6 @@ class CreateComplaintActivity : AppCompatActivity() {
         val display: Display = windowManager.defaultDisplay
         val size = Point()
         display.getSize(size)
-
         popupWindow.height = WindowManager.LayoutParams.WRAP_CONTENT
         popupWindow.width = size.x - 70
 
@@ -79,38 +79,59 @@ class CreateComplaintActivity : AppCompatActivity() {
         popupWindow.isOutsideTouchable = false
         popupWindow.showAtLocation(rootLayout, Gravity.CENTER, 0, 0)
 
-      //  if(Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
-           // val slideIn = Slide()
-          //  slideIn.slideEdge = Gravity.BOTTOM
-           // popupWindow.enterTransition = slideIn
-      //  }
-
-        val addButton: ImageButton = findViewById(R.id.AddButton) // кнопка внизу
-        val address: EditText = findViewById(R.id.Address)
-        val exitButton: ImageButton = findViewById(R.id.ExitButton)
-        val addPhotoButton: Button = findViewById(R.id.AddPhotoButton)
-        val rootFrame: FrameLayout= findViewById(R.id.RootFrame)
-        val description: EditText=findViewById(R.id.Description)
         val publishButton: Button = view.findViewById(R.id.PublishButton)//опубликовать
         val closeButton = view.findViewById<ImageButton>(R.id.closePopup) // нажатие на крестик
-
+        val radioAnon = view.findViewById<RadioButton>(R.id.Anon)
+        val radioNeAnon = view.findViewById<RadioButton>(R.id.NeAnon)
 
         publishButton.setOnClickListener {
-            val db = FirebaseFirestore.getInstance()
+        if(!(radioAnon.isChecked)&&!(radioNeAnon.isChecked))
+            Toast.makeText(applicationContext, "Выберите тип публикации", Toast.LENGTH_SHORT).show()
+            else{
+                    addToDb(radioAnon.isChecked)
+                    val intent = Intent(this, ComplaintActivity::class.java)
+                    startActivity(intent)
+                }
+            }
 
-            val intent = Intent(this, ComplaintActivity::class.java)
-            startActivity(intent)
-        }
 
         closeButton.setOnClickListener {
             popupWindow.dismiss()
-            rootFrame.foreground.alpha = 0
-            address.isEnabled = true
-            addButton.isEnabled=true
-            description.isEnabled = true
-            exitButton.isEnabled=true
-            addPhotoButton.isEnabled=true
+            binding.RootFrame.foreground.alpha = 0
+            binding.ExitButton.isEnabled=true
+            binding.AddButton.isEnabled = true
+            binding.Address.isEnabled = true
+            binding.Description.isEnabled = true
+            binding.AddPhotoButton.isEnabled = true
         }
+    }
+
+    private fun addToDb(Anon: Boolean){
+        val db = Firebase.firestore
+        val complaint: Complaint = if(Anon)
+        {
+            Complaint(
+                category = binding.Spinner.selectedItem.toString(),
+                //location = "адрес пока только координатами умеем",
+                description = binding.Description.text.toString(),
+                creator = db.collection("users").document("AnonUser")
+            )
+        }
+        else
+        {
+            Complaint(
+                category = binding.Spinner.selectedItem.toString(),
+                //location = "адрес пока только координатами умеем",
+                description = binding.Description.text.toString(),
+                //creator =
+            )
+        }
+        db.collection("complaint")
+            .add(complaint)
+            .addOnSuccessListener{  }
+            .addOnFailureListener {
+                //Log.w(TAG, "Error adding document", e)
+            }
     }
 }
 
