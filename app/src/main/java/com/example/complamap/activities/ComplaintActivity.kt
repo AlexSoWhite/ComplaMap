@@ -33,7 +33,8 @@ class ComplaintActivity : AppCompatActivity() {
     }
 
     private suspend fun get(): DocumentSnapshot {
-        val docRef = db.collection("complaint").document("E9tuewejxnMoizuxNp8p")
+        val complaintId: String? = intent.getStringExtra("ComplaintId")
+        val docRef = db.collection("complaint").document(complaintId as String)
         val querySnapshot = docRef.get().await()
         return querySnapshot
     }

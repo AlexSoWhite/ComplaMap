@@ -22,6 +22,7 @@ import androidx.activity.result.contract.ActivityResultContracts
 import com.example.complamap.Complaint
 import com.example.complamap.databinding.CreateComplaintActivityBinding
 import com.example.complamap.R
+import com.google.firebase.Timestamp
 import com.google.firebase.firestore.DocumentReference
 import com.google.firebase.firestore.ktx.firestore
 import com.google.firebase.ktx.Firebase
@@ -88,8 +89,9 @@ class CreateComplaintActivity : AppCompatActivity() {
         if(!(radioAnon.isChecked)&&!(radioNeAnon.isChecked))
             Toast.makeText(applicationContext, "Выберите тип публикации", Toast.LENGTH_SHORT).show()
             else{
-                    addToDb(radioAnon.isChecked)
+                    val sendId: String = addToDb(radioAnon.isChecked)
                     val intent = Intent(this, ComplaintActivity::class.java)
+                    intent.putExtra("ComplaintId", sendId)  //передать id документа
                     startActivity(intent)
                 }
             }
@@ -106,7 +108,7 @@ class CreateComplaintActivity : AppCompatActivity() {
         }
     }
 
-    private fun addToDb(Anon: Boolean){
+    private fun addToDb(Anon: Boolean):String{
         val db = Firebase.firestore
         val complaint: Complaint = if(Anon)
         {
@@ -114,6 +116,7 @@ class CreateComplaintActivity : AppCompatActivity() {
                 category = binding.Spinner.selectedItem.toString(),
                 //location = "адрес пока только координатами умеем",
                 description = binding.Description.text.toString(),
+               // creation_date = System.currentTimeMillis() as Timestamp,
                 creator = db.collection("users").document("AnonUser")
             )
         }
@@ -124,14 +127,13 @@ class CreateComplaintActivity : AppCompatActivity() {
                 //location = "адрес пока только координатами умеем",
                 description = binding.Description.text.toString(),
                 //creator =
-            )
+               // creation_date = System.currentTimeMillis() as Timestamp
+                )
         }
-        db.collection("complaint")
-            .add(complaint)
-            .addOnSuccessListener{  }
-            .addOnFailureListener {
-                //Log.w(TAG, "Error adding document", e)
-            }
+        db.collection("complaint").add(complaint)
+        val newCompRef: DocumentReference = db.collection("complaint").document()
+        newCompRef.set(complaint)
+        return newCompRef.id.toString()
     }
 }
 
