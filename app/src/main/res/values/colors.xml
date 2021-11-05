@@ -9,4 +9,5 @@
     <color name="white">#FFFFFFFF</color>
     <color name="icon">#323232</color>
     <color name="take_photo_background_grey">#E5E5E5</color>
+    <color name="warning">#E53935</color>
 </resources>

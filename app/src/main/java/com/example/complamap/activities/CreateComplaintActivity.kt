@@ -1,11 +1,14 @@
-package com.example.complamap
+package com.example.complamap.activities
 
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import android.content.Context
+import android.content.Intent
+import android.graphics.Point
 import android.os.Build
 import android.transition.Slide
 import android.transition.TransitionManager
+import android.view.Display
 import android.view.Gravity
 import android.view.LayoutInflater
 import android.view.ViewGroup
@@ -19,14 +22,15 @@ import android.widget.PopupWindow
 import android.widget.Toast
 import androidx.activity.result.contract.ActivityResultContracts
 import com.example.complamap.databinding.CreateComplaintActivityBinding
+import com.example.complamap.R
+import com.google.firebase.firestore.FirebaseFirestore
 
 
 class CreateComplaintActivity : AppCompatActivity() {
-
     private lateinit var binding: CreateComplaintActivityBinding
      override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        supportActionBar?.hide();
+        supportActionBar?.hide()
         binding = CreateComplaintActivityBinding.inflate(layoutInflater)
         setContentView(binding.root)
         binding.ExitButton.setOnClickListener{
@@ -63,11 +67,16 @@ class CreateComplaintActivity : AppCompatActivity() {
             getSystemService(Context.LAYOUT_INFLATER_SERVICE) as LayoutInflater
         val view = inflater.inflate(R.layout.create_complaint_popup_menu, null)
         val popupWindow = PopupWindow(view)
+
+        val display: Display = windowManager.defaultDisplay
+        val size = Point()
+        display.getSize(size)
+
         popupWindow.height = WindowManager.LayoutParams.WRAP_CONTENT
-        popupWindow.width = WindowManager.LayoutParams.WRAP_CONTENT
+        popupWindow.width = size.x - 70
+
         TransitionManager.beginDelayedTransition(rootLayout)
         popupWindow.isOutsideTouchable = false
-       //popupWindow.setBackgroundDrawable(ColorDrawable(123))
         popupWindow.showAtLocation(rootLayout, Gravity.CENTER, 0, 0)
 
       //  if(Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
@@ -87,8 +96,10 @@ class CreateComplaintActivity : AppCompatActivity() {
 
 
         publishButton.setOnClickListener {
-            //setContentView(R.layout.fragment_complaint)
-       //  supportFragmentManager.beginTransaction().replace(R.id.Container, ComplaintFragment()).commit()
+            val db = FirebaseFirestore.getInstance()
+
+            val intent = Intent(this, ComplaintActivity::class.java)
+            startActivity(intent)
         }
 
         closeButton.setOnClickListener {

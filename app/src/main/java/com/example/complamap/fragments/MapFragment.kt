@@ -7,6 +7,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
 import androidx.fragment.app.Fragment
+import com.example.complamap.R
 import com.example.complamap.databinding.FragmentMapBinding
 import com.example.complamap.databinding.ItemBottomSheetContainerBinding
 import com.yandex.mapkit.Animation
