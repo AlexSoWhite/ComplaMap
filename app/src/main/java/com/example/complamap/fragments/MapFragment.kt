@@ -27,7 +27,7 @@ class MapFragment() : Fragment(), GeoObjectTapListener, InputListener {
     private val binding get() = _binding!!
     private lateinit var mapView: MapView
     private lateinit var placemark: PlacemarkMapObject
-    private var isGeoObjectSelected:Boolean = false
+    private var isGeoObjectSelected: Boolean = false
     private var _itemBottomSheetContainerBinding: ItemBottomSheetContainerBinding? = null
     private val itemBottomSheetContainerBinding get() = _itemBottomSheetContainerBinding!!
 
@@ -76,7 +76,10 @@ class MapFragment() : Fragment(), GeoObjectTapListener, InputListener {
             .metadataContainer
             .getItem(GeoObjectSelectionMetadata::class.java)
         val geoObjectPoint = p0.geoObject.geometry[0].point
-        Log.e("onObjectTap"," latitude = ${geoObjectPoint?.latitude} longitude = ${geoObjectPoint?.longitude}")
+        Log.e(
+            "onObjectTap",
+            " latitude = ${geoObjectPoint?.latitude} longitude = ${geoObjectPoint?.longitude}"
+        )
         selectionMetadata?.let {
             mapView.map.selectGeoObject(selectionMetadata.id, selectionMetadata.layerId)
         }
@@ -85,28 +88,24 @@ class MapFragment() : Fragment(), GeoObjectTapListener, InputListener {
             mapView.map.mapObjects.addPlacemark(geoObjectPoint!!)
             setCoordinates(geoObjectPoint)
             true
-        }?:false
+        } ?: false
     }
 
     override fun onMapTap(p0: Map, p1: Point) {
-        if(isGeoObjectSelected){
+        if (isGeoObjectSelected) {
             mapView.map.deselectGeoObject()
             isGeoObjectSelected = false
-        }else{
+        } else {
             mapView.map.mapObjects.addPlacemark(p1)
             setCoordinates(p1)
         }
-
     }
 
-    override fun onMapLongTap(p0: Map, p1: Point) {
-    }
+    override fun onMapLongTap(p0: Map, p1: Point) {}
 
-    private fun setCoordinates(p1: Point){
+    private fun setCoordinates(p1: Point) {
         itemBottomSheetContainerBinding.coordinatesView.text = "Координаты:  ${p1.longitude}, ${p1.latitude}"
         val coor = activity?.findViewById<TextView>(R.id.coordinates_view)
         coor?.text = "Координаты:  ${p1.longitude}, ${p1.latitude}"
     }
-
-
 }
