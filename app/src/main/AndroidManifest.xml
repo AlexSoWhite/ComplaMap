@@ -23,18 +23,20 @@
             android:theme="@style/Theme.ComplaMap">
         <activity
             android:name="com.example.complamap.views.activities.MainActivity"
-            android:exported="true">
+            android:exported="true"
+            android:screenOrientation="portrait">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name="com.example.complamap.views.activities.CreateComplaintActivity"/>
+        <activity
+                android:name="com.example.complamap.views.activities.CreateComplaintActivity"
+                android:screenOrientation="portrait"/>
         <activity android:name="com.example.complamap.views.activities.ComplaintActivity"/>
         <activity android:name="com.example.complamap.views.activities.SignInActivity"/>
         <activity android:name="com.example.complamap.views.activities.SignUpActivity"/>
-
         <provider
                 android:authorities="${applicationId}.provider"
                 android:name="androidx.core.content.FileProvider"

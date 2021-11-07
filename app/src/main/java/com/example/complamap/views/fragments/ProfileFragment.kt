@@ -9,13 +9,13 @@ import android.view.Gravity
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.FrameLayout
 import android.widget.LinearLayout
 import android.widget.PopupWindow
 import androidx.fragment.app.Fragment
-import com.example.complamap.databinding.FragmentProfileBinding
-import android.widget.FrameLayout
 import androidx.lifecycle.ViewModelProvider
 import com.example.complamap.R
+import com.example.complamap.databinding.FragmentProfileBinding
 import com.example.complamap.model.UserManager
 import com.example.complamap.viewmodel.ProfileViewModel
 
@@ -33,8 +33,8 @@ class ProfileFragment : Fragment(R.layout.fragment_profile) {
         binding = FragmentProfileBinding.inflate(inflater)
         mainLayout = activity?.findViewById(R.id.main_activity)
         profileViewModel = ViewModelProvider(this)[ProfileViewModel::class.java]
-        binding.openPopupBt.setOnClickListener{
-           popUp()
+        binding.openPopupBt.setOnClickListener {
+            popUp()
         }
         return binding.root
     }
@@ -57,10 +57,10 @@ class ProfileFragment : Fragment(R.layout.fragment_profile) {
         }
     }
 
-    private fun popUp(){
-        val inflater:LayoutInflater =
+    private fun popUp() {
+        val inflater: LayoutInflater =
             (requireActivity().getSystemService(LAYOUT_INFLATER_SERVICE) as LayoutInflater)
-        val view = inflater.inflate(R.layout.activity_pop_up_guide,null)
+        val view = inflater.inflate(R.layout.activity_pop_up_guide, null)
         val popupWindow = PopupWindow(
             view,
             LinearLayout.LayoutParams.WRAP_CONTENT, // Width of popup window
@@ -68,7 +68,7 @@ class ProfileFragment : Fragment(R.layout.fragment_profile) {
         )
         popupWindow.isOutsideTouchable = true
         popupWindow.elevation = 10.0F
-        if(Build.VERSION.SDK_INT >= Build.VERSION_CODES.M){
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
             val slideIn = Slide()
             slideIn.slideEdge = Gravity.TOP
             popupWindow.enterTransition = slideIn
@@ -76,7 +76,6 @@ class ProfileFragment : Fragment(R.layout.fragment_profile) {
         }
         popupWindow.setOnDismissListener {
             mainLayout?.foreground?.alpha = 0
-
         }
         TransitionManager.beginDelayedTransition(binding.rootLayout)
         popupWindow.showAtLocation(
@@ -88,4 +87,3 @@ class ProfileFragment : Fragment(R.layout.fragment_profile) {
         mainLayout?.foreground?.alpha = 50
     }
 }
-

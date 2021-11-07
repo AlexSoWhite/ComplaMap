@@ -21,12 +21,13 @@ class ComplaintActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         supportActionBar?.hide()
         binding = DataBindingUtil.setContentView(
-            this, R.layout.test_activity_complaint
+            this,
+            R.layout.test_activity_complaint
         )
         binding.complaint = Complaint()
-            GlobalScope.launch {
-                getData()
-            }
+        GlobalScope.launch {
+            getData()
+        }
         binding.ExitButton.setOnClickListener {
             finish()
         }
@@ -45,18 +46,17 @@ class ComplaintActivity : AppCompatActivity() {
             val date = comp?.creation_date?.toDate()
             var creator: String? = null
 
-            comp?.creator?.get()?.addOnCompleteListener{ task ->
+            comp?.creator?.get()?.addOnCompleteListener { task ->
                 if (task.isSuccessful) {
                     creator = task.result?.data?.get("user_name").toString()
-                    Log.d(TAG, "User is found $creator" )
-                }
-                else
-                    Log.d(TAG, "Sorry, not found" )
+                    Log.d(TAG, "User is found $creator")
+                } else
+                    Log.d(TAG, "Sorry, not found")
             }
-            //creator doesn't work
-            binding.creator=creator
+            // creator doesn't work
+            binding.creator = creator
             binding.complaint = comp
-            Log.d(TAG, "DocumentSnapshot data: $data \n complaint: $comp \n date: $date" )
+            Log.d(TAG, "DocumentSnapshot data: $data \n complaint: $comp \n date: $date")
         } catch (exception: Exception) {
             Log.w(TAG, "Error getting documents: ", exception)
         }

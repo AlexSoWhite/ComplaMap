@@ -26,7 +26,7 @@ class SignInActivity : AppCompatActivity() {
         super.onStart()
         signInViewModel = ViewModelProvider(this)[SignInViewModel::class.java]
         signInViewModel.state.observe(this) {
-
+            // do something
         }
     }
 

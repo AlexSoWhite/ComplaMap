@@ -12,7 +12,7 @@ class SignInViewModel(application: Application) : ViewModel() {
     var state: MutableLiveData<Boolean> = MutableLiveData()
 
     fun login(email: String, password: String) {
-         viewModelScope.launch {
+        viewModelScope.launch {
             appRepository.login(email, password)
             state.postValue(true)
         }
