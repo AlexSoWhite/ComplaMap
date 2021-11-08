@@ -19,13 +19,14 @@ import kotlinx.coroutines.tasks.await
 
 class ComplaintActivity : AppCompatActivity() {
 
-    private lateinit var binding: ActivityComplaintBinding
+    private lateinit var binding: TestActivityComplaintBinding
     private val db = FirebaseFirestore.getInstance()
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         supportActionBar?.hide()
         binding = DataBindingUtil.setContentView(
-            this, R.layout.activity_complaint
+            this,
+            R.layout.test_activity_complaint
         )
         if (savedInstanceState == null) {
             supportFragmentManager.beginTransaction()

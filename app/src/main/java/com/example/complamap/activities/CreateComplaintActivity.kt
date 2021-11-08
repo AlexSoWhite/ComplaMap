@@ -1,5 +1,6 @@
 package com.example.complamap.activities
 
+
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import android.content.Context
@@ -84,7 +85,6 @@ class CreateComplaintActivity : AppCompatActivity() {
           //  slideIn.slideEdge = Gravity.BOTTOM
            // popupWindow.enterTransition = slideIn
       //  }
-
         val addButton: ImageButton = findViewById(R.id.AddButton) // кнопка внизу
         val address: EditText = findViewById(R.id.Address)
         val exitButton: ImageButton = findViewById(R.id.ExitButton)
@@ -93,6 +93,7 @@ class CreateComplaintActivity : AppCompatActivity() {
         val description: EditText=findViewById(R.id.Description)
         val publishButton: Button = view.findViewById(R.id.PublishButton)//опубликовать
         val closeButton = view.findViewById<ImageButton>(R.id.closePopup) // нажатие на крестик
+
 
 
         publishButton.setOnClickListener {
@@ -110,7 +111,7 @@ class CreateComplaintActivity : AppCompatActivity() {
             description.isEnabled = true
             exitButton.isEnabled=true
             addPhotoButton.isEnabled=true
+
         }
     }
 }
-

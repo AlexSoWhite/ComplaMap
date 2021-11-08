@@ -22,7 +22,7 @@ class NoAuthFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        binding.textButton.setOnClickListener{
+        binding.textButton.setOnClickListener {
             val intent = Intent(getActivity(), ComplaintActivity::class.java)
             startActivity(intent)
         }
