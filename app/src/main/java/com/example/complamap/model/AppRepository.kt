@@ -56,7 +56,7 @@ class AppRepository(application: Application) {
                         val user = User(
                             username = username,
                             email = email,
-                            0,
+                            null,
                             null,
                             null
                         )
@@ -135,10 +135,10 @@ class AppRepository(application: Application) {
         val userData = getUserFromServer()
         val username = userData.data?.get("username").toString()
         val email = userData.data?.get("email").toString()
-        val rating = userData.data?.get("rating").toString().toInt()
+        val rating = userData.data?.get("rating").toString()
 
         // TODO get profilePic and subs properly
-        val profilePic = userData.data?.get("profilePic").toString()
+        val profilePic = userData.data?.get("profilePic").toString().toLong()
         val subs = userData.data?.get("subs").toString()
 
         return User(

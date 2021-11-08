@@ -6,7 +6,9 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.databinding.DataBindingUtil
 import com.example.complamap.Complaint
 import com.example.complamap.R
+import com.example.complamap.User
 import com.example.complamap.databinding.TestActivityComplaintBinding
+import com.example.complamap.fragments.OwnerCompFragment
 import com.google.firebase.firestore.DocumentSnapshot
 import com.google.firebase.firestore.FirebaseFirestore
 import kotlinx.coroutines.GlobalScope
@@ -24,6 +26,11 @@ class ComplaintActivity : AppCompatActivity() {
             this,
             R.layout.test_activity_complaint
         )
+//        if (savedInstanceState == null) {
+//            supportFragmentManager.beginTransaction()
+//                .replace(binding.container.id, OwnerCompFragment())
+//                .commit()
+//        }
         binding.complaint = Complaint()
         GlobalScope.launch {
             getData()
@@ -40,23 +47,24 @@ class ComplaintActivity : AppCompatActivity() {
     }
 
     private suspend fun getData() {
+        var creator: User? = null
         try {
             val data = get().data?.get("status")
             val comp = get().toObject(Complaint::class.java)
-            val date = comp?.creation_date?.toDate()
-            var creator: String? = null
-
             comp?.creator?.get()?.addOnCompleteListener { task ->
                 if (task.isSuccessful) {
-                    creator = task.result?.data?.get("user_name").toString()
-                    Log.d(TAG, "User is found $creator")
+                    try {
+                        creator = task.result?.toObject(User::class.java)
+                        binding.creator = creator?.username
+                        Log.d(TAG, "User is found $creator")
+                    } catch (exception: Exception) {
+                        Log.d(TAG, "User is a great error")
+                    }
                 } else
                     Log.d(TAG, "Sorry, not found")
             }
-            // creator doesn't work
-            binding.creator = creator
             binding.complaint = comp
-            Log.d(TAG, "DocumentSnapshot data: $data \n complaint: $comp \n date: $date")
+            Log.d(TAG, "DocumentSnapshot data: $data \n complaint: $comp \n creator: $creator")
         } catch (exception: Exception) {
             Log.w(TAG, "Error getting documents: ", exception)
         }

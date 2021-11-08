@@ -1,9 +1,11 @@
 package com.example.complamap
 
-data class User(
-    var username: String? = null,
-    var email: String? = null,
-    var rating: Int? = null,
-    var profilePic: String? = null,
-    var subs: Array<String>? = null
-)
+import com.google.firebase.firestore.DocumentReference
+
+data class User (
+        var username: String? = null,
+        var email: String? = null,
+        var profilePic: String? = null,
+        var rating: Long? = null,
+        var subs: List<DocumentReference>? = null,
+        )

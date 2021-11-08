@@ -25,4 +25,5 @@
         <item name = "Жалоба 4"/>
         <item name = "Жалоба 5"/>
     </string-array>
+    <string name="creator_info">%1$s %2$s</string>
 </resources>
