@@ -1,6 +1,5 @@
 package com.example.complamap.model
 
-import com.example.complamap.User
 import com.orhanobut.hawk.Hawk
 
 object UserManager {

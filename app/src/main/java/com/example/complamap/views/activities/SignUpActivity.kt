@@ -2,14 +2,16 @@ package com.example.complamap.views.activities
 
 import android.os.Bundle
 import android.widget.Toast
+import androidx.activity.result.ActivityResultRegistry
 import androidx.appcompat.app.AppCompatActivity
 import androidx.databinding.DataBindingUtil
 import androidx.lifecycle.ViewModelProvider
 import com.example.complamap.R
 import com.example.complamap.databinding.ActivitySignUpBinding
+import com.example.complamap.model.LoginResult
 import com.example.complamap.viewmodel.SignUpViewModel
 
-class SignUpActivity : AppCompatActivity() {
+class SignUpActivity(private val registry: ActivityResultRegistry) : AppCompatActivity() {
     private lateinit var binding: ActivitySignUpBinding
     private lateinit var signUpViewModel: SignUpViewModel
 
@@ -20,25 +22,38 @@ class SignUpActivity : AppCompatActivity() {
             this,
             R.layout.activity_sign_up
         )
+    }
+
+    override fun onStart() {
+        super.onStart()
         signUpViewModel = ViewModelProvider(this)[SignUpViewModel::class.java]
         binding.register.setOnClickListener {
-            register()
+            signUpViewModel.register(
+                binding.email.text.toString(),
+                binding.password.text.toString(),
+                binding.repeatPassword.text.toString(),
+            ) { res ->
+
+                when(res) {
+
+                    is LoginResult.Error -> Toast.makeText(
+                        applicationContext,
+                        res.message,
+                        Toast.LENGTH_SHORT
+                    ).show()
+
+                    is LoginResult.Success -> {
+                        Toast.makeText(
+                            applicationContext,
+                            "регистрация прошла успешно",
+                            Toast.LENGTH_SHORT
+                        ).show()
+                        registry.dispatchResult(0, 1)
+                        finish()
+                    }
+                }
+            }
         }
     }
 
-    private fun register() {
-        val email = binding.email.text.toString()
-        val password = binding.password.text.toString()
-        val repeatedPassword = binding.repeatPassword.text.toString()
-        val username = binding.username.text.toString()
-        if (password != repeatedPassword) {
-            Toast.makeText(
-                applicationContext,
-                "пароли не совпадают",
-                Toast.LENGTH_SHORT
-            ).show()
-        } else {
-            signUpViewModel.register(email, password, username)
-        }
-    }
 }

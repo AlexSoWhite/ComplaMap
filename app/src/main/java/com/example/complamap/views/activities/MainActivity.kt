@@ -17,6 +17,7 @@ import android.view.inputmethod.InputMethodManager
 import androidx.appcompat.app.AppCompatDelegate
 import com.example.complamap.views.fragments.ListFragment
 import com.example.complamap.R
+import com.example.complamap.model.ContextContainer
 import com.example.complamap.views.fragments.MapFragment
 import com.example.complamap.views.fragments.PhotoFragment
 import com.example.complamap.views.fragments.ProfileFragment
@@ -29,6 +30,7 @@ class MainActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO)
         super.onCreate(savedInstanceState)
+        ContextContainer.setContext(application)
         savedInstanceState?.getBoolean(MAP_IS_INITIALIZE) ?: let { // Если null, то активность ни разу не создавалась - инициализируем карту
             MapKitFactory.setApiKey(resources.getString(R.string.MapKitApi_Key))
             MapKitFactory.initialize(this)

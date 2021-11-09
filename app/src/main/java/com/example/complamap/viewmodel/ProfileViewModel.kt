@@ -2,12 +2,12 @@ package com.example.complamap.viewmodel
 
 import android.app.Application
 import androidx.lifecycle.AndroidViewModel
-import com.example.complamap.User
+import androidx.lifecycle.ViewModel
+import com.example.complamap.model.User
 import com.example.complamap.model.AppRepository
 import com.example.complamap.model.UserManager
 
-class ProfileViewModel(application: Application) : AndroidViewModel(application) {
-    private var appRepository: AppRepository = AppRepository(application)
+class ProfileViewModel() : ViewModel() {
 
     fun getUser(): User? {
         return UserManager.getCurrentUser()

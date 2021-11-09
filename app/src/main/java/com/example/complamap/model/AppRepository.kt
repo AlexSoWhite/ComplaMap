@@ -1,9 +1,9 @@
 package com.example.complamap.model
 
-import android.app.Application
-import android.widget.Toast
+import android.annotation.SuppressLint
 import androidx.lifecycle.MutableLiveData
-import com.example.complamap.User
+import androidx.lifecycle.ViewModel
+import androidx.lifecycle.viewModelScope
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.FirebaseAuthUserCollisionException
 import com.google.firebase.auth.FirebaseAuthWeakPasswordException
@@ -13,46 +13,29 @@ import com.google.firebase.firestore.DocumentSnapshot
 import com.google.firebase.firestore.FirebaseFirestore
 import com.google.firebase.ktx.Firebase
 import com.orhanobut.hawk.Hawk
-import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.tasks.await
 
-class AppRepository(application: Application) {
+object AppRepository : ViewModel() {
 
-    private var application: Application = application
     private var userMutableLiveData: MutableLiveData<FirebaseUser> = MutableLiveData()
     private val auth: FirebaseAuth = Firebase.auth
+    @SuppressLint("StaticFieldLeak")
     private val db = FirebaseFirestore.getInstance()
+    private val hawk = Hawk.init(ContextContainer.getContext()).build()
 
-    init {
+    suspend fun init() {
         // инициализация кеша
-        Hawk.init(application).build()
+        Hawk.init(ContextContainer.getContext()).build()
     }
 
-    fun register(email: String, password: String, username: String) {
-//        if (email.isEmpty()) {
-//            Toast.makeText(application, "введите email", Toast.LENGTH_SHORT).show()
-//            return
-//        }
-//        if (username.isEmpty()) {
-//            Toast.makeText(application, "введите имя пользователя", Toast.LENGTH_SHORT).show()
-//            return
-//        }
-//        if (password.isEmpty()) {
-//            Toast.makeText(application, "введите пароль", Toast.LENGTH_SHORT).show()
-//            return
-//        }
+    fun register(email: String, password: String, username: String, callback: (result: LoginResult) -> Unit) {
+
         auth.createUserWithEmailAndPassword(email, password)
             .addOnCompleteListener { task ->
                 when {
 
                     task.isSuccessful -> {
-//                        Toast.makeText(
-//                            application,
-//                            "успешная регистрация",
-//                            Toast.LENGTH_SHORT
-//                        ).show()
-                        userMutableLiveData.postValue(auth.currentUser)
                         val user = User(
                             username = username,
                             email = email,
@@ -63,52 +46,37 @@ class AppRepository(application: Application) {
                         addUserToDatabase(user)
                         putUserToCache(user)
                         UserManager.setUser(user)
+                        val res = LoginResult.Success
+                        callback(res)
                     }
 
                     task.exception is FirebaseAuthWeakPasswordException -> {
-                        Toast.makeText(
-                            application,
-                            "слишком короткий пароль",
-                            Toast.LENGTH_SHORT
-                        ).show()
+                        val res = LoginResult.Error("слишком простой пароль")
+                        callback(res)
                     }
 
                     task.exception is FirebaseAuthUserCollisionException -> {
-                        Toast.makeText(
-                            application,
-                            "email уже используется",
-                            Toast.LENGTH_SHORT
-                        ).show()
+                        val res = LoginResult.Error("email уже используется")
+                        callback(res)
                     }
                 }
             }
     }
 
-    suspend fun login(email: String, password: String) {
-        if (email.isEmpty()) {
-            Toast.makeText(application, "введите email", Toast.LENGTH_SHORT).show()
-            return
-        }
-        if (password.isEmpty()) {
-            Toast.makeText(application, "введите пароль", Toast.LENGTH_SHORT).show()
-            return
-        }
+    suspend fun login(email: String, password: String, callback: (result: LoginResult) -> Unit) {
         auth.signInWithEmailAndPassword(email, password)
             .addOnCompleteListener { task ->
                 if (task.isSuccessful) {
-                    Toast.makeText(application, "успешный вход", Toast.LENGTH_SHORT).show()
-                    var user: User
-                    GlobalScope.launch {
-                        user = convertReferenceToUser()
+                    viewModelScope.launch {
+                        val user: User = convertReferenceToUser()
                         putUserToCache(user)
                         UserManager.setUser(user)
                     }
+                    val res = LoginResult.Success
+                    callback(res)
                 } else {
-                    Toast.makeText(
-                        application,
-                        "неверный логин или пароль",
-                        Toast.LENGTH_SHORT
-                    ).show()
+                    val res = LoginResult.Error("ошибка")
+                    callback(res)
                 }
             }
     }
@@ -121,14 +89,9 @@ class AppRepository(application: Application) {
         Hawk.put("user", user)
     }
 
-    fun getUserMutableLiveData(): MutableLiveData<FirebaseUser> {
-        return userMutableLiveData
-    }
-
     private suspend fun getUserFromServer(): DocumentSnapshot {
         val userRef = db.collection("users").document(auth.currentUser!!.uid)
-        val querySnapshot = userRef.get().await()
-        return querySnapshot
+        return userRef.get().await()
     }
 
     private suspend fun convertReferenceToUser(): User {

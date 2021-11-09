@@ -3,7 +3,7 @@
     <data>
         <variable
                 name="user"
-                type="com.example.complamap.User" />
+                type="com.example.complamap.model.User" />
     </data>
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
         android:layout_width="match_parent"

@@ -4,7 +4,7 @@
     <data>
         <variable
                 name="complaint"
-                type="com.example.complamap.Complaint" />
+                type="com.example.complamap.model.Complaint" />
         <variable
                 name="creator"
                 type="String" />
