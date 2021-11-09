@@ -1,11 +1,11 @@
 package com.example.complamap.activities
+
 import android.content.Context
 import android.content.Intent
 import android.graphics.Rect
-import android.opengl.Visibility
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.util.Log
+import android.os.PersistableBundle
 import android.util.TypedValue
 import android.view.View
 import androidx.core.view.isGone
@@ -14,29 +14,27 @@ import com.example.complamap.databinding.ActivityMainBinding
 import com.google.android.material.bottomsheet.BottomSheetBehavior
 import com.yandex.mapkit.MapKitFactory
 import android.widget.EditText
-
 import android.view.MotionEvent
 import android.view.inputmethod.InputMethodManager
 import androidx.appcompat.app.AppCompatDelegate
-import androidx.constraintlayout.widget.ConstraintLayout
 import com.example.complamap.ListFragment
 import com.example.complamap.R
 import com.example.complamap.fragments.MapFragment
 import com.example.complamap.fragments.PhotoFragment
 import com.example.complamap.fragments.ProfileFragment
-import com.google.android.material.bottomsheet.BottomSheetBehavior
-import com.yandex.mapkit.MapKitFactory
 
 const val MAP_IS_INITIALIZE: String = "MAP_IS_INITIALIZE"
+
 class MainActivity : AppCompatActivity() {
     private lateinit var binding: ActivityMainBinding
     override fun onCreate(savedInstanceState: Bundle?) {
         AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO)
         super.onCreate(savedInstanceState)
-        savedInstanceState?.getBoolean(MAP_IS_INITIALIZE) ?: let { // Если null, то активность ни разу не создавалась - инициализируем карту
-            MapKitFactory.setApiKey(resources.getString(R.string.MapKitApi_Key))
-            MapKitFactory.initialize(this)
-        }
+        savedInstanceState?.getBoolean(MAP_IS_INITIALIZE)
+            ?: let { // Если null, то активность ни разу не создавалась - инициализируем карту
+                MapKitFactory.setApiKey(resources.getString(R.string.MapKitApi_Key))
+                MapKitFactory.initialize(this)
+            }
         supportActionBar?.hide()
         binding = ActivityMainBinding.inflate(layoutInflater)
         binding.mainActivity.getForeground().setAlpha(0)
