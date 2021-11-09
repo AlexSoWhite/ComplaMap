@@ -4,29 +4,28 @@ import android.os.Bundle
 import android.util.Log
 import androidx.appcompat.app.AppCompatActivity
 import androidx.databinding.DataBindingUtil
+import com.bumptech.glide.Glide
 import com.example.complamap.Complaint
 import com.example.complamap.R
 import com.example.complamap.User
 import com.example.complamap.databinding.ActivityComplaintBinding
-import com.example.complamap.fragments.MapFragment
 import com.example.complamap.fragments.OwnerCompFragment
 import com.google.firebase.firestore.DocumentSnapshot
 import com.google.firebase.firestore.FirebaseFirestore
-import com.google.firebase.firestore.ktx.toObject
 import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.tasks.await
 
 class ComplaintActivity : AppCompatActivity() {
 
-    private lateinit var binding: TestActivityComplaintBinding
+    private lateinit var binding: ActivityComplaintBinding
     private val db = FirebaseFirestore.getInstance()
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         supportActionBar?.hide()
         binding = DataBindingUtil.setContentView(
             this,
-            R.layout.test_activity_complaint
+            R.layout.activity_complaint
         )
         if (savedInstanceState == null) {
             supportFragmentManager.beginTransaction()
@@ -57,6 +56,7 @@ class ComplaintActivity : AppCompatActivity() {
                 if (task.isSuccessful) {
                     try {
                         creator = task.result?.toObject(User::class.java)
+                        Glide.with(this).load(creator?.profilePic).into(binding.profilePic)
                         binding.creator = creator
                         Log.d(TAG, "User is found $creator")
                     } catch (exception: Exception) {
