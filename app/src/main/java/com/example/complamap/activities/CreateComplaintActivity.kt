@@ -12,8 +12,6 @@ import android.view.LayoutInflater
 import android.view.ViewGroup
 import android.view.WindowManager
 import android.widget.Button
-import android.widget.EditText
-import android.widget.FrameLayout
 import android.widget.ImageButton
 import android.widget.PopupWindow
 import android.widget.RadioButton
@@ -22,7 +20,6 @@ import androidx.activity.result.contract.ActivityResultContracts
 import com.example.complamap.Complaint
 import com.example.complamap.databinding.CreateComplaintActivityBinding
 import com.example.complamap.R
-import com.google.firebase.Timestamp
 import com.google.firebase.firestore.DocumentReference
 import com.google.firebase.firestore.ktx.firestore
 import com.google.firebase.ktx.Firebase
@@ -79,28 +76,27 @@ class CreateComplaintActivity : AppCompatActivity() {
         TransitionManager.beginDelayedTransition(rootLayout)
         popupWindow.isOutsideTouchable = false
         popupWindow.showAtLocation(rootLayout, Gravity.CENTER, 0, 0)
-
         val publishButton: Button = view.findViewById(R.id.PublishButton)//опубликовать
         val closeButton = view.findViewById<ImageButton>(R.id.closePopup) // нажатие на крестик
         val radioAnon = view.findViewById<RadioButton>(R.id.Anon)
         val radioNeAnon = view.findViewById<RadioButton>(R.id.NeAnon)
 
         publishButton.setOnClickListener {
-        if(!(radioAnon.isChecked)&&!(radioNeAnon.isChecked))
-            Toast.makeText(applicationContext, "Выберите тип публикации", Toast.LENGTH_SHORT).show()
-            else{
-                    val sendId: String = addToDb(radioAnon.isChecked)
-                    val intent = Intent(this, ComplaintActivity::class.java)
-                    intent.putExtra("ComplaintId", sendId)  //передать id документа
-                    startActivity(intent)
-                }
+            if (!(radioAnon.isChecked) && !(radioNeAnon.isChecked))
+                Toast.makeText(applicationContext, "Выберите тип публикации", Toast.LENGTH_SHORT).show()
+            else {
+                val sendId: String = addToDb(radioAnon.isChecked)
+                val intent = Intent(this, ComplaintActivity::class.java)
+                intent.putExtra("ComplaintId", sendId)
+                startActivity(intent)
             }
+        }
 
 
         closeButton.setOnClickListener {
             popupWindow.dismiss()
             binding.RootFrame.foreground.alpha = 0
-            binding.ExitButton.isEnabled=true
+            binding.ExitButton.isEnabled = true
             binding.AddButton.isEnabled = true
             binding.Address.isEnabled = true
             binding.Description.isEnabled = true
@@ -108,17 +104,17 @@ class CreateComplaintActivity : AppCompatActivity() {
         }
     }
 
-    private fun addToDb(Anon: Boolean):String{
+    private fun addToDb(Anon: Boolean): String {
         val db = Firebase.firestore
-        val complaint: Complaint = if(Anon)
-        {
-            Complaint(
-                category = binding.Spinner.selectedItem.toString(),
-                //location = "адрес пока только координатами умеем",
-                description = binding.Description.text.toString(),
-               // creation_date = System.currentTimeMillis() as Timestamp,
-                creator = db.collection("users").document("AnonUser")
-            )
+        val complaint: Complaint = if (Anon)
+            {
+                Complaint(
+                    category = binding.Spinner.selectedItem.toString(),
+                    // location = "адрес пока только координатами умеем",
+                    description = binding.Description.text.toString(),
+                    // creation_date = System.currentTimeMillis() as Timestamp,
+                    creator = db.collection("users").document("AnonUser")
+                )
         }
         else
         {
