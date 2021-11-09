@@ -22,6 +22,7 @@ import com.example.complamap.views.fragments.MapFragment
 import com.example.complamap.views.fragments.PhotoFragment
 import com.example.complamap.views.fragments.ProfileFragment
 import com.google.android.material.bottomsheet.BottomSheetBehavior
+import com.orhanobut.hawk.Hawk
 import com.yandex.mapkit.MapKitFactory
 
 const val MAP_IS_INITIALIZE: String = "MAP_IS_INITIALIZE"
@@ -31,6 +32,7 @@ class MainActivity : AppCompatActivity() {
         AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO)
         super.onCreate(savedInstanceState)
         ContextContainer.setContext(application)
+        Hawk.init(applicationContext).build()
         savedInstanceState?.getBoolean(MAP_IS_INITIALIZE) ?: let { // Если null, то активность ни разу не создавалась - инициализируем карту
             MapKitFactory.setApiKey(resources.getString(R.string.MapKitApi_Key))
             MapKitFactory.initialize(this)

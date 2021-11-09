@@ -21,17 +21,14 @@ class NoAuthFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View {
         binding = FragmentNoAuthBinding.inflate(inflater)
-        binding.goToSignIn.setOnClickListener {
-//            registerForActivityResult(ActivityResultContracts.StartActivityForResult()) {
-//                Log.d("NoAuth", it.toString())
-//            }.launch(Intent(activity, SignInActivity::class.java))
-            val intent = Intent(activity, SignInActivity::class.java)
-            startActivity(intent)
-        }
         return binding.root
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        binding.goToSignIn.setOnClickListener {
+            val intent = Intent(activity, SignInActivity::class.java)
+            startActivity(intent)
+        }
     }
 }

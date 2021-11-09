@@ -18,16 +18,10 @@ import kotlinx.coroutines.tasks.await
 
 object AppRepository : ViewModel() {
 
-    private var userMutableLiveData: MutableLiveData<FirebaseUser> = MutableLiveData()
     private val auth: FirebaseAuth = Firebase.auth
     @SuppressLint("StaticFieldLeak")
     private val db = FirebaseFirestore.getInstance()
-    private val hawk = Hawk.init(ContextContainer.getContext()).build()
 
-    suspend fun init() {
-        // инициализация кеша
-        Hawk.init(ContextContainer.getContext()).build()
-    }
 
     fun register(email: String, password: String, username: String, callback: (result: LoginResult) -> Unit) {
 
@@ -101,7 +95,7 @@ object AppRepository : ViewModel() {
         val rating = userData.data?.get("rating").toString()
 
         // TODO get profilePic and subs properly
-        val profilePic = userData.data?.get("profilePic").toString().toLong()
+        val profilePic = userData.data?.get("profilePic").toString().toLongOrNull()
         val subs = userData.data?.get("subs").toString()
 
         return User(

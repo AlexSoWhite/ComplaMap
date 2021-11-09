@@ -2,7 +2,6 @@ package com.example.complamap.views.activities
 
 import android.os.Bundle
 import android.widget.Toast
-import androidx.activity.result.ActivityResultRegistry
 import androidx.appcompat.app.AppCompatActivity
 import androidx.databinding.DataBindingUtil
 import androidx.lifecycle.ViewModelProvider
@@ -11,7 +10,7 @@ import com.example.complamap.databinding.ActivitySignUpBinding
 import com.example.complamap.model.LoginResult
 import com.example.complamap.viewmodel.SignUpViewModel
 
-class SignUpActivity(private val registry: ActivityResultRegistry) : AppCompatActivity() {
+class SignUpActivity : AppCompatActivity() {
     private lateinit var binding: ActivitySignUpBinding
     private lateinit var signUpViewModel: SignUpViewModel
 
@@ -30,8 +29,9 @@ class SignUpActivity(private val registry: ActivityResultRegistry) : AppCompatAc
         binding.register.setOnClickListener {
             signUpViewModel.register(
                 binding.email.text.toString(),
+                binding.username.text.toString(),
                 binding.password.text.toString(),
-                binding.repeatPassword.text.toString(),
+                binding.repeatPassword.text.toString()
             ) { res ->
 
                 when(res) {
@@ -48,8 +48,7 @@ class SignUpActivity(private val registry: ActivityResultRegistry) : AppCompatAc
                             "регистрация прошла успешно",
                             Toast.LENGTH_SHORT
                         ).show()
-                        registry.dispatchResult(0, 1)
-                        finish()
+                        //finish()
                     }
                 }
             }

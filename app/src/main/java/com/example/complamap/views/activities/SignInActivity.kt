@@ -51,18 +51,12 @@ class SignInActivity : AppCompatActivity() {
                             "успешный вход",
                             Toast.LENGTH_SHORT
                         ).show()
-                        finish()
                     }
                 }
             }
         }
 
         binding.goToSignUp.setOnClickListener {
-//            registerForActivityResult(ActivityResultContracts.StartActivityForResult()) { result: ActivityResult ->
-//                when(result.resultCode) {
-//                    1 -> finish()
-//                }
-//            }.launch(Intent(this, SignUpActivity::class.java))
             val intent = Intent(this, SignUpActivity::class.java)
             startActivity(intent)
         }

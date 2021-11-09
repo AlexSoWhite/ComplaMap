@@ -8,9 +8,12 @@ import com.example.complamap.model.LoginResult
 import kotlinx.coroutines.launch
 
 class SignInViewModel : ViewModel() {
-    var state: MutableLiveData<Boolean> = MutableLiveData()
 
-    fun login(email: String, password: String, callback: (result: LoginResult) -> Unit) {
+    fun login(
+        email: String,
+        password: String,
+        callback: (result: LoginResult) -> Unit
+    ) {
         if (email.isEmpty() && email.isBlank()) {
             val res = LoginResult.Error("введите логин")
             callback(res)
