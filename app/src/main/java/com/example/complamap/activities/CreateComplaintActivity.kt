@@ -1,5 +1,6 @@
 package com.example.complamap.activities
 
+
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import android.content.Context
@@ -80,10 +81,12 @@ class CreateComplaintActivity : AppCompatActivity() {
         popupWindow.isOutsideTouchable = false
         popupWindow.showAtLocation(rootLayout, Gravity.CENTER, 0, 0)
 
+
         val publishButton: Button = view.findViewById(R.id.PublishButton)//опубликовать
         val closeButton = view.findViewById<ImageButton>(R.id.closePopup) // нажатие на крестик
         val radioAnon = view.findViewById<RadioButton>(R.id.Anon)
         val radioNeAnon = view.findViewById<RadioButton>(R.id.NeAnon)
+
 
         publishButton.setOnClickListener {
         if(!(radioAnon.isChecked)&&!(radioNeAnon.isChecked))
@@ -99,6 +102,7 @@ class CreateComplaintActivity : AppCompatActivity() {
 
         closeButton.setOnClickListener {
             popupWindow.dismiss()
+
             binding.RootFrame.foreground.alpha = 0
             binding.ExitButton.isEnabled=true
             binding.AddButton.isEnabled = true
@@ -129,6 +133,7 @@ class CreateComplaintActivity : AppCompatActivity() {
                 //creator =
                // creation_date = System.currentTimeMillis() as Timestamp
                 )
+
         }
         db.collection("complaint").add(complaint)
         val newCompRef: DocumentReference = db.collection("complaint").document()
@@ -136,4 +141,3 @@ class CreateComplaintActivity : AppCompatActivity() {
         return newCompRef.id.toString()
     }
 }
-
