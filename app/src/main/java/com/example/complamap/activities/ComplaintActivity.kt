@@ -56,7 +56,7 @@ class ComplaintActivity : AppCompatActivity() {
                 if (task.isSuccessful) {
                     try {
                         creator = task.result?.toObject(User::class.java)
-                        Glide.with(this).load(creator?.profilePic).into(binding.profilePic);
+                        Glide.with(this).load(creator?.profilePic).into(binding.profilePic)
                         binding.creator = creator
                         Log.d(TAG, "User is found $creator")
                     } catch (exception: Exception) {
