@@ -26,6 +26,7 @@ import com.orhanobut.hawk.Hawk
 import com.yandex.mapkit.MapKitFactory
 
 const val MAP_IS_INITIALIZE: String = "MAP_IS_INITIALIZE"
+
 class MainActivity : AppCompatActivity() {
     private lateinit var binding: ActivityMainBinding
     override fun onCreate(savedInstanceState: Bundle?) {
