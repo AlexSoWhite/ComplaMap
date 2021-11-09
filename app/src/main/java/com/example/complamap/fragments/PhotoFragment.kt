@@ -71,7 +71,7 @@ class PhotoFragment : Fragment(R.layout.fragment_photo) {
         val url = "gs://complamap.appspot.com/default-placeholder.png"
         val storage = FirebaseStorage.getInstance()
         val picRef = storage.getReferenceFromUrl(url)
-        /// local file to which our data from server will be placed
+        // / local file to which our data from server will be placed
         val localFile = File.createTempFile("downloaded_image", null, null)
         picRef.getFile(localFile).addOnSuccessListener {
             // Local temp file has been created

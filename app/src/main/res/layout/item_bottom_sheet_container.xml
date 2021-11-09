@@ -1,10 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
         xmlns:app="http://schemas.android.com/apk/res-auto"
+        xmlns:tools="http://schemas.android.com/tools"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:background="@drawable/rounded_corners_shape"
-        xmlns:tools="http://schemas.android.com/tools"
         android:focusable="true"
         android:focusableInTouchMode="true">
 
@@ -17,56 +17,65 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent">
 
-    <androidx.appcompat.widget.LinearLayoutCompat
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="vertical">
-        <FrameLayout
+        <androidx.appcompat.widget.LinearLayoutCompat
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:paddingBottom="8dp">
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
 
-            <ImageView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:src="@drawable/ic_baseline_remove_24"
-                    android:layout_gravity="center_horizontal"/>
-            <EditText
-                    android:inputType="text"
-                    android:drawableEnd="@drawable/ic_baseline_search_24"
-                    android:drawablePadding="8dp"
-                    android:hint="@string/search_hint"
-                    android:id="@+id/editText2"
-                    android:layout_height="40dp"
-                    android:layout_marginEnd="8dp"
-                    android:layout_marginStart="8dp"
-                    android:layout_marginTop="8dp"
+            <FrameLayout
                     android:layout_width="match_parent"
-                    android:paddingHorizontal="16dp" />
-        </FrameLayout>
-        <TextView
-                android:id="@+id/address_view"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="Адрес: "
-                android:layout_marginStart="16dp"
-                android:paddingBottom="8dp"/>
-        <TextView
-                android:id="@+id/coordinates_view"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="Координаты: "
-                android:layout_marginStart="16dp"
-                android:paddingBottom="8dp"/>
-        <androidx.recyclerview.widget.RecyclerView
-                android:id="@+id/complaints_list"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="16dp"
-                tools:listitem="@tools:sample/cities"/>
-        <View
-                android:layout_width="match_parent"
-                android:layout_height="?attr/actionBarSize"/>
-    </androidx.appcompat.widget.LinearLayoutCompat>
+                    android:layout_height="match_parent"
+                    android:paddingBottom="8dp">
+
+                <ImageView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:src="@drawable/ic_baseline_remove_24"
+                        android:layout_gravity="center_horizontal" />
+
+                <EditText
+                        android:inputType="text"
+                        android:drawableEnd="@drawable/ic_baseline_search_24"
+                        android:drawablePadding="8dp"
+                        android:hint="@string/search_hint"
+                        android:textAppearance="?attr/textAppearanceBody1"
+                        android:id="@+id/editText2"
+                        android:layout_height="40dp"
+                        android:layout_marginEnd="8dp"
+                        android:layout_marginStart="8dp"
+                        android:layout_marginTop="8dp"
+                        android:layout_width="match_parent"
+                        android:paddingHorizontal="16dp" />
+            </FrameLayout>
+
+            <TextView
+                    android:id="@+id/address_view"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="Адрес: "
+                    android:layout_marginStart="16dp"
+                    android:textAppearance="?attr/textAppearanceCaption"
+                    android:paddingBottom="8dp" />
+
+            <TextView
+                    android:id="@+id/coordinates_view"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="Координаты: "
+                    android:layout_marginStart="16dp"
+                    android:textAppearance="?attr/textAppearanceCaption"
+                    android:paddingBottom="8dp" />
+
+            <androidx.recyclerview.widget.RecyclerView
+                    android:id="@+id/complaints_list"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="16dp"
+                    tools:listitem="@tools:sample/cities" />
+
+            <View
+                    android:layout_width="match_parent"
+                    android:layout_height="?attr/actionBarSize" />
+        </androidx.appcompat.widget.LinearLayoutCompat>
     </androidx.core.widget.NestedScrollView>
 </androidx.constraintlayout.widget.ConstraintLayout>
