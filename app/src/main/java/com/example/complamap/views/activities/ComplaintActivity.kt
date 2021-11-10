@@ -5,10 +5,10 @@ import android.util.Log
 import androidx.appcompat.app.AppCompatActivity
 import androidx.databinding.DataBindingUtil
 import com.bumptech.glide.Glide
-import com.example.complamap.model.Complaint
 import com.example.complamap.R
-import com.example.complamap.model.User
 import com.example.complamap.databinding.ActivityComplaintBinding
+import com.example.complamap.model.Complaint
+import com.example.complamap.model.User
 import com.google.firebase.firestore.DocumentSnapshot
 import com.google.firebase.firestore.FirebaseFirestore
 import kotlinx.coroutines.GlobalScope
