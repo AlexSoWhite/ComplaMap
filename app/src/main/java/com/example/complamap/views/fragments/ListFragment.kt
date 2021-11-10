@@ -1,4 +1,4 @@
-package com.example.complamap.fragments
+package com.example.complamap.views.fragments
 
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -6,7 +6,7 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
-import com.example.complamap.Complaint
+import com.example.complamap.model.Complaint
 import com.example.complamap.ComplaintAdapter
 import com.example.complamap.R
 import com.example.complamap.databinding.FragmentListBinding
