@@ -19,5 +19,4 @@ class ListViewModel : ViewModel() {
             Complaint()
         )
     }
-
 }

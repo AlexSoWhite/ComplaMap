@@ -1,4 +1,4 @@
-package com.example.complamap
+package com.example.complamap.views.fragments
 
 import android.annotation.SuppressLint
 import android.content.Context
@@ -9,10 +9,13 @@ import android.view.ViewGroup
 import android.widget.TextView
 import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.recyclerview.widget.RecyclerView
-import com.example.complamap.activities.ComplaintActivity
+import com.example.complamap.R
+import com.example.complamap.model.Complaint
+import com.example.complamap.views.activities.ComplaintActivity
 import com.orhanobut.hawk.Hawk
 
-class ComplaintAdapter(private val complaints: List<Complaint>) : RecyclerView.Adapter<ComplaintAdapter.ComplaintViewHolder>() {
+class ComplaintAdapter(private val complaints: List<Complaint>) :
+    RecyclerView.Adapter<ComplaintAdapter.ComplaintViewHolder>() {
 
     private lateinit var context: Context
 
@@ -30,7 +33,6 @@ class ComplaintAdapter(private val complaints: List<Complaint>) : RecyclerView.A
         return complaints.size
     }
 
-
     class ComplaintViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
 
         private var location = itemView.findViewById<TextView>(R.id.address)
@@ -39,14 +41,14 @@ class ComplaintAdapter(private val complaints: List<Complaint>) : RecyclerView.A
 
         @SuppressLint("SetTextI18n")
         fun bind(complaint: Complaint, context: Context) {
-            location.text = "адрес: "+complaint.location.toString()
-            status.text = "статус: "+complaint.status.toString()
-            description.text = "описание: "+complaint.description.toString()
+            location.text = "адрес: " + complaint.location.toString()
+            status.text = "статус: " + complaint.status.toString()
+            description.text = "описание: " + complaint.description.toString()
             val item: ConstraintLayout = itemView.findViewById(R.id.list_item)
             item.setOnClickListener {
                 val intent = Intent(context, ComplaintActivity::class.java)
                 putToCache(complaint)
-                intent.putExtra("cachedComplaint","cachedComplaint")
+                intent.putExtra("cachedComplaint", "cachedComplaint")
                 context.startActivity(intent)
             }
         }

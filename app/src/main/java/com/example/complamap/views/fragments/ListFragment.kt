@@ -7,7 +7,6 @@ import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
-import com.example.complamap.ComplaintAdapter
 import com.example.complamap.R
 import com.example.complamap.databinding.FragmentListBinding
 import com.example.complamap.viewmodel.ListViewModel

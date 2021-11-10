@@ -49,7 +49,7 @@ class ComplaintActivity : AppCompatActivity() {
     }
 
     private suspend fun getData() {
-        if(intent != null) {
+        if (intent != null) {
             if (intent.hasExtra("cachedComplaint")) {
                 binding.complaint = Hawk.get("cachedComplaint")
             }
