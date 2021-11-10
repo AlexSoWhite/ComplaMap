@@ -6,6 +6,7 @@
         android:layout_height="match_parent"
         android:id="@+id/RootFrame"
         android:foreground="#ff000000"
+        tools:foreground="#ff"
         android:padding="5dp">
 
     <androidx.fragment.app.FragmentContainerView
