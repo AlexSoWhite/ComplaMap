@@ -38,7 +38,11 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:text="опубликовать анонимно"
+
+                android:id="@+id/Anon"
+
                 android:textAppearance="?attr/textAppearanceHeadline6" />
+
 
         <TextView
                 android:layout_width="match_parent"
@@ -54,7 +58,11 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:text="опубликовать неанонимно"
+
+android:id="@+id/NeAnon"
+
                 android:textAppearance="?attr/textAppearanceHeadline6"/>
+
 
         <TextView
                 android:layout_width="match_parent"
