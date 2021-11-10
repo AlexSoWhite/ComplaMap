@@ -6,7 +6,7 @@
     <data>
         <variable
                 name="complaint"
-                type="com.example.complamap.Complaint" />
+                type="com.example.complamap.model.Complaint" />
     </data>
     <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
