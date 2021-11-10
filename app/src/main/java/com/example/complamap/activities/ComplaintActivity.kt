@@ -12,6 +12,7 @@ import com.example.complamap.databinding.ActivityComplaintBinding
 import com.example.complamap.fragments.OwnerCompFragment
 import com.google.firebase.firestore.DocumentSnapshot
 import com.google.firebase.firestore.FirebaseFirestore
+import com.orhanobut.hawk.Hawk
 import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.tasks.await
@@ -48,6 +49,12 @@ class ComplaintActivity : AppCompatActivity() {
     }
 
     private suspend fun getData() {
+        if(intent != null) {
+            if (intent.hasExtra("cachedComplaint")) {
+                binding.complaint = Hawk.get("cachedComplaint")
+            }
+            return
+        }
         var creator: User? = null
         try {
             val data = get().data?.get("status")

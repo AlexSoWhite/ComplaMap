@@ -17,11 +17,12 @@ import android.widget.EditText
 import android.view.MotionEvent
 import android.view.inputmethod.InputMethodManager
 import androidx.appcompat.app.AppCompatDelegate
-import com.example.complamap.ListFragment
+import com.example.complamap.fragments.ListFragment
 import com.example.complamap.R
 import com.example.complamap.fragments.MapFragment
 import com.example.complamap.fragments.PhotoFragment
 import com.example.complamap.fragments.ProfileFragment
+import com.orhanobut.hawk.Hawk
 
 const val MAP_IS_INITIALIZE: String = "MAP_IS_INITIALIZE"
 
@@ -30,6 +31,7 @@ class MainActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO)
         super.onCreate(savedInstanceState)
+        Hawk.init(applicationContext).build()
         savedInstanceState?.getBoolean(MAP_IS_INITIALIZE)
             ?: let { // Если null, то активность ни разу не создавалась - инициализируем карту
                 MapKitFactory.setApiKey(resources.getString(R.string.MapKitApi_Key))
