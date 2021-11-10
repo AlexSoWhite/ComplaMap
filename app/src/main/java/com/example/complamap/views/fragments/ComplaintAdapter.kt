@@ -38,12 +38,14 @@ class ComplaintAdapter(private val complaints: List<Complaint>) :
         private var location = itemView.findViewById<TextView>(R.id.address)
         private var status = itemView.findViewById<TextView>(R.id.status)
         private var description = itemView.findViewById<TextView>(R.id.description)
+        private var date = itemView.findViewById<TextView>(R.id.date)
 
         @SuppressLint("SetTextI18n")
         fun bind(complaint: Complaint, context: Context) {
             location.text = "адрес: " + complaint.location.toString()
             status.text = "статус: " + complaint.status.toString()
             description.text = "описание: " + complaint.description.toString()
+            date.text = complaint.creation_date.toString()
             val item: ConstraintLayout = itemView.findViewById(R.id.list_item)
             item.setOnClickListener {
                 val intent = Intent(context, ComplaintActivity::class.java)
