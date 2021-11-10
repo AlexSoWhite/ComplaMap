@@ -1,4 +1,5 @@
-package com.example.complamap.fragments
+package com.example.complamap.views.fragments
+
 import android.content.Context.LAYOUT_INFLATER_SERVICE
 import android.os.Build
 import android.os.Bundle
@@ -12,24 +13,26 @@ import android.widget.FrameLayout
 import android.widget.LinearLayout
 import android.widget.PopupWindow
 import androidx.fragment.app.Fragment
+import androidx.lifecycle.ViewModelProvider
 import com.example.complamap.R
 import com.example.complamap.databinding.FragmentProfileBinding
+import com.example.complamap.model.UserManager
+import com.example.complamap.viewmodel.ProfileViewModel
 
 class ProfileFragment : Fragment(R.layout.fragment_profile) {
+
     private lateinit var binding: FragmentProfileBinding
     private var mainLayout: FrameLayout? = null
+    private lateinit var profileViewModel: ProfileViewModel
+
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
+    ): View {
         binding = FragmentProfileBinding.inflate(inflater)
-        mainLayout = getActivity()?.findViewById(R.id.main_activity)
-        val authFragment = NoAuthFragment()
-        childFragmentManager.beginTransaction().apply {
-            add(R.id.profile_container, authFragment)
-            commit()
-        }
+        mainLayout = activity?.findViewById(R.id.main_activity)
+        profileViewModel = ViewModelProvider(this)[ProfileViewModel::class.java]
         binding.openPopupBt.setOnClickListener {
             popUp()
         }
@@ -38,6 +41,20 @@ class ProfileFragment : Fragment(R.layout.fragment_profile) {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+
+        val user = UserManager.getCurrentUser()
+        // здесь идем за данными и выбираем, какую страницу нарисовать - авторизованную или нет
+        if (user == null) {
+            childFragmentManager.beginTransaction().apply {
+                add(R.id.profile_container, NoAuthFragment())
+                commit()
+            }
+        } else {
+            childFragmentManager.beginTransaction().apply {
+                add(R.id.profile_container, AuthorizedUserFragment())
+                commit()
+            }
+        }
     }
 
     private fun popUp() {
@@ -49,7 +66,7 @@ class ProfileFragment : Fragment(R.layout.fragment_profile) {
             LinearLayout.LayoutParams.WRAP_CONTENT, // Width of popup window
             LinearLayout.LayoutParams.WRAP_CONTENT // Window height
         )
-        popupWindow.setOutsideTouchable(true)
+        popupWindow.isOutsideTouchable = true
         popupWindow.elevation = 10.0F
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
             val slideIn = Slide()
@@ -58,7 +75,7 @@ class ProfileFragment : Fragment(R.layout.fragment_profile) {
 //            TODO exitTransition?
         }
         popupWindow.setOnDismissListener {
-            mainLayout?.getForeground()?.setAlpha(0)
+            mainLayout?.foreground?.alpha = 0
         }
         TransitionManager.beginDelayedTransition(binding.rootLayout)
         popupWindow.showAtLocation(
@@ -67,6 +84,6 @@ class ProfileFragment : Fragment(R.layout.fragment_profile) {
             0,
             0
         )
-        mainLayout?.getForeground()?.setAlpha(50)
+        mainLayout?.foreground?.alpha = 50
     }
 }

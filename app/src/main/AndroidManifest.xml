@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="com.example.complamap">
+        package="com.example.complamap">
 
     <uses-permission android:name="android.permission.INTERNET"/>
     <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION"/>
@@ -15,14 +15,14 @@
     <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
 
     <application
-        android:allowBackup="true"
-        android:icon="@mipmap/ic_launcher"
-        android:label="@string/app_name"
-        android:roundIcon="@mipmap/ic_launcher_round"
-        android:supportsRtl="true"
-        android:theme="@style/Theme.ComplaMap">
+            android:allowBackup="true"
+            android:icon="@mipmap/ic_launcher"
+            android:label="@string/app_name"
+            android:roundIcon="@mipmap/ic_launcher_round"
+            android:supportsRtl="true"
+            android:theme="@style/Theme.ComplaMap">
         <activity
-            android:name=".activities.MainActivity"
+            android:name="com.example.complamap.views.activities.MainActivity"
             android:exported="true"
             android:screenOrientation="portrait">
             <intent-filter>
@@ -32,17 +32,19 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".activities.CreateComplaintActivity"
-            android:screenOrientation="portrait"/>
-        <activity android:name=".activities.ComplaintActivity"/>
+                android:name="com.example.complamap.views.activities.CreateComplaintActivity"
+                android:screenOrientation="portrait"/>
+        <activity android:name="com.example.complamap.views.activities.ComplaintActivity"/>
+        <activity android:name="com.example.complamap.views.activities.SignInActivity"/>
+        <activity android:name="com.example.complamap.views.activities.SignUpActivity"/>
         <provider
-            android:authorities="${applicationId}.provider"
-            android:name="androidx.core.content.FileProvider"
-            android:exported="false"
-            android:grantUriPermissions="true">
+                android:authorities="${applicationId}.provider"
+                android:name="androidx.core.content.FileProvider"
+                android:exported="false"
+                android:grantUriPermissions="true">
             <meta-data
-                android:name="android.support.FILE_PROVIDER_PATHS"
-                android:resource="@xml/file_paths" />
+                    android:name="android.support.FILE_PROVIDER_PATHS"
+                    android:resource="@xml/file_paths" />
         </provider>
     </application>
 </manifest>

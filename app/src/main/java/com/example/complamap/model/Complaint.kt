@@ -1,4 +1,4 @@
-package com.example.complamap
+package com.example.complamap.model
 
 import com.google.firebase.Timestamp
 import com.google.firebase.firestore.DocumentReference

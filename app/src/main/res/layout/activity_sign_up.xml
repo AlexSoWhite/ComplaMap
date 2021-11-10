@@ -1,0 +1,144 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout>
+    <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+            xmlns:tools="http://schemas.android.com/tools"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            xmlns:app="http://schemas.android.com/apk/res-auto">
+
+        <TextView
+                android:id="@+id/enter_text"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintBottom_toTopOf="@id/email_frame"
+                android:text="Регистрация"
+                android:layout_marginTop="140dp"
+                android:textSize="28sp"
+                />
+
+        <FrameLayout
+                android:id="@+id/email_frame"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                app:layout_constraintTop_toBottomOf="@id/enter_text"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintBottom_toTopOf="@id/username_frame"
+                android:background="@drawable/text_field_background"
+                android:layout_marginTop="27dp"
+                android:paddingStart="5dp"
+                android:focusableInTouchMode="true"
+                >
+
+            <EditText
+                    android:id="@+id/email"
+                    android:inputType="textEmailAddress"
+                    android:layout_gravity="center_vertical"
+                    android:hint="почта"
+                    android:backgroundTint="@android:color/transparent"
+                    android:layout_width="290dp"
+                    android:layout_height="wrap_content"
+                    />
+        </FrameLayout>
+
+        <FrameLayout
+                android:id="@+id/username_frame"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                app:layout_constraintTop_toBottomOf="@id/email_frame"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintBottom_toTopOf="@id/password_frame"
+                android:background="@drawable/text_field_background"
+                android:layout_marginTop="27dp"
+                android:paddingStart="5dp"
+                android:focusableInTouchMode="true"
+                >
+
+            <EditText
+                    android:id="@+id/username"
+                    android:inputType="text"
+                    android:layout_gravity="center_vertical"
+                    android:hint="имя пользователя"
+                    android:backgroundTint="@android:color/transparent"
+                    android:layout_width="290dp"
+                    android:layout_height="wrap_content"
+                    />
+        </FrameLayout>
+
+        <FrameLayout
+                android:id="@+id/password_frame"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                app:layout_constraintTop_toBottomOf="@id/username_frame"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintBottom_toTopOf="@id/repeat_password_frame"
+                android:background="@drawable/text_field_background"
+                android:layout_marginTop="27dp"
+                android:paddingStart="5dp"
+                >
+
+            <EditText
+                    android:id="@+id/password"
+                    android:inputType="textPassword"
+                    android:layout_gravity="center_vertical"
+                    android:hint="пароль"
+                    android:backgroundTint="@android:color/transparent"
+                    android:layout_width="290dp"
+                    android:layout_height="wrap_content"
+                    />
+        </FrameLayout>
+
+        <FrameLayout
+                android:id="@+id/repeat_password_frame"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                app:layout_constraintTop_toBottomOf="@id/password_frame"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintBottom_toTopOf="@id/register"
+                android:background="@drawable/text_field_background"
+                android:layout_marginTop="27dp"
+                android:paddingStart="5dp"
+                >
+
+            <EditText
+                    android:id="@+id/repeat_password"
+                    android:inputType="textPassword"
+                    android:layout_gravity="center_vertical"
+                    android:hint="повторите пароль"
+                    android:backgroundTint="@android:color/transparent"
+                    android:layout_width="290dp"
+                    android:layout_height="wrap_content"
+                    />
+        </FrameLayout>
+
+        <FrameLayout
+                android:id="@+id/register"
+                android:layout_gravity="start"
+                android:background="@drawable/register_button_background"
+                android:clickable="true"
+                android:focusable="true"
+                app:layout_constraintTop_toBottomOf="@id/repeat_password_frame"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintBottom_toBottomOf="parent"
+                android:layout_height="wrap_content"
+                android:layout_width="wrap_content"
+                android:layout_marginTop="27dp"
+                android:layout_marginBottom="100dp">
+
+            <TextView
+                    android:layout_gravity="center"
+                    android:layout_height="wrap_content"
+                    android:layout_width="wrap_content"
+                    android:text="Зарегистрироваться"
+                    android:textSize="18sp" />
+        </FrameLayout>
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</layout>

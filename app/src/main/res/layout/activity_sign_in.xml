@@ -1,0 +1,129 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:tools="http://schemas.android.com/tools"
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_height="wrap_content"
+            android:layout_width="match_parent"
+            android:id="@+id/sign_in_fragment">
+
+        <TextView
+                android:id="@+id/enter_text"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="140dp"
+                android:layout_width="wrap_content"
+                android:text="Вход"
+                android:textSize="28sp"
+                app:layout_constraintBottom_toTopOf="@id/email_frame"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+        <FrameLayout
+                android:background="@drawable/text_field_background"
+                android:focusableInTouchMode="true"
+                android:id="@+id/email_frame"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="27dp"
+                android:layout_width="wrap_content"
+                android:paddingStart="5dp"
+                app:layout_constraintBottom_toTopOf="@id/password_frame"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/enter_text">
+
+            <EditText
+                    android:backgroundTint="@android:color/transparent"
+                    android:hint="почта"
+                    android:id="@+id/email"
+                    android:inputType="textEmailAddress"
+                    android:layout_gravity="center_vertical"
+                    android:layout_height="wrap_content"
+                    android:layout_width="290dp" />
+        </FrameLayout>
+
+        <FrameLayout
+                android:background="@drawable/text_field_background"
+                android:id="@+id/password_frame"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="27dp"
+                android:layout_width="wrap_content"
+                android:paddingStart="5dp"
+                app:layout_constraintBottom_toTopOf="@id/buttons"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/email_frame">
+
+            <EditText
+                    android:backgroundTint="@android:color/transparent"
+                    android:hint="пароль"
+                    android:id="@+id/password"
+                    android:inputType="textPassword"
+                    android:layout_gravity="center_vertical"
+                    android:layout_height="wrap_content"
+                    android:layout_width="290dp" />
+        </FrameLayout>
+
+        <FrameLayout
+                android:id="@+id/buttons"
+                android:layout_marginTop="27dp"
+                android:layout_width="290dp"
+                android:layout_height="wrap_content"
+                app:layout_constraintBottom_toTopOf="@id/forgot_password"
+                app:layout_constraintEnd_toEndOf="@id/password_frame"
+                app:layout_constraintStart_toStartOf="@id/password_frame"
+                app:layout_constraintTop_toBottomOf="@id/password_frame">
+
+            <FrameLayout
+                    android:background="@drawable/sign_up_button_background"
+                    android:clickable="true"
+                    android:focusable="true"
+                    android:id="@+id/go_to_sign_up"
+                    android:layout_gravity="start"
+                    android:layout_height="wrap_content"
+                    android:layout_width="wrap_content"
+                    >
+
+                <TextView
+                        android:layout_gravity="center"
+                        android:layout_height="wrap_content"
+                        android:layout_width="wrap_content"
+                        android:text="@string/SignUp"
+                        android:textSize="18sp" />
+            </FrameLayout>
+
+            <FrameLayout
+                    android:background="@drawable/sign_in_button_background"
+                    android:clickable="true"
+                    android:focusable="true"
+                    android:id="@+id/login"
+                    android:layout_gravity="end"
+                    android:layout_height="wrap_content"
+                    android:layout_width="wrap_content">
+
+                <TextView
+                        android:layout_gravity="center"
+                        android:layout_height="wrap_content"
+                        android:layout_width="wrap_content"
+                        android:text="Вход"
+                        android:textSize="18sp" />
+            </FrameLayout>
+
+        </FrameLayout>
+
+        <TextView
+                android:id="@+id/forgot_password"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="190dp"
+                android:layout_marginTop="27dp"
+                android:layout_width="wrap_content"
+                android:text="забыли пароль?"
+                android:textSize="20sp"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/buttons" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</layout>

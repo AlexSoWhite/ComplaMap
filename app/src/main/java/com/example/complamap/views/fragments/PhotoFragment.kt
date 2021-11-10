@@ -1,4 +1,4 @@
-package com.example.complamap.fragments
+package com.example.complamap.views.fragments
 
 import android.Manifest
 import android.net.Uri
@@ -71,7 +71,7 @@ class PhotoFragment : Fragment(R.layout.fragment_photo) {
         val url = "gs://complamap.appspot.com/default-placeholder.png"
         val storage = FirebaseStorage.getInstance()
         val picRef = storage.getReferenceFromUrl(url)
-        // / local file to which our data from server will be placed
+        // local file to which our data from server will be placed
         val localFile = File.createTempFile("downloaded_image", null, null)
         picRef.getFile(localFile).addOnSuccessListener {
             // Local temp file has been created
@@ -104,7 +104,7 @@ class PhotoFragment : Fragment(R.layout.fragment_photo) {
             binding.sendStatus.text = "отправка..."
             val storageRef = storage.reference
             // temporary filename provided by createImageFile will be used as a filename on server, actual filename may differ
-            var file = Uri.fromFile(File(tempImageFilePath))
+            val file = Uri.fromFile(File(tempImageFilePath))
             val pictureRef = storageRef.child("images/${file.lastPathSegment}")
             // tempImageUri sets in both gallery and camera launchers so if we access to the file by its Uri we get correct data
             val uploadTask = pictureRef.putFile(tempImageUri!!)

@@ -1,15 +1,14 @@
-package com.example.complamap.activities
+package com.example.complamap.views.activities
 
 import android.os.Bundle
 import android.util.Log
 import androidx.appcompat.app.AppCompatActivity
 import androidx.databinding.DataBindingUtil
 import com.bumptech.glide.Glide
-import com.example.complamap.Complaint
+import com.example.complamap.model.Complaint
 import com.example.complamap.R
-import com.example.complamap.User
+import com.example.complamap.model.User
 import com.example.complamap.databinding.ActivityComplaintBinding
-import com.example.complamap.fragments.OwnerCompFragment
 import com.google.firebase.firestore.DocumentSnapshot
 import com.google.firebase.firestore.FirebaseFirestore
 import kotlinx.coroutines.GlobalScope
@@ -27,11 +26,11 @@ class ComplaintActivity : AppCompatActivity() {
             this,
             R.layout.activity_complaint
         )
-        if (savedInstanceState == null) {
-            supportFragmentManager.beginTransaction()
-                .replace(binding.container.id, OwnerCompFragment())
-                .commit()
-        }
+//        if (savedInstanceState == null) {
+//            supportFragmentManager.beginTransaction()
+//                .replace(binding.container.id, OwnerCompFragment())
+//                .commit()
+//        }
         binding.complaint = Complaint()
         GlobalScope.launch {
             getData()

@@ -1,4 +1,4 @@
-package com.example.complamap.activities
+package com.example.complamap.views.activities
 
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
