@@ -1,10 +1,9 @@
 package com.example.complamap.viewmodel
 
-import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.example.complamap.model.AppRepository
 import com.example.complamap.model.LoginResult
+import com.example.complamap.model.UserRepository
 import kotlinx.coroutines.launch
 
 class SignInViewModel : ViewModel() {
@@ -25,7 +24,7 @@ class SignInViewModel : ViewModel() {
             return
         }
         viewModelScope.launch {
-            AppRepository.login(email, password, callback)
+            UserRepository.login(email, password, callback)
             return@launch
         }
     }

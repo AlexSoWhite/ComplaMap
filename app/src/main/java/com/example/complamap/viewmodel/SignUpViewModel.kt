@@ -1,14 +1,12 @@
 package com.example.complamap.viewmodel
 
-import android.app.Application
-import androidx.lifecycle.AndroidViewModel
+import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.example.complamap.model.AppRepository
 import com.example.complamap.model.LoginResult
-import kotlinx.coroutines.GlobalScope
+import com.example.complamap.model.UserRepository
 import kotlinx.coroutines.launch
 
-class SignUpViewModel(application: Application) : AndroidViewModel(application) {
+class SignUpViewModel() : ViewModel() {
 
     fun register(
         email: String,
@@ -43,7 +41,7 @@ class SignUpViewModel(application: Application) : AndroidViewModel(application) 
             return
         }
         viewModelScope.launch {
-            AppRepository.register(email, password, username, callback)
+            UserRepository.register(email, password, username, callback)
             return@launch
         }
     }

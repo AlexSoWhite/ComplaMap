@@ -1,13 +1,11 @@
 package com.example.complamap.model
 
 import android.annotation.SuppressLint
-import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.FirebaseAuthUserCollisionException
 import com.google.firebase.auth.FirebaseAuthWeakPasswordException
-import com.google.firebase.auth.FirebaseUser
 import com.google.firebase.auth.ktx.auth
 import com.google.firebase.firestore.DocumentSnapshot
 import com.google.firebase.firestore.FirebaseFirestore
@@ -16,14 +14,18 @@ import com.orhanobut.hawk.Hawk
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.tasks.await
 
-object AppRepository : ViewModel() {
+object UserRepository : ViewModel() {
 
     private val auth: FirebaseAuth = Firebase.auth
     @SuppressLint("StaticFieldLeak")
     private val db = FirebaseFirestore.getInstance()
 
-
-    fun register(email: String, password: String, username: String, callback: (result: LoginResult) -> Unit) {
+    fun register(
+        email: String,
+        password: String,
+        username: String,
+        callback: (result: LoginResult) -> Unit
+    ) {
 
         auth.createUserWithEmailAndPassword(email, password)
             .addOnCompleteListener { task ->
