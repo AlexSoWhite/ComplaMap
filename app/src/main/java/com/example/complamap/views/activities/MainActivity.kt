@@ -86,14 +86,14 @@ class MainActivity : AppCompatActivity() {
                         .commit()
                     return@setOnItemSelectedListener true
                 }
-                R.id.create -> {
-                    if (bottomSheetParent.isVisible) {
-                        bottomSheetParent.visibility = View.GONE
-                    }
-                    val intent = Intent(this, CreateComplaintActivity::class.java)
-                    startActivity(intent)
-                    return@setOnItemSelectedListener true
-                }
+//                R.id.create -> {
+//                    if (bottomSheetParent.isVisible) {
+//                        bottomSheetParent.visibility = View.GONE
+//                    }
+//                    val intent = Intent(this, CreateComplaintActivity::class.java)
+//                    startActivity(intent)
+//                    return@setOnItemSelectedListener true
+//                }
             }
             false
         }
