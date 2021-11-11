@@ -9,6 +9,7 @@ import com.example.complamap.R
 import com.example.complamap.databinding.ActivityComplaintBinding
 import com.example.complamap.model.Complaint
 import com.example.complamap.model.User
+import com.example.complamap.views.fragments.OwnerCompFragment
 import com.google.firebase.firestore.DocumentSnapshot
 import com.google.firebase.firestore.FirebaseFirestore
 import kotlinx.coroutines.GlobalScope
@@ -26,11 +27,11 @@ class ComplaintActivity : AppCompatActivity() {
             this,
             R.layout.activity_complaint
         )
-//        if (savedInstanceState == null) {
-//            supportFragmentManager.beginTransaction()
-//                .replace(binding.container.id, OwnerCompFragment())
-//                .commit()
-//        }
+        if (savedInstanceState == null) {
+            supportFragmentManager.beginTransaction()
+                .replace(binding.container.id, OwnerCompFragment())
+                .commit()
+        }
         binding.complaint = Complaint()
         GlobalScope.launch {
             getData()
