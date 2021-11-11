@@ -1,76 +1,68 @@
 <?xml version="1.0" encoding="utf-8"?>
 <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/main_activity"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:foreground="@drawable/shape_window_dim">
-
-    <androidx.constraintlayout.widget.ConstraintLayout
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        xmlns:tools="http://schemas.android.com/tools"
+        android:id="@+id/main_activity"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        tools:context=".views.activities.MainActivity">
+        android:foreground="@drawable/shape_window_dim">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            tools:context=".views.activities.MainActivity">
 
         <!-- code  -->
         <androidx.fragment.app.FragmentContainerView
-            android:id="@+id/container"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent" />
+                android:id="@+id/container"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent" />
 
         <androidx.coordinatorlayout.widget.CoordinatorLayout
-            android:id="@+id/coordinator_view"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:clickable="false"
-            android:fitsSystemWindows="false"
-            android:focusable="false"
-            tools:layout_editor_absoluteX="63dp"
-            tools:layout_editor_absoluteY="-198dp">
+                android:id="@+id/coordinator_view"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:clickable="false"
+                android:fitsSystemWindows="false"
+                android:focusable="false"
+                tools:layout_editor_absoluteX="63dp"
+                tools:layout_editor_absoluteY="-198dp">
 
             <include
                     android:id="@+id/bottom_sheet_parent"
                     layout="@layout/item_bottom_sheet_container"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:background = "@color/purple_200"
+                    android:background="@color/purple_200"
                     android:paddingBottom="?attr/actionBarSize"
                     app:layout_anchorGravity="bottom"
                     app:layout_behavior="com.google.android.material.bottomsheet.BottomSheetBehavior"
-                    app:behavior_peekHeight="?attr/actionBarSize"/>
+                    app:behavior_peekHeight="?attr/actionBarSize" />
 
             <com.google.android.material.bottomappbar.BottomAppBar
-                android:id="@+id/bottom_bar"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_gravity="bottom"
-                android:background="@android:color/transparent"
-                android:clickable="false"
-                app:contentInsetStart="0dp"
-                app:contentInsetStartWithNavigation="0dp"
-                app:fabAlignmentMode="center"
-                app:fabCradleMargin="8dp"
-                app:fabCradleRoundedCornerRadius="5dp">
-
-                <com.google.android.material.bottomnavigation.BottomNavigationView
-                    android:id="@+id/bottom_navigation"
+                    android:id="@+id/bottom_bar"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:background="@color/white"
-                    android:outlineAmbientShadowColor="@android:color/transparent"
-                    android:outlineSpotShadowColor="@android:color/transparent"
-                    app:itemIconTint="@color/icon"
-                    app:menu="@menu/bottom_navigation_menu" />
+                    android:layout_gravity="bottom"
+                    android:background="@android:color/transparent"
+                    android:clickable="false"
+                    app:contentInsetStart="0dp"
+                    app:contentInsetStartWithNavigation="0dp"
+                    app:fabAlignmentMode="center"
+                    app:fabCradleMargin="8dp"
+                    app:fabCradleRoundedCornerRadius="5dp">
+
+                <com.google.android.material.bottomnavigation.BottomNavigationView
+                        android:id="@+id/bottom_navigation"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:background="@color/white"
+                        android:outlineAmbientShadowColor="@android:color/transparent"
+                        android:outlineSpotShadowColor="@android:color/transparent"
+                        app:itemIconTint="@color/icon"
+                        app:menu="@menu/bottom_navigation_menu" />
 
             </com.google.android.material.bottomappbar.BottomAppBar>
-
-            <com.google.android.material.floatingactionbutton.FloatingActionButton
-                android:id="@+id/fab"
-                style="@style/Widget.Design.FloatingActionButton"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:src="@drawable/ic_add_24"
-                app:layout_anchor="@id/bottom_bar" />
         </androidx.coordinatorlayout.widget.CoordinatorLayout>
     </androidx.constraintlayout.widget.ConstraintLayout>
 

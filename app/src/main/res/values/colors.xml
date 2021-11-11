@@ -11,4 +11,5 @@
     <color name="take_photo_background_grey">#E5E5E5</color>
     <color name="light_green">#03DAC5</color>
     <color name="warning">#E53935</color>
+    <color name="status_bar">#C6C6C6</color>
 </resources>
