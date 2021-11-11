@@ -9,4 +9,12 @@
         <item name="android:minWidth">46dp</item>
         <item name="android:minHeight">46dp</item>
     </style>
+    <style name="textButton">
+        <item name="fontFamily"> sans-serif</item>
+        <item name="android:textStyle">normal</item>
+        <item name="android:fontFamily">sans-serif</item>
+        <item name="android:textAllCaps">false</item>
+        <item name="android:textSize">18sp</item>
+        <item name="android:letterSpacing">0.008</item>
+    </style>
 </resources>
