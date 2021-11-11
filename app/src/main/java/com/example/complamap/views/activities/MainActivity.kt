@@ -19,7 +19,6 @@ import com.example.complamap.databinding.ActivityMainBinding
 import com.example.complamap.model.ContextContainer
 import com.example.complamap.views.fragments.ListFragment
 import com.example.complamap.views.fragments.MapFragment
-import com.example.complamap.views.fragments.PhotoFragment
 import com.example.complamap.views.fragments.ProfileFragment
 import com.google.android.material.bottomsheet.BottomSheetBehavior
 import com.orhanobut.hawk.Hawk
@@ -34,10 +33,11 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         ContextContainer.setContext(application)
         Hawk.init(applicationContext).build()
-        savedInstanceState?.getBoolean(MAP_IS_INITIALIZE) ?: let { // Если null, то активность ни разу не создавалась - инициализируем карту
-            MapKitFactory.setApiKey(resources.getString(R.string.MapKitApi_Key))
-            MapKitFactory.initialize(this)
-        }
+        savedInstanceState?.getBoolean(MAP_IS_INITIALIZE)
+            ?: let { // Если null, то активность ни разу не создавалась - инициализируем карту
+                MapKitFactory.setApiKey(resources.getString(R.string.MapKitApi_Key))
+                MapKitFactory.initialize(this)
+            }
         supportActionBar?.hide()
         binding = ActivityMainBinding.inflate(layoutInflater)
         binding.mainActivity.getForeground().setAlpha(0)
@@ -86,22 +86,16 @@ class MainActivity : AppCompatActivity() {
                         .commit()
                     return@setOnItemSelectedListener true
                 }
-                R.id.photo -> {
+                R.id.create -> {
                     if (bottomSheetParent.isVisible) {
                         bottomSheetParent.visibility = View.GONE
                     }
-                    supportFragmentManager.beginTransaction()
-                        .replace(binding.container.id, PhotoFragment())
-                        .commit()
+                    val intent = Intent(this, CreateComplaintActivity::class.java)
+                    startActivity(intent)
                     return@setOnItemSelectedListener true
                 }
             }
             false
-        }
-
-        binding.fab.setOnClickListener {
-            val intent = Intent(this, CreateComplaintActivity::class.java)
-            startActivity(intent)
         }
     }
 
