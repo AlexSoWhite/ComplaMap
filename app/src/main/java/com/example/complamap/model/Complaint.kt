@@ -6,6 +6,7 @@ import com.google.firebase.firestore.GeoPoint
 
 data class Complaint(
     val category: String? = null,
+    val photo: String? = null,
     val creation_date: Timestamp? = null,
     val location: GeoPoint? = null,
     val description: String? = null,
@@ -14,4 +15,6 @@ data class Complaint(
     val status: String? = null,
     val followers: List<DocumentReference>? = null,
     val creator: DocumentReference? = null,
+    var address: String? = null,
+    var creation_day: String? =null
 )
