@@ -8,6 +8,7 @@ import com.bumptech.glide.Glide
 import com.example.complamap.R
 import com.example.complamap.databinding.ActivityComplaintBinding
 import com.example.complamap.model.Complaint
+import com.example.complamap.model.ComplaintManager
 import com.example.complamap.model.User
 import com.google.firebase.firestore.DocumentSnapshot
 import com.google.firebase.firestore.FirebaseFirestore
@@ -50,8 +51,8 @@ class ComplaintActivity : AppCompatActivity() {
     private suspend fun getData() {
         var creator: User? = null
         try {
-            val data = get().data?.get("status")
-            val comp = get().toObject(Complaint::class.java)
+            val data = ComplaintManager.getCurrentComplaint()?.status
+            val comp = ComplaintManager.getCurrentComplaint()
             comp?.creator?.get()?.addOnCompleteListener { task ->
                 if (task.isSuccessful) {
                     try {

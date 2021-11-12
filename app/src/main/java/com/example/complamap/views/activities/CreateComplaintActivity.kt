@@ -27,6 +27,9 @@ import androidx.core.content.FileProvider
 import com.example.complamap.R
 import com.example.complamap.databinding.CreateComplaintActivityBinding
 import com.example.complamap.model.Complaint
+import com.example.complamap.model.ComplaintManager
+import com.example.complamap.model.ComplaintRepository
+import com.google.firebase.Timestamp
 import com.google.firebase.firestore.DocumentReference
 import com.google.firebase.firestore.ktx.firestore
 import com.google.firebase.ktx.Firebase
@@ -182,9 +185,8 @@ class CreateComplaintActivity : AppCompatActivity() {
                     Toast.LENGTH_SHORT
                 ).show()
             else {
-                val sendId: String = addToDb(radioAnon.isChecked)
+                addToDb(radioAnon.isChecked)
                 val intent = Intent(this, ComplaintActivity::class.java)
-                intent.putExtra("ComplaintId", sendId)
                 startActivity(intent)
             }
         }
@@ -200,29 +202,25 @@ class CreateComplaintActivity : AppCompatActivity() {
         }
     }
 
-    private fun addToDb(Anon: Boolean): String {
-        val db = Firebase.firestore
-        val complaint: Complaint = if (Anon) {
-            Complaint(
+    private fun addToDb(Anon: Boolean) {
+        if (Anon) {
+            ComplaintManager.setComplaint(Complaint(
                 category = binding.Spinner.selectedItem.toString(),
                 // location = "адрес пока только координатами умеем",
                 description = binding.Description.text.toString(),
-                // creation_date = System.currentTimeMillis() as Timestamp,
-                creator = db.collection("users").document("AnonUser")
-            )
+                creation_date = Timestamp.now(),
+                // creator = db.collection("users").document("AnonUser")
+            ))
         } else {
-            Complaint(
+            ComplaintManager.setComplaint(Complaint(
                 category = binding.Spinner.selectedItem.toString(),
                 // location = "адрес пока только координатами умеем",
                 description = binding.Description.text.toString(),
                 // creator =
                 // creation_date = System.currentTimeMillis() as Timestamp
-            )
+            ))
         }
-        db.collection("complaint").add(complaint)
-        val newCompRef: DocumentReference = db.collection("complaint").document()
-        newCompRef.set(complaint)
-        return newCompRef.id
+        ComplaintRepository.acceptComplaint(ComplaintManager.getCurrentComplaint()!!)
     }
 
     private fun createImageFile(): File {
