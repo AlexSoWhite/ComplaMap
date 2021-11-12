@@ -16,5 +16,5 @@ data class Complaint(
     val followers: List<DocumentReference>? = null,
     val creator: DocumentReference? = null,
     var address: String? = null,
-    var creation_day: String? =null
+    var creation_day: String? = null
 )

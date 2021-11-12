@@ -22,8 +22,8 @@ class OwnerCompFragment : Fragment() {
         var complaintId: String? = null
         if (activity?.intent?.getStringExtra("ComplaintId") != null) complaintId =
             activity?.intent?.getStringExtra("ComplaintId")!!
-        binding.delete.setOnClickListener{
-            if (complaintId!=null) {
+        binding.delete.setOnClickListener {
+            if (complaintId != null) {
                 GlobalScope.launch {
                     delete(complaintId)
                 }
@@ -32,7 +32,7 @@ class OwnerCompFragment : Fragment() {
         return binding.root
     }
 
-    private fun delete(id: String){
+    private fun delete(id: String) {
         val db = FirebaseFirestore.getInstance()
         db.collection("complaint").document(id)
             .delete()

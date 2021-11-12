@@ -13,12 +13,12 @@ import com.example.complamap.model.User
 import com.example.complamap.views.fragments.OwnerCompFragment
 import com.google.firebase.firestore.DocumentSnapshot
 import com.google.firebase.firestore.FirebaseFirestore
+import java.util.Locale
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.tasks.await
 import kotlinx.coroutines.withContext
-import java.util.*
 
 class ComplaintActivity : AppCompatActivity() {
 
