@@ -28,16 +28,6 @@
                 tools:layout_editor_absoluteX="63dp"
                 tools:layout_editor_absoluteY="-198dp">
 
-            <include
-                    android:id="@+id/bottom_sheet_parent"
-                    layout="@layout/item_bottom_sheet_container"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:background="@color/purple_200"
-                    android:paddingBottom="?attr/actionBarSize"
-                    app:layout_anchorGravity="bottom"
-                    app:layout_behavior="com.google.android.material.bottomsheet.BottomSheetBehavior"
-                    app:behavior_peekHeight="?attr/actionBarSize" />
 
             <com.google.android.material.bottomappbar.BottomAppBar
                     android:id="@+id/bottom_bar"
