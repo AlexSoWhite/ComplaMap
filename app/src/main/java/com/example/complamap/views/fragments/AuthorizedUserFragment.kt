@@ -28,11 +28,8 @@ class AuthorizedUserFragment : Fragment(R.layout.fragment_authorized_user) {
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-//        super.onViewCreated(view, savedInstanceState)
+        super.onViewCreated(view, savedInstanceState)
         val user = UserManager.getCurrentUser()
         binding.user = user
-//        binding.user?.username = user?.username
-//        binding.user?.email = user?.email
-//        binding.user?.rating = user?.rating
     }
 }
