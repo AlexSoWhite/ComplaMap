@@ -1,5 +1,6 @@
 package com.example.complamap.views.activities
 
+import android.location.Geocoder
 import android.os.Bundle
 import android.util.Log
 import androidx.appcompat.app.AppCompatActivity
@@ -13,9 +14,12 @@ import com.example.complamap.views.fragments.OwnerCompFragment
 import com.google.firebase.firestore.DocumentSnapshot
 import com.google.firebase.firestore.FirebaseFirestore
 import com.orhanobut.hawk.Hawk
+import java.util.Locale
+import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.tasks.await
+import kotlinx.coroutines.withContext
 
 class ComplaintActivity : AppCompatActivity() {
 
@@ -43,10 +47,11 @@ class ComplaintActivity : AppCompatActivity() {
     }
 
     private suspend fun get(): DocumentSnapshot {
-        val complaintId: String? = intent.getStringExtra("ComplaintId")
-        val docRef = db.collection("complaint").document(complaintId as String)
-        val querySnapshot = docRef.get().await()
-        return querySnapshot
+        var complaintId = "dis37Cx4tyz8K5hZmf9p"
+        if (intent.getStringExtra("ComplaintId") != null) complaintId =
+            intent.getStringExtra("ComplaintId")!!
+        val docRef = db.collection("complaint").document(complaintId)
+        return docRef.get().await()
     }
 
     private suspend fun getData() {
@@ -56,31 +61,53 @@ class ComplaintActivity : AppCompatActivity() {
             }
             return
         }
-        var creator: User? = null
+
+        var creator: User?
+        val comp: Complaint?
+        val locale = Locale("ru", "RU")
+        val geocoder = Geocoder(this, locale)
+
         try {
-            val data = get().data?.get("status")
-            val comp = get().toObject(Complaint::class.java)
-            comp?.creator?.get()?.addOnCompleteListener { task ->
-                if (task.isSuccessful) {
-                    try {
-                        creator = task.result?.toObject(User::class.java)
-                        Glide.with(this).load(creator?.profilePic).into(binding.profilePic)
-                        binding.creator = creator
-                        Log.d(TAG, "User is found $creator")
-                    } catch (exception: Exception) {
-                        Log.d(TAG, "User is a great error")
-                    }
-                } else
-                    Log.d(TAG, "Sorry, not found")
+            comp = get().toObject(Complaint::class.java)
+            if (comp != null) {
+                withContext(Dispatchers.Main) {
+                    Glide.with(applicationContext).load(comp.photo).into(binding.photo)
+                }
+                val address = comp.location?.let {
+                    geocoder.getFromLocation(
+                        it.latitude,
+                        it.longitude,
+                        1
+                    )
+                }
+                if (address != null) {
+                    comp.address = address[0].getAddressLine(0)
+                }
+                comp.creation_day = android.text.format.DateFormat.format(
+                    "dd.MM.yyyy",
+                    comp.creation_date?.toDate()
+                ).toString()
+
+                comp.creator?.get()?.addOnCompleteListener { task ->
+                    if (task.isSuccessful) {
+                        try {
+                            creator = task.result?.toObject(User::class.java)
+                            binding.creator = creator
+                        } catch (exception: Exception) {
+                            Log.d(TAG, "User is broken")
+                        }
+                    } else
+                        Log.d(TAG, "Sorry, not found")
+                }
+                Log.d(TAG, "User: ${comp.creator}")
+                binding.complaint = comp
             }
-            binding.complaint = comp
-            Log.d(TAG, "DocumentSnapshot data: $data \n complaint: $comp \n creator: $creator")
         } catch (exception: Exception) {
             Log.w(TAG, "Error getting documents: ", exception)
         }
     }
 
     companion object {
-        private val TAG = "QueryExample"
+        private const val TAG = "QueryExample"
     }
 }
