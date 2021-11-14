@@ -25,5 +25,8 @@
         <item name = "Жалоба 4"/>
         <item name = "Жалоба 5"/>
     </string-array>
-    <string name="creator_info">%1$s %2$s</string>
+    <string name="creator_info">%1$s (%2$s)</string>
+    <string name="author">автор:</string>
+    <string name="anon">Анонимно</string>
+    <string name="space">" "</string>
 </resources>

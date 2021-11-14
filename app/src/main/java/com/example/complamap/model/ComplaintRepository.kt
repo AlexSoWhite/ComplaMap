@@ -28,8 +28,8 @@ object ComplaintRepository: ViewModel() {
 
 
     private suspend fun convertReferenceToComplaint():Complaint{
-        val complaintData = ComplaintManager.getCurrentComplaint()
-        val category = complaintData!!.category
+        val category: String? = null
+        val photo: String? = null
         val creation_date: Timestamp? = null
         val location: GeoPoint? = null
         val description: String? = null
@@ -38,16 +38,10 @@ object ComplaintRepository: ViewModel() {
         val status: String? = null
         val followers: List<DocumentReference>? = null
         val creator: DocumentReference? = null
+        var address: String? = null
+        var creation_day: String? = null
         return Complaint(
-            category,
-            creation_date,
-            location,
-            description,
-            approvals,
-            rejections,
-            status,
-            followers,
-            creator
+
         )
     }
 

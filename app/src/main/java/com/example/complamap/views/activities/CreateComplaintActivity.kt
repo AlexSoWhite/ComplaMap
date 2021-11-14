@@ -26,11 +26,12 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.FileProvider
 import com.example.complamap.R
 import com.example.complamap.databinding.CreateComplaintActivityBinding
-import com.example.complamap.model.Complaint
-import com.example.complamap.model.ComplaintManager
-import com.example.complamap.model.ComplaintRepository
+import com.example.complamap.model.*
+import com.example.complamap.model.UserManager.getCurrentUser
 import com.google.firebase.Timestamp
+import com.google.firebase.auth.ktx.auth
 import com.google.firebase.firestore.DocumentReference
+import com.google.firebase.firestore.FirebaseFirestore
 import com.google.firebase.firestore.ktx.firestore
 import com.google.firebase.ktx.Firebase
 import java.io.File
@@ -186,8 +187,6 @@ class CreateComplaintActivity : AppCompatActivity() {
                 ).show()
             else {
                 addToDb(radioAnon.isChecked)
-                val intent = Intent(this, ComplaintActivity::class.java)
-                startActivity(intent)
             }
         }
 
@@ -202,23 +201,37 @@ class CreateComplaintActivity : AppCompatActivity() {
         }
     }
 
+        //val db = FirebaseFirestore.getInstance()
     private fun addToDb(Anon: Boolean) {
-        if (Anon) {
+        if (Anon) { // анонимная жалоба
             ComplaintManager.setComplaint(Complaint(
                 category = binding.Spinner.selectedItem.toString(),
                 // location = "адрес пока только координатами умеем",
                 description = binding.Description.text.toString(),
                 creation_date = Timestamp.now(),
-                // creator = db.collection("users").document("AnonUser")
+                // photo = tempImageUri
+
+               // creator = db.collection("users").document(Firebase.auth.currentUser!!.uid)
             ))
-        } else {
-            ComplaintManager.setComplaint(Complaint(
-                category = binding.Spinner.selectedItem.toString(),
-                // location = "адрес пока только координатами умеем",
-                description = binding.Description.text.toString(),
-                // creator =
-                // creation_date = System.currentTimeMillis() as Timestamp
-            ))
+            val intent = Intent(this, ComplaintActivity::class.java)
+            startActivity(intent)
+        } else { // неанонимная жалоба
+            if(getCurrentUser()!=null) {
+                ComplaintManager.setComplaint(
+                    Complaint(
+                        category = binding.Spinner.selectedItem.toString(),
+                        // location = "адрес пока только координатами умеем",
+                        description = binding.Description.text.toString(),
+                        // creator =
+                        creation_date = Timestamp.now()
+                    )
+                )
+                val intent = Intent(this, ComplaintActivity::class.java)
+                startActivity(intent)
+            }
+            else
+                Toast.makeText(applicationContext, "Требуется авторизация", Toast.LENGTH_SHORT).show()
+
         }
         ComplaintRepository.acceptComplaint(ComplaintManager.getCurrentComplaint()!!)
     }
