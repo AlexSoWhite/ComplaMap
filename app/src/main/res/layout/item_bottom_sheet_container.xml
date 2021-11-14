@@ -42,11 +42,12 @@
                         android:drawablePadding="8dp"
                         android:hint="@string/search_hint"
                         android:textAppearance="?attr/textAppearanceBody1"
-                        android:id="@+id/editText2"
+                        android:id="@+id/search_view"
                         android:layout_height="40dp"
                         android:layout_marginEnd="8dp"
                         android:layout_marginStart="8dp"
                         android:layout_marginTop="8dp"
+                        android:imeOptions="actionSearch"
                         android:layout_width="match_parent"
                         android:paddingHorizontal="16dp" />
             </FrameLayout>

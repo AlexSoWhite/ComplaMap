@@ -17,6 +17,7 @@ import com.example.complamap.views.fragments.MapFragment
 import com.example.complamap.views.fragments.ProfileFragment
 import com.orhanobut.hawk.Hawk
 import com.yandex.mapkit.MapKitFactory
+import com.yandex.mapkit.search.SearchFactory
 
 const val MAP_IS_INITIALIZE: String = "MAP_IS_INITIALIZE"
 
@@ -31,6 +32,7 @@ class MainActivity : AppCompatActivity() {
             ?: let { // Если null, то активность ни разу не создавалась - инициализируем карту
                 MapKitFactory.setApiKey(resources.getString(R.string.MapKitApi_Key))
                 MapKitFactory.initialize(this)
+                SearchFactory.initialize(this)
             }
         supportActionBar?.hide()
         binding = ActivityMainBinding.inflate(layoutInflater)
