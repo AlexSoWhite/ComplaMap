@@ -18,8 +18,10 @@ import com.example.complamap.views.activities.ComplaintActivity
 import com.orhanobut.hawk.Hawk
 import java.util.Locale
 
-class ComplaintAdapter(private val complaints: List<Complaint>, private val listViewModel: ListViewModel) :
-    RecyclerView.Adapter<ComplaintAdapter.ComplaintViewHolder>() {
+class ComplaintAdapter(
+    private val complaints: List<Complaint>,
+    private val listViewModel: ListViewModel
+) : RecyclerView.Adapter<ComplaintAdapter.ComplaintViewHolder>() {
 
     private lateinit var context: Context
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ComplaintViewHolder {
@@ -37,7 +39,10 @@ class ComplaintAdapter(private val complaints: List<Complaint>, private val list
         return complaints.size
     }
 
-    class ComplaintViewHolder(itemView: View, private val listViewModel: ListViewModel) : RecyclerView.ViewHolder(itemView) {
+    class ComplaintViewHolder(
+        itemView: View,
+        private val listViewModel: ListViewModel
+    ) : RecyclerView.ViewHolder(itemView) {
 
         private val binding = ListItemBinding.bind(itemView)
         val imageView: ImageView = itemView.findViewById(R.id.image)
@@ -56,7 +61,7 @@ class ComplaintAdapter(private val complaints: List<Complaint>, private val list
             if (address != null) {
                 complaint.address = address[0].getAddressLine(0)
             }
-            if(complaint.creation_date != null) {
+            if (complaint.creation_date != null) {
                 complaint.creation_day = android.text.format.DateFormat.format(
                     "dd.MM.yyyy",
                     complaint.creation_date.toDate()
