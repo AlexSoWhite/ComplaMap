@@ -9,7 +9,6 @@ import androidx.lifecycle.ViewModelProvider
 import com.example.complamap.R
 import com.example.complamap.databinding.ActivitySignInBinding
 import com.example.complamap.model.LoginResult
-import com.example.complamap.model.UserManager
 import com.example.complamap.viewmodel.SignInViewModel
 
 class SignInActivity : AppCompatActivity() {
@@ -47,7 +46,6 @@ class SignInActivity : AppCompatActivity() {
                         ).show()
                         finish()
                     }
-
                 }
             }
         }

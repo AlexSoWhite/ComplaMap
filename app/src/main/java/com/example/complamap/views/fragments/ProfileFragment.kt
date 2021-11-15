@@ -19,7 +19,6 @@ import androidx.fragment.app.commit
 import androidx.lifecycle.ViewModelProvider
 import com.example.complamap.R
 import com.example.complamap.databinding.FragmentProfileBinding
-import com.example.complamap.model.UserManager
 import com.example.complamap.viewmodel.ProfileViewModel
 
 class ProfileFragment : Fragment(R.layout.fragment_profile) {
@@ -68,7 +67,7 @@ class ProfileFragment : Fragment(R.layout.fragment_profile) {
                     replace(R.id.profile_container, NoAuthFragment())
                 }
             } else {
-                childFragmentManager.commit{
+                childFragmentManager.commit {
                     replace(R.id.profile_container, AuthorizedUserFragment())
                 }
             }
