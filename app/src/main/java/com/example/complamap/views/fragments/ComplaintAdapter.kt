@@ -3,6 +3,7 @@ package com.example.complamap.views.fragments
 import android.annotation.SuppressLint
 import android.content.Context
 import android.content.Intent
+import android.location.Geocoder
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -11,6 +12,7 @@ import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.recyclerview.widget.RecyclerView
 import com.example.complamap.R
 import com.example.complamap.model.Complaint
+import com.example.complamap.model.ContextContainer
 import com.example.complamap.views.activities.ComplaintActivity
 import com.orhanobut.hawk.Hawk
 import java.text.DateFormat
@@ -44,10 +46,24 @@ class ComplaintAdapter(private val complaints: List<Complaint>) :
 
         @SuppressLint("SetTextI18n")
         fun bind(complaint: Complaint, context: Context) {
-            location.text = "адрес: " + "пока не сконвертировано"
+            val locale = Locale("ru", "RU")
+            val geocoder = Geocoder(ContextContainer.getContext(), locale)
+            val address = complaint.location?.let {
+                geocoder.getFromLocation(
+                    it.latitude,
+                    it.longitude,
+                    1
+                )
+            }
+            if (address != null) {
+                location.text = "адрес: " + address[0].getAddressLine(0)
+            }
+            else {
+                location.text = "адрес: пусто"
+            }
             status.text = "статус: " + complaint.status.toString()
             description.text = "описание: " + complaint.description.toString()
-            val df: DateFormat = SimpleDateFormat("dd.MM.yyyy", Locale.US)
+            val df: DateFormat = SimpleDateFormat("dd.MM.yyyy", locale)
             if (complaint.creation_date != null) {
                 date.text = df.format(complaint.creation_date.toDate())
             } else {
