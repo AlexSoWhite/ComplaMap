@@ -1,10 +1,12 @@
 package com.example.complamap.views.fragments
 
+import android.content.Context
 import android.content.Context.LAYOUT_INFLATER_SERVICE
 import android.os.Build
 import android.os.Bundle
 import android.transition.Slide
 import android.transition.TransitionManager
+import android.util.Log
 import android.view.Gravity
 import android.view.LayoutInflater
 import android.view.View
@@ -13,6 +15,7 @@ import android.widget.FrameLayout
 import android.widget.LinearLayout
 import android.widget.PopupWindow
 import androidx.fragment.app.Fragment
+import androidx.fragment.app.commit
 import androidx.lifecycle.ViewModelProvider
 import com.example.complamap.R
 import com.example.complamap.databinding.FragmentProfileBinding
@@ -41,18 +44,33 @@ class ProfileFragment : Fragment(R.layout.fragment_profile) {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        Log.d("profile", "created")
+    }
 
-        val user = UserManager.getCurrentUser()
-        // здесь идем за данными и выбираем, какую страницу нарисовать - авторизованную или нет
-        if (user == null) {
-            childFragmentManager.beginTransaction().apply {
-                add(R.id.profile_container, NoAuthFragment())
-                commit()
-            }
-        } else {
-            childFragmentManager.beginTransaction().apply {
-                add(R.id.profile_container, AuthorizedUserFragment())
-                commit()
+    override fun onAttach(context: Context) {
+        super.onAttach(context)
+        Log.d("profile", "attach")
+    }
+
+    override fun onDestroy() {
+        super.onDestroy()
+        Log.d("profile", "destroy")
+    }
+
+    override fun onStart() {
+        super.onStart()
+        Log.d("profile", "start")
+        val profileViewModel = ViewModelProvider(this)[ProfileViewModel::class.java]
+        profileViewModel.getUser { user ->
+            // здесь идем за данными и выбираем, какую страницу нарисовать - авторизованную или нет
+            if (user == null) {
+                childFragmentManager.commit {
+                    replace(R.id.profile_container, NoAuthFragment())
+                }
+            } else {
+                childFragmentManager.commit{
+                    replace(R.id.profile_container, AuthorizedUserFragment())
+                }
             }
         }
     }

@@ -26,7 +26,6 @@ object UserRepository : ViewModel() {
         username: String,
         callback: (result: LoginResult) -> Unit
     ) {
-
         auth.createUserWithEmailAndPassword(email, password)
             .addOnCompleteListener { task ->
                 when {
@@ -62,17 +61,23 @@ object UserRepository : ViewModel() {
     suspend fun login(email: String, password: String, callback: (result: LoginResult) -> Unit) {
         auth.signInWithEmailAndPassword(email, password)
             .addOnCompleteListener { task ->
-                if (task.isSuccessful) {
-                    viewModelScope.launch {
-                        val user: User = convertReferenceToUser()
-                        putUserToCache(user)
-                        UserManager.setUser(user)
+
+                when {
+
+                    task.isSuccessful -> {
+                        viewModelScope.launch {
+                            val user: User = convertReferenceToUser()
+                            putUserToCache(user)
+                            UserManager.setUser(user)
+                            val res = LoginResult.Success
+                            callback(res)
+                        }
                     }
-                    val res = LoginResult.Success
-                    callback(res)
-                } else {
-                    val res = LoginResult.Error("ошибка")
-                    callback(res)
+
+                    else -> {
+                        val res = LoginResult.Error("ошибка")
+                        callback(res)
+                    }
                 }
             }
     }

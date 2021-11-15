@@ -48,6 +48,7 @@ class SignUpActivity : AppCompatActivity() {
                             "регистрация прошла успешно",
                             Toast.LENGTH_SHORT
                         ).show()
+                        finish()
                     }
                 }
             }

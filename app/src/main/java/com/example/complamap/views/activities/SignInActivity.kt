@@ -9,6 +9,7 @@ import androidx.lifecycle.ViewModelProvider
 import com.example.complamap.R
 import com.example.complamap.databinding.ActivitySignInBinding
 import com.example.complamap.model.LoginResult
+import com.example.complamap.model.UserManager
 import com.example.complamap.viewmodel.SignInViewModel
 
 class SignInActivity : AppCompatActivity() {
@@ -23,6 +24,9 @@ class SignInActivity : AppCompatActivity() {
 
     override fun onStart() {
         super.onStart()
+        if (UserManager.getCurrentUser() != null) {
+            finish()
+        }
         val signInViewModel = ViewModelProvider(this)[SignInViewModel::class.java]
 
         binding.login.setOnClickListener {
@@ -44,7 +48,9 @@ class SignInActivity : AppCompatActivity() {
                             "успешный вход",
                             Toast.LENGTH_SHORT
                         ).show()
+                        finish()
                     }
+
                 }
             }
         }
