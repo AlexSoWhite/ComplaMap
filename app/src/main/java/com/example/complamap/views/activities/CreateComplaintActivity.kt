@@ -185,8 +185,27 @@ class CreateComplaintActivity : AppCompatActivity() {
                     "Выберите тип публикации",
                     Toast.LENGTH_SHORT
                 ).show()
-            else {
-                addToDb(radioAnon.isChecked)
+            else
+                if((radioNeAnon.isChecked) && (getCurrentUser() == null))
+                    Toast.makeText(applicationContext, "Требуется авторизация", Toast.LENGTH_SHORT).show()
+                else
+                {
+                ComplaintManager.setComplaint(
+                    Complaint(
+                    category = binding.Spinner.selectedItem.toString(),
+                    description = binding.Description.text.toString(),
+                    creation_date = Timestamp.now(),
+                    creation_day = android.text.format.DateFormat.format(
+                        "dd.MM.yyyy",
+                        Timestamp.now().toDate()
+                    ).toString(),
+                    // creator = db.collection("users").document(Firebase.auth.currentUser!!.uid)
+                    )
+                )
+                    ComplaintRepository.acceptComplaint(ComplaintManager.getCurrentComplaint()!!)
+                    val intent = Intent(this, ComplaintActivity::class.java)
+                    intent.putExtra("isAnon", radioAnon.isChecked)
+                    startActivity(intent)
             }
         }
 

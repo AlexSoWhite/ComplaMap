@@ -54,6 +54,8 @@ class ComplaintActivity : AppCompatActivity() {
         return docRef.get().await()
         }*/
 
+
+
     private suspend fun getData() {
         var creator: User?
         val comp: Complaint?
@@ -75,15 +77,15 @@ class ComplaintActivity : AppCompatActivity() {
                 if (address != null) {
                     comp.address = address[0].getAddressLine(0)
                 }
-                comp.creation_day = android.text.format.DateFormat.format(
-                    "dd.MM.yyyy",
-                    comp.creation_date?.toDate()
-                ).toString()
 
                 comp.creator?.get()?.addOnCompleteListener { task ->
                     if (task.isSuccessful) {
                         try {
-                            creator = task.result?.toObject(User::class.java)
+                            creator = if(intent.extras?.getBoolean("isAnon")!!)
+                                null
+                            else
+                                task.result?.toObject(User::class.java)
+
                             binding.creator = creator
                         } catch (exception: Exception) {
                             Log.d(TAG, "User is broken")
