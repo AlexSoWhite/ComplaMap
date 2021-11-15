@@ -24,9 +24,6 @@ class SignInActivity : AppCompatActivity() {
 
     override fun onStart() {
         super.onStart()
-        if (UserManager.getCurrentUser() != null) {
-            finish()
-        }
         val signInViewModel = ViewModelProvider(this)[SignInViewModel::class.java]
 
         binding.login.setOnClickListener {
@@ -58,6 +55,7 @@ class SignInActivity : AppCompatActivity() {
         binding.goToSignUp.setOnClickListener {
             val intent = Intent(this, SignUpActivity::class.java)
             startActivity(intent)
+            finish()
         }
     }
 }

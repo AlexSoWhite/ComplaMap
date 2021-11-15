@@ -20,6 +20,6 @@
     </style>
     <style name="textEditStyle">
         <item name="android:backgroundTint">@android:color/transparent</item>
-        <item name="android:textCursorDrawable">@null</item>
+        <item name="android:textCursorDrawable">@drawable/text_cursor_black</item>
     </style>
 </resources>
