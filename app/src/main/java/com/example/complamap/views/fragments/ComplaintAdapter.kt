@@ -15,7 +15,7 @@ import com.example.complamap.views.activities.ComplaintActivity
 import com.orhanobut.hawk.Hawk
 import java.text.DateFormat
 import java.text.SimpleDateFormat
-import java.util.*
+import java.util.Locale
 
 class ComplaintAdapter(private val complaints: List<Complaint>) :
     RecyclerView.Adapter<ComplaintAdapter.ComplaintViewHolder>() {
@@ -50,8 +50,7 @@ class ComplaintAdapter(private val complaints: List<Complaint>) :
             val df: DateFormat = SimpleDateFormat("dd.MM.yyyy", Locale.US)
             if (complaint.creation_date != null) {
                 date.text = df.format(complaint.creation_date.toDate())
-            }
-            else {
+            } else {
                 date.text = null
             }
             val item: ConstraintLayout = itemView.findViewById(R.id.list_item)
