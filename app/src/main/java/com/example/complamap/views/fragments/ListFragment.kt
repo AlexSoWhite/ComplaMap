@@ -29,7 +29,7 @@ class ListFragment : Fragment(R.layout.fragment_list) {
         val recycler = binding.recycler
         val listViewModel = ViewModelProvider(this)[ListViewModel::class.java]
         listViewModel.getComplaints { list ->
-            recycler.adapter = ComplaintAdapter(list)
+            recycler.adapter = ComplaintAdapter(list, listViewModel)
         }
         recycler.layoutManager = LinearLayoutManager(this.context)
     }

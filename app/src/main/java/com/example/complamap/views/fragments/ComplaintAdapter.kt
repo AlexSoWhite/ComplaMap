@@ -7,29 +7,29 @@ import android.location.Geocoder
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.TextView
-import androidx.constraintlayout.widget.ConstraintLayout
+import android.widget.ImageView
 import androidx.recyclerview.widget.RecyclerView
 import com.example.complamap.R
+import com.example.complamap.databinding.ListItemBinding
 import com.example.complamap.model.Complaint
 import com.example.complamap.model.ContextContainer
+import com.example.complamap.viewmodel.ListViewModel
 import com.example.complamap.views.activities.ComplaintActivity
 import com.orhanobut.hawk.Hawk
-import java.text.DateFormat
-import java.text.SimpleDateFormat
 import java.util.Locale
 
-class ComplaintAdapter(private val complaints: List<Complaint>) :
+class ComplaintAdapter(private val complaints: List<Complaint>, private val listViewModel: ListViewModel) :
     RecyclerView.Adapter<ComplaintAdapter.ComplaintViewHolder>() {
 
     private lateinit var context: Context
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ComplaintViewHolder {
         val view = LayoutInflater.from(parent.context).inflate(R.layout.list_item, parent, false)
         this.context = parent.context
-        return ComplaintViewHolder(view)
+        return ComplaintViewHolder(view, listViewModel)
     }
 
     override fun onBindViewHolder(holder: ComplaintViewHolder, position: Int) {
+        holder.imageView.setImageResource(android.R.color.transparent)
         holder.bind(complaints[position], context)
     }
 
@@ -37,12 +37,10 @@ class ComplaintAdapter(private val complaints: List<Complaint>) :
         return complaints.size
     }
 
-    class ComplaintViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
+    class ComplaintViewHolder(itemView: View, private val listViewModel: ListViewModel) : RecyclerView.ViewHolder(itemView) {
 
-        private var location = itemView.findViewById<TextView>(R.id.address)
-        private var status = itemView.findViewById<TextView>(R.id.status)
-        private var description = itemView.findViewById<TextView>(R.id.description)
-        private var date = itemView.findViewById<TextView>(R.id.date)
+        private val binding = ListItemBinding.bind(itemView)
+        val imageView: ImageView = itemView.findViewById(R.id.image)
 
         @SuppressLint("SetTextI18n")
         fun bind(complaint: Complaint, context: Context) {
@@ -56,21 +54,21 @@ class ComplaintAdapter(private val complaints: List<Complaint>) :
                 )
             }
             if (address != null) {
-                location.text = "адрес: " + address[0].getAddressLine(0)
+                complaint.address = address[0].getAddressLine(0)
             }
-            else {
-                location.text = "адрес: пусто"
+            if(complaint.creation_date != null) {
+                complaint.creation_day = android.text.format.DateFormat.format(
+                    "dd.MM.yyyy",
+                    complaint.creation_date.toDate()
+                ).toString()
             }
-            status.text = "статус: " + complaint.status.toString()
-            description.text = "описание: " + complaint.description.toString()
-            val df: DateFormat = SimpleDateFormat("dd.MM.yyyy", locale)
-            if (complaint.creation_date != null) {
-                date.text = df.format(complaint.creation_date.toDate())
-            } else {
-                date.text = null
-            }
-            val item: ConstraintLayout = itemView.findViewById(R.id.list_item)
-            item.setOnClickListener {
+            binding.complaint = complaint
+            listViewModel.loadPhoto(
+                imageView.context,
+                complaint,
+                imageView
+            )
+            binding.listItem.setOnClickListener {
                 val intent = Intent(context, ComplaintActivity::class.java)
                 putToCache(complaint)
                 intent.putExtra("cachedComplaint", "cachedComplaint")

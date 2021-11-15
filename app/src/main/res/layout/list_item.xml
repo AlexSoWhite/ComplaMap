@@ -23,7 +23,7 @@
                 android:layout_marginStart="10dp"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
-                android:src="@drawable/default_placeholder"
+                tools:src="@drawable/default_placeholder"
                 />
 
         <TextView
@@ -31,6 +31,7 @@
                 android:layout_width="260dp"
                 android:layout_height="wrap_content"
                 tools:text="адрес: какой-то адрес fsdfjk sadfsadjf klask"
+                android:text='@{"адрес: "+complaint.address.toString()}'
                 android:maxLines="2"
                 android:ellipsize="end"
                 android:textSize="17sp"
@@ -45,6 +46,7 @@
                 android:layout_width="260dp"
                 android:layout_height="wrap_content"
                 tools:text="статус: опровергнута"
+                android:text='@{"статус: "+complaint.status.toString()}'
                 android:textSize="17sp"
                 android:textColor="@color/black"
                 android:layout_marginStart="87dp"
@@ -58,6 +60,7 @@
             android:layout_width="260dp"
             android:layout_height="wrap_content"
             tools:text="описание: какое-то описание"
+            android:text='@{"описание: "+complaint.description.toString()}'
             android:maxLines="2"
             android:ellipsize="end"
             android:textSize="17sp"
@@ -72,6 +75,7 @@
             android:layout_marginTop="5dp"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:text='@{complaint.creation_day.toString()}'
             app:layout_constraintTop_toBottomOf="@+id/image"
             app:layout_constraintStart_toStartOf="@id/image"
             app:layout_constraintEnd_toEndOf="@+id/image"
