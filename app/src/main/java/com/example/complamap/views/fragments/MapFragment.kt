@@ -74,7 +74,8 @@ class MapFragment() : Fragment(), GeoObjectTapListener, InputListener, Placemark
                 override fun onEditorAction(
                     textView: TextView?,
                     actionId: Int,
-                    keyEvent: KeyEvent?): Boolean {
+                    keyEvent: KeyEvent?
+                ): Boolean {
                     val searchType = SearchType.GEO.value or SearchType.BIZ.value
                     if (actionId == EditorInfo.IME_ACTION_SEARCH) {
                         if (searchView.text.toString().isNotBlank() && searchView.text.toString().isNotEmpty()) {
