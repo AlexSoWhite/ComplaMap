@@ -40,7 +40,7 @@
 
         <TextView
                 android:id="@+id/status"
-                android:layout_width="wrap_content"
+                android:layout_width="260dp"
                 android:layout_height="wrap_content"
                 tools:text="статус: опровергнута"
                 android:textSize="17sp"
@@ -53,9 +53,11 @@
 
         <TextView
             android:id="@+id/description"
-            android:layout_width="wrap_content"
+            android:layout_width="260dp"
             android:layout_height="wrap_content"
             tools:text="описание: какое-то описание"
+            android:maxLines="2"
+            android:ellipsize="end"
             android:textSize="17sp"
             android:textColor="@color/black"
             android:layout_marginStart="87dp"

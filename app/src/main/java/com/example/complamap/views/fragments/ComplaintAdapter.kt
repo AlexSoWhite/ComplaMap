@@ -13,12 +13,14 @@ import com.example.complamap.R
 import com.example.complamap.model.Complaint
 import com.example.complamap.views.activities.ComplaintActivity
 import com.orhanobut.hawk.Hawk
+import java.text.DateFormat
+import java.text.SimpleDateFormat
+import java.util.*
 
 class ComplaintAdapter(private val complaints: List<Complaint>) :
     RecyclerView.Adapter<ComplaintAdapter.ComplaintViewHolder>() {
 
     private lateinit var context: Context
-
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ComplaintViewHolder {
         val view = LayoutInflater.from(parent.context).inflate(R.layout.list_item, parent, false)
         this.context = parent.context
@@ -42,10 +44,16 @@ class ComplaintAdapter(private val complaints: List<Complaint>) :
 
         @SuppressLint("SetTextI18n")
         fun bind(complaint: Complaint, context: Context) {
-            location.text = "адрес: " + complaint.location.toString()
+            location.text = "адрес: " + "пока не сконвертировано"
             status.text = "статус: " + complaint.status.toString()
             description.text = "описание: " + complaint.description.toString()
-            date.text = complaint.creation_date.toString()
+            val df: DateFormat = SimpleDateFormat("dd.MM.yyyy", Locale.US)
+            if (complaint.creation_date != null) {
+                date.text = df.format(complaint.creation_date.toDate())
+            }
+            else {
+                date.text = null
+            }
             val item: ConstraintLayout = itemView.findViewById(R.id.list_item)
             item.setOnClickListener {
                 val intent = Intent(context, ComplaintActivity::class.java)

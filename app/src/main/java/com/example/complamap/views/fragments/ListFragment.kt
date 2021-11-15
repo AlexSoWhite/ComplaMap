@@ -28,7 +28,9 @@ class ListFragment : Fragment(R.layout.fragment_list) {
         super.onViewCreated(view, savedInstanceState)
         val recycler = binding.recycler
         val listViewModel = ViewModelProvider(this)[ListViewModel::class.java]
-        recycler.adapter = ComplaintAdapter(listViewModel.getComplaints())
+        listViewModel.getComplaints { list ->
+            recycler.adapter = ComplaintAdapter(list)
+        }
         recycler.layoutManager = LinearLayoutManager(this.context)
     }
 }
