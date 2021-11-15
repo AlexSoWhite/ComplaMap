@@ -99,18 +99,18 @@ object UserRepository : ViewModel() {
         val userData = getUserFromServer()
         val username = userData.data?.get("username").toString()
         val email = userData.data?.get("email").toString()
-        val rating = userData.data?.get("rating").toString()
+        val rating = userData.data?.get("rating").toString().toDoubleOrNull()
 
         // TODO get profilePic and subs properly
-        val profilePic = userData.data?.get("profilePic").toString().toLongOrNull()
+        val profilePic = userData.data?.get("profilePic").toString()
         val subs = userData.data?.get("subs").toString()
 
         return User(
-            username,
-            email,
-            rating,
-            profilePic,
-            null
+            username = username,
+            email = email,
+            rating = rating,
+            profilePic = profilePic,
+            subs = null
         )
     }
 }
