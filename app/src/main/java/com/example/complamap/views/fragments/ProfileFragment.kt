@@ -1,12 +1,10 @@
 package com.example.complamap.views.fragments
 
-import android.content.Context
 import android.content.Context.LAYOUT_INFLATER_SERVICE
 import android.os.Build
 import android.os.Bundle
 import android.transition.Slide
 import android.transition.TransitionManager
-import android.util.Log
 import android.view.Gravity
 import android.view.LayoutInflater
 import android.view.View
@@ -41,34 +39,23 @@ class ProfileFragment : Fragment(R.layout.fragment_profile) {
         return binding.root
     }
 
-    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        super.onViewCreated(view, savedInstanceState)
-        Log.d("profile", "created")
-    }
-
-    override fun onAttach(context: Context) {
-        super.onAttach(context)
-        Log.d("profile", "attach")
-    }
-
-    override fun onDestroy() {
-        super.onDestroy()
-        Log.d("profile", "destroy")
-    }
-
     override fun onStart() {
         super.onStart()
-        Log.d("profile", "start")
         val profileViewModel = ViewModelProvider(this)[ProfileViewModel::class.java]
+        // here we decide which page to show - authorized or not
         profileViewModel.getUser { user ->
-            // здесь идем за данными и выбираем, какую страницу нарисовать - авторизованную или нет
-            if (user == null) {
-                childFragmentManager.commit {
-                    replace(R.id.profile_container, NoAuthFragment())
+            when (user) {
+
+                null -> {
+                    childFragmentManager.commit {
+                        replace(R.id.profile_container, NoAuthFragment())
+                    }
                 }
-            } else {
-                childFragmentManager.commit {
-                    replace(R.id.profile_container, AuthorizedUserFragment())
+
+                else -> {
+                    childFragmentManager.commit {
+                        replace(R.id.profile_container, AuthorizedUserFragment())
+                    }
                 }
             }
         }

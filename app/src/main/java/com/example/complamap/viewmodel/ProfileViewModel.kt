@@ -22,7 +22,7 @@ class ProfileViewModel : ViewModel() {
         }
     }
 
-    fun serUser(user: User?) {
+    fun setUser(user: User?) {
         viewModelScope.launch {
             UserManager.setUser(user)
         }

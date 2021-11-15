@@ -24,7 +24,6 @@ class SignInActivity : AppCompatActivity() {
     override fun onStart() {
         super.onStart()
         val signInViewModel = ViewModelProvider(this)[SignInViewModel::class.java]
-
         binding.login.setOnClickListener {
             signInViewModel.login(
                 binding.email.text.toString(),

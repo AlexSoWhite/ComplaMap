@@ -30,10 +30,9 @@ class AuthorizedUserFragment : Fragment(R.layout.fragment_authorized_user) {
         profileViewModel.getUser { user ->
             binding.user = user
         }
-
         binding.logOut.setOnClickListener {
             profileViewModel.deleteUserFromCache()
-            profileViewModel.serUser(null)
+            profileViewModel.setUser(null)
             parentFragmentManager.commit {
                 replace(R.id.profile_container, NoAuthFragment())
             }

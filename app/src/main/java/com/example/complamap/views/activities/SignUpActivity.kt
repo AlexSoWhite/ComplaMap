@@ -33,7 +33,6 @@ class SignUpActivity : AppCompatActivity() {
                 binding.password.text.toString(),
                 binding.repeatPassword.text.toString()
             ) { res ->
-
                 when (res) {
 
                     is LoginResult.Error -> Toast.makeText(
