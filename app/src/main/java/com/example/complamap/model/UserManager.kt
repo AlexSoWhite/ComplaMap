@@ -22,7 +22,6 @@ object UserManager {
 
     fun setUser(user: User?) {
         this.user = user
-        // кладем нового юзера в кэш
     }
 
     fun deleteUserFromCache() {

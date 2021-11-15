@@ -15,6 +15,7 @@
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintBottom_toTopOf="@id/email_frame"
                 android:text="Регистрация"
+                android:textColor="@color/black"
                 android:layout_marginTop="140dp"
                 android:textSize="28sp"
                 />
@@ -38,9 +39,9 @@
                     android:inputType="textEmailAddress"
                     android:layout_gravity="center_vertical"
                     android:hint="почта"
-                    android:backgroundTint="@android:color/transparent"
                     android:layout_width="290dp"
                     android:layout_height="wrap_content"
+                    style="@style/textEditStyle"
                     />
         </FrameLayout>
 
@@ -63,9 +64,9 @@
                     android:inputType="text"
                     android:layout_gravity="center_vertical"
                     android:hint="имя пользователя"
-                    android:backgroundTint="@android:color/transparent"
                     android:layout_width="290dp"
                     android:layout_height="wrap_content"
+                    style="@style/textEditStyle"
                     />
         </FrameLayout>
 
@@ -87,9 +88,9 @@
                     android:inputType="textPassword"
                     android:layout_gravity="center_vertical"
                     android:hint="пароль"
-                    android:backgroundTint="@android:color/transparent"
                     android:layout_width="290dp"
                     android:layout_height="wrap_content"
+                    style="@style/textEditStyle"
                     />
         </FrameLayout>
 
@@ -111,9 +112,9 @@
                     android:inputType="textPassword"
                     android:layout_gravity="center_vertical"
                     android:hint="повторите пароль"
-                    android:backgroundTint="@android:color/transparent"
                     android:layout_width="290dp"
                     android:layout_height="wrap_content"
+                    style="@style/textEditStyle"
                     />
         </FrameLayout>
 
@@ -137,7 +138,7 @@
                     android:layout_height="wrap_content"
                     android:layout_width="wrap_content"
                     android:text="Зарегистрироваться"
-                    android:textSize="18sp" />
+                    style="@style/textButtonStyle"/>
         </FrameLayout>
 
     </androidx.constraintlayout.widget.ConstraintLayout>
