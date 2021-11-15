@@ -24,7 +24,6 @@ class SignInActivity : AppCompatActivity() {
     override fun onStart() {
         super.onStart()
         val signInViewModel = ViewModelProvider(this)[SignInViewModel::class.java]
-
         binding.login.setOnClickListener {
             signInViewModel.login(
                 binding.email.text.toString(),
@@ -44,6 +43,7 @@ class SignInActivity : AppCompatActivity() {
                             "успешный вход",
                             Toast.LENGTH_SHORT
                         ).show()
+                        finish()
                     }
                 }
             }
@@ -52,6 +52,7 @@ class SignInActivity : AppCompatActivity() {
         binding.goToSignUp.setOnClickListener {
             val intent = Intent(this, SignUpActivity::class.java)
             startActivity(intent)
+            finish()
         }
     }
 }

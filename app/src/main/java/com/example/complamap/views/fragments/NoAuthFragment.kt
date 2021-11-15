@@ -6,11 +6,14 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
+import com.example.complamap.R
 import com.example.complamap.databinding.FragmentNoAuthBinding
 import com.example.complamap.views.activities.SignInActivity
 
-class NoAuthFragment : Fragment() {
+class NoAuthFragment : Fragment(R.layout.fragment_no_auth) {
+
     private lateinit var binding: FragmentNoAuthBinding
+
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
