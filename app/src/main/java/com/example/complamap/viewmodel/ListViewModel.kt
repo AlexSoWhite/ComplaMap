@@ -14,7 +14,9 @@ import kotlinx.coroutines.launch
 
 class ListViewModel : ViewModel() {
 
-    fun getComplaints(filter: Filter?, callback: (List<Complaint>) -> Unit) {
+    private var filter: Filter? = null
+
+    fun getComplaints(callback: (List<Complaint>) -> Unit) {
         viewModelScope.launch {
             val query: Task<QuerySnapshot>?
             val collection = FirebaseFirestore
@@ -22,7 +24,7 @@ class ListViewModel : ViewModel() {
                 .collection("complaint")
             query = if (filter != null) {
                 collection
-                    .whereEqualTo(filter.key, filter.value)
+                    .whereEqualTo(filter!!.key, filter!!.value)
                     .get()
             } else {
                 collection
@@ -49,6 +51,10 @@ class ListViewModel : ViewModel() {
                 .placeholder(R.drawable.default_placeholder)
                 .into(container)
         }
+    }
+
+    fun setFilter(filter: Filter?) {
+        this.filter = filter
     }
 
     data class Filter(val key: String, val value: Any)
