@@ -64,21 +64,20 @@ class MapFragment() : Fragment(), GeoObjectTapListener, InputListener, Placemark
         setBottomSheetPeekHeight()
         binding.fab.setOnClickListener {
             binding.bottomSheetParent.addressView.text.let {
-                if(it.isNotEmpty() && it.isNotBlank()){
+                if (it.isNotEmpty() && it.isNotBlank()) {
                     val intent = Intent(requireContext(), CreateComplaintActivity::class.java)
                     intent.apply {
                         putExtra(AddPlacemarkDialog.EXTRA_ADDRESS, it)
-                        binding.bottomSheetParent.coordinatesView.text.split(" ").let{
+                        binding.bottomSheetParent.coordinatesView.text.split(" ").let {
                             putExtra(AddPlacemarkDialog.EXTRA_LATITUDE, it[0].toDoubleOrNull())
                             putExtra(AddPlacemarkDialog.EXTRA_LONGITUDE, it[1].toDoubleOrNull())
                         }
                     }
                     startActivity(intent)
-                }else{
+                } else {
                     Toast.makeText(requireContext(), "Поле адреса пусто", Toast.LENGTH_SHORT).show()
                 }
             }
-
         }
         mapView.map.logo.apply {
             this.setAlignment(Alignment(HorizontalAlignment.RIGHT, VerticalAlignment.TOP))
@@ -158,12 +157,14 @@ class MapFragment() : Fragment(), GeoObjectTapListener, InputListener, Placemark
         )
 //        mapView.map.mapObjects.addPlacemark(p1)
         val converter = PointAddressConverter(SearchType.GEO.value)
-        converter.addOnAddressFetchedListener(object : OnAddressFetchedListener{
-            override fun onSuccess(address: String?) {
-                val dialogFragment = AddPlacemarkDialog(address?:"", p1)
-                dialogFragment.show(requireActivity().supportFragmentManager, "dialog")
+        converter.addOnAddressFetchedListener(
+            object : OnAddressFetchedListener {
+                override fun onSuccess(address: String?) {
+                    val dialogFragment = AddPlacemarkDialog(address ?: "", p1)
+                    dialogFragment.show(requireActivity().supportFragmentManager, "dialog")
+                }
             }
-        })
+        )
         converter.addressFromPoint(
             p = p1,
             zoom = mapView.map.cameraPosition.zoom.toInt()

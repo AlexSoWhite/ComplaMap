@@ -1,8 +1,6 @@
 package com.example.complamap.views.fragments
 
-
 import android.app.Dialog
-import android.content.DialogInterface
 import android.content.Intent
 import android.os.Bundle
 import androidx.appcompat.app.AlertDialog
@@ -14,14 +12,15 @@ import com.yandex.mapkit.geometry.Point
 class AddPlacemarkDialog(
     private val address: String,
     private val point: Point
-    ): DialogFragment() {
+) : DialogFragment() {
 
     override fun onCreateDialog(savedInstanceState: Bundle?): Dialog {
-        return activity?.let{
+        return activity?.let {
             val builder = AlertDialog.Builder(it)
             builder.setTitle(R.string.add_complaint_question)
                 .setMessage("Aдрес: $address")
-                .setPositiveButton(R.string.add
+                .setPositiveButton(
+                    R.string.add
                 ) { _, _ ->
                     val intent = Intent(requireContext(), CreateComplaintActivity::class.java)
                     intent.apply {
@@ -31,14 +30,15 @@ class AddPlacemarkDialog(
                     }
                     startActivity(intent)
                 }
-                .setNegativeButton(R.string.cancel
+                .setNegativeButton(
+                    R.string.cancel
                 ) { dialog, _ ->
                     dialog.dismiss()
                 }
             builder.create()
         }!!
     }
-    companion object{
+    companion object {
         const val EXTRA_ADDRESS = "ADDRESS_STRING"
         const val EXTRA_LONGITUDE = "LONGITUDE_DOUBLE"
         const val EXTRA_LATITUDE = "LATITUDE_DOUBLE"
