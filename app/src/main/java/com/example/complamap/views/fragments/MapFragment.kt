@@ -10,6 +10,7 @@ import android.view.ViewGroup
 import android.view.inputmethod.EditorInfo
 import android.widget.EditText
 import android.widget.TextView
+import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import com.example.complamap.R
@@ -62,12 +63,27 @@ class MapFragment() : Fragment(), GeoObjectTapListener, InputListener, Placemark
         )
         setBottomSheetPeekHeight()
         binding.fab.setOnClickListener {
-            val intent = Intent(requireContext(), CreateComplaintActivity::class.java)
-            startActivity(intent)
+            binding.bottomSheetParent.addressView.text.let {
+                if(it.isNotEmpty() && it.isNotBlank()){
+                    val intent = Intent(requireContext(), CreateComplaintActivity::class.java)
+                    intent.apply {
+                        putExtra(AddPlacemarkDialog.EXTRA_ADDRESS, it)
+                        binding.bottomSheetParent.coordinatesView.text.split(" ").let{
+                            putExtra(AddPlacemarkDialog.EXTRA_LATITUDE, it[0].toDoubleOrNull())
+                            putExtra(AddPlacemarkDialog.EXTRA_LONGITUDE, it[1].toDoubleOrNull())
+                        }
+                    }
+                    startActivity(intent)
+                }else{
+                    Toast.makeText(requireContext(), "Поле адреса пусто", Toast.LENGTH_SHORT).show()
+                }
+            }
+
         }
         mapView.map.logo.apply {
             this.setAlignment(Alignment(HorizontalAlignment.RIGHT, VerticalAlignment.TOP))
         }
+
         mapView.map.addTapListener(this)
         mapView.map.addInputListener(this)
         searchView = binding.bottomSheetParent.searchView
