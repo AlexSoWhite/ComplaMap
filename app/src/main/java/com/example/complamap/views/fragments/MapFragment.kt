@@ -10,10 +10,13 @@ import android.view.ViewGroup
 import android.view.inputmethod.EditorInfo
 import android.widget.EditText
 import android.widget.TextView
+import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import com.example.complamap.R
 import com.example.complamap.databinding.FragmentMapBinding
+import com.example.complamap.model.OnAddressFetchedListener
+import com.example.complamap.model.PointAddressConverter
 import com.example.complamap.viewmodel.MapViewModel
 import com.example.complamap.views.activities.CreateComplaintActivity
 import com.google.android.material.bottomsheet.BottomSheetBehavior
@@ -60,12 +63,26 @@ class MapFragment() : Fragment(), GeoObjectTapListener, InputListener, Placemark
         )
         setBottomSheetPeekHeight()
         binding.fab.setOnClickListener {
-            val intent = Intent(requireContext(), CreateComplaintActivity::class.java)
-            startActivity(intent)
+            binding.bottomSheetParent.addressView.text.let {
+                if (it.isNotEmpty() && it.isNotBlank()) {
+                    val intent = Intent(requireContext(), CreateComplaintActivity::class.java)
+                    intent.apply {
+                        putExtra(AddPlacemarkDialog.EXTRA_ADDRESS, it)
+                        binding.bottomSheetParent.coordinatesView.text.split(" ").let {
+                            putExtra(AddPlacemarkDialog.EXTRA_LATITUDE, it[0].toDoubleOrNull())
+                            putExtra(AddPlacemarkDialog.EXTRA_LONGITUDE, it[1].toDoubleOrNull())
+                        }
+                    }
+                    startActivity(intent)
+                } else {
+                    Toast.makeText(requireContext(), "Поле адреса пусто", Toast.LENGTH_SHORT).show()
+                }
+            }
         }
         mapView.map.logo.apply {
             this.setAlignment(Alignment(HorizontalAlignment.RIGHT, VerticalAlignment.TOP))
         }
+
         mapView.map.addTapListener(this)
         mapView.map.addInputListener(this)
         searchView = binding.bottomSheetParent.searchView
@@ -133,7 +150,26 @@ class MapFragment() : Fragment(), GeoObjectTapListener, InputListener, Placemark
         )
     }
 
-    override fun onMapLongTap(p0: Map, p1: Point) {}
+    override fun onMapLongTap(p0: Map, p1: Point) {
+        viewModel.addressFromPoint(
+            p1,
+            mapView.map.cameraPosition.zoom.toInt()
+        )
+//        mapView.map.mapObjects.addPlacemark(p1)
+        val converter = PointAddressConverter(SearchType.GEO.value)
+        converter.addOnAddressFetchedListener(
+            object : OnAddressFetchedListener {
+                override fun onSuccess(address: String?) {
+                    val dialogFragment = AddPlacemarkDialog(address ?: "", p1)
+                    dialogFragment.show(requireActivity().supportFragmentManager, "dialog")
+                }
+            }
+        )
+        converter.addressFromPoint(
+            p = p1,
+            zoom = mapView.map.cameraPosition.zoom.toInt()
+        )
+    }
 
     override fun onTap(p0: SearchResultItem): Boolean {
         viewModel.processResultItem(p0)

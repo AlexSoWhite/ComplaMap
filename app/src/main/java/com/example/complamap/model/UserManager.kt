@@ -1,7 +1,5 @@
 package com.example.complamap.model
 
-import com.orhanobut.hawk.Hawk
-
 object UserManager {
 
     private var user: User? = null
@@ -14,10 +12,7 @@ object UserManager {
     }
 
     private fun getUserFromCache(): User? {
-        if (Hawk.isBuilt()) {
-            return Hawk.get("user", null)
-        }
-        return null
+        return UserRepository.getUserFromCache()
     }
 
     fun setUser(user: User?) {
@@ -25,8 +20,6 @@ object UserManager {
     }
 
     fun deleteUserFromCache() {
-        if (Hawk.isBuilt()) {
-            Hawk.delete("user")
-        }
+        UserRepository.deleteUserFromCache()
     }
 }

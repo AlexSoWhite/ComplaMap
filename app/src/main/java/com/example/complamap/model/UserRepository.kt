@@ -34,9 +34,10 @@ object UserRepository : ViewModel() {
                         val user = User(
                             username = username,
                             email = email,
-                            null,
+                            profilePic = null,
                             rating = 0.0,
-                            null
+                            subs = null,
+                            uid = auth.currentUser?.uid
                         )
                         viewModelScope.launch {
                             addUserToDatabase(user)
@@ -92,6 +93,19 @@ object UserRepository : ViewModel() {
 
     private fun putUserToCache(user: User) {
         Hawk.put("user", user)
+    }
+
+    fun getUserFromCache(): User? {
+        if (Hawk.isBuilt()) {
+            return Hawk.get("user", null)
+        }
+        return null
+    }
+
+    fun deleteUserFromCache() {
+        if (Hawk.isBuilt()) {
+            Hawk.delete("user")
+        }
     }
 
     private suspend fun getUserFromServer(): DocumentSnapshot {

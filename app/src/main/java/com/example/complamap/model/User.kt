@@ -6,4 +6,5 @@ data class User(
     val profilePic: String? = null,
     val rating: Double? = null,
     val subs: List<String>? = null,
+    val uid: String? = null
 )
