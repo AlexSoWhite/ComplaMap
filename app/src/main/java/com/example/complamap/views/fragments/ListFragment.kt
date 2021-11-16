@@ -1,12 +1,9 @@
 package com.example.complamap.views.fragments
 
 import android.os.Bundle
-import android.view.LayoutInflater
-import android.view.View
-import android.view.ViewGroup
-import android.view.WindowManager
+import android.view.*
 import android.widget.PopupWindow
-import android.widget.TextView
+import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -46,16 +43,22 @@ class ListFragment : Fragment(R.layout.fragment_list) {
                 showFilters()
             }
         }
+        binding.input.setOnKeyListener(View.OnKeyListener { v, keyCode, event ->
+            if (keyCode == KeyEvent.KEYCODE_ENTER && event.action == KeyEvent.ACTION_UP) {
+                Toast.makeText(
+                    this.context,
+                    "coming soon",
+                    Toast.LENGTH_SHORT
+                ).show()
+                return@OnKeyListener true
+            }
+            false
+        })
     }
 
     private fun showFilters() {
         isFilterShowing = true
         val rootLayout: ViewGroup? = view?.findViewById(R.id.root_list_layout)
-//        val filterRecycler = view?.findViewById<RecyclerView>(R.id.filter_recycler)
-//        filterRecycler?.adapter = FilterAdapter(
-//            resources.getStringArray(R.array.SpinnerItems),
-//            listViewModel
-//        )
         val bindingFilter = CategoryFiltersListBinding.inflate(layoutInflater)
         val popupWindow = PopupWindow(bindingFilter.root)
 
@@ -89,6 +92,14 @@ class ListFragment : Fragment(R.layout.fragment_list) {
         rootLayout?.setOnClickListener {
             isFilterShowing = false
             popupWindow.dismiss()
+        }
+
+        binding.filter.setOnClickListener {
+            isFilterShowing = false
+            popupWindow.dismiss()
+            binding.filter.setOnClickListener {
+                showFilters()
+            }
         }
 
         popupWindow.showAsDropDown(binding.filter)

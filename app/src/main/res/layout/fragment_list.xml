@@ -25,6 +25,7 @@
         <EditText
             android:paddingStart="5dp"
             android:id="@+id/input"
+            android:inputType="text"
             android:layout_marginStart="40dp"
             android:layout_width="300dp"
             android:layout_height="wrap_content"
