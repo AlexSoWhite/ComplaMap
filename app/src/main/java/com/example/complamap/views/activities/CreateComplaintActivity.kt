@@ -208,7 +208,7 @@ class CreateComplaintActivity : AppCompatActivity() {
                 // location = "адрес пока только координатами умеем",
                 description = binding.Description.text.toString(),
                 // creation_date = System.currentTimeMillis() as Timestamp,
-                creator = db.collection("users").document("AnonUser")
+                //creator = db.collection("users").document("AnonUser")
             )
         } else {
             Complaint(

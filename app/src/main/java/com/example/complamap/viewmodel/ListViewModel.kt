@@ -7,26 +7,38 @@ import androidx.lifecycle.viewModelScope
 import com.bumptech.glide.Glide
 import com.example.complamap.R
 import com.example.complamap.model.Complaint
+import com.google.android.gms.tasks.Task
 import com.google.firebase.firestore.FirebaseFirestore
+import com.google.firebase.firestore.QuerySnapshot
 import kotlinx.coroutines.launch
 
 class ListViewModel : ViewModel() {
 
-    fun getComplaints(callback: (List<Complaint>) -> Unit) {
+    fun getComplaints(filter: Filter?, callback: (List<Complaint>) -> Unit) {
         viewModelScope.launch {
-            FirebaseFirestore
+            val query: Task<QuerySnapshot>?
+            val collection = FirebaseFirestore
                 .getInstance()
                 .collection("complaint")
-                .get()
-                .addOnCompleteListener { task ->
-                    if (task.isSuccessful) {
-                        val list: List<Complaint> = task
-                            .result
-                            ?.toObjects(Complaint::class.java)
+            query = if (filter != null) {
+                collection
+                    .whereEqualTo(filter.key, filter.value)
+                    .get()
+            } else {
+                collection
+                    .orderBy("creation_date")
+                    .limit(10)
+                    .get()
+            }
+            query.addOnCompleteListener { task ->
+                if (task.isSuccessful) {
+                    val list: List<Complaint> = task
+                        .result
+                        ?.toObjects(Complaint::class.java)
                             as List<Complaint>
-                        callback(list)
-                    }
+                    callback(list)
                 }
+            }
         }
     }
 
@@ -38,4 +50,6 @@ class ListViewModel : ViewModel() {
                 .into(container)
         }
     }
+
+    data class Filter(val key: String, val value: Any)
 }

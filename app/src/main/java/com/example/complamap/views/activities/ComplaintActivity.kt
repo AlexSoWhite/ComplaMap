@@ -57,7 +57,16 @@ class ComplaintActivity : AppCompatActivity() {
     private suspend fun getData() {
         if (intent != null) {
             if (intent.hasExtra("cachedComplaint")) {
-                binding.complaint = Hawk.get("cachedComplaint")
+                val complaint: Complaint = Hawk.get("cachedComplaint")
+                binding.complaint = complaint
+                if (complaint != null) {
+                    withContext(Dispatchers.Main) {
+                        Glide.with(applicationContext)
+                            .load(complaint.photo)
+                            .placeholder(R.drawable.default_placeholder)
+                            .into(binding.photo)
+                    }
+                }
             }
             return
         }
@@ -71,7 +80,10 @@ class ComplaintActivity : AppCompatActivity() {
             comp = get().toObject(Complaint::class.java)
             if (comp != null) {
                 withContext(Dispatchers.Main) {
-                    Glide.with(applicationContext).load(comp.photo).into(binding.photo)
+                    Glide.with(applicationContext)
+                        .load(comp.photo)
+                        .placeholder(R.drawable.default_placeholder)
+                        .into(binding.photo)
                 }
                 val address = comp.location?.let {
                     geocoder.getFromLocation(
@@ -88,18 +100,18 @@ class ComplaintActivity : AppCompatActivity() {
                     comp.creation_date?.toDate()
                 ).toString()
 
-                comp.creator?.get()?.addOnCompleteListener { task ->
-                    if (task.isSuccessful) {
-                        try {
-                            creator = task.result?.toObject(User::class.java)
-                            binding.creator = creator
-                        } catch (exception: Exception) {
-                            Log.d(TAG, "User is broken")
-                        }
-                    } else
-                        Log.d(TAG, "Sorry, not found")
-                }
-                Log.d(TAG, "User: ${comp.creator}")
+//                comp.creator?.get()?.addOnCompleteListener { task ->
+//                    if (task.isSuccessful) {
+//                        try {
+//                            creator = task.result?.toObject(User::class.java)
+//                            binding.creator = creator
+//                        } catch (exception: Exception) {
+//                            Log.d(TAG, "User is broken")
+//                        }
+//                    } else
+//                        Log.d(TAG, "Sorry, not found")
+//                }
+//                Log.d(TAG, "User: ${comp.creator}")
                 binding.complaint = comp
             }
         } catch (exception: Exception) {

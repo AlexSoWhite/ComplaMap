@@ -13,8 +13,8 @@ data class Complaint(
     val approvals: Long? = null,
     val rejections: Long? = null,
     val status: String? = null,
-    val followers: List<DocumentReference>? = null,
-    val creator: DocumentReference? = null,
+    val followers: List<String>? = null,
+    val creator: String? = null,
     var address: String? = null,
     var creation_day: String? = null
 )
