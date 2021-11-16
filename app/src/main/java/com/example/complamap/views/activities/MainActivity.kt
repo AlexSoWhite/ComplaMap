@@ -5,24 +5,20 @@ import android.content.Intent
 import android.graphics.Rect
 import android.os.Bundle
 import android.os.PersistableBundle
-import android.util.TypedValue
 import android.view.MotionEvent
-import android.view.View
 import android.view.inputmethod.InputMethodManager
 import android.widget.EditText
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.app.AppCompatDelegate
-import androidx.core.view.isGone
-import androidx.core.view.isVisible
 import com.example.complamap.R
 import com.example.complamap.databinding.ActivityMainBinding
 import com.example.complamap.model.ContextContainer
 import com.example.complamap.views.fragments.ListFragment
 import com.example.complamap.views.fragments.MapFragment
 import com.example.complamap.views.fragments.ProfileFragment
-import com.google.android.material.bottomsheet.BottomSheetBehavior
 import com.orhanobut.hawk.Hawk
 import com.yandex.mapkit.MapKitFactory
+import com.yandex.mapkit.search.SearchFactory
 
 const val MAP_IS_INITIALIZE: String = "MAP_IS_INITIALIZE"
 
@@ -37,6 +33,7 @@ class MainActivity : AppCompatActivity() {
             ?: let { // Если null, то активность ни разу не создавалась - инициализируем карту
                 MapKitFactory.setApiKey(resources.getString(R.string.MapKitApi_Key))
                 MapKitFactory.initialize(this)
+                SearchFactory.initialize(this)
             }
         supportActionBar?.hide()
         binding = ActivityMainBinding.inflate(layoutInflater)
@@ -47,49 +44,26 @@ class MainActivity : AppCompatActivity() {
             supportFragmentManager.beginTransaction().replace(binding.container.id, MapFragment())
                 .commit()
         }
-        val bottomSheetParent = binding.bottomSheetParent.root
-        val bottomSheetBehavior = BottomSheetBehavior.from(bottomSheetParent)
-        val tv = TypedValue()
-        if (theme.resolveAttribute(R.attr.actionBarSize, tv, true)) {
-            val actionBarHeight = TypedValue.complexToDimensionPixelSize(
-                tv.data,
-                resources.displayMetrics
-            )
-            bottomSheetBehavior.peekHeight = actionBarHeight * 2
-        }
         binding.bottomNavigation.setOnItemSelectedListener {
             when (it.itemId) {
                 R.id.profile -> {
-                    if (bottomSheetParent.isVisible) {
-                        bottomSheetParent.visibility = View.GONE
-                    }
                     supportFragmentManager.beginTransaction()
                         .replace(binding.container.id, ProfileFragment())
                         .commit()
                     return@setOnItemSelectedListener true
                 }
                 R.id.list -> {
-                    val intent = Intent(this, CreateComplaintActivity::class.java)
-                    startActivity(intent)
+                    supportFragmentManager.beginTransaction()
+                        .replace(binding.container.id, ListFragment())
+                        .commit()
                     return@setOnItemSelectedListener true
                 }
                 R.id.map -> {
-                    if (bottomSheetParent.isGone) {
-                        bottomSheetParent.visibility = View.VISIBLE
-                    }
                     supportFragmentManager.beginTransaction()
                         .replace(binding.container.id, MapFragment())
                         .commit()
                     return@setOnItemSelectedListener true
                 }
-//                R.id.create -> {
-//                    if (bottomSheetParent.isVisible) {
-//                        bottomSheetParent.visibility = View.GONE
-//                    }
-//                    val intent = Intent(this, CreateComplaintActivity::class.java)
-//                    startActivity(intent)
-//                    return@setOnItemSelectedListener true
-//                }
             }
             false
         }

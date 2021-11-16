@@ -19,7 +19,7 @@ object ComplaintRepository: ViewModel() {
     }
 
     private fun addComplaintToDatabase(complaint: Complaint){
-        db.collection("complaint").add(complaint)
+        db.collection("complaint").add(complaint) //TODO
     }
 
     private fun putComplaintToCache(complaint: Complaint){

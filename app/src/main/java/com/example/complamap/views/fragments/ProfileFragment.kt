@@ -13,10 +13,10 @@ import android.widget.FrameLayout
 import android.widget.LinearLayout
 import android.widget.PopupWindow
 import androidx.fragment.app.Fragment
+import androidx.fragment.app.commit
 import androidx.lifecycle.ViewModelProvider
 import com.example.complamap.R
 import com.example.complamap.databinding.FragmentProfileBinding
-import com.example.complamap.model.UserManager
 import com.example.complamap.viewmodel.ProfileViewModel
 
 class ProfileFragment : Fragment(R.layout.fragment_profile) {
@@ -39,20 +39,24 @@ class ProfileFragment : Fragment(R.layout.fragment_profile) {
         return binding.root
     }
 
-    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        super.onViewCreated(view, savedInstanceState)
+    override fun onStart() {
+        super.onStart()
+        val profileViewModel = ViewModelProvider(this)[ProfileViewModel::class.java]
+        // here we decide which page to show - authorized or not
+        profileViewModel.getUser { user ->
+            when (user) {
 
-        val user = UserManager.getCurrentUser()
-        // здесь идем за данными и выбираем, какую страницу нарисовать - авторизованную или нет
-        if (user == null) {
-            childFragmentManager.beginTransaction().apply {
-                add(R.id.profile_container, NoAuthFragment())
-                commit()
-            }
-        } else {
-            childFragmentManager.beginTransaction().apply {
-                add(R.id.profile_container, AuthorizedUserFragment())
-                commit()
+                null -> {
+                    childFragmentManager.commit {
+                        replace(R.id.profile_container, NoAuthFragment())
+                    }
+                }
+
+                else -> {
+                    childFragmentManager.commit {
+                        replace(R.id.profile_container, AuthorizedUserFragment())
+                    }
+                }
             }
         }
     }

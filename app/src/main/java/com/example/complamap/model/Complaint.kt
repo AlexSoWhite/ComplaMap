@@ -1,7 +1,6 @@
 package com.example.complamap.model
 
 import com.google.firebase.Timestamp
-import com.google.firebase.firestore.DocumentReference
 import com.google.firebase.firestore.GeoPoint
 
 data class Complaint(
@@ -13,8 +12,8 @@ data class Complaint(
     val approvals: Long? = null,
     val rejections: Long? = null,
     val status: String? = null,
-    val followers: List<DocumentReference>? = null,
-    val creator: DocumentReference? = null,
+    val followers: List<String>? = null,
+    val creator: String? = null,
     var address: String? = null,
     var creation_day: String? = null
 )

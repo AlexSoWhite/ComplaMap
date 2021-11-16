@@ -14,20 +14,14 @@ object UserManager {
     }
 
     private fun getUserFromCache(): User? {
-        if (Hawk.isBuilt()) {
-            return Hawk.get("user", null)
-        }
-        return null
+        return UserRepository.getUserFromCache()
     }
 
     fun setUser(user: User?) {
         this.user = user
-        // кладем нового юзера в кэш
     }
 
     fun deleteUserFromCache() {
-        if (Hawk.isBuilt()) {
-            Hawk.delete("user")
-        }
+        UserRepository.deleteUserFromCache()
     }
 }

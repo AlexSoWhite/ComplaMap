@@ -33,7 +33,6 @@ class SignUpActivity : AppCompatActivity() {
                 binding.password.text.toString(),
                 binding.repeatPassword.text.toString()
             ) { res ->
-
                 when (res) {
 
                     is LoginResult.Error -> Toast.makeText(
@@ -48,6 +47,7 @@ class SignUpActivity : AppCompatActivity() {
                             "регистрация прошла успешно",
                             Toast.LENGTH_SHORT
                         ).show()
+                        finish()
                     }
                 }
             }

@@ -91,6 +91,9 @@ class CreateComplaintActivity : AppCompatActivity() {
         binding.ExitButton.setOnClickListener {
             finish()
         }
+        val addressText: String? =
+            intent.getStringExtra("address")?.replace("Адрес: ", "")
+        binding.Address.setText(addressText)
 
         binding.AddPhotoButton.setOnClickListener {
             if (!isDialogShowing) {
@@ -190,19 +193,23 @@ class CreateComplaintActivity : AppCompatActivity() {
                     Toast.makeText(applicationContext, "Требуется авторизация", Toast.LENGTH_SHORT).show()
                 else
                 {
-                ComplaintManager.setComplaint(
+                    ComplaintManager.setComplaint(
                     Complaint(
-                    category = binding.Spinner.selectedItem.toString(),
-                    description = binding.Description.text.toString(),
-                    creation_date = Timestamp.now(),
-                    creation_day = android.text.format.DateFormat.format(
+                        category = binding.Spinner.selectedItem.toString(),
+                        description = binding.Description.text.toString(),
+                        creation_date = Timestamp.now(),
+                        creation_day = android.text.format.DateFormat.format(
                         "dd.MM.yyyy",
                         Timestamp.now().toDate()
-                    ).toString(),
-                    // creator = db.collection("users").document(Firebase.auth.currentUser!!.uid)
+                        ).toString(),
+                        creator = getCurrentUser()?.uid,
+                        photo = createImageFile().canonicalPath,
+                        address = binding.Address.text.toString()
+
                     )
                 )
                     ComplaintRepository.acceptComplaint(ComplaintManager.getCurrentComplaint()!!)
+                    Toast.makeText(applicationContext, "отправил в бд *это для отладки*", Toast.LENGTH_SHORT).show()
                     val intent = Intent(this, ComplaintActivity::class.java)
                     intent.putExtra("isAnon", radioAnon.isChecked)
                     startActivity(intent)
@@ -218,41 +225,6 @@ class CreateComplaintActivity : AppCompatActivity() {
             binding.Description.isEnabled = true
             binding.AddPhotoButton.isEnabled = true
         }
-    }
-
-        //val db = FirebaseFirestore.getInstance()
-    private fun addToDb(Anon: Boolean) {
-        if (Anon) { // анонимная жалоба
-            ComplaintManager.setComplaint(Complaint(
-                category = binding.Spinner.selectedItem.toString(),
-                // location = "адрес пока только координатами умеем",
-                description = binding.Description.text.toString(),
-                creation_date = Timestamp.now(),
-                // photo = tempImageUri
-
-               // creator = db.collection("users").document(Firebase.auth.currentUser!!.uid)
-            ))
-            val intent = Intent(this, ComplaintActivity::class.java)
-            startActivity(intent)
-        } else { // неанонимная жалоба
-            if(getCurrentUser()!=null) {
-                ComplaintManager.setComplaint(
-                    Complaint(
-                        category = binding.Spinner.selectedItem.toString(),
-                        // location = "адрес пока только координатами умеем",
-                        description = binding.Description.text.toString(),
-                        // creator =
-                        creation_date = Timestamp.now()
-                    )
-                )
-                val intent = Intent(this, ComplaintActivity::class.java)
-                startActivity(intent)
-            }
-            else
-                Toast.makeText(applicationContext, "Требуется авторизация", Toast.LENGTH_SHORT).show()
-
-        }
-        ComplaintRepository.acceptComplaint(ComplaintManager.getCurrentComplaint()!!)
     }
 
     private fun createImageFile(): File {

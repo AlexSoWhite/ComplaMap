@@ -2,6 +2,7 @@ package com.example.complamap.views.activities
 
 import android.location.Geocoder
 import android.os.Bundle
+import android.os.UserManager
 import android.util.Log
 import androidx.appcompat.app.AppCompatActivity
 import androidx.databinding.DataBindingUtil
@@ -11,7 +12,9 @@ import com.example.complamap.databinding.ActivityComplaintBinding
 import com.example.complamap.model.Complaint
 import com.example.complamap.model.ComplaintManager
 import com.example.complamap.model.User
+import com.example.complamap.viewmodel.ProfileViewModel
 import com.example.complamap.views.fragments.OwnerCompFragment
+import com.google.firebase.firestore.FirebaseFirestore
 // import com.google.firebase.firestore.DocumentSnapshot
 // import com.google.firebase.firestore.FirebaseFirestore
 import java.util.Locale
@@ -67,7 +70,7 @@ class ComplaintActivity : AppCompatActivity() {
                 withContext(Dispatchers.Main) {
                     Glide.with(applicationContext).load(comp.photo).into(binding.photo)
                 }
-                val address = comp.location?.let {
+                /*val address = comp.location?.let {
                     geocoder.getFromLocation(
                         it.latitude,
                         it.longitude,
@@ -76,24 +79,26 @@ class ComplaintActivity : AppCompatActivity() {
                 }
                 if (address != null) {
                     comp.address = address[0].getAddressLine(0)
-                }
+                }*/
 
-                comp.creator?.get()?.addOnCompleteListener { task ->
+               /* comp.creator?.get()?.addOnCompleteListener { task ->
                     if (task.isSuccessful) {
-                        try {
+                        try {*/
                             creator = if(intent.extras?.getBoolean("isAnon")!!)
                                 null
                             else
-                                task.result?.toObject(User::class.java)
+                                null
+                                //FirebaseFirestore.getInstance().collection("users").document(ComplaintManager.getCurrentComplaint()?.creator.toString()) as User?
+                                //task.result?.toObject(User::class.java)
 
                             binding.creator = creator
-                        } catch (exception: Exception) {
+                      /*  } catch (exception: Exception) {
                             Log.d(TAG, "User is broken")
                         }
                     } else
                         Log.d(TAG, "Sorry, not found")
                 }
-                Log.d(TAG, "User: ${comp.creator}")
+                Log.d(TAG, "User: ${comp.creator}")*/
                 binding.complaint = comp
             }
         } catch (exception: Exception) {
