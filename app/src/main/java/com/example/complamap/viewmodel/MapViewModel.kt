@@ -50,10 +50,10 @@ class MapViewModel : ViewModel() {
     }
 
     private fun updateCoordinates(point: Point) {
-        coordinatesMutable.value = "Kоординаты: ${point.latitude} ${point.longitude}"
+        coordinatesMutable.value = "${point.latitude} ${point.longitude}"
     }
     private fun updateAddress(address: String) {
-        addressMutable.value = "Адрес: $address"
+        addressMutable.value = address
     }
 
     fun processResultItem(item: SearchResultItem) {
