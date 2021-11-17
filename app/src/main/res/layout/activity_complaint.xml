@@ -40,15 +40,14 @@
             <ImageView
                     android:id="@+id/photo"
                     android:minWidth="70dp"
-                    android:layout_height="wrap_content"
-                    android:layout_width="wrap_content"
+                    android:layout_height="70dp"
+                    android:layout_width="70dp"
                     android:layout_marginTop="30dp"
-                    android:maxHeight="100dp"
                     android:paddingVertical="5dp"
-                    android:src="@drawable/ic_baseline_image_24"
                     app:layout_constraintStart_toStartOf="@+id/date"
                     app:layout_constraintEnd_toEndOf="@+id/date"
-                    app:layout_constraintTop_toTopOf="parent" />
+                    app:layout_constraintTop_toTopOf="parent"
+                    tools:src="@drawable/default_placeholder"/>
 
             <androidx.constraintlayout.widget.ConstraintLayout
                     android:id="@+id/wrap"
@@ -61,10 +60,11 @@
                 <TextView
                         android:id="@+id/address"
                         android:layout_height="wrap_content"
-                        android:layout_width="270dp"
+                        android:layout_width="250dp"
                         android:textAppearance="?attr/textAppearanceSubtitle1"
-                        android:maxLines="2"
+                        android:maxLines="3"
                         android:text="@{complaint.address}"
+                        android:ellipsize="end"
                         app:layout_constraintStart_toStartOf="parent"
                         app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintTop_toTopOf="parent"
@@ -85,7 +85,7 @@
                         android:id="@+id/status"
                         android:layout_height="wrap_content"
                         android:layout_width="wrap_content"
-                        android:text="@{complaint.status}"
+                        android:text="@{complaint.status!= null ? complaint.status : @string/unknown}"
                         android:layout_marginStart="6dp"
                         android:textAppearance="?attr/textAppearanceSubtitle1"
                         app:layout_constraintBottom_toBottomOf="@+id/textView2"

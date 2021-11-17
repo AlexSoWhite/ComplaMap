@@ -34,4 +34,5 @@
     <string name="add_complaint_question">"Добавить жалобу?"</string>
     <string name="address">Адрес:</string>
     <string name="coordinates">Координаты</string>
+    <string name="unknown">Не известно</string>
 </resources>
