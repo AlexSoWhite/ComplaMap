@@ -6,15 +6,7 @@
         android:layout_height="wrap_content"
         android:background="@color/white"
         android:padding="5dp">
-<!--    <androidx.recyclerview.widget.RecyclerView-->
-<!--            android:id="@+id/filter_recycler"-->
-<!--            android:layout_width="wrap_content"-->
-<!--            android:layout_height="wrap_content"-->
-<!--            app:layout_constraintEnd_toEndOf="parent"-->
-<!--            app:layout_constraintStart_toStartOf="parent"-->
-<!--            app:layout_constraintTop_toTopOf="parent"-->
-<!--            app:layout_constraintBottom_toBottomOf="parent"-->
-<!--        />-->
+
     <TextView
             android:id="@+id/dismiss_filters"
             android:layout_width="wrap_content"
@@ -23,16 +15,16 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintBottom_toTopOf="@+id/category1"
+            app:layout_constraintBottom_toTopOf="@+id/transport"
             android:focusable="true"
             android:clickable="true"
             android:layout_margin="10dp">
     </TextView>
     <TextView
-            android:id="@+id/category1"
+            android:id="@+id/transport"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Категория 1"
+            android:text="транспорт"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/dismiss_filters"
             app:layout_constraintEnd_toEndOf="parent"
@@ -47,7 +39,7 @@
             android:layout_height="wrap_content"
             android:text="Категория 2"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/category1"
+            app:layout_constraintTop_toBottomOf="@id/transport"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintBottom_toTopOf="@+id/category3"
             android:focusable="true"

@@ -9,6 +9,7 @@ import com.example.complamap.R
 import com.example.complamap.model.Complaint
 import com.google.android.gms.tasks.Task
 import com.google.firebase.firestore.FirebaseFirestore
+import com.google.firebase.firestore.Query
 import com.google.firebase.firestore.QuerySnapshot
 import kotlinx.coroutines.launch
 
@@ -23,13 +24,19 @@ class ListViewModel : ViewModel() {
                 .getInstance()
                 .collection("complaint")
             query = if (filter != null) {
-                collection
-                    .whereEqualTo(filter!!.key, filter!!.value)
-                    .get()
+                if (filter!!.value != "default") {
+                    collection
+                        .whereEqualTo(filter!!.key, filter!!.value)
+                        .get()
+                } else {
+                    collection
+                        .orderBy("creation_date", Query.Direction.DESCENDING)
+                        .limit(10)
+                        .get()
+                }
             } else {
                 collection
-                    .orderBy("creation_date")
-                    .limit(10)
+                    .orderBy("creation_date", Query.Direction.DESCENDING)
                     .get()
             }
             query.addOnCompleteListener { task ->

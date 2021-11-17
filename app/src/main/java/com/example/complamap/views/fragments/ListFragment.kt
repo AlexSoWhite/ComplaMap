@@ -5,6 +5,7 @@ import android.view.*
 import android.widget.PopupWindow
 import android.widget.Toast
 import androidx.fragment.app.Fragment
+import androidx.fragment.app.commit
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
@@ -33,16 +34,8 @@ class ListFragment : Fragment(R.layout.fragment_list) {
         super.onViewCreated(view, savedInstanceState)
         recycler = binding.recycler
         listViewModel = ViewModelProvider(this)[ListViewModel::class.java]
-        listViewModel.setFilter(null)
-        listViewModel.getComplaints { list ->
-            recycler.adapter = ComplaintAdapter(list, listViewModel)
-        }
+        updateList(ListViewModel.Filter("default", "default"))
         recycler.layoutManager = LinearLayoutManager(this.context)
-        binding.filter.setOnClickListener {
-            if (!isFilterShowing) {
-                showFilters()
-            }
-        }
         binding.input.setOnKeyListener(View.OnKeyListener { v, keyCode, event ->
             if (keyCode == KeyEvent.KEYCODE_ENTER && event.action == KeyEvent.ACTION_UP) {
                 Toast.makeText(
@@ -65,27 +58,23 @@ class ListFragment : Fragment(R.layout.fragment_list) {
         popupWindow.height = WindowManager.LayoutParams.WRAP_CONTENT
         popupWindow.width = WindowManager.LayoutParams.WRAP_CONTENT
 
-        bindingFilter.category1.setOnClickListener {
-            updateList(ListViewModel.Filter("category", "Категория 1"))
-            isFilterShowing = false
+        bindingFilter.transport.setOnClickListener {
+            updateList(ListViewModel.Filter("category", "Транспорт"))
             popupWindow.dismiss()
         }
 
         bindingFilter.category2.setOnClickListener {
             updateList(ListViewModel.Filter("category", "Категория 2"))
-            isFilterShowing = false
             popupWindow.dismiss()
         }
 
         bindingFilter.category3.setOnClickListener {
             updateList(ListViewModel.Filter("category", "Категория 3"))
-            isFilterShowing = false
             popupWindow.dismiss()
         }
 
         bindingFilter.dismissFilters.setOnClickListener {
             updateList(null)
-            isFilterShowing = false
             popupWindow.dismiss()
         }
 
@@ -108,7 +97,18 @@ class ListFragment : Fragment(R.layout.fragment_list) {
     private fun updateList(filter: ListViewModel.Filter?) {
         listViewModel.setFilter(filter)
         listViewModel.getComplaints { list ->
+            if (list.isEmpty()) {
+                Toast.makeText(
+                    context,
+                    "ничего не найдено",
+                    Toast.LENGTH_SHORT
+                ).show()
+            }
             recycler.adapter = ComplaintAdapter(list, listViewModel)
+        }
+        isFilterShowing = false
+        binding.filter.setOnClickListener {
+            showFilters()
         }
     }
 
