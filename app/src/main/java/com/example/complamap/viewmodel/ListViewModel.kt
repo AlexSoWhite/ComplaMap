@@ -7,10 +7,7 @@ import androidx.lifecycle.viewModelScope
 import com.bumptech.glide.Glide
 import com.example.complamap.R
 import com.example.complamap.model.Complaint
-import com.google.android.gms.tasks.Task
-import com.google.firebase.firestore.FirebaseFirestore
-import com.google.firebase.firestore.Query
-import com.google.firebase.firestore.QuerySnapshot
+import com.example.complamap.model.ListRepository
 import kotlinx.coroutines.launch
 
 class ListViewModel : ViewModel() {
@@ -18,36 +15,12 @@ class ListViewModel : ViewModel() {
     private var filter: Filter? = null
 
     fun getComplaints(callback: (List<Complaint>) -> Unit) {
-        viewModelScope.launch {
-            val query: Task<QuerySnapshot>?
-            val collection = FirebaseFirestore
-                .getInstance()
-                .collection("complaint")
-            query = if (filter != null) {
-                if (filter!!.value != "default") {
-                    collection
-                        .whereEqualTo(filter!!.key, filter!!.value)
-                        .get()
-                } else {
-                    collection
-                        .orderBy("creation_date", Query.Direction.DESCENDING)
-                        .limit(10)
-                        .get()
-                }
-            } else {
-                collection
-                    .orderBy("creation_date", Query.Direction.DESCENDING)
-                    .get()
-            }
-            query.addOnCompleteListener { task ->
-                if (task.isSuccessful) {
-                    val list: List<Complaint> = task
-                        .result
-                        ?.toObjects(Complaint::class.java)
-                            as List<Complaint>
-                    callback(list)
-                }
-            }
+        when {
+            filter == null -> ListRepository.getComplaintsWithNoFilter(callback)
+
+            filter!!.value == "default" -> ListRepository.getComplaintsWithDefaultFilter(callback)
+
+            else -> ListRepository.getComplaintsWithEqualFilter(this.filter!!, callback)
         }
     }
 
