@@ -39,9 +39,9 @@
 
             <ImageView
                     android:id="@+id/photo"
-                    android:minWidth="80dp"
-                    android:layout_height="100dp"
-                    android:layout_width="100dp"
+                    android:minWidth="70dp"
+                    android:layout_height="70dp"
+                    android:layout_width="70dp"
                     android:layout_marginTop="30dp"
                     android:paddingVertical="5dp"
                     app:layout_constraintStart_toStartOf="@+id/date"
@@ -60,7 +60,7 @@
                 <TextView
                         android:id="@+id/address"
                         android:layout_height="wrap_content"
-                        android:layout_width="240dp"
+                        android:layout_width="230dp"
                         android:textAppearance="?attr/textAppearanceSubtitle1"
                         android:maxLines="3"
                         android:text="@{complaint.address}"
