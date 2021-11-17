@@ -3,13 +3,11 @@ package com.example.complamap.views.activities
 import android.Manifest
 import android.content.Context
 import android.content.Intent
-import android.graphics.Point
 import android.net.Uri
 import android.os.Build
 import android.os.Bundle
 import android.os.Environment
 import android.transition.TransitionManager
-import android.view.Display
 import android.view.Gravity
 import android.view.LayoutInflater
 import android.view.ViewGroup
@@ -28,10 +26,10 @@ import androidx.lifecycle.ViewModelProvider
 import com.example.complamap.R
 import com.example.complamap.databinding.CreateComplaintActivityBinding
 import com.example.complamap.model.Complaint
-import com.example.complamap.views.fragments.AddPlacemarkDialog
-import com.example.complamap.model.*
 import com.example.complamap.model.ComplaintManager
+import com.example.complamap.model.UserManager
 import com.example.complamap.viewmodel.ComplaintViewModel
+import com.example.complamap.views.fragments.AddPlacemarkDialog
 import java.io.File
 
 class CreateComplaintActivity : AppCompatActivity() {
@@ -167,11 +165,8 @@ class CreateComplaintActivity : AppCompatActivity() {
         val view = inflater.inflate(R.layout.create_complaint_popup_menu, null)
         val popupWindow = PopupWindow(view)
 
-        val display: Display = windowManager.defaultDisplay
-        val size = Point()
-        display.getSize(size)
         popupWindow.height = WindowManager.LayoutParams.WRAP_CONTENT
-        popupWindow.width = size.x - 70
+        popupWindow.width = WindowManager.LayoutParams.MATCH_PARENT
 
         TransitionManager.beginDelayedTransition(rootLayout)
         popupWindow.isOutsideTouchable = false

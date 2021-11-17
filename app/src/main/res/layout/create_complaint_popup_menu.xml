@@ -1,95 +1,95 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<FrameLayout
+        xmlns:android="http://schemas.android.com/apk/res/android"
         xmlns:app="http://schemas.android.com/apk/res-auto"
         xmlns:tools="http://schemas.android.com/tools"
-        android:layout_width="370dp"
-        android:id="@+id/PopupLayout"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_gravity="center"
-        android:layout_margin="40dp"
-        android:background="@drawable/rounded_rectangle_background"
-        android:orientation="vertical"
-        android:padding="5dp"
-        android:layout_marginStart="10dp"
-        android:layout_marginEnd="10dp">
+        android:orientation="vertical">
 
-    <androidx.constraintlayout.widget.ConstraintLayout
+    <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content">
-
-        <ImageButton
-                android:background="@color/white"
-                android:gravity="center"
-                android:id="@+id/closePopup"
-                android:layout_height="40dp"
-                android:layout_width="40dp"
-                android:src="@drawable/ic_baseline_close_24"
-                app:layout_constraintStart_toStartOf="parent"
-                tools:ignore="MissingConstraints" />
-
-
-    </androidx.constraintlayout.widget.ConstraintLayout>
-
-    <RadioGroup
-            android:layout_width="match_parent"
-            android:layout_height="match_parent">
-
-        <RadioButton
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="опубликовать анонимно"
-
-                android:id="@+id/Anon"
-
-                android:textAppearance="?attr/textAppearanceHeadline6" />
-
-
-        <TextView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="20dp"
-                android:text="
-● ваше имя пользователя и рейтинг не будут указаны\n
-● отслеживание жалобы будет недоступно\n
-● ваш рейтинг не будет увеличен в случае подтверждения жалобы"
-                android:textAppearance="?attr/textAppearanceSubtitle1" />
-
-        <RadioButton
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="опубликовать неанонимно"
-
-android:id="@+id/NeAnon"
-
-                android:textAppearance="?attr/textAppearanceHeadline6"/>
-
-
-        <TextView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginBottom="10dp"
-                android:textAppearance="?attr/textAppearanceSubtitle1"
-                android:layout_marginStart="20dp"
-                android:text="
-● имя пользователя и рейтинг видны всем\n
-● доступно отслежвание жалобы в разделе профиль -> мои жалобы\n
-● в случае подтверждения жалобы ваш рейтинг увеличится; в случае опровержения - уменьшится" />
-    </RadioGroup>
-
-    <Button
-            android:layout_width="200dp"
+            android:id="@+id/PopupLayout"
             android:layout_height="wrap_content"
-            android:text="предпросмотр"
-            android:textAppearance="@style/actionButton"
             android:layout_gravity="center"
-            android:id="@+id/PublishButton"
-            android:textColor="@color/black"
-            app:backgroundTint="@null"
-            android:backgroundTint="#03DAC5"
+            android:background="@drawable/rounded_rectangle_background"
+            android:orientation="vertical"
+            android:layout_marginStart="20dp"
+            android:layout_marginEnd="20dp"
+            android:paddingTop="5dp"
+            android:paddingBottom="5dp"
+            android:paddingStart="10dp"
+            android:paddingEnd="10dp">
 
-            style="@style/Widget.MaterialComponents.Button.OutlinedButton"
+        <androidx.constraintlayout.widget.ConstraintLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+            <ImageButton
+                    android:background="@color/white"
+                    android:gravity="center"
+                    android:id="@+id/closePopup"
+                    android:layout_height="40dp"
+                    android:layout_width="40dp"
+                    android:src="@drawable/ic_baseline_close_24"
+                    app:layout_constraintStart_toStartOf="parent"
+                    tools:ignore="MissingConstraints" />
 
 
-            />
+        </androidx.constraintlayout.widget.ConstraintLayout>
 
-</LinearLayout>
+        <RadioGroup
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+
+            <RadioButton
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="опубликовать анонимно"
+                    android:id="@+id/Anon"
+                    android:textAppearance="?attr/textAppearanceHeadline6" />
+
+            <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="20dp"
+                    android:text="
+    ● ваше имя пользователя и рейтинг не будут указаны\n
+    ● отслеживание жалобы будет недоступно\n
+    ● ваш рейтинг не будет увеличен в случае подтверждения жалобы"
+                    android:textAppearance="?attr/textAppearanceSubtitle1" />
+
+            <RadioButton
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="опубликовать неанонимно"
+                    android:id="@+id/NeAnon"
+                    android:textAppearance="?attr/textAppearanceHeadline6" />
+
+            <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="10dp"
+                    android:textAppearance="?attr/textAppearanceSubtitle1"
+                    android:layout_marginStart="20dp"
+                    android:text="
+    ● имя пользователя и рейтинг видны всем\n
+    ● доступно отслежвание жалобы в разделе профиль -> мои жалобы\n
+    ● в случае подтверждения жалобы ваш рейтинг увеличится; в случае опровержения - уменьшится" />
+        </RadioGroup>
+
+        <Button
+                android:layout_width="200dp"
+                android:layout_height="wrap_content"
+                android:text="предпросмотр"
+                android:textAppearance="@style/actionButton"
+                android:layout_gravity="center"
+                android:id="@+id/PublishButton"
+                android:textColor="@color/black"
+                app:backgroundTint="@null"
+                android:backgroundTint="#03DAC5"
+                style="@style/Widget.MaterialComponents.Button.OutlinedButton" />
+
+    </LinearLayout>
+</FrameLayout>

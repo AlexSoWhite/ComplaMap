@@ -2,8 +2,6 @@ package com.example.complamap.views.activities
 
 import android.net.Uri
 import android.os.Bundle
-import android.view.WindowManager
-import android.widget.ImageView
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.net.toUri
 import androidx.databinding.DataBindingUtil

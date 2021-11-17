@@ -3,16 +3,16 @@ package com.example.complamap.viewmodel
 import android.content.Context
 import android.net.Uri
 import android.widget.ImageView
-import android.widget.Toast
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.bumptech.glide.Glide
 import com.example.complamap.R
-import com.example.complamap.model.*
+import com.example.complamap.model.Complaint
+import com.example.complamap.model.ComplaintRepository
 import com.google.firebase.Timestamp
 import com.google.firebase.storage.FirebaseStorage
-import kotlinx.coroutines.launch
 import java.io.File
+import kotlinx.coroutines.launch
 
 class ComplaintViewModel : ViewModel() {
 
