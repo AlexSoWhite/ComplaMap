@@ -55,11 +55,6 @@ class ComplaintViewModel : ViewModel() {
         uploadTask.addOnSuccessListener {
             pictureRef.downloadUrl.addOnSuccessListener {
                 photoString = it.toString()
-                Toast.makeText(
-                    ContextContainer.getContext(),
-                    photoString,
-                    Toast.LENGTH_LONG
-                ).show()
                 callback(photoString)
             }
         }
