@@ -32,45 +32,72 @@
                 app:tint="@color/icon" />
 
         <androidx.constraintlayout.widget.ConstraintLayout
-
                 android:layout_width="match_parent"
                 android:layout_margin="20dp"
                 android:layout_height="match_parent">
 
             <ImageView
                     android:id="@+id/photo"
-                    android:minWidth="70dp"
-                    android:layout_height="70dp"
-                    android:layout_width="70dp"
-                    android:layout_marginTop="30dp"
-                    android:paddingVertical="5dp"
+                    android:layout_height="300dp"
+                    android:minHeight="300dp"
+                    android:layout_width="wrap_content"
+                    android:layout_marginTop="15dp"
+                    android:padding="5dp"
+                    android:background="@drawable/black_border"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintEnd_toStartOf="@id/wrap"
+                    app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintTop_toTopOf="parent"
-                    tools:src="@drawable/default_placeholder"/>
+                    app:layout_constraintBottom_toTopOf="@id/date"
+                    tools:src="@drawable/default_placeholder"
+                    />
+
+            <TextView
+                    android:id="@+id/date"
+                    android:layout_height="wrap_content"
+                    android:layout_width="wrap_content"
+                    android:text="@{complaint.creation_day}"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/photo"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    android:layout_marginTop="5dp"
+                    tools:text="01.01.2021"
+                    />
+
+            <TextView
+                    android:id="@+id/category"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="10dp"
+                    android:layout_width="wrap_content"
+                    android:text="@{complaint.category}"
+                    android:textAppearance="?attr/textAppearanceSubtitle1"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/date"
+                    tools:text="Транспорт" />
+
 
             <androidx.constraintlayout.widget.ConstraintLayout
                     android:id="@+id/wrap"
-                    android:layout_marginStart="10dp"
-                    app:layout_constraintTop_toTopOf="@+id/photo"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    app:layout_constraintStart_toEndOf="@+id/date">
+                    android:layout_marginTop="10dp"
+                    app:layout_constraintTop_toBottomOf="@+id/category"
+                    app:layout_constraintStart_toStartOf="parent"
+                    >
 
                 <TextView
                         android:id="@+id/address"
                         android:layout_height="wrap_content"
-                        android:layout_width="230dp"
+                        android:layout_width="match_parent"
                         android:textAppearance="?attr/textAppearanceSubtitle1"
-                        android:maxLines="3"
                         android:text="@{complaint.address}"
-                        android:ellipsize="end"
                         app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintTop_toTopOf="parent"
+                        app:layout_constraintBottom_toTopOf="@+id/statusText"
                         tools:text="address one two three four five six seven eight nine ten eleven  " />
 
                 <TextView
-                        android:id="@+id/textView2"
+                        android:id="@+id/statusText"
                         android:layout_height="wrap_content"
                         android:layout_marginTop="5dp"
                         android:layout_width="wrap_content"
@@ -87,19 +114,19 @@
                         android:text="@{complaint.status!= null ? complaint.status : @string/unknown}"
                         android:layout_marginStart="6dp"
                         android:textAppearance="?attr/textAppearanceSubtitle1"
-                        app:layout_constraintBottom_toBottomOf="@+id/textView2"
-                        app:layout_constraintStart_toEndOf="@+id/textView2"
+                        app:layout_constraintBottom_toBottomOf="@+id/statusText"
+                        app:layout_constraintStart_toEndOf="@+id/statusText"
                         tools:text="Принято" />
 
                 <TextView
-                        android:id="@+id/textView3"
+                        android:id="@+id/creatorText"
                         android:layout_height="wrap_content"
                         android:layout_marginTop="5dp"
                         android:layout_width="wrap_content"
-                        android:text="@{creator!= null ? @string/author : @string/anon}"
+                        android:text="@{creator != null ? @string/author : @string/anon}"
                         android:textAppearance="?attr/textAppearanceSubtitle2"
                         app:layout_constraintStart_toStartOf="@+id/address"
-                        app:layout_constraintTop_toBottomOf="@+id/textView2" />
+                        app:layout_constraintTop_toBottomOf="@+id/statusText" />
 
                 <TextView
                         android:id="@+id/user"
@@ -107,53 +134,31 @@
                         android:layout_width="wrap_content"
                         android:text="@{creator!= null ? @string/creator_info(creator.username, creator.rating.toString()) : @string/space}"
                         android:textAppearance="?attr/textAppearanceSubtitle1"
-                        app:layout_constraintBottom_toBottomOf="@+id/textView3"
-                        app:layout_constraintStart_toEndOf="@+id/textView3"
+                        app:layout_constraintBottom_toBottomOf="@+id/creatorText"
+                        app:layout_constraintStart_toEndOf="@+id/creatorText"
                         tools:text="Креатор" />
+
             </androidx.constraintlayout.widget.ConstraintLayout>
 
             <TextView
-                    android:id="@+id/date"
-                    android:layout_height="wrap_content"
-                    android:layout_width="wrap_content"
-                    android:text="@{complaint.creation_day}"
-                    app:layout_constraintStart_toStartOf="@+id/photo"
-                    app:layout_constraintEnd_toEndOf="@+id/photo"
-                    app:layout_constraintTop_toBottomOf="@+id/photo"
-                    tools:text="01.01.2021" />
-
-            <TextView
-                    android:id="@+id/category"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="14dp"
-                    android:layout_width="wrap_content"
-                    android:text="@{complaint.category}"
-                    android:textAppearance="?attr/textAppearanceSubtitle1"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/wrap"
-                    tools:text="Транспорт" />
-
-            <TextView
-                    android:id="@+id/textView6"
+                    android:id="@+id/descriptionText"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="20dp"
                     android:layout_width="wrap_content"
                     android:text="Описание:"
                     android:textAppearance="?attr/textAppearanceSubtitle2"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/category" />
+                    app:layout_constraintTop_toBottomOf="@+id/wrap" />
 
             <TextView
                     android:id="@+id/description"
                     android:layout_height="wrap_content"
                     android:layout_width="wrap_content"
-                    android:ellipsize="end"
-                    android:maxLines="12"
                     android:layout_marginTop="6dp"
                     android:text="@{complaint.description}"
                     android:textAppearance="?attr/textAppearanceBody1"
-                    app:layout_constraintStart_toStartOf="@+id/textView6"
-                    app:layout_constraintTop_toBottomOf="@+id/textView6"
+                    app:layout_constraintStart_toStartOf="@+id/descriptionText"
+                    app:layout_constraintTop_toBottomOf="@+id/descriptionText"
                     tools:text="Описание" />
 
             <TextView
