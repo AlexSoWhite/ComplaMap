@@ -32,7 +32,11 @@ class ComplaintAdapter(
 
     override fun onBindViewHolder(holder: ComplaintViewHolder, position: Int) {
         holder.imageView.setImageResource(android.R.color.transparent)
-        holder.bind(complaints[position], context)
+        holder.bind(
+            complaints[position],
+            context,
+            position == complaints.lastIndex
+        )
     }
 
     override fun getItemCount(): Int {
@@ -48,7 +52,11 @@ class ComplaintAdapter(
         val imageView: ImageView = itemView.findViewById(R.id.image)
 
         @SuppressLint("SetTextI18n")
-        fun bind(complaint: Complaint, context: Context) {
+        fun bind(
+            complaint: Complaint,
+            context: Context,
+            isLast: Boolean
+        ) {
             val locale = Locale("ru", "RU")
             val geocoder = Geocoder(ContextContainer.getContext(), locale)
             val address = complaint.location?.let {
@@ -73,6 +81,11 @@ class ComplaintAdapter(
                 complaint,
                 imageView
             )
+            if (isLast) {
+                val params = binding.listItem.layoutParams as RecyclerView.LayoutParams
+                params.bottomMargin = 70
+                binding.listItem.layoutParams = params
+            }
             binding.listItem.setOnClickListener {
                 val intent = Intent(context, ComplaintActivity::class.java)
                 putToCache(complaint)
