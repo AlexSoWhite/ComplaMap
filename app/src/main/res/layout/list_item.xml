@@ -1,0 +1,96 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:tools="http://schemas.android.com/tools"
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        >
+    <data>
+        <variable
+                name="complaint"
+                type="com.example.complamap.model.Complaint" />
+    </data>
+    <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="110dp"
+            android:focusable="true"
+            android:clickable="true"
+            android:id="@+id/list_item">
+
+        <ImageView
+                android:id="@+id/image"
+                android:layout_width="70dp"
+                android:layout_height="70dp"
+                android:layout_marginTop="10dp"
+                android:layout_marginStart="10dp"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                tools:src="@drawable/default_placeholder"
+                />
+
+        <TextView
+                android:id="@+id/address"
+                android:layout_width="260dp"
+                android:layout_height="wrap_content"
+                tools:text="адрес: какой-то адрес fsdfjk sadfsadjf klask"
+                android:text='@{"адрес: "+complaint.address.toString()}'
+                android:maxLines="2"
+                android:ellipsize="end"
+                android:textSize="17sp"
+                android:textColor="@color/black"
+                android:layout_marginStart="87dp"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                />
+
+        <TextView
+                android:id="@+id/status"
+                android:layout_width="260dp"
+                android:layout_height="wrap_content"
+                tools:text="статус: опровергнута"
+                android:text='@{"статус: "+complaint.status.toString()}'
+                android:textSize="17sp"
+                android:textColor="@color/black"
+                android:layout_marginStart="87dp"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/address"
+
+                />
+
+        <TextView
+            android:id="@+id/description"
+            android:layout_width="260dp"
+            android:layout_height="wrap_content"
+            tools:text="описание: какое-то описание"
+            android:text='@{"описание: "+complaint.description.toString()}'
+            android:maxLines="2"
+            android:ellipsize="end"
+            android:textSize="17sp"
+            android:textColor="@color/black"
+            android:layout_marginStart="87dp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/status"
+            />
+
+        <TextView
+            android:id="@+id/date"
+            android:layout_marginTop="5dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text='@{complaint.creation_day.toString()}'
+            app:layout_constraintTop_toBottomOf="@+id/image"
+            app:layout_constraintStart_toStartOf="@id/image"
+            app:layout_constraintEnd_toEndOf="@+id/image"
+            tools:text="04.10.2000"
+            android:textSize="13sp"
+            />
+
+        <ImageView
+            android:layout_width="279dp"
+            android:layout_height="1dp"
+            android:background="@color/black"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            android:layout_marginStart="75dp"
+            android:layout_marginBottom="2dp" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</layout>

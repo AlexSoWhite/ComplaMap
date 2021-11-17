@@ -29,9 +29,6 @@ import com.example.complamap.R
 import com.example.complamap.databinding.CreateComplaintActivityBinding
 import com.example.complamap.model.Complaint
 import com.example.complamap.views.fragments.AddPlacemarkDialog
-import com.google.firebase.firestore.DocumentReference
-import com.google.firebase.firestore.ktx.firestore
-import com.google.firebase.ktx.Firebase
 import com.example.complamap.model.*
 import com.example.complamap.model.ComplaintManager.setComplaint
 import com.example.complamap.model.UserManager.getCurrentUser
