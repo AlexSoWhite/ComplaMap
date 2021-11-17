@@ -27,6 +27,11 @@ import androidx.core.content.FileProvider
 import androidx.lifecycle.ViewModelProvider
 import com.example.complamap.R
 import com.example.complamap.databinding.CreateComplaintActivityBinding
+import com.example.complamap.model.Complaint
+import com.example.complamap.views.fragments.AddPlacemarkDialog
+import com.google.firebase.firestore.DocumentReference
+import com.google.firebase.firestore.ktx.firestore
+import com.google.firebase.ktx.Firebase
 import com.example.complamap.model.*
 import com.example.complamap.model.ComplaintManager.setComplaint
 import com.example.complamap.model.UserManager.getCurrentUser
@@ -88,9 +93,6 @@ class CreateComplaintActivity : AppCompatActivity() {
         binding.ExitButton.setOnClickListener {
             finish()
         }
-        val addressText: String? =
-            intent.getStringExtra("address")?.replace("Адрес: ", "")
-        binding.Address.setText(addressText)
 
         binding.AddPhotoButton.setOnClickListener {
             if (!isDialogShowing) {
@@ -112,6 +114,9 @@ class CreateComplaintActivity : AppCompatActivity() {
                 binding.AddPhotoButton.isEnabled = false
                 showPopup()
             }
+        }
+        intent.getStringExtra(AddPlacemarkDialog.EXTRA_ADDRESS)?.let {
+            binding.Address.text.append(it)
         }
     }
 

@@ -29,4 +29,9 @@
     <string name="author">автор:</string>
     <string name="anon">Анонимно</string>
     <string name="space">" "</string>
+    <string name="cancel">"Отмена</string>
+    <string name="add">Добавить</string>
+    <string name="add_complaint_question">"Добавить жалобу?"</string>
+    <string name="address">Адрес:</string>
+    <string name="coordinates">Координаты</string>
 </resources>

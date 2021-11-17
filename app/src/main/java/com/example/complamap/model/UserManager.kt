@@ -1,7 +1,5 @@
 package com.example.complamap.model
 
-import com.orhanobut.hawk.Hawk
-
 object UserManager {
 
     private var user: User? = null
