@@ -33,12 +33,12 @@ class ComplaintActivity : AppCompatActivity() {
                 if (!intent.hasExtra("noPhoto")) {
                     uri = intent.getStringExtra("uri")!!.toUri()
                     path = intent.getStringExtra("path")!!
-                    complaintViewModel.loadPhotoFromUri(
-                        baseContext,
-                        uri,
-                        binding.photo
-                    )
                 }
+                complaintViewModel.loadPhotoFromUri(
+                    baseContext,
+                    uri,
+                    binding.photo
+                )
                 supportFragmentManager.beginTransaction()
                     .replace(binding.container.id, PublishFragment(uri, path))
                     .commit()

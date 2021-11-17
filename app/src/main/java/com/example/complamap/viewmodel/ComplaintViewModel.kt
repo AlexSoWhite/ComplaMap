@@ -60,7 +60,7 @@ class ComplaintViewModel : ViewModel() {
         }
     }
 
-    fun loadPhotoFromUri(context: Context, uri: Uri, container: ImageView) {
+    fun loadPhotoFromUri(context: Context, uri: Uri?, container: ImageView) {
         viewModelScope.launch {
             Glide.with(context)
                 .load(uri)
