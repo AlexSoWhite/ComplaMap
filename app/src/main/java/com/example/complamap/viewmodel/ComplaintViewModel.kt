@@ -1,70 +1,85 @@
 package com.example.complamap.viewmodel
 
+import android.content.Context
 import android.net.Uri
-import android.os.Environment
+import android.widget.ImageView
 import android.widget.Toast
-import androidx.core.content.ContentProviderCompat.requireContext
-import androidx.core.content.FileProvider
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.bumptech.glide.Glide
+import com.example.complamap.R
 import com.example.complamap.model.*
-import com.example.complamap.views.activities.CreateComplaintActivity
 import com.google.firebase.Timestamp
-import com.google.firebase.ktx.Firebase
 import com.google.firebase.storage.FirebaseStorage
-import kotlinx.coroutines.currentCoroutineContext
 import kotlinx.coroutines.launch
 import java.io.File
 
-class ComplaintViewModel() : ViewModel() {
+class ComplaintViewModel : ViewModel() {
 
-private lateinit var tempImageFilePath: String
-fun setTempImageFilePath(string: String){
-    tempImageFilePath = string
-}
-    fun getTempImageFilePath(): String{
-        return tempImageFilePath
-    }
-
-    fun putComplaintToDatabase(complaint: Complaint ){
+    fun putComplaintToDatabase(
+        complaint: Complaint,
+        uri: Uri?,
+        path: String?
+    ) {
         viewModelScope.launch {
             complaint.creation_date = Timestamp.now()
             complaint.creation_day = android.text.format.DateFormat.format(
                 "dd.MM.yyyy",
-                Timestamp.now().toDate()
+                complaint.creation_date!!.toDate()
             ).toString()
-            ComplaintRepository.addComplaintToDatabase(complaint)
+            if (uri != null) {
+                sendPhoto(uri, path!!) {
+                    complaint.photo = it
+                    ComplaintRepository.addComplaintToDatabase(complaint)
+                }
+            } else {
+                ComplaintRepository.addComplaintToDatabase(complaint)
+            }
             return@launch
         }
     }
 
-    private fun createImageFile(): File {
-        val storageDir = ContextContainer.getContext().getExternalFilesDir(Environment.DIRECTORY_PICTURES)
-        return File.createTempFile("temp_image", ".jpg", storageDir)
-    }
-
-    fun sendPhoto(): String{
+    private fun sendPhoto(
+        uri: Uri,
+        path: String,
+        callback: (String) -> Unit
+    ) {
         val storageRef = FirebaseStorage.getInstance().reference
-        val file = Uri.fromFile(File(tempImageFilePath))
+        val file = Uri.fromFile(File(path))
         val pictureRef = storageRef.child("images/${file.lastPathSegment}")
 
-        val tempImageUri = FileProvider.getUriForFile(
-            ContextContainer.getContext(),
-            "com.example.complamap.provider",
-            createImageFile().also {
-                tempImageFilePath = it.absolutePath
-            }
-        )
+        val uploadTask = pictureRef.putFile(uri)
 
-        val uploadTask = pictureRef.putFile(tempImageUri!!)
-
-        var PhotoString: String = ""
+        var photoString = ""
 
         uploadTask.addOnSuccessListener {
             pictureRef.downloadUrl.addOnSuccessListener {
-                PhotoString = it.toString()
+                photoString = it.toString()
+                Toast.makeText(
+                    ContextContainer.getContext(),
+                    photoString,
+                    Toast.LENGTH_LONG
+                ).show()
+                callback(photoString)
             }
         }
-        return PhotoString
+    }
+
+    fun loadPhotoFromUri(context: Context, uri: Uri, container: ImageView) {
+        viewModelScope.launch {
+            Glide.with(context)
+                .load(uri)
+                .placeholder(R.drawable.default_placeholder)
+                .into(container)
+        }
+    }
+
+    fun loadPhotoFromServer(context: Context, complaint: Complaint, container: ImageView) {
+        viewModelScope.launch {
+            Glide.with(context)
+                .load(complaint.photo)
+                .placeholder(R.drawable.default_placeholder)
+                .into(container)
+        }
     }
 }
