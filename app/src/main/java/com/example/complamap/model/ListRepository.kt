@@ -68,9 +68,8 @@ object ListRepository : ViewModel() {
             val list: List<Complaint> = task
                 .result
                 ?.toObjects(Complaint::class.java)
-                    as List<Complaint>
+                as List<Complaint>
             callback(list)
         }
     }
-
 }

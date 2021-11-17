@@ -1,5 +1,6 @@
 package com.example.complamap.views.fragments
 
+import android.net.Uri
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -12,7 +13,10 @@ import com.example.complamap.databinding.FragmentPublishBinding
 import com.example.complamap.model.ComplaintManager
 import com.example.complamap.viewmodel.ComplaintViewModel
 
-class PublishFragment : Fragment(R.layout.fragment_publish){
+class PublishFragment(
+    private val uri: Uri?,
+    private val path: String?
+) : Fragment(R.layout.fragment_publish) {
     private lateinit var binding: FragmentPublishBinding
 
     override fun onCreateView(
@@ -26,15 +30,20 @@ class PublishFragment : Fragment(R.layout.fragment_publish){
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        var Confirmed: Boolean = false
+        var confirmed = false
 
         binding.Confirm.setOnClickListener {
-            if (!Confirmed) {
+            if (!confirmed) {
                 val complaintViewModel = ViewModelProvider(this)[ComplaintViewModel::class.java]
-                complaintViewModel.putComplaintToDatabase(ComplaintManager.getCurrentComplaint()!!)
-                Confirmed = true
-            } else
+                complaintViewModel.putComplaintToDatabase(
+                    ComplaintManager.getCurrentComplaint()!!,
+                    uri,
+                    path
+                )
+                confirmed = true
+            } else {
                 Toast.makeText(context, "Жалоба уже опубликована", Toast.LENGTH_SHORT).show()
+            }
         }
     }
 }
