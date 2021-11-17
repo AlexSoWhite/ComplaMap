@@ -44,8 +44,8 @@
                     android:layout_width="70dp"
                     android:layout_marginTop="30dp"
                     android:paddingVertical="5dp"
-                    app:layout_constraintStart_toStartOf="@+id/date"
-                    app:layout_constraintEnd_toEndOf="@+id/date"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintEnd_toStartOf="@id/wrap"
                     app:layout_constraintTop_toTopOf="parent"
                     tools:src="@drawable/default_placeholder"/>
 
@@ -55,7 +55,7 @@
                     app:layout_constraintTop_toTopOf="@+id/photo"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    app:layout_constraintStart_toEndOf="@+id/photo">
+                    app:layout_constraintStart_toEndOf="@+id/date">
 
                 <TextView
                         android:id="@+id/address"
@@ -66,7 +66,6 @@
                         android:text="@{complaint.address}"
                         android:ellipsize="end"
                         app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintTop_toTopOf="parent"
                         tools:text="address one two three four five six seven eight nine ten eleven  " />
 
@@ -119,6 +118,7 @@
                     android:layout_width="wrap_content"
                     android:text="@{complaint.creation_day}"
                     app:layout_constraintStart_toStartOf="@+id/photo"
+                    app:layout_constraintEnd_toEndOf="@+id/photo"
                     app:layout_constraintTop_toBottomOf="@+id/photo"
                     tools:text="01.01.2021" />
 
@@ -129,7 +129,7 @@
                     android:layout_width="wrap_content"
                     android:text="@{complaint.category}"
                     android:textAppearance="?attr/textAppearanceSubtitle1"
-                    app:layout_constraintStart_toStartOf="@+id/photo"
+                    app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@+id/wrap"
                     tools:text="Транспорт" />
 
@@ -140,7 +140,7 @@
                     android:layout_width="wrap_content"
                     android:text="Описание:"
                     android:textAppearance="?attr/textAppearanceSubtitle2"
-                    app:layout_constraintStart_toStartOf="@+id/photo"
+                    app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@+id/category" />
 
             <TextView
