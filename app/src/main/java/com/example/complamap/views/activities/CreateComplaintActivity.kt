@@ -43,6 +43,8 @@ class CreateComplaintActivity : AppCompatActivity() {
     // path to photo for sending to db
     private var tempImageFilePath = ""
 
+    private lateinit var complaintViewModel: ComplaintViewModel
+
     // permission for camera
     @RequiresApi(Build.VERSION_CODES.M)
     private val cameraPermission =
@@ -71,8 +73,8 @@ class CreateComplaintActivity : AppCompatActivity() {
 
     private val galleryLauncher = registerForActivityResult(ActivityResultContracts.GetContent()) {
         if (it != null) {
-            tempImageUri = it
             binding.Image.setImageURI(it)
+            tempImageUri = it
             val file = createImageFile()
             tempImageFilePath = file.absolutePath
         }
@@ -86,7 +88,7 @@ class CreateComplaintActivity : AppCompatActivity() {
         supportActionBar?.hide()
         binding = CreateComplaintActivityBinding.inflate(layoutInflater)
         setContentView(binding.root)
-
+        complaintViewModel = ViewModelProvider(this)[ComplaintViewModel::class.java]
         binding.ExitButton.setOnClickListener {
             finish()
         }
@@ -181,32 +183,42 @@ class CreateComplaintActivity : AppCompatActivity() {
         val radioNeAnon = view.findViewById<RadioButton>(R.id.NeAnon)
 
         publishButton.setOnClickListener {
-            if (!(radioAnon.isChecked) && !(radioNeAnon.isChecked))
+            if (!(radioAnon.isChecked) && !(radioNeAnon.isChecked)) {
                 Toast.makeText(
                     applicationContext,
                     "Выберите тип публикации",
                     Toast.LENGTH_SHORT
                 ).show()
-            else
-                if((radioNeAnon.isChecked) && (getCurrentUser() == null))
-                    Toast.makeText(applicationContext, "Требуется авторизация", Toast.LENGTH_SHORT).show()
-                else
-                {
-                   setComplaint(
-                       Complaint(
-                           category = binding.Spinner.selectedItem.toString(),
-                           description = binding.Description.text.toString(),
-                           address = binding.Address.text.toString(),
-                           creation_day = "",
-                           creator = if(radioAnon.isChecked) null else UserManager.getCurrentUser()?.uid
-                       )
-                   )
-                    val complaintViewModel = ViewModelProvider(this)[ComplaintViewModel::class.java]
-                    complaintViewModel.setTempImageFilePath(tempImageFilePath)
-                    Toast.makeText(applicationContext, complaintViewModel.sendPhoto(), Toast.LENGTH_SHORT).show()
+            }
+            else {
+                if ((radioNeAnon.isChecked) && (getCurrentUser() == null)) {
+                    Toast.makeText(
+                        applicationContext,
+                        "Требуется авторизация",
+                        Toast.LENGTH_SHORT
+                    ).show()
+                }
+                else {
+                    setComplaint(
+                        Complaint(
+                            category = binding.Spinner.selectedItem.toString(),
+                            description = binding.Description.text.toString(),
+                            address = binding.Address.text.toString(),
+                            creation_day = "",
+                            status = "Принята",
+                            creator = if (radioAnon.isChecked) null else UserManager.getCurrentUser()?.uid
+                        )
+                    )
                     val intent = Intent(this, ComplaintActivity::class.java)
                     intent.putExtra("FragmentMode", "Publish")
+                    if (tempImageUri != null) {
+                        intent.putExtra("uri", tempImageUri.toString())
+                        intent.putExtra("path", tempImageFilePath)
+                    } else {
+                        intent.putExtra("noPhoto", true)
+                    }
                     startActivity(intent)
+                }
             }
         }
 
