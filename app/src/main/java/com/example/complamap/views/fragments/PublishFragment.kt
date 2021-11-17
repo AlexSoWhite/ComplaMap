@@ -1,6 +1,5 @@
 package com.example.complamap.views.fragments
 
-import android.content.Intent
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -13,7 +12,6 @@ import com.example.complamap.databinding.FragmentPublishBinding
 import com.example.complamap.model.ComplaintManager
 import com.example.complamap.viewmodel.ComplaintViewModel
 import com.example.complamap.views.activities.ComplaintActivity
-import com.example.complamap.views.activities.MainActivity
 
 class PublishFragment : Fragment(R.layout.fragment_publish){
     private lateinit var binding: FragmentPublishBinding
