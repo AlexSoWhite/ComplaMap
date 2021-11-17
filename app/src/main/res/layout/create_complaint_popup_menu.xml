@@ -79,7 +79,7 @@ android:id="@+id/NeAnon"
     <Button
             android:layout_width="200dp"
             android:layout_height="wrap_content"
-            android:text="опубликовать"
+            android:text="предпросмотр"
             android:textAppearance="@style/actionButton"
             android:layout_gravity="center"
             android:id="@+id/PublishButton"

@@ -24,6 +24,7 @@ import androidx.activity.result.contract.ActivityResultContracts
 import androidx.annotation.RequiresApi
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.FileProvider
+import androidx.lifecycle.ViewModelProvider
 import com.example.complamap.R
 import com.example.complamap.databinding.CreateComplaintActivityBinding
 import com.example.complamap.model.Complaint
@@ -31,6 +32,10 @@ import com.example.complamap.views.fragments.AddPlacemarkDialog
 import com.google.firebase.firestore.DocumentReference
 import com.google.firebase.firestore.ktx.firestore
 import com.google.firebase.ktx.Firebase
+import com.example.complamap.model.*
+import com.example.complamap.model.ComplaintManager.setComplaint
+import com.example.complamap.model.UserManager.getCurrentUser
+import com.example.complamap.viewmodel.ComplaintViewModel
 import java.io.File
 
 class CreateComplaintActivity : AppCompatActivity() {
@@ -185,11 +190,26 @@ class CreateComplaintActivity : AppCompatActivity() {
                     "Выберите тип публикации",
                     Toast.LENGTH_SHORT
                 ).show()
-            else {
-                val sendId: String = addToDb(radioAnon.isChecked)
-                val intent = Intent(this, ComplaintActivity::class.java)
-                intent.putExtra("ComplaintId", sendId)
-                startActivity(intent)
+            else
+                if((radioNeAnon.isChecked) && (getCurrentUser() == null))
+                    Toast.makeText(applicationContext, "Требуется авторизация", Toast.LENGTH_SHORT).show()
+                else
+                {
+                   setComplaint(
+                       Complaint(
+                           category = binding.Spinner.selectedItem.toString(),
+                           description = binding.Description.text.toString(),
+                           address = binding.Address.text.toString(),
+                           creation_day = "",
+                           creator = if(radioAnon.isChecked) null else UserManager.getCurrentUser()?.uid
+                       )
+                   )
+                    val complaintViewModel = ViewModelProvider(this)[ComplaintViewModel::class.java]
+                    complaintViewModel.setTempImageFilePath(tempImageFilePath)
+                    Toast.makeText(applicationContext, complaintViewModel.sendPhoto(), Toast.LENGTH_SHORT).show()
+                    val intent = Intent(this, ComplaintActivity::class.java)
+                    intent.putExtra("FragmentMode", "Publish")
+                    startActivity(intent)
             }
         }
 
@@ -202,31 +222,6 @@ class CreateComplaintActivity : AppCompatActivity() {
             binding.Description.isEnabled = true
             binding.AddPhotoButton.isEnabled = true
         }
-    }
-
-    private fun addToDb(Anon: Boolean): String {
-        val db = Firebase.firestore
-        val complaint: Complaint = if (Anon) {
-            Complaint(
-                category = binding.Spinner.selectedItem.toString(),
-                // location = "адрес пока только координатами умеем",
-                description = binding.Description.text.toString(),
-                // creation_date = System.currentTimeMillis() as Timestamp,
-                creator = db.collection("users").document("AnonUser")
-            )
-        } else {
-            Complaint(
-                category = binding.Spinner.selectedItem.toString(),
-                // location = "адрес пока только координатами умеем",
-                description = binding.Description.text.toString(),
-                // creator =
-                // creation_date = System.currentTimeMillis() as Timestamp
-            )
-        }
-        db.collection("complaint").add(complaint)
-        val newCompRef: DocumentReference = db.collection("complaint").document()
-        newCompRef.set(complaint)
-        return newCompRef.id
     }
 
     private fun createImageFile(): File {

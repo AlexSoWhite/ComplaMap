@@ -1,7 +1,7 @@
 <resources>
     <string name="app_name">ComplaMap</string>
     <string-array name="SpinnerItems">
-        <item>Категория 1</item>
+        <item>Транспорт</item>
         <item>Категория 2</item>
         <item>Категория 3</item>
     </string-array>
