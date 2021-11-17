@@ -24,16 +24,13 @@ import androidx.activity.result.contract.ActivityResultContracts
 import androidx.annotation.RequiresApi
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.FileProvider
+import androidx.lifecycle.ViewModelProvider
 import com.example.complamap.R
 import com.example.complamap.databinding.CreateComplaintActivityBinding
 import com.example.complamap.model.*
+import com.example.complamap.model.ComplaintManager.setComplaint
 import com.example.complamap.model.UserManager.getCurrentUser
-import com.google.firebase.Timestamp
-import com.google.firebase.auth.ktx.auth
-import com.google.firebase.firestore.DocumentReference
-import com.google.firebase.firestore.FirebaseFirestore
-import com.google.firebase.firestore.ktx.firestore
-import com.google.firebase.ktx.Firebase
+import com.example.complamap.viewmodel.ComplaintViewModel
 import java.io.File
 
 class CreateComplaintActivity : AppCompatActivity() {
@@ -193,25 +190,20 @@ class CreateComplaintActivity : AppCompatActivity() {
                     Toast.makeText(applicationContext, "Требуется авторизация", Toast.LENGTH_SHORT).show()
                 else
                 {
-                    ComplaintManager.setComplaint(
-                    Complaint(
-                        category = binding.Spinner.selectedItem.toString(),
-                        description = binding.Description.text.toString(),
-                        creation_date = Timestamp.now(),
-                        creation_day = android.text.format.DateFormat.format(
-                        "dd.MM.yyyy",
-                        Timestamp.now().toDate()
-                        ).toString(),
-                        creator = getCurrentUser()?.uid,
-                        photo = createImageFile().canonicalPath,
-                        address = binding.Address.text.toString()
-
-                    )
-                )
-                    ComplaintRepository.acceptComplaint(ComplaintManager.getCurrentComplaint()!!)
-                    Toast.makeText(applicationContext, "отправил в бд *это для отладки*", Toast.LENGTH_SHORT).show()
+                   setComplaint(
+                       Complaint(
+                           category = binding.Spinner.selectedItem.toString(),
+                           description = binding.Description.text.toString(),
+                           address = binding.Address.text.toString(),
+                           creation_day = "",
+                           creator = if(radioAnon.isChecked) null else UserManager.getCurrentUser()?.uid
+                       )
+                   )
+                    val complaintViewModel = ViewModelProvider(this)[ComplaintViewModel::class.java]
+                    complaintViewModel.setTempImageFilePath(tempImageFilePath)
+                    Toast.makeText(applicationContext, complaintViewModel.sendPhoto(), Toast.LENGTH_SHORT).show()
                     val intent = Intent(this, ComplaintActivity::class.java)
-                    intent.putExtra("isAnon", radioAnon.isChecked)
+                    intent.putExtra("FragmentMode", "Publish")
                     startActivity(intent)
             }
         }

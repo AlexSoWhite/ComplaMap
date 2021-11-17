@@ -8,6 +8,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.View.VISIBLE
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.activity.result.contract.ActivityResultContracts.GetContent
 import androidx.activity.result.contract.ActivityResultContracts.RequestPermission
 import androidx.activity.result.contract.ActivityResultContracts.TakePicture
@@ -16,6 +17,7 @@ import androidx.core.net.toUri
 import androidx.fragment.app.Fragment
 import com.example.complamap.R
 import com.example.complamap.databinding.FragmentPhotoBinding
+import com.example.complamap.model.ContextContainer
 import com.google.firebase.storage.FirebaseStorage
 import java.io.File
 
@@ -112,6 +114,14 @@ class PhotoFragment : Fragment(R.layout.fragment_photo) {
             uploadTask.addOnFailureListener {
                 binding.sendStatus.text = "не удалось отправить"
             }.addOnSuccessListener {
+
+                pictureRef.downloadUrl.addOnSuccessListener {
+                    Toast.makeText(
+                    ContextContainer.getContext(),
+                    it.toString(),
+                    Toast.LENGTH_SHORT
+                    ).show()
+                }
                 binding.sendStatus.text = "успешно"
             }
         }
