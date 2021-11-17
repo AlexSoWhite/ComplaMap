@@ -11,9 +11,9 @@ import androidx.recyclerview.widget.RecyclerView
 import com.example.complamap.R
 import com.example.complamap.databinding.ListItemBinding
 import com.example.complamap.model.Complaint
+import com.example.complamap.model.ComplaintManager
 import com.example.complamap.viewmodel.ListViewModel
 import com.example.complamap.views.activities.ComplaintActivity
-import com.orhanobut.hawk.Hawk
 
 class ComplaintAdapter(
     private val complaints: List<Complaint>,
@@ -67,14 +67,10 @@ class ComplaintAdapter(
             }
             binding.listItem.setOnClickListener {
                 val intent = Intent(context, ComplaintActivity::class.java)
-                putToCache(complaint)
-                intent.putExtra("cachedComplaint", "cachedComplaint")
+                ComplaintManager.setComplaint(complaint)
+                intent.putExtra("FragmentMode", "View")
                 context.startActivity(intent)
             }
-        }
-
-        private fun putToCache(complaint: Complaint) {
-            Hawk.put("cachedComplaint", complaint)
         }
     }
 }
