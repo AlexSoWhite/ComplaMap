@@ -30,8 +30,7 @@ import com.example.complamap.databinding.CreateComplaintActivityBinding
 import com.example.complamap.model.Complaint
 import com.example.complamap.views.fragments.AddPlacemarkDialog
 import com.example.complamap.model.*
-import com.example.complamap.model.ComplaintManager.setComplaint
-import com.example.complamap.model.UserManager.getCurrentUser
+import com.example.complamap.model.ComplaintManager
 import com.example.complamap.viewmodel.ComplaintViewModel
 import java.io.File
 
@@ -189,17 +188,15 @@ class CreateComplaintActivity : AppCompatActivity() {
                     "Выберите тип публикации",
                     Toast.LENGTH_SHORT
                 ).show()
-            }
-            else {
-                if ((radioNeAnon.isChecked) && (getCurrentUser() == null)) {
+            } else {
+                if ((radioNeAnon.isChecked) && (UserManager.getCurrentUser() == null)) {
                     Toast.makeText(
                         applicationContext,
                         "Требуется авторизация",
                         Toast.LENGTH_SHORT
                     ).show()
-                }
-                else {
-                    setComplaint(
+                } else {
+                    ComplaintManager.setComplaint(
                         Complaint(
                             category = binding.Spinner.selectedItem.toString(),
                             description = binding.Description.text.toString(),

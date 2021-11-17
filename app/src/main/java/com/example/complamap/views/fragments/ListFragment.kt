@@ -35,17 +35,19 @@ class ListFragment : Fragment(R.layout.fragment_list) {
         listViewModel = ViewModelProvider(this)[ListViewModel::class.java]
         updateList(ListViewModel.Filter("default", "default"))
         recycler.layoutManager = LinearLayoutManager(this.context)
-        binding.input.setOnKeyListener(View.OnKeyListener { v, keyCode, event ->
-            if (keyCode == KeyEvent.KEYCODE_ENTER && event.action == KeyEvent.ACTION_UP) {
-                Toast.makeText(
-                    this.context,
-                    "coming soon",
-                    Toast.LENGTH_SHORT
-                ).show()
-                return@OnKeyListener true
+        binding.input.setOnKeyListener(
+            View.OnKeyListener { v, keyCode, event ->
+                if (keyCode == KeyEvent.KEYCODE_ENTER && event.action == KeyEvent.ACTION_UP) {
+                    Toast.makeText(
+                        this.context,
+                        "coming soon",
+                        Toast.LENGTH_SHORT
+                    ).show()
+                    return@OnKeyListener true
+                }
+                false
             }
-            false
-        })
+        )
     }
 
     private fun showFilters() {
@@ -110,5 +112,4 @@ class ListFragment : Fragment(R.layout.fragment_list) {
             showFilters()
         }
     }
-
 }

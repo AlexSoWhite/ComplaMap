@@ -16,7 +16,7 @@ import com.example.complamap.viewmodel.ComplaintViewModel
 class PublishFragment(
     private val uri: Uri?,
     private val path: String?
-) : Fragment(R.layout.fragment_publish){
+) : Fragment(R.layout.fragment_publish) {
     private lateinit var binding: FragmentPublishBinding
 
     override fun onCreateView(

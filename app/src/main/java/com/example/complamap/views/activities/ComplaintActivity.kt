@@ -25,7 +25,7 @@ class ComplaintActivity : AppCompatActivity() {
             R.layout.activity_complaint
         )
         complaintViewModel = ViewModelProvider(this)[ComplaintViewModel::class.java]
-        when(intent.getStringExtra("FragmentMode")) {
+        when (intent.getStringExtra("FragmentMode")) {
 
             "Publish" -> {
                 var uri: Uri? = null
@@ -58,6 +58,5 @@ class ComplaintActivity : AppCompatActivity() {
         binding.ExitButton.setOnClickListener {
             finish()
         }
-
     }
 }

@@ -82,5 +82,4 @@ class ComplaintViewModel : ViewModel() {
                 .into(container)
         }
     }
-
 }
