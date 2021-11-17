@@ -127,7 +127,7 @@
                     android:id="@+id/Image"
                     android:layout_height="match_parent"
                     android:layout_width="100dp"
-                    android:src="@drawable/ic_baseline_image_24"
+                    android:src="@drawable/default_placeholder"
                     android:layout_marginStart="20dp" />
 
         </LinearLayout>
