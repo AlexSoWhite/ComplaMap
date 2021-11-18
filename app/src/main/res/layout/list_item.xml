@@ -10,7 +10,7 @@
     </data>
     <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
-            android:layout_height="110dp"
+            android:layout_height="wrap_content"
             android:focusable="true"
             android:clickable="true"
             android:id="@+id/list_item">
@@ -23,6 +23,7 @@
                 android:layout_marginStart="10dp"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintEnd_toStartOf="@+id/address"
                 tools:src="@drawable/default_placeholder"
                 />
 
@@ -38,7 +39,9 @@
                 android:textColor="@color/black"
                 android:layout_marginStart="87dp"
                 app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintBottom_toTopOf="@+id/status"
                 />
 
         <TextView
@@ -52,7 +55,8 @@
                 android:layout_marginStart="87dp"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@id/address"
-
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintBottom_toTopOf="@+id/description"
                 />
 
         <TextView
@@ -68,6 +72,8 @@
             android:layout_marginStart="87dp"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/status"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintBottom_toTopOf="@+id/list_item_separator"
             />
 
         <TextView
@@ -79,18 +85,23 @@
             app:layout_constraintTop_toBottomOf="@+id/image"
             app:layout_constraintStart_toStartOf="@id/image"
             app:layout_constraintEnd_toEndOf="@+id/image"
+            app:layout_constraintBottom_toTopOf="@id/list_item_separator"
             tools:text="04.10.2000"
             android:textSize="13sp"
             />
 
         <ImageView
-            android:layout_width="279dp"
+            android:id="@+id/list_item_separator"
+            android:layout_width="match_parent"
             android:layout_height="1dp"
             android:background="@color/black"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            android:layout_marginStart="75dp"
-            android:layout_marginBottom="2dp" />
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/description"
+            android:layout_marginStart="10dp"
+            android:layout_marginBottom="2dp"
+            android:layout_marginEnd="10dp"/>
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>
