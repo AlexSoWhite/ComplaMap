@@ -35,4 +35,6 @@
     <string name="address">Адрес:</string>
     <string name="coordinates">Координаты</string>
     <string name="unknown">Не известно</string>
+    <string name="status">статус:</string>
+    <string name="description">Описание:</string>
 </resources>
