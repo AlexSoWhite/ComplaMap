@@ -117,4 +117,14 @@ object UserRepository : ViewModel() {
         val userData = getUserFromServer()
         return userData.toObject(User::class.java)!!
     }
+
+    suspend fun getUserByUid(uid: String): User {
+        val userData = db
+            .collection("users")
+            .document(uid)
+            .get()
+            .await()
+            .toObject(User::class.java)
+        return userData!!
+    }
 }

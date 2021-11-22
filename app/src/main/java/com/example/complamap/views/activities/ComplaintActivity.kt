@@ -55,6 +55,12 @@ class ComplaintActivity : AppCompatActivity() {
 
         binding.complaint = ComplaintManager.getCurrentComplaint()
 
+        if (ComplaintManager.getCurrentComplaint()!!.creator != null) {
+            complaintViewModel.loadUserData(ComplaintManager.getCurrentComplaint()!!.creator!!) {
+                binding.creator = it
+            }
+        }
+
         binding.ExitButton.setOnClickListener {
             finish()
         }

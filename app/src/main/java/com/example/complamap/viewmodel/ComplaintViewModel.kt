@@ -9,6 +9,8 @@ import com.bumptech.glide.Glide
 import com.example.complamap.R
 import com.example.complamap.model.Complaint
 import com.example.complamap.model.ComplaintRepository
+import com.example.complamap.model.User
+import com.example.complamap.model.UserRepository
 import com.google.firebase.Timestamp
 import com.google.firebase.storage.FirebaseStorage
 import java.io.File
@@ -75,6 +77,13 @@ class ComplaintViewModel : ViewModel() {
                 .load(complaint.photo)
                 .placeholder(R.drawable.default_placeholder)
                 .into(container)
+        }
+    }
+
+    fun loadUserData(uid: String, callback: (User) -> Unit) {
+        viewModelScope.launch {
+            val user = UserRepository.getUserByUid(uid)
+            callback(user)
         }
     }
 }
