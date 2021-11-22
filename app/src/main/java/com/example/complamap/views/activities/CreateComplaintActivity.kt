@@ -8,8 +8,11 @@ import android.os.Build
 import android.os.Bundle
 import android.os.Environment
 import android.transition.TransitionManager
-import android.transition.Visibility
-import android.view.*
+import android.view.Gravity
+import android.view.LayoutInflater
+import android.view.View
+import android.view.ViewGroup
+import android.view.WindowManager
 import android.widget.Button
 import android.widget.FrameLayout
 import android.widget.ImageButton
@@ -121,7 +124,6 @@ class CreateComplaintActivity : AppCompatActivity() {
             binding.Image.setImageResource(R.drawable.default_placeholder)
             binding.deleteImage.visibility = View.INVISIBLE
         }
-
     }
 
     @RequiresApi(Build.VERSION_CODES.M)
