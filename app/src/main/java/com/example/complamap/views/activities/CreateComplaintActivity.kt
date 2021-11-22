@@ -30,6 +30,7 @@ import com.example.complamap.model.ComplaintManager
 import com.example.complamap.model.UserManager
 import com.example.complamap.viewmodel.ComplaintViewModel
 import com.example.complamap.views.fragments.AddPlacemarkDialog
+import com.google.firebase.firestore.GeoPoint
 import java.io.File
 
 class CreateComplaintActivity : AppCompatActivity() {
@@ -198,6 +199,8 @@ class CreateComplaintActivity : AppCompatActivity() {
                             address = binding.Address.text.toString(),
                             creation_day = "",
                             status = "Принята",
+                            location = GeoPoint(intent.getDoubleExtra(AddPlacemarkDialog.EXTRA_LATITUDE, 0.0),
+                                intent.getDoubleExtra(AddPlacemarkDialog.EXTRA_LONGITUDE, 0.0)),
                             creator = if (radioAnon.isChecked) null else UserManager.getCurrentUser()?.uid
                         )
                     )
