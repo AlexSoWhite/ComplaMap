@@ -8,10 +8,8 @@ import android.os.Build
 import android.os.Bundle
 import android.os.Environment
 import android.transition.TransitionManager
-import android.view.Gravity
-import android.view.LayoutInflater
-import android.view.ViewGroup
-import android.view.WindowManager
+import android.transition.Visibility
+import android.view.*
 import android.widget.Button
 import android.widget.FrameLayout
 import android.widget.ImageButton
@@ -65,6 +63,7 @@ class CreateComplaintActivity : AppCompatActivity() {
         registerForActivityResult(ActivityResultContracts.TakePicture()) { success ->
             if (success) {
                 binding.Image.setImageURI(tempImageUri)
+                binding.deleteImage.visibility = View.VISIBLE
             }
         }
 
@@ -74,6 +73,7 @@ class CreateComplaintActivity : AppCompatActivity() {
             tempImageUri = it
             val file = createImageFile()
             tempImageFilePath = file.absolutePath
+            binding.deleteImage.visibility = View.VISIBLE
         }
     }
 
@@ -114,6 +114,14 @@ class CreateComplaintActivity : AppCompatActivity() {
         intent.getStringExtra(AddPlacemarkDialog.EXTRA_ADDRESS)?.let {
             binding.Address.text.append(it)
         }
+
+        binding.deleteImage.setOnClickListener {
+            tempImageUri = null
+            tempImageFilePath = ""
+            binding.Image.setImageResource(R.drawable.default_placeholder)
+            binding.deleteImage.visibility = View.INVISIBLE
+        }
+
     }
 
     @RequiresApi(Build.VERSION_CODES.M)
