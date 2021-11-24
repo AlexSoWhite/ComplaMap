@@ -26,7 +26,7 @@
         <item name = "Жалоба 5"/>
     </string-array>
     <string name="creator_info">%1$s (%2$s)</string>
-    <string name="author">автор:</string>
+    <string name="author">"автор: "</string>
     <string name="anon">Анонимно</string>
     <string name="space">" "</string>
     <string name="cancel">"Отмена</string>
@@ -35,4 +35,6 @@
     <string name="address">Адрес:</string>
     <string name="coordinates">Координаты</string>
     <string name="unknown">Не известно</string>
+    <string name="edited">ред. %1$s</string>
+    <string name="save">сохранить</string>
 </resources>

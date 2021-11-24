@@ -1,8 +1,10 @@
 package com.example.complamap.model
 
 import android.annotation.SuppressLint
+import android.util.Log
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.example.complamap.views.activities.ComplaintActivity
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.FirebaseAuthInvalidCredentialsException
 import com.google.firebase.auth.FirebaseAuthUserCollisionException
@@ -116,5 +118,10 @@ object UserRepository : ViewModel() {
     private suspend fun convertReferenceToUser(): User {
         val userData = getUserFromServer()
         return userData.toObject(User::class.java)!!
+    }
+
+    suspend fun getUserFromDatabase(userId: String): User? {
+        val userData = db.collection("users").document(userId).get().await()
+        return userData.toObject(User::class.java)
     }
 }
