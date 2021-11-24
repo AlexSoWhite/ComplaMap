@@ -56,6 +56,7 @@ class ComplaintActivity : AppCompatActivity() {
     var imageUri: Uri? = null
     var imageFilePath = ""
     private var isDialogShowing: Boolean = false
+    private var isEditableMode: Boolean = false
 
     @RequiresApi(Build.VERSION_CODES.M)
     private val cameraPermission =
@@ -166,20 +167,12 @@ class ComplaintActivity : AppCompatActivity() {
 
     @RequiresApi(Build.VERSION_CODES.M)
     fun makeEditable() {
-        binding.description.isFocusable = true
-        binding.description.isFocusableInTouchMode = true
-        binding.description.isCursorVisible = true
+        isEditableMode = true
+        editOptions(isEditableMode)
         binding.categoryTextView.visibility = View.INVISIBLE
         binding.category.visibility = View.VISIBLE
-
-        if (currentComplaint?.status != "В работе") {
-            binding.address.isFocusable = true
-            binding.address.isFocusableInTouchMode = true
-            binding.address.isCursorVisible = true
-        }
-
         binding.photo.setOnClickListener {
-            if (!isDialogShowing) {
+            if (!isDialogShowing && isEditableMode) {
                 showDialog()
             }
         }
@@ -196,9 +189,11 @@ class ComplaintActivity : AppCompatActivity() {
             )
         }
         Toast.makeText(this, "Изменено", Toast.LENGTH_SHORT).show()
+        isEditableMode = false
         binding.categoryTextView.text = binding.category.selectedItem.toString()
         binding.categoryTextView.visibility = View.VISIBLE
         binding.category.visibility = View.INVISIBLE
+        editOptions(isEditableMode)
         supportFragmentManager.beginTransaction()
             .replace(binding.container.id, OwnerCompFragment())
             .commit()
@@ -239,7 +234,6 @@ class ComplaintActivity : AppCompatActivity() {
             galleryLauncher.launch("image/*")
         }
         popupWindow.showAtLocation(findViewById(R.id.photo), Gravity.TOP, 0, 1100)
-
         rootLayout.setOnClickListener {
             popupWindow.dismiss()
             isDialogShowing = false
@@ -249,6 +243,15 @@ class ComplaintActivity : AppCompatActivity() {
     private fun createImageFile(): File {
         val storageDir = applicationContext?.getExternalFilesDir(Environment.DIRECTORY_PICTURES)
         return File.createTempFile("temp_image", ".jpg", storageDir)
+    }
+
+    private fun editOptions(state: Boolean){
+        binding.description.isFocusable = state
+        binding.description.isFocusableInTouchMode = state
+        if (currentComplaint?.status != "В работе") {
+            binding.address.isFocusable = state
+            binding.address.isFocusableInTouchMode = state
+        }
     }
 
     fun exit(){
