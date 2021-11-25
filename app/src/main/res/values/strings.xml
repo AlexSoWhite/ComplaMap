@@ -37,4 +37,6 @@
     <string name="unknown">Не известно</string>
     <string name="edited">ред. %1$s</string>
     <string name="save">сохранить</string>
+    <string name="status">статус:</string>
+    <string name="description">Описание:</string>
 </resources>

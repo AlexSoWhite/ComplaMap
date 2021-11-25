@@ -130,6 +130,17 @@
                     android:src="@drawable/default_placeholder"
                     android:layout_marginStart="20dp" />
 
+            <ImageView
+                    android:id="@+id/delete_image"
+                    android:layout_width="20dp"
+                    android:layout_height="20dp"
+                    android:src="@drawable/ic_baseline_close_24"
+                    android:visibility="invisible"
+                    tools:visibility="visible"
+                    android:focusable="true"
+                    android:clickable="true"
+                    />
+
         </LinearLayout>
 
         <androidx.coordinatorlayout.widget.CoordinatorLayout

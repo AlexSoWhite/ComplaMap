@@ -31,39 +31,63 @@
                 app:layout_constraintTop_toTopOf="parent"
                 app:tint="@color/icon" />
 
-        <androidx.constraintlayout.widget.ConstraintLayout
-                android:id="@+id/root_layout"
+        <ScrollView
+                android:id="@+id/scroll"
                 android:layout_width="match_parent"
-                android:layout_margin="20dp"
-                android:layout_height="match_parent">
+                android:layout_marginHorizontal="20dp"
+                android:scrollbarThumbVertical="@null"
+                app:layout_constraintTop_toBottomOf="@+id/ExitButton"
+                app:layout_constraintBottom_toBottomOf="parent"
+                android:layout_height="0dp">
 
-            <ImageView
-                    android:id="@+id/photo"
-                    android:layout_height="300dp"
-                    android:minHeight="300dp"
-                    android:layout_width="wrap_content"
-                    android:layout_marginTop="15dp"
-                    android:padding="5dp"
-                    android:background="@drawable/black_border"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintTop_toTopOf="parent"
-                    app:layout_constraintBottom_toTopOf="@id/date"
-                    tools:src="@drawable/default_placeholder" />
 
-            <TextView
+            <androidx.constraintlayout.widget.ConstraintLayout
+                    android:id="@+id/root_layout"
+                    android:layout_width="match_parent"
+                    android:layout_marginBottom="10dp"
+                    android:layout_height="wrap_content">
+
+                <androidx.cardview.widget.CardView
+                        android:id="@+id/photoCont"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:minWidth="180dp"
+                        app:cardElevation="10dp"
+                        app:cardCornerRadius="20dp"
+                        app:cardBackgroundColor="@color/white"
+                        app:cardMaxElevation="12dp"
+                        app:cardPreventCornerOverlap="true"
+                        app:cardUseCompatPadding="true"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintTop_toTopOf="parent">
+
+                    <ImageView
+                            android:id="@+id/photo"
+                            android:layout_height="200dp"
+                            android:minHeight="200dp"
+                            android:layout_margin="10dp"
+                            android:layout_width="wrap_content"
+                            android:layout_gravity="center_horizontal|center_vertical"
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintEnd_toEndOf="parent"
+                            app:layout_constraintTop_toTopOf="parent"
+                            app:layout_constraintBottom_toTopOf="@id/date"
+                            tools:src="@drawable/default_placeholder" />
+                </androidx.cardview.widget.CardView>
+
+               <TextView
                     android:id="@+id/date"
                     android:layout_height="wrap_content"
                     android:layout_width="wrap_content"
                     android:text="@{complaint.creation_day}"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/photo"
+                    app:layout_constraintTop_toBottomOf="@+id/photoCont"
                     app:layout_constraintEnd_toEndOf="parent"
                     android:layout_marginVertical="5dp"
                     tools:text="01.01.2021" />
 
-
-            <Spinner
+                <Spinner
                     android:padding="0dp"
                     android:id="@+id/category"
                     android:layout_height="26dp"
@@ -87,100 +111,101 @@
                     tools:text="Транспорт" />
 
 
-            <androidx.constraintlayout.widget.ConstraintLayout
-                    android:id="@+id/wrap"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="10dp"
-                    app:layout_constraintTop_toBottomOf="@+id/categoryTextView"
-                    app:layout_constraintStart_toStartOf="parent">
+                <androidx.constraintlayout.widget.ConstraintLayout
+                        android:id="@+id/wrap"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="10dp"
+                        app:layout_constraintTop_toBottomOf="@+id/category"
+                        app:layout_constraintStart_toStartOf="parent">
+
+                        <EditText
+                            android:id="@+id/address"
+                            android:background="#00000000"
+                            android:inputType="none"
+                            android:layout_height="wrap_content"
+                            android:layout_width="match_parent"
+                            android:focusable="false"
+                            android:focusableInTouchMode="false"
+                            android:textAppearance="?attr/textAppearanceSubtitle1"
+                            android:text="@{complaint.address}"
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintEnd_toEndOf="parent"
+                            app:layout_constraintTop_toTopOf="parent"
+                            app:layout_constraintBottom_toTopOf="@+id/statusText"
+                            tools:text="address one two three four five six seven eight nine ten eleven  " />
+
+                    <TextView
+                            android:id="@+id/statusText"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="5dp"
+                            android:layout_width="wrap_content"
+                            android:text="@string/status"
+                            android:textAppearance="?attr/textAppearanceSubtitle2"
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintTop_toBottomOf="@+id/address" />
+
+
+                    <TextView
+                            android:id="@+id/status"
+                            android:layout_height="wrap_content"
+                            android:layout_width="wrap_content"
+                            android:text="@{complaint.status!= null ? complaint.status : @string/unknown}"
+                            android:layout_marginStart="6dp"
+                            android:textAppearance="?attr/textAppearanceSubtitle1"
+                            app:layout_constraintBottom_toBottomOf="@+id/statusText"
+                            app:layout_constraintStart_toEndOf="@+id/statusText"
+                            tools:text="Принято" />
+
+                    <TextView
+                            android:id="@+id/creatorText"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="5dp"
+                            android:layout_width="wrap_content"
+                            android:text="@{creator != null ? @string/author : @string/anon}"
+                            android:textAppearance="?attr/textAppearanceSubtitle2"
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintTop_toBottomOf="@+id/statusText" />
+
+                    <TextView
+                            android:id="@+id/user"
+                            android:layout_height="wrap_content"
+                            android:layout_width="wrap_content"
+                            android:text="@{creator!= null ? @string/creator_info(creator.username, creator.rating.toString()) : @string/space}"
+                            android:textAppearance="?attr/textAppearanceSubtitle1"
+                            app:layout_constraintBottom_toBottomOf="@+id/creatorText"
+                            app:layout_constraintStart_toEndOf="@+id/creatorText"
+                            tools:text="Креатор" />
+
+                </androidx.constraintlayout.widget.ConstraintLayout>
+
+
+                <TextView
+                        android:id="@+id/descriptionText"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="20dp"
+                        android:layout_width="wrap_content"
+                        android:text="@string/description"
+                        android:textAppearance="?attr/textAppearanceSubtitle2"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toBottomOf="@+id/wrap" />
 
                 <EditText
-                        android:id="@+id/address"
-                        android:background="#00000000"
-                        android:inputType="none"
+                        android:id="@+id/description"
                         android:layout_height="wrap_content"
                         android:layout_width="match_parent"
+                        android:layout_marginTop="6dp"
+                        android:background="#00000000"
                         android:focusable="false"
                         android:focusableInTouchMode="false"
-                        android:textAppearance="?attr/textAppearanceSubtitle1"
-                        android:text="@{complaint.address}"
-                        app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintEnd_toEndOf="parent"
-                        app:layout_constraintTop_toTopOf="parent"
-                        app:layout_constraintBottom_toTopOf="@+id/statusText"
-                        tools:text="address one two three four five six seven eight nine ten eleven  " />
+                        android:inputType="none"
+                        android:text="@{complaint.description}"
+                        android:textAppearance="?attr/textAppearanceBody1"
+                        app:layout_constraintStart_toStartOf="@+id/descriptionText"
+                        app:layout_constraintTop_toBottomOf="@+id/descriptionText"
+                        tools:text="Описание" />
 
                 <TextView
-                        android:id="@+id/statusText"
-                        android:layout_height="wrap_content"
-                        android:layout_marginTop="5dp"
-                        android:layout_width="wrap_content"
-                        android:text="статус:"
-                        android:textAppearance="?attr/textAppearanceSubtitle2"
-                        app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toBottomOf="@+id/address" />
-
-
-                <TextView
-                        android:id="@+id/status"
-                        android:layout_height="wrap_content"
-                        android:layout_width="wrap_content"
-                        android:text="@{complaint.status!= null ? complaint.status : @string/unknown}"
-                        android:layout_marginStart="6dp"
-                        android:textAppearance="?attr/textAppearanceSubtitle1"
-                        app:layout_constraintBottom_toBottomOf="@+id/statusText"
-                        app:layout_constraintStart_toEndOf="@+id/statusText"
-                        tools:text="Принято" />
-
-                <TextView
-                        android:id="@+id/creatorText"
-                        android:layout_height="wrap_content"
-                        android:layout_marginTop="5dp"
-                        android:layout_width="wrap_content"
-                        android:text="@{creator != null ? @string/author : @string/anon}"
-                        android:textAppearance="?attr/textAppearanceSubtitle2"
-                        app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toBottomOf="@+id/statusText" />
-
-                <TextView
-                        android:id="@+id/user"
-                        android:layout_height="wrap_content"
-                        android:layout_width="wrap_content"
-                        android:text="@{creator!= null ? @string/creator_info(creator.username, creator.rating.toString()) : @string/space}"
-                        android:textAppearance="?attr/textAppearanceSubtitle1"
-                        app:layout_constraintBottom_toBottomOf="@+id/creatorText"
-                        app:layout_constraintStart_toEndOf="@+id/creatorText"
-                        tools:text="Креатор" />
-
-            </androidx.constraintlayout.widget.ConstraintLayout>
-
-            <TextView
-                    android:id="@+id/descriptionText"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="20dp"
-                    android:layout_width="wrap_content"
-                    android:text="Описание:"
-                    android:textAppearance="?attr/textAppearanceSubtitle2"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/wrap" />
-
-            <EditText
-                    android:id="@+id/description"
-                    android:layout_height="wrap_content"
-                    android:layout_width="wrap_content"
-                    android:layout_marginTop="6dp"
-                    android:background="#00000000"
-                    android:focusable="false"
-                    android:focusableInTouchMode="false"
-                    android:inputType="none"
-                    android:text="@{complaint.description}"
-                    android:textAppearance="?attr/textAppearanceBody1"
-                    app:layout_constraintStart_toStartOf="@+id/descriptionText"
-                    app:layout_constraintTop_toBottomOf="@+id/descriptionText"
-                    tools:text="Описание" />
-
-            <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:textAppearance="?attr/textAppearanceCaption"
@@ -191,16 +216,18 @@
                     app:layout_constraintTop_toBottomOf="@+id/description"
                     tools:text="ред. 04.01.2000" />
 
-            <androidx.fragment.app.FragmentContainerView
-                    android:id="@+id/container"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginBottom="20dp"
-                    app:layout_constraintBottom_toBottomOf="parent"
-                    app:layout_constraintStart_toStartOf="parent" />
+                <androidx.fragment.app.FragmentContainerView
+                        android:id="@+id/container"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginBottom="64dp"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintStart_toStartOf="parent" />
 
 
-        </androidx.constraintlayout.widget.ConstraintLayout>
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
+        </ScrollView>
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 
