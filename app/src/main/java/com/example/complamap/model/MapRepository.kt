@@ -10,14 +10,14 @@ object MapRepository {
     @SuppressLint("StaticFieldLeak")
     private val db = FirebaseFirestore.getInstance()
 
-    fun getComplaintWithLocation(callback: (List<Complaint>) -> Unit){
+    fun getComplaintWithLocation(callback: (List<Complaint>) -> Unit) {
         db
             .collection("complaint")
             .whereNotEqualTo("location", null)
             .get()
             .addOnCompleteListener {
                 completeListener(it, callback)
-        }
+            }
     }
 
     private fun completeListener(
@@ -28,7 +28,7 @@ object MapRepository {
             val list: List<Complaint> = task
                 .result
                 ?.toObjects(Complaint::class.java)
-                    as List<Complaint>
+                as List<Complaint>
             callback(list)
         }
     }

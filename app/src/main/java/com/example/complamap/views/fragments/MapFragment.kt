@@ -2,7 +2,6 @@ package com.example.complamap.views.fragments
 
 import android.content.Intent
 import android.os.Bundle
-import android.util.Log
 import android.util.TypedValue
 import android.view.KeyEvent
 import android.view.LayoutInflater
@@ -17,7 +16,6 @@ import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.lifecycleScope
 import com.example.complamap.R
 import com.example.complamap.databinding.FragmentMapBinding
-import com.example.complamap.listOfPoints
 import com.example.complamap.model.*
 import com.example.complamap.viewmodel.MapViewModel
 import com.example.complamap.views.activities.ComplaintActivity
@@ -51,17 +49,19 @@ class MapFragment() : Fragment(), GeoObjectTapListener, InputListener, Placemark
     private lateinit var searchView: EditText
     private lateinit var viewModel: MapViewModel
     private lateinit var searchLayer: SearchLayer
-    private val cameraListener = object : CameraListener{
+    private val cameraListener = object : CameraListener {
         override fun onCameraPositionChanged(
             p0: Map,
             p1: CameraPosition,
             p2: CameraUpdateReason,
             p3: Boolean
         ) {
-            p0.mapObjects.traverse(PlacemarkVisitor(
-                focusRegion = mapView.mapWindow.focusRegion,
-                zoom = p0.cameraPosition.zoom))
-
+            p0.mapObjects.traverse(
+                PlacemarkVisitor(
+                    focusRegion = mapView.mapWindow.focusRegion,
+                    zoom = p0.cameraPosition.zoom
+                )
+            )
         }
     }
     override fun onCreateView(
@@ -146,30 +146,38 @@ class MapFragment() : Fragment(), GeoObjectTapListener, InputListener, Placemark
             selectionMetadata.observe(viewLifecycleOwner) {
                 mapView.map.selectGeoObject(it.id, it.layerId)
             }
-            complaintsList.observeOnce(viewLifecycleOwner){ list ->
+            complaintsList.observeOnce(viewLifecycleOwner) { list ->
                 viewLifecycleOwner.lifecycleScope.launch {
                     list.forEach { complaint ->
                         mapView.map.mapObjects.addPlacemark(
                             complaint.location!!.toPoint(),
-                            ImageProvider.fromBitmap(requireContext().getBitmapFromVectorDrawable(R.drawable.ic_placemark))).apply {
-                                userData = complaint
-                                isVisible = false
-                                PlacemarkListeners.listenersList.add(
-                                    object : MapObjectTapListener{
-                                        override fun onMapObjectTap(
-                                            p0: MapObject,
-                                            p1: Point
-                                        ): Boolean {
-                                            val data = p0.userData as Complaint
-                                            ComplaintManager.setComplaint(data)
-                                            val intent = Intent(context, ComplaintActivity::class.java)
-                                            intent.putExtra("FragmentMode", "View")
-                                            startActivity(intent)
-                                            return true
-                                        }
-                                    }
+                            ImageProvider.fromBitmap(
+                                requireContext().getBitmapFromVectorDrawable(
+                                    R.drawable.ic_placemark
                                 )
-                                addTapListener(PlacemarkListeners.listenersList.last())
+                            )
+                        ).apply {
+                            userData = complaint
+                            isVisible = false
+                            PlacemarkListeners.listenersList.add(
+                                object : MapObjectTapListener {
+                                    override fun onMapObjectTap(
+                                        p0: MapObject,
+                                        p1: Point
+                                    ): Boolean {
+                                        val data = p0.userData as Complaint
+                                        ComplaintManager.setComplaint(data)
+                                        val intent = Intent(
+                                            context,
+                                            ComplaintActivity::class.java
+                                        )
+                                        intent.putExtra("FragmentMode", "View")
+                                        startActivity(intent)
+                                        return true
+                                    }
+                                }
+                            )
+                            addTapListener(PlacemarkListeners.listenersList.last())
                         }
                     }
                 }
