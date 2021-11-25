@@ -151,7 +151,7 @@ class MapFragment() : Fragment(), GeoObjectTapListener, InputListener, Placemark
                     list.forEach { complaint ->
                         mapView.map.mapObjects.addPlacemark(
                             complaint.location!!.toPoint(),
-                            ImageProvider.fromResource(context, R.drawable.placemark_sample2)).apply {
+                            ImageProvider.fromBitmap(requireContext().getBitmapFromVectorDrawable(R.drawable.ic_placemark))).apply {
                                 userData = complaint
                                 isVisible = false
                                 PlacemarkListeners.listenersList.add(
