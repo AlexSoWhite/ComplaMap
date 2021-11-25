@@ -77,4 +77,42 @@ class ComplaintViewModel : ViewModel() {
                 .into(container)
         }
     }
+
+    fun deleteComplaint(complaintId: String) {
+        viewModelScope.launch {
+            ComplaintRepository.deleteComplaintFromDatabase(complaintId)
+        }
+    }
+
+    fun editComplaint(
+        complaintId: String,
+        description: String,
+        category: String,
+        address: String,
+        uri: Uri?,
+        path: String?
+    ) {
+        viewModelScope.launch {
+
+            if (uri != null) {
+                sendPhoto(uri, path!!) {
+                    ComplaintRepository.editComplaint(
+                        complaintId, it, description,
+                        address, category, Timestamp.now(), android.text.format.DateFormat.format(
+                            "dd.MM.yyyy",
+                            Timestamp.now().toDate()
+                        ).toString()
+                    )
+                }
+            } else {
+                ComplaintRepository.editComplaint(
+                    complaintId, "", description,
+                    address, category, Timestamp.now(), android.text.format.DateFormat.format(
+                        "dd.MM.yyyy",
+                        Timestamp.now().toDate()
+                    ).toString()
+                )
+            }
+        }
+    }
 }
