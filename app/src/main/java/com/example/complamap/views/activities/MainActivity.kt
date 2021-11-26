@@ -36,7 +36,7 @@ class MainActivity : AppCompatActivity() {
             }
         supportActionBar?.hide()
         binding = ActivityMainBinding.inflate(layoutInflater)
-        binding.mainActivity.getForeground().setAlpha(0)
+        binding.mainActivity.foreground.alpha = 0
         val view = binding.root
         setContentView(view)
         if (savedInstanceState == null) {
