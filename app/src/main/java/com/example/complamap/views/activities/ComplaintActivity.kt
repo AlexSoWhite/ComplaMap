@@ -7,9 +7,14 @@ import android.os.Build
 import android.os.Bundle
 import android.os.Environment
 import android.transition.TransitionManager
-import android.util.Log
-import android.view.*
-import android.widget.*
+import android.view.Gravity
+import android.view.LayoutInflater
+import android.view.View
+import android.view.WindowManager
+import android.widget.ArrayAdapter
+import android.widget.FrameLayout
+import android.widget.PopupWindow
+import android.widget.Toast
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.annotation.RequiresApi
 import androidx.appcompat.app.AppCompatActivity
@@ -17,20 +22,19 @@ import androidx.core.content.FileProvider
 import androidx.core.net.toUri
 import androidx.databinding.DataBindingUtil
 import androidx.lifecycle.ViewModelProvider
+import androidx.lifecycle.lifecycleScope
 import com.example.complamap.R
 import com.example.complamap.databinding.ActivityComplaintBinding
 import com.example.complamap.model.Complaint
 import com.example.complamap.model.ComplaintManager
+import com.example.complamap.model.UserRepository
 import com.example.complamap.viewmodel.ComplaintViewModel
 import com.example.complamap.viewmodel.ProfileViewModel
 import com.example.complamap.views.fragments.OwnerCompFragment
 import com.example.complamap.views.fragments.PublishFragment
 import com.example.complamap.views.fragments.SaveFragment
 import java.io.File
-import androidx.lifecycle.lifecycleScope
-import com.example.complamap.model.UserRepository
 import kotlinx.coroutines.launch
-
 
 class ComplaintActivity : AppCompatActivity() {
     companion object {
@@ -79,8 +83,7 @@ class ComplaintActivity : AppCompatActivity() {
         registerForActivityResult(ActivityResultContracts.TakePicture()) { success ->
             if (success) {
                 binding.photo.setImageURI(imageUri)
-            }
-            else {
+            } else {
                 imageUri = null
             }
         }
@@ -144,10 +147,8 @@ class ComplaintActivity : AppCompatActivity() {
                     currentComplaint!!,
                     binding.photo
                 )
-
             }
         }
-
 
         binding.complaint = currentComplaint
         lifecycleScope.launch {
@@ -156,7 +157,8 @@ class ComplaintActivity : AppCompatActivity() {
 
         val adapter: ArrayAdapter<String> = ArrayAdapter<String>(
             this,
-            android.R.layout.simple_list_item_1, categories
+            android.R.layout.simple_list_item_1,
+            categories
         )
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
         binding.category.adapter = adapter
@@ -186,11 +188,14 @@ class ComplaintActivity : AppCompatActivity() {
     fun edit() {
         ComplaintManager.getCurrentComplaint()?.compId?.let {
             complaintViewModel.editComplaint(
-                it, binding.description.text.toString(), binding.category.selectedItem.toString(),
-                binding.address.text.toString(), imageUri, imageFilePath
+                it,
+                binding.description.text.toString(),
+                binding.category.selectedItem.toString(),
+                binding.address.text.toString(),
+                imageUri,
+                imageFilePath
             )
         }
-        Log.d("This", "sent ${imageUri.toString()} and $imageFilePath")
         Toast.makeText(this, "Изменено", Toast.LENGTH_SHORT).show()
         isEditableMode = false
         binding.categoryTextView.text = binding.category.selectedItem.toString()
@@ -256,7 +261,7 @@ class ComplaintActivity : AppCompatActivity() {
         return File.createTempFile("temp_image", ".jpg", storageDir)
     }
 
-    private fun editOptions(state: Boolean){
+    private fun editOptions(state: Boolean) {
         binding.description.isFocusable = state
         binding.description.isFocusableInTouchMode = state
         binding.description.isCursorVisible = state
@@ -267,7 +272,7 @@ class ComplaintActivity : AppCompatActivity() {
         }
     }
 
-    fun exit(){
+    fun exit() {
         finish()
     }
 }
