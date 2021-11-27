@@ -7,6 +7,7 @@ import android.os.Build
 import android.os.Bundle
 import android.os.Environment
 import android.transition.TransitionManager
+import android.util.Log
 import android.view.*
 import android.widget.*
 import androidx.activity.result.contract.ActivityResultContracts
@@ -78,7 +79,9 @@ class ComplaintActivity : AppCompatActivity() {
         registerForActivityResult(ActivityResultContracts.TakePicture()) { success ->
             if (success) {
                 binding.photo.setImageURI(imageUri)
-                showDialog()
+            }
+            else {
+                imageUri = null
             }
         }
 
@@ -187,6 +190,7 @@ class ComplaintActivity : AppCompatActivity() {
                 binding.address.text.toString(), imageUri, imageFilePath
             )
         }
+        Log.d("This", "sent ${imageUri.toString()} and $imageFilePath")
         Toast.makeText(this, "Изменено", Toast.LENGTH_SHORT).show()
         isEditableMode = false
         binding.categoryTextView.text = binding.category.selectedItem.toString()
@@ -201,7 +205,6 @@ class ComplaintActivity : AppCompatActivity() {
     @RequiresApi(Build.VERSION_CODES.M)
     private fun showDialog() {
         isDialogShowing = true
-        val rootLayout: ViewGroup = findViewById(R.id.root_layout)
         val inflater: LayoutInflater =
             getSystemService(Context.LAYOUT_INFLATER_SERVICE) as LayoutInflater
         val view = inflater.inflate(R.layout.edit_photo_dialog, null)
