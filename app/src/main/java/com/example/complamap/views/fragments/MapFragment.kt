@@ -3,13 +3,11 @@ package com.example.complamap.views.fragments
 import android.content.Intent
 import android.os.Bundle
 import android.util.TypedValue
-import android.view.KeyEvent
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.view.inputmethod.EditorInfo
 import android.widget.EditText
-import android.widget.TextView
 import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
@@ -41,11 +39,10 @@ import com.yandex.mapkit.search.search_layer.SearchResultItem
 import com.yandex.runtime.image.ImageProvider
 import kotlinx.coroutines.launch
 
-class MapFragment() : Fragment(), GeoObjectTapListener, InputListener, PlacemarkListener {
+class MapFragment() : Fragment(), GeoObjectTapListener, InputListener, PlacemarkListener, MapObjectTapListener {
     private var _binding: FragmentMapBinding? = null
     private val binding get() = _binding!!
     private lateinit var mapView: MapView
-    private var isGeoObjectSelected: Boolean = false
     private lateinit var searchView: EditText
     private lateinit var viewModel: MapViewModel
     private lateinit var searchLayer: SearchLayer
@@ -69,69 +66,23 @@ class MapFragment() : Fragment(), GeoObjectTapListener, InputListener, Placemark
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-
         _binding = FragmentMapBinding.inflate(inflater, container, false)
         val view = binding.root
-        mapView = binding.mapview
-        viewModel = ViewModelProvider(this)[MapViewModel::class.java]
-        mapView.map.move(
-            CameraPosition(Point(55.751574, 37.573856), 11F, 0F, 0F),
-            Animation(Animation.Type.SMOOTH, 0F),
-            null
-        )
-        setBottomSheetPeekHeight()
-        binding.fab.setOnClickListener {
-            binding.bottomSheetParent.addressView.text.let {
-                if (it.isNotEmpty() && it.isNotBlank()) {
-                    val intent = Intent(requireContext(), CreateComplaintActivity::class.java)
-                    intent.apply {
-                        putExtra(AddPlacemarkDialog.EXTRA_ADDRESS, it)
-                        binding.bottomSheetParent.coordinatesView.text.split(" ").let {
-                            putExtra(AddPlacemarkDialog.EXTRA_LATITUDE, it[0].toDoubleOrNull())
-                            putExtra(AddPlacemarkDialog.EXTRA_LONGITUDE, it[1].toDoubleOrNull())
-                        }
-                    }
-                    startActivity(intent)
-                } else {
-                    Toast.makeText(requireContext(), "Поле адреса пусто", Toast.LENGTH_SHORT).show()
-                }
-            }
-        }
-//        listOfPoints.forEach {
-//            mapView.map.mapObjects.addPlacemark(it, ImageProvider.fromResource(context, R.drawable.placemark_sample2))
-//        }
-        mapView.map.logo.apply {
-            this.setAlignment(Alignment(HorizontalAlignment.RIGHT, VerticalAlignment.TOP))
-        }
-
-        mapView.map.addTapListener(this)
-        mapView.map.addInputListener(this)
-        searchView = binding.bottomSheetParent.searchView
-        searchView.setOnEditorActionListener(
-            object : TextView.OnEditorActionListener {
-                override fun onEditorAction(
-                    textView: TextView?,
-                    actionId: Int,
-                    keyEvent: KeyEvent?
-                ): Boolean {
-                    val searchType = SearchType.GEO.value or SearchType.BIZ.value
-                    if (actionId == EditorInfo.IME_ACTION_SEARCH) {
-                        if (searchView.text.toString().isNotBlank() && searchView.text.toString().isNotEmpty()) {
-                            searchLayer.submitQuery(
-                                searchView.text.toString(),
-                                SearchOptions().setSearchTypes(searchType)
-                            )
-                        } else
-                            searchLayer.clear()
-                    }
-                    return false
-                }
-            }
-        )
-        searchLayer = SearchFactory.getInstance().createSearchLayer(mapView.mapWindow)
-        searchLayer.addPlacemarkListener(this)
-        mapView.map.addCameraListener(cameraListener)
+        initializeFragment()
+        initializeViewsListeners()
         return view
+    }
+
+    override fun onMapObjectTap(p0: MapObject, p1: Point): Boolean {
+        val data = p0.userData as Complaint
+        ComplaintManager.setComplaint(data)
+        val intent = Intent(
+            context,
+            ComplaintActivity::class.java
+        )
+        intent.putExtra("FragmentMode", "View")
+        startActivity(intent)
+        return true
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -159,25 +110,7 @@ class MapFragment() : Fragment(), GeoObjectTapListener, InputListener, Placemark
                         ).apply {
                             userData = complaint
                             isVisible = false
-                            PlacemarkListeners.listenersList.add(
-                                object : MapObjectTapListener {
-                                    override fun onMapObjectTap(
-                                        p0: MapObject,
-                                        p1: Point
-                                    ): Boolean {
-                                        val data = p0.userData as Complaint
-                                        ComplaintManager.setComplaint(data)
-                                        val intent = Intent(
-                                            context,
-                                            ComplaintActivity::class.java
-                                        )
-                                        intent.putExtra("FragmentMode", "View")
-                                        startActivity(intent)
-                                        return true
-                                    }
-                                }
-                            )
-                            addTapListener(PlacemarkListeners.listenersList.last())
+                            addTapListener(this@MapFragment)
                         }
                     }
                 }
@@ -213,7 +146,6 @@ class MapFragment() : Fragment(), GeoObjectTapListener, InputListener, Placemark
             p1,
             mapView.map.cameraPosition.zoom.toInt()
         )
-//        mapView.map.mapObjects.addPlacemark(p1)
         val converter = PointAddressConverter(SearchType.GEO.value)
         converter.addOnAddressFetchedListener(
             object : OnAddressFetchedListener {
@@ -256,5 +188,58 @@ class MapFragment() : Fragment(), GeoObjectTapListener, InputListener, Placemark
             )
             bottomSheetBehavior.peekHeight = actionBarHeight * 2
         }
+    }
+    private fun initializeFragment() {
+        mapView = binding.mapview
+        viewModel = ViewModelProvider(this)[MapViewModel::class.java]
+        mapView.map.move(
+            CameraPosition(Point(55.751574, 37.573856), 11F, 0F, 0F),
+            Animation(Animation.Type.SMOOTH, 0F),
+            null
+        )
+        setBottomSheetPeekHeight()
+        mapView.map.logo.apply {
+            this.setAlignment(Alignment(HorizontalAlignment.RIGHT, VerticalAlignment.TOP))
+        }
+        searchView = binding.bottomSheetParent.searchView
+        searchLayer = SearchFactory.getInstance().createSearchLayer(mapView.mapWindow)
+    }
+    private fun initializeViewsListeners() {
+        searchView.setOnEditorActionListener { textView, actionId, keyEvent ->
+            val searchType = SearchType.GEO.value or SearchType.BIZ.value
+            if (actionId == EditorInfo.IME_ACTION_SEARCH) {
+                if (searchView.text.toString().isNotBlank() && searchView.text.toString()
+                    .isNotEmpty()
+                ) {
+                    searchLayer.submitQuery(
+                        searchView.text.toString(),
+                        SearchOptions().setSearchTypes(searchType)
+                    )
+                } else
+                    searchLayer.clear()
+            }
+            false
+        }
+        binding.fab.setOnClickListener {
+            binding.bottomSheetParent.addressView.text.let {
+                if (it.isNotEmpty() && it.isNotBlank()) {
+                    val intent = Intent(requireContext(), CreateComplaintActivity::class.java)
+                    intent.apply {
+                        putExtra(AddPlacemarkDialog.EXTRA_ADDRESS, it)
+                        binding.bottomSheetParent.coordinatesView.text.split(" ").let {
+                            putExtra(AddPlacemarkDialog.EXTRA_LATITUDE, it[0].toDoubleOrNull())
+                            putExtra(AddPlacemarkDialog.EXTRA_LONGITUDE, it[1].toDoubleOrNull())
+                        }
+                    }
+                    startActivity(intent)
+                } else {
+                    Toast.makeText(requireContext(), "Поле адреса пусто", Toast.LENGTH_SHORT).show()
+                }
+            }
+        }
+        mapView.map.addTapListener(this)
+        mapView.map.addInputListener(this)
+        searchLayer.addPlacemarkListener(this)
+        mapView.map.addCameraListener(cameraListener)
     }
 }
