@@ -203,7 +203,8 @@ class CreateComplaintActivity : AppCompatActivity() {
                                 intent.getDoubleExtra(AddPlacemarkDialog.EXTRA_LATITUDE, 0.0),
                                 intent.getDoubleExtra(AddPlacemarkDialog.EXTRA_LONGITUDE, 0.0)
                             ),
-                            creator = if (radioAnon.isChecked) null else UserManager.getCurrentUser()?.uid
+                            creator = if (radioAnon.isChecked) null
+                            else UserManager.getCurrentUser()?.uid
                         )
                     )
                     val intent = Intent(this, ComplaintActivity::class.java)

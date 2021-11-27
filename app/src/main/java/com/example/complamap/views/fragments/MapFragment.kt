@@ -14,7 +14,14 @@ import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.lifecycleScope
 import com.example.complamap.R
 import com.example.complamap.databinding.FragmentMapBinding
-import com.example.complamap.model.*
+import com.example.complamap.model.Complaint
+import com.example.complamap.model.ComplaintManager
+import com.example.complamap.model.OnAddressFetchedListener
+import com.example.complamap.model.PlacemarkVisitor
+import com.example.complamap.model.PointAddressConverter
+import com.example.complamap.model.getBitmapFromVectorDrawable
+import com.example.complamap.model.observeOnce
+import com.example.complamap.model.toPoint
 import com.example.complamap.viewmodel.MapViewModel
 import com.example.complamap.views.activities.ComplaintActivity
 import com.example.complamap.views.activities.CreateComplaintActivity
@@ -27,8 +34,13 @@ import com.yandex.mapkit.layers.GeoObjectTapListener
 import com.yandex.mapkit.logo.Alignment
 import com.yandex.mapkit.logo.HorizontalAlignment
 import com.yandex.mapkit.logo.VerticalAlignment
-import com.yandex.mapkit.map.*
+import com.yandex.mapkit.map.CameraListener
+import com.yandex.mapkit.map.CameraPosition
+import com.yandex.mapkit.map.CameraUpdateReason
+import com.yandex.mapkit.map.InputListener
 import com.yandex.mapkit.map.Map
+import com.yandex.mapkit.map.MapObject
+import com.yandex.mapkit.map.MapObjectTapListener
 import com.yandex.mapkit.mapview.MapView
 import com.yandex.mapkit.search.SearchFactory
 import com.yandex.mapkit.search.SearchOptions
@@ -39,7 +51,12 @@ import com.yandex.mapkit.search.search_layer.SearchResultItem
 import com.yandex.runtime.image.ImageProvider
 import kotlinx.coroutines.launch
 
-class MapFragment() : Fragment(), GeoObjectTapListener, InputListener, PlacemarkListener, MapObjectTapListener {
+class MapFragment() :
+    Fragment(),
+    GeoObjectTapListener,
+    InputListener,
+    PlacemarkListener,
+    MapObjectTapListener {
     private var _binding: FragmentMapBinding? = null
     private val binding get() = _binding!!
     private lateinit var mapView: MapView
@@ -65,7 +82,7 @@ class MapFragment() : Fragment(), GeoObjectTapListener, InputListener, Placemark
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
+    ): View {
         _binding = FragmentMapBinding.inflate(inflater, container, false)
         val view = binding.root
         initializeFragment()

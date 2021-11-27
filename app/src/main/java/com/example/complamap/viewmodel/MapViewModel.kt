@@ -4,21 +4,25 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.example.complamap.model.*
+import com.example.complamap.model.Complaint
+import com.example.complamap.model.MapRepository
+import com.example.complamap.model.OnAddressFetchedListener
+import com.example.complamap.model.OnGeoObjectFetchedListener
+import com.example.complamap.model.PointAddressConverter
 import com.yandex.mapkit.GeoObject
 import com.yandex.mapkit.geometry.Point
 import com.yandex.mapkit.layers.GeoObjectTapEvent
 import com.yandex.mapkit.map.GeoObjectSelectionMetadata
-import com.yandex.mapkit.search.*
+import com.yandex.mapkit.search.SearchType
 import com.yandex.mapkit.search.search_layer.SearchResultItem
 import kotlinx.coroutines.launch
 
 class MapViewModel : ViewModel() {
-    private val addressMutable: MutableLiveData<String> = MutableLiveData()
+    private val addressMutable = MutableLiveData<String>()
     val address: LiveData<String> get() = addressMutable
     private val coordinatesMutable: MutableLiveData<String> = MutableLiveData()
     val coordinates: LiveData<String> = coordinatesMutable
-    private val selectionMetadataMutable: MutableLiveData<GeoObjectSelectionMetadata> = MutableLiveData()
+    private val selectionMetadataMutable = MutableLiveData<GeoObjectSelectionMetadata>()
     val selectionMetadata: LiveData<GeoObjectSelectionMetadata>
         get() = selectionMetadataMutable
     private val complaintsListMutable: MutableLiveData<List<Complaint>> = MutableLiveData()

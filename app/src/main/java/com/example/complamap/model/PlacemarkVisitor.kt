@@ -1,6 +1,14 @@
 package com.example.complamap.model
 import com.yandex.mapkit.Animation
-import com.yandex.mapkit.map.*
+import com.yandex.mapkit.map.CircleMapObject
+import com.yandex.mapkit.map.ClusterizedPlacemarkCollection
+import com.yandex.mapkit.map.ColoredPolylineMapObject
+import com.yandex.mapkit.map.MapObjectCollection
+import com.yandex.mapkit.map.MapObjectVisitor
+import com.yandex.mapkit.map.PlacemarkMapObject
+import com.yandex.mapkit.map.PolygonMapObject
+import com.yandex.mapkit.map.PolylineMapObject
+import com.yandex.mapkit.map.VisibleRegion
 
 class PlacemarkVisitor(
     private val focusRegion: VisibleRegion,
