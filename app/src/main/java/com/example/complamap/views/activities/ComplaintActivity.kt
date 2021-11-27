@@ -6,8 +6,12 @@ import android.net.Uri
 import android.os.Build
 import android.os.Bundle
 import android.os.Environment
-import android.util.Log
-import android.view.*
+import android.transition.TransitionManager
+import android.view.Gravity
+import android.view.LayoutInflater
+import android.view.View
+import android.view.WindowManager
+import android.widget.ArrayAdapter
 import android.widget.FrameLayout
 import android.widget.PopupWindow
 import android.widget.Toast
@@ -18,21 +22,19 @@ import androidx.core.content.FileProvider
 import androidx.core.net.toUri
 import androidx.databinding.DataBindingUtil
 import androidx.lifecycle.ViewModelProvider
+import androidx.lifecycle.lifecycleScope
 import com.example.complamap.R
 import com.example.complamap.databinding.ActivityComplaintBinding
 import com.example.complamap.model.Complaint
 import com.example.complamap.model.ComplaintManager
+import com.example.complamap.model.UserRepository
 import com.example.complamap.viewmodel.ComplaintViewModel
 import com.example.complamap.viewmodel.ProfileViewModel
 import com.example.complamap.views.fragments.OwnerCompFragment
 import com.example.complamap.views.fragments.PublishFragment
 import com.example.complamap.views.fragments.SaveFragment
 import java.io.File
-import android.widget.ArrayAdapter
-import androidx.lifecycle.lifecycleScope
-import com.example.complamap.model.UserRepository
 import kotlinx.coroutines.launch
-
 
 class ComplaintActivity : AppCompatActivity() {
     companion object {
@@ -81,7 +83,8 @@ class ComplaintActivity : AppCompatActivity() {
         registerForActivityResult(ActivityResultContracts.TakePicture()) { success ->
             if (success) {
                 binding.photo.setImageURI(imageUri)
-                showDialog()
+            } else {
+                imageUri = null
             }
         }
 
@@ -95,6 +98,7 @@ class ComplaintActivity : AppCompatActivity() {
         }
     }
 
+    @RequiresApi(Build.VERSION_CODES.M)
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         supportActionBar?.hide()
@@ -102,6 +106,7 @@ class ComplaintActivity : AppCompatActivity() {
             this,
             R.layout.activity_complaint
         )
+        binding.complaintActivity.foreground.alpha = 0
         complaintViewModel = ViewModelProvider(this)[ComplaintViewModel::class.java]
         profileViewModel = ViewModelProvider(this)[ProfileViewModel::class.java]
         profileViewModel.getUser { user ->
@@ -142,10 +147,8 @@ class ComplaintActivity : AppCompatActivity() {
                     currentComplaint!!,
                     binding.photo
                 )
-
             }
         }
-
 
         binding.complaint = currentComplaint
         lifecycleScope.launch {
@@ -154,7 +157,8 @@ class ComplaintActivity : AppCompatActivity() {
 
         val adapter: ArrayAdapter<String> = ArrayAdapter<String>(
             this,
-            android.R.layout.simple_list_item_1, categories
+            android.R.layout.simple_list_item_1,
+            categories
         )
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
         binding.category.adapter = adapter
@@ -184,8 +188,12 @@ class ComplaintActivity : AppCompatActivity() {
     fun edit() {
         ComplaintManager.getCurrentComplaint()?.compId?.let {
             complaintViewModel.editComplaint(
-                it, binding.description.text.toString(), binding.category.selectedItem.toString(),
-                binding.address.text.toString(), imageUri, imageFilePath
+                it,
+                binding.description.text.toString(),
+                binding.category.selectedItem.toString(),
+                binding.address.text.toString(),
+                imageUri,
+                imageFilePath
             )
         }
         Toast.makeText(this, "Изменено", Toast.LENGTH_SHORT).show()
@@ -202,15 +210,14 @@ class ComplaintActivity : AppCompatActivity() {
     @RequiresApi(Build.VERSION_CODES.M)
     private fun showDialog() {
         isDialogShowing = true
-        val rootLayout: ViewGroup = findViewById(R.id.root_layout)
         val inflater: LayoutInflater =
             getSystemService(Context.LAYOUT_INFLATER_SERVICE) as LayoutInflater
-        val view = inflater.inflate(R.layout.take_photo_dialog, null)
+        val view = inflater.inflate(R.layout.edit_photo_dialog, null)
         val popupWindow = PopupWindow(view)
 
         popupWindow.height = WindowManager.LayoutParams.WRAP_CONTENT
         popupWindow.width = WindowManager.LayoutParams.WRAP_CONTENT
-        popupWindow.setBackgroundDrawable(getDrawable(R.drawable.black_border))
+        popupWindow.isOutsideTouchable = true
 
         val camera: FrameLayout = view.findViewById(R.id.camera_btn)
         val gallery: FrameLayout = view.findViewById(R.id.gallery_btn)
@@ -228,15 +235,24 @@ class ComplaintActivity : AppCompatActivity() {
             } else {
                 cameraPermission.launch(Manifest.permission.CAMERA)
             }
+            popupWindow.dismiss()
         }
 
         gallery.setOnClickListener {
             galleryLauncher.launch("image/*")
-        }
-        popupWindow.showAtLocation(findViewById(R.id.photo), Gravity.TOP, 0, 1100)
-        rootLayout.setOnClickListener {
             popupWindow.dismiss()
+        }
+        TransitionManager.beginDelayedTransition(binding.rootLayout)
+        popupWindow.showAtLocation(
+            binding.rootLayout,
+            Gravity.CENTER,
+            0,
+            0
+        )
+        binding.complaintActivity.foreground.alpha = 50
+        popupWindow.setOnDismissListener {
             isDialogShowing = false
+            binding.complaintActivity.foreground.alpha = 0
         }
     }
 
@@ -245,16 +261,18 @@ class ComplaintActivity : AppCompatActivity() {
         return File.createTempFile("temp_image", ".jpg", storageDir)
     }
 
-    private fun editOptions(state: Boolean){
+    private fun editOptions(state: Boolean) {
         binding.description.isFocusable = state
         binding.description.isFocusableInTouchMode = state
+        binding.description.isCursorVisible = state
         if (currentComplaint?.status != "В работе") {
             binding.address.isFocusable = state
             binding.address.isFocusableInTouchMode = state
+            binding.address.isCursorVisible = state
         }
     }
 
-    fun exit(){
+    fun exit() {
         finish()
     }
 }

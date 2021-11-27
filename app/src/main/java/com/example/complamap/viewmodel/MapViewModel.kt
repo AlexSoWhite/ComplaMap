@@ -16,9 +16,11 @@ import com.yandex.mapkit.search.search_layer.SearchResultItem
 class MapViewModel : ViewModel() {
     private val addressMutable: MutableLiveData<String> = MutableLiveData()
     val address: LiveData<String> get() = addressMutable
-    private val coordinatesMutable: MutableLiveData<String> = MutableLiveData()
+    private val coordinatesMutable: MutableLiveData<String> =
+        MutableLiveData()
     val coordinates: LiveData<String> = coordinatesMutable
-    private val selectionMetadataMutable: MutableLiveData<GeoObjectSelectionMetadata> = MutableLiveData()
+    private val selectionMetadataMutable: MutableLiveData<GeoObjectSelectionMetadata> =
+        MutableLiveData()
     val selectionMetadata: LiveData<GeoObjectSelectionMetadata>
         get() = selectionMetadataMutable
     private val pointAddressConverter = PointAddressConverter(searchType = SearchType.GEO.value)

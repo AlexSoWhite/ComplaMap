@@ -97,8 +97,13 @@ class ComplaintViewModel : ViewModel() {
             if (uri != null) {
                 sendPhoto(uri, path!!) {
                     ComplaintRepository.editComplaint(
-                        complaintId, it, description,
-                        address, category, Timestamp.now(), android.text.format.DateFormat.format(
+                        complaintId,
+                        it,
+                        description,
+                        address,
+                        category,
+                        Timestamp.now(),
+                        android.text.format.DateFormat.format(
                             "dd.MM.yyyy",
                             Timestamp.now().toDate()
                         ).toString()
@@ -106,8 +111,13 @@ class ComplaintViewModel : ViewModel() {
                 }
             } else {
                 ComplaintRepository.editComplaint(
-                    complaintId, "", description,
-                    address, category, Timestamp.now(), android.text.format.DateFormat.format(
+                    complaintId,
+                    "",
+                    description,
+                    address,
+                    category,
+                    Timestamp.now(),
+                    android.text.format.DateFormat.format(
                         "dd.MM.yyyy",
                         Timestamp.now().toDate()
                     ).toString()

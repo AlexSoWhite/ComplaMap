@@ -95,10 +95,11 @@ class MapFragment() : Fragment(), GeoObjectTapListener, InputListener, Placemark
                 ): Boolean {
                     val searchType = SearchType.GEO.value or SearchType.BIZ.value
                     if (actionId == EditorInfo.IME_ACTION_SEARCH) {
-                        if (searchView.text.toString().isNotBlank() && searchView.text.toString().isNotEmpty()) {
-                            searchLayer.submitQuery(
-                                searchView.text.toString(),
-                                SearchOptions().setSearchTypes(searchType)
+                        if (searchView.text.toString().isNotBlank() &&
+                                searchView.text.toString().isNotEmpty()) {
+                                    searchLayer.submitQuery(
+                                        searchView.text.toString(),
+                                    SearchOptions().setSearchTypes(searchType)
                             )
                         } else
                             searchLayer.clear()

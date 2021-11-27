@@ -208,7 +208,8 @@ class CreateComplaintActivity : AppCompatActivity() {
                             address = binding.Address.text.toString(),
                             creation_day = "",
                             status = "Принята",
-                            creator = if (radioAnon.isChecked) null else UserManager.getCurrentUser()?.uid
+                            creator = if (radioAnon.isChecked) null
+                            else UserManager.getCurrentUser()?.uid
                         )
                     )
                     val intent = Intent(this, ComplaintActivity::class.java)
