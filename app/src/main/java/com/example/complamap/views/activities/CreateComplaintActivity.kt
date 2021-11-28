@@ -1,8 +1,12 @@
 package com.example.complamap.views.activities
 
 import android.Manifest
+import android.app.Activity
 import android.content.Context
 import android.content.Intent
+import android.location.Address
+import android.media.Image
+import android.media.session.MediaSession
 import android.net.Uri
 import android.os.Build
 import android.os.Bundle
@@ -13,12 +17,8 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.view.WindowManager
-import android.widget.Button
-import android.widget.FrameLayout
-import android.widget.ImageButton
-import android.widget.PopupWindow
-import android.widget.RadioButton
-import android.widget.Toast
+import android.view.inputmethod.InputMethodManager
+import android.widget.*
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.annotation.RequiresApi
 import androidx.appcompat.app.AppCompatActivity
@@ -31,6 +31,7 @@ import com.example.complamap.model.ComplaintManager
 import com.example.complamap.model.UserManager
 import com.example.complamap.viewmodel.ComplaintViewModel
 import com.example.complamap.views.fragments.AddPlacemarkDialog
+import com.yandex.mapkit.directions.driving.Description
 import java.io.File
 
 class CreateComplaintActivity : AppCompatActivity() {
@@ -97,6 +98,7 @@ class CreateComplaintActivity : AppCompatActivity() {
             if (!isDialogShowing) {
                 showDialog()
             }
+            hideKeyboard(it)
         }
 
         binding.RootFrame.foreground.alpha = 0
@@ -117,6 +119,20 @@ class CreateComplaintActivity : AppCompatActivity() {
         intent.getStringExtra(AddPlacemarkDialog.EXTRA_ADDRESS)?.let {
             binding.Address.text.append(it)
         }
+
+        listOf(binding.Container, binding.Image, binding.rootLayout, binding.root).forEach {
+            it.setOnClickListener {
+                hideKeyboard(it)
+            }
+        }
+
+//        binding.Description.setOnFocusChangeListener { _, b ->
+//            if(b){
+//
+//            }else{
+//               // hideKeyboard()
+//            }
+//        }
 
         binding.deleteImage.setOnClickListener {
             tempImageUri = null
@@ -162,10 +178,17 @@ class CreateComplaintActivity : AppCompatActivity() {
 
         popupWindow.showAsDropDown(findViewById(R.id.AddPhotoButton))
 
-        rootLayout.setOnClickListener {
-            popupWindow.dismiss()
-            isDialogShowing = false
+        val Image: ImageView = findViewById(R.id.Image)
+        val Address: EditText = findViewById(R.id.Address)
+        val Description: EditText = findViewById(R.id.Description)
+
+        listOf(Address, Description, rootLayout, Image).forEach {
+            it.setOnClickListener {
+                popupWindow.dismiss()
+                isDialogShowing = false
+            }
         }
+
     }
 
     private fun showPopup() {
@@ -238,5 +261,10 @@ class CreateComplaintActivity : AppCompatActivity() {
     private fun createImageFile(): File {
         val storageDir = applicationContext?.getExternalFilesDir(Environment.DIRECTORY_PICTURES)
         return File.createTempFile("temp_image", ".jpg", storageDir)
+    }
+
+    private fun hideKeyboard(view: View) {
+        val inputMethodManager = getSystemService(Activity.INPUT_METHOD_SERVICE) as InputMethodManager
+        inputMethodManager.hideSoftInputFromWindow(view.windowToken, 0)
     }
 }
