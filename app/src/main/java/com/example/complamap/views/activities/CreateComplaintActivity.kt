@@ -7,6 +7,7 @@ import android.net.Uri
 import android.os.Build
 import android.os.Bundle
 import android.os.Environment
+import android.text.SpannableStringBuilder
 import android.transition.TransitionManager
 import android.view.Gravity
 import android.view.LayoutInflater
@@ -23,6 +24,8 @@ import androidx.activity.result.contract.ActivityResultContracts
 import androidx.annotation.RequiresApi
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.FileProvider
+import androidx.core.text.bold
+import androidx.core.text.underline
 import androidx.lifecycle.ViewModelProvider
 import com.example.complamap.R
 import com.example.complamap.databinding.CreateComplaintActivityBinding
@@ -36,8 +39,10 @@ import java.io.File
 class CreateComplaintActivity : AppCompatActivity() {
 
     private var isDialogShowing: Boolean = false
+
     // uri for setting image content by setImageUri
     private var tempImageUri: Uri? = null
+
     // path to photo for sending to db
     private var tempImageFilePath = ""
 
@@ -240,3 +245,4 @@ class CreateComplaintActivity : AppCompatActivity() {
         return File.createTempFile("temp_image", ".jpg", storageDir)
     }
 }
+
