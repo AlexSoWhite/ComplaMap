@@ -54,6 +54,9 @@
                     android:gravity="center_vertical"
                     android:textColor="@color/black"
                     android:background="@drawable/rounded_rectangle_background"
+                    android:focusable="false"
+                    android:clickable="false"
+                    android:focusableInTouchMode="false"
                 />
 
             <TextView

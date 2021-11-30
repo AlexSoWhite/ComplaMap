@@ -132,7 +132,7 @@ class CreateComplaintActivity : AppCompatActivity() {
         val rootLayout: ViewGroup = findViewById(R.id.root_layout)
         val inflater: LayoutInflater =
             getSystemService(Context.LAYOUT_INFLATER_SERVICE) as LayoutInflater
-        val view = inflater.inflate(R.layout.take_photo_dialog, null)
+        val view = inflater.inflate(R.layout.activity_pop_up_take_photo, null)
         val popupWindow = PopupWindow(view)
 
         popupWindow.height = WindowManager.LayoutParams.WRAP_CONTENT

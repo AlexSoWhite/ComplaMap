@@ -10,6 +10,7 @@ import androidx.lifecycle.ViewModelProvider
 import com.example.complamap.R
 import com.example.complamap.databinding.FragmentAuthorizedUserBinding
 import com.example.complamap.model.ContextContainer
+import com.example.complamap.model.UserManager
 import com.example.complamap.viewmodel.ProfileViewModel
 
 class AuthorizedUserFragment : Fragment(R.layout.fragment_authorized_user) {
@@ -40,6 +41,7 @@ class AuthorizedUserFragment : Fragment(R.layout.fragment_authorized_user) {
             parentFragmentManager.commit {
                 replace(R.id.profile_container, NoAuthFragment())
             }
+            UserManager.setAuthorized(false)
         }
 
         profileViewModel.loadPhotoFromServer(
@@ -51,7 +53,7 @@ class AuthorizedUserFragment : Fragment(R.layout.fragment_authorized_user) {
         childFragmentManager.commit {
             replace(
                 R.id.profile_content_container,
-                ProfileUpdateButtonsFragment(profileViewModel, binding)
+                ProfileUpdateFragment.newInstance(profileViewModel, binding)
             )
         }
     }

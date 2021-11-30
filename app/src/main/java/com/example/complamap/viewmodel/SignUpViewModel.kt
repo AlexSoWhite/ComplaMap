@@ -6,7 +6,7 @@ import com.example.complamap.model.LoginResult
 import com.example.complamap.model.UserRepository
 import kotlinx.coroutines.launch
 
-class SignUpViewModel() : ViewModel() {
+class SignUpViewModel : ViewModel() {
 
     fun register(
         email: String,
@@ -18,31 +18,23 @@ class SignUpViewModel() : ViewModel() {
         if (email.isEmpty() || email.isBlank()) {
             val res = LoginResult.Error("введите почту")
             callback(res)
-            return
-        }
-        if (username.isEmpty() || username.isBlank()) {
+        } else if (username.isEmpty() || username.isBlank()) {
             val res = LoginResult.Error("введите имя пользователя")
             callback(res)
-            return
-        }
-        if (password.isEmpty() || password.isBlank()) {
+        } else if (password.isEmpty() || password.isBlank()) {
             val res = LoginResult.Error("введите пароль")
             callback(res)
-            return
-        }
-        if (repeatedPassword.isEmpty() || repeatedPassword.isBlank()) {
+        } else if (repeatedPassword.isEmpty() || repeatedPassword.isBlank()) {
             val res = LoginResult.Error("повторите пароль")
             callback(res)
-            return
-        }
-        if (repeatedPassword != password) {
+        } else if (repeatedPassword != password) {
             val res = LoginResult.Error("пароли не совпадают")
             callback(res)
-            return
-        }
-        viewModelScope.launch {
-            UserRepository.register(email, password, username, callback)
-            return@launch
+        } else {
+            viewModelScope.launch {
+                UserRepository.register(email, password, username, callback)
+                return@launch
+            }
         }
     }
 }

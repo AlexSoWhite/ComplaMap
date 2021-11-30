@@ -22,4 +22,8 @@
         <item name="android:backgroundTint">@android:color/transparent</item>
         <item name="android:textCursorDrawable">@drawable/text_cursor_black</item>
     </style>
+    <style name="Theme.MyDialog" parent="@style/Theme.AppCompat.Light.Dialog">
+        <item name="windowActionBar">false</item>
+        <item name="windowNoTitle">true</item>
+    </style>
 </resources>
