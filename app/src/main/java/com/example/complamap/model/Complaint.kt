@@ -13,7 +13,7 @@ data class Complaint(
     var approvals: Long? = null,
     var rejections: Long? = null,
     val status: String? = null,
-    val followers: List<String>? = null,
+    val followers: MutableList<String>? = null,
     val creator: String? = null,
     var address: String? = null,
     var creation_day: String? = null,

@@ -125,4 +125,16 @@ class ComplaintViewModel : ViewModel() {
             }
         }
     }
+
+    fun addFollowers(complaintId: String, follower: String) {
+        viewModelScope.launch {
+            ComplaintRepository.addFollowers(complaintId, follower)
+        }
+    }
+
+    fun removeFollowers(complaintId: String, follower: String) {
+        viewModelScope.launch {
+            ComplaintRepository.removeFollowers(complaintId, follower)
+        }
+    }
 }

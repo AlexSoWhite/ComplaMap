@@ -9,6 +9,7 @@ import com.google.firebase.auth.FirebaseAuthUserCollisionException
 import com.google.firebase.auth.FirebaseAuthWeakPasswordException
 import com.google.firebase.auth.ktx.auth
 import com.google.firebase.firestore.DocumentSnapshot
+import com.google.firebase.firestore.FieldValue
 import com.google.firebase.firestore.FirebaseFirestore
 import com.google.firebase.ktx.Firebase
 import com.orhanobut.hawk.Hawk
@@ -36,7 +37,7 @@ object UserRepository : ViewModel() {
                             email = email,
                             profilePic = null,
                             rating = 0.0,
-                            subs = null,
+                            subs = arrayOf<String>(),
                             uid = auth.currentUser?.uid
                         )
                         viewModelScope.launch {
@@ -121,5 +122,13 @@ object UserRepository : ViewModel() {
     suspend fun getUserFromDatabase(userId: String): User? {
         val userData = db.collection("users").document(userId).get().await()
         return userData.toObject(User::class.java)
+    }
+
+    fun addSubsToUser(userId: String, sub: String) {
+        db.collection("users").document(userId).update("subs", FieldValue.arrayUnion(sub))
+    }
+
+    fun removeSubsFromUser(userId: String, sub: String) {
+        db.collection("users").document(userId).update("subs", FieldValue.arrayRemove(sub))
     }
 }
