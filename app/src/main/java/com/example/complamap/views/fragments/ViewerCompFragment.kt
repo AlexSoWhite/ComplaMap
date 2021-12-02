@@ -66,9 +66,7 @@ class ViewerCompFragment : Fragment() {
                         profileViewModel.addSubsToUser(it1, compId)
                     }
                     if (currentComplaint != null) {
-                        if (!currentComplaint.followers?.contains(it1)!!) {
-                            complaintViewModel.addFollowers(currentComplaint.compId!!, it1)
-                        }
+                        complaintViewModel.addFollowers(currentComplaint.compId!!, it1)
                     }
                 }
                 isFollowing = true
