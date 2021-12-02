@@ -4,6 +4,7 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.complamap.model.User
 import com.example.complamap.model.UserManager
+import com.example.complamap.model.UserRepository
 import kotlinx.coroutines.launch
 
 class ProfileViewModel : ViewModel() {
@@ -25,6 +26,18 @@ class ProfileViewModel : ViewModel() {
     fun setUser(user: User?) {
         viewModelScope.launch {
             UserManager.setUser(user)
+        }
+    }
+
+    fun addSubsToUser(userId: String, sub: String) {
+        viewModelScope.launch {
+            UserRepository.addSubsToUser(userId, sub)
+        }
+    }
+
+    fun removeSubsFromUser(userId: String, sub: String) {
+        viewModelScope.launch {
+            UserRepository.removeSubsFromUser(userId, sub)
         }
     }
 }
