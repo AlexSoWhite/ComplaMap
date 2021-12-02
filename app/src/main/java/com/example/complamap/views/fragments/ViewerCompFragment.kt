@@ -15,6 +15,13 @@ import com.example.complamap.viewmodel.ComplaintViewModel
 import com.example.complamap.viewmodel.ProfileViewModel
 
 class ViewerCompFragment : Fragment() {
+    companion object {
+        const val APPROVALS = "approvals"
+        const val APPROVERS = "approvers"
+        const val REJECTIONS = "rejections"
+        const val REJECTERS = "rejecters"
+    }
+
     private lateinit var binding: FragmentViewerComplBarBinding
     private lateinit var complaintViewModel: ComplaintViewModel
     private lateinit var profileViewModel: ProfileViewModel
@@ -22,6 +29,8 @@ class ViewerCompFragment : Fragment() {
     private val compId = currentComplaint?.compId
     private var currentUser: User? = null
     private var isFollowing = false
+    private var isAppr = false
+    private var isRej = false
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
@@ -35,13 +44,21 @@ class ViewerCompFragment : Fragment() {
             isFollowing = true
             binding.btnText.text = "отписаться"
         }
+        binding.complaint = currentComplaint
         return binding.root
     }
 
     @RequiresApi(Build.VERSION_CODES.M)
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-
+        isAppr = currentUser?.uid?.let { currentComplaint?.approvers?.contains(it) } == true
+        isRej = currentUser?.uid?.let { currentComplaint?.rejecters?.contains(it) } == true
+        if (isAppr) {
+            binding.reject.isClickable = false
+        }
+        if (isRej) {
+            binding.approve.isClickable = false
+        }
         binding.follow.setOnClickListener {
             if (!isFollowing) {
                 currentUser?.uid?.let { it1 ->
@@ -69,6 +86,61 @@ class ViewerCompFragment : Fragment() {
                 }
                 isFollowing = false
                 binding.btnText.text = "отслеживать"
+            }
+        }
+
+        binding.approve.setOnClickListener {
+            if (isAppr) {
+                currentComplaint?.approvals = currentComplaint?.approvals?.minus(1)
+                isAppr = false
+                binding.reject.isClickable = true
+            } else {
+                currentComplaint?.approvals = currentComplaint?.approvals?.plus(1)
+                isAppr = true
+                binding.reject.isClickable = false
+            }
+            binding.apprNum.text = currentComplaint?.approvals.toString()
+            binding.approve.isClickable = true
+            if (compId != null) {
+                currentComplaint?.approvals?.let { it1 ->
+                    currentUser?.uid?.let { it2 ->
+                        complaintViewModel.editVotes(
+                            compId,
+                            APPROVALS,
+                            it1,
+                            APPROVERS,
+                            it2,
+                            isAppr
+                        )
+                    }
+                }
+            }
+        }
+        binding.reject.setOnClickListener {
+            if (isRej) {
+                currentComplaint?.rejections = currentComplaint?.rejections?.plus(1)
+                binding.approve.isClickable = true
+                isRej = false
+            } else {
+                currentComplaint?.rejections = currentComplaint?.rejections?.minus(1)
+                binding.approve.isClickable = false
+                isRej = true
+            }
+            binding.rejNum.text = currentComplaint?.rejections.toString()
+            binding.reject.isClickable = true
+            if (compId != null) {
+                currentComplaint?.rejections?.let { it1 ->
+                    currentUser?.uid?.let { it2 ->
+                        complaintViewModel.editVotes(
+                            compId,
+                            REJECTIONS,
+                            it1,
+                            REJECTERS,
+                            it2,
+                            isRej
+                        )
+                    }
+                }
             }
         }
     }

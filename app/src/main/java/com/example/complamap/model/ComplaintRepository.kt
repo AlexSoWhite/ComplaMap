@@ -70,4 +70,28 @@ object ComplaintRepository : ViewModel() {
             FieldValue.arrayRemove(follower)
         )
     }
+
+    fun editVotes(
+        complaintId: String,
+        field: String,
+        number: Long,
+        member: String,
+        userId: String,
+        flag: Boolean
+    ) {
+        db.collection("complaint").document(complaintId).update(
+            mapOf(field to number)
+        )
+        if (flag) {
+            db.collection("complaint").document(complaintId).update(
+                member,
+                FieldValue.arrayUnion(userId)
+            )
+        } else {
+            db.collection("complaint").document(complaintId).update(
+                member,
+                FieldValue.arrayRemove(userId)
+            )
+        }
+    }
 }

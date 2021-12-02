@@ -37,7 +37,7 @@ object UserRepository : ViewModel() {
                             email = email,
                             profilePic = null,
                             rating = 0.0,
-                            subs = arrayOf<String>(),
+                            subs = mutableListOf<String>(),
                             uid = auth.currentUser?.uid
                         )
                         viewModelScope.launch {

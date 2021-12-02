@@ -137,4 +137,17 @@ class ComplaintViewModel : ViewModel() {
             ComplaintRepository.removeFollowers(complaintId, follower)
         }
     }
+
+    fun editVotes(
+        complaintId: String,
+        field: String,
+        number: Long,
+        member: String,
+        userId: String,
+        flag: Boolean
+    ) {
+        viewModelScope.launch {
+            ComplaintRepository.editVotes(complaintId, field, number, member, userId, flag)
+        }
+    }
 }

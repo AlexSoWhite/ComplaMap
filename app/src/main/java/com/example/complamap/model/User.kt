@@ -5,6 +5,6 @@ data class User(
     val email: String? = null,
     val profilePic: String? = null,
     val rating: Double? = null,
-    val subs: Array<String>? = null,
+    val subs: MutableList<String>? = null,
     val uid: String? = null
 )
