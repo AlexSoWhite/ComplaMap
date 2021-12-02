@@ -10,15 +10,15 @@ class Adapters {
     companion object {
         @BindingAdapter(value = ["dynamicText", "specialText"], requireAll = true)
         @JvmStatic
-        fun bindText(textView: TextView, dynamicText: String, specialText: String) {
+        fun bindText(textView: TextView, dynamicText: String?, specialText: String?) {
             textView.text = makePartBoldStr(specialText, dynamicText)
         }
 
-        private fun makePartBoldStr(beginning: String, str: String): SpannableStringBuilder {
+        private fun makePartBoldStr(beginning: String?, str: String?): SpannableStringBuilder {
             return SpannableStringBuilder()
                 .bold { underline { append(beginning) } }
                 .bold { append(":") }
-                .append(" $str")
+                .append(" ${str ?: "Не задано"}")
         }
     }
 }
