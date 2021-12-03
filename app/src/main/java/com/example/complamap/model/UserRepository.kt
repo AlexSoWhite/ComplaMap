@@ -92,7 +92,7 @@ object UserRepository : ViewModel() {
         db.collection("users").document(auth.currentUser!!.uid).set(user)
     }
 
-    private fun putUserToCache(user: User) {
+    fun putUserToCache(user: User) {
         Hawk.put("user", user)
     }
 

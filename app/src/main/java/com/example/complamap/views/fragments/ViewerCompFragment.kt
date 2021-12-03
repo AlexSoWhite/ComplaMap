@@ -63,6 +63,7 @@ class ViewerCompFragment : Fragment() {
             if (!isFollowing) {
                 currentUser?.uid?.let { it1 ->
                     if (compId != null) {
+                        currentUser!!.subs?.add(compId)
                         profileViewModel.addSubsToUser(it1, compId)
                     }
                     if (currentComplaint != null) {
@@ -77,14 +78,14 @@ class ViewerCompFragment : Fragment() {
                         profileViewModel.removeSubsFromUser(it1, compId)
                     }
                     if (currentComplaint != null) {
-                        if (!currentComplaint.followers?.contains(it1)!!) {
-                            complaintViewModel.removeFollowers(currentComplaint.compId!!, it1)
-                        }
+                        complaintViewModel.removeFollowers(currentComplaint.compId!!, it1)
                     }
                 }
                 isFollowing = false
                 binding.btnText.text = "отслеживать"
             }
+            profileViewModel.deleteUserFromCache()
+            currentUser?.let { it1 -> profileViewModel.putUserToCache(it1) }
         }
 
         binding.approve.setOnClickListener {

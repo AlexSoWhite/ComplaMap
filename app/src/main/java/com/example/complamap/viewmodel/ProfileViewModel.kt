@@ -17,6 +17,12 @@ class ProfileViewModel : ViewModel() {
         }
     }
 
+    fun putUserToCache(user: User) {
+        viewModelScope.launch {
+            UserRepository.putUserToCache(user)
+        }
+    }
+
     fun deleteUserFromCache() {
         viewModelScope.launch {
             UserManager.deleteUserFromCache()
