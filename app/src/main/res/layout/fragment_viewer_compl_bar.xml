@@ -1,0 +1,106 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:app="http://schemas.android.com/apk/res-auto"
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+
+        <variable
+                name="complaint"
+                type="com.example.complamap.model.Complaint" />
+
+    </data>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/appr_wrap"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintStart_toStartOf="parent">
+
+            <Button
+                    android:id="@+id/approve"
+                    android:layout_height="30dp"
+                    android:layout_width="wrap_content"
+                    app:backgroundTint="@null"
+                    android:backgroundTint="@color/teal_200"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:icon="@drawable/ic_baseline_arrow_upward_24"
+                    style="@style/Widget.App.Button.OutlinedButton.IconOnly"
+                    app:iconTint="@color/icon"
+                    app:cornerRadius="5dp" />
+
+            <TextView
+                    android:id="@+id/appr_num"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    app:layout_constraintTop_toBottomOf="@+id/approve"
+                    android:text="@{complaint.approvals.toString()}"
+                    tools:text="100"
+                    android:textAppearance="?attr/textAppearanceCaption"
+                    app:layout_constraintStart_toStartOf="@+id/approve"
+                    app:layout_constraintEnd_toEndOf="@+id/approve" />
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                app:layout_constraintStart_toEndOf="@+id/appr_wrap"
+                app:layout_constraintTop_toTopOf="parent"
+                android:layout_marginStart="30dp"
+                android:id="@+id/rej_wrap">
+
+            <Button
+                    android:id="@+id/reject"
+                    android:layout_height="30dp"
+                    android:layout_width="wrap_content"
+
+                    app:backgroundTint="@null"
+                    android:backgroundTint="@color/warning"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+
+                    app:icon="@drawable/ic_baseline_arrow_downward_24"
+                    style="@style/Widget.App.Button.OutlinedButton.IconOnly"
+                    app:iconTint="@color/icon"
+                    app:cornerRadius="5dp" />
+
+            <TextView
+                    android:id="@+id/rej_num"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    app:layout_constraintTop_toBottomOf="@+id/reject"
+                    android:text="@{complaint.rejections.toString()}"
+                    tools:text="100"
+                    android:textAppearance="?attr/textAppearanceCaption"
+                    app:layout_constraintStart_toStartOf="@+id/reject"
+                    app:layout_constraintEnd_toEndOf="@+id/reject" />
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+        <FrameLayout
+                android:background="@drawable/sign_up_button_background"
+                android:clickable="true"
+                android:focusable="true"
+                android:id="@+id/follow"
+                android:layout_height="30dp"
+                android:layout_width="wrap_content"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="parent">
+
+            <TextView
+                    android:id="@+id/btn_text"
+                    android:layout_gravity="center"
+                    android:layout_height="wrap_content"
+                    android:layout_width="wrap_content"
+                    android:text="@string/follow"
+                    style="@style/textButtonStyle" />
+        </FrameLayout>
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+</layout>
