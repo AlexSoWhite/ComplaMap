@@ -20,7 +20,10 @@ import com.example.complamap.model.TakePhotoContract
 import com.example.complamap.model.UserRepository
 import com.example.complamap.viewmodel.ComplaintViewModel
 import com.example.complamap.viewmodel.ProfileViewModel
-import com.example.complamap.views.fragments.*
+import com.example.complamap.views.fragments.OwnerCompFragment
+import com.example.complamap.views.fragments.PublishFragment
+import com.example.complamap.views.fragments.SaveFragment
+import com.example.complamap.views.fragments.ViewerCompFragment
 import kotlinx.coroutines.launch
 
 class ComplaintActivity : AppCompatActivity() {

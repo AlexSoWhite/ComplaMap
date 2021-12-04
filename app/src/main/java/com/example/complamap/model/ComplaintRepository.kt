@@ -21,7 +21,7 @@ object ComplaintRepository : ViewModel() {
         }
     }
 
-    fun addPhoto(compId: String, url:String, callback: (String) -> Unit) {
+    fun addPhoto(compId: String, url: String, callback: (String) -> Unit) {
         db.collection("complaint").document(compId).update("photo", url).addOnSuccessListener {
             callback("Опубликовано")
         }

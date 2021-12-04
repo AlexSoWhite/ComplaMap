@@ -3,7 +3,6 @@ package com.example.complamap.viewmodel
 import android.content.Context
 import android.net.Uri
 import android.widget.ImageView
-import androidx.core.net.toUri
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.bumptech.glide.Glide
@@ -12,7 +11,6 @@ import com.example.complamap.model.Complaint
 import com.example.complamap.model.ComplaintRepository
 import com.google.firebase.Timestamp
 import com.google.firebase.storage.FirebaseStorage
-import java.io.File
 import kotlinx.coroutines.launch
 
 class ComplaintViewModel : ViewModel() {
@@ -47,7 +45,7 @@ class ComplaintViewModel : ViewModel() {
         callback: (String) -> Unit
     ) {
         val storageRef = FirebaseStorage.getInstance().reference
-        val pictureRef = storageRef.child("images/${complaintId}")
+        val pictureRef = storageRef.child("images/$complaintId")
 
         val uploadTask = pictureRef.putFile(uri)
 
