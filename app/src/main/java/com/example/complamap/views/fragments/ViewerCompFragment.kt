@@ -7,7 +7,9 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.annotation.RequiresApi
 import androidx.fragment.app.Fragment
+import androidx.fragment.app.commit
 import androidx.lifecycle.ViewModelProvider
+import com.example.complamap.R
 import com.example.complamap.databinding.FragmentViewerComplBarBinding
 import com.example.complamap.model.ComplaintManager
 import com.example.complamap.model.User
@@ -140,6 +142,17 @@ class ViewerCompFragment : Fragment() {
                     }
                 }
             }
+        }
+        binding.comment.setOnClickListener {
+
+            childFragmentManager.beginTransaction()
+                .replace(R.id.commentsContainer, CommentAddFragment.getInstance(currentUser!!, currentComplaint!!))
+                .commit()
+
+            childFragmentManager.commit {
+                replace(R.id.commentsContainer, CommentAddFragment())
+            }
+
         }
     }
 }
