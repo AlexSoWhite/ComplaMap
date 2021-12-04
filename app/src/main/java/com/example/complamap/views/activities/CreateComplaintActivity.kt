@@ -1,12 +1,10 @@
 package com.example.complamap.views.activities
 
-import android.Manifest
 import android.content.Context
 import android.content.Intent
 import android.net.Uri
 import android.os.Build
 import android.os.Bundle
-import android.os.Environment
 import android.transition.TransitionManager
 import android.view.Gravity
 import android.view.LayoutInflater
@@ -14,73 +12,39 @@ import android.view.View
 import android.view.ViewGroup
 import android.view.WindowManager
 import android.widget.Button
-import android.widget.FrameLayout
 import android.widget.ImageButton
 import android.widget.PopupWindow
 import android.widget.RadioButton
 import android.widget.Toast
-import androidx.activity.result.contract.ActivityResultContracts
 import androidx.annotation.RequiresApi
 import androidx.appcompat.app.AppCompatActivity
-import androidx.core.content.FileProvider
 import androidx.lifecycle.ViewModelProvider
 import com.example.complamap.R
 import com.example.complamap.databinding.CreateComplaintActivityBinding
 import com.example.complamap.model.Complaint
 import com.example.complamap.model.ComplaintManager
+import com.example.complamap.model.TakePhotoContract
 import com.example.complamap.model.UserManager
 import com.example.complamap.viewmodel.ComplaintViewModel
 import com.example.complamap.views.fragments.AddPlacemarkDialog
-import java.io.File
 
 class CreateComplaintActivity : AppCompatActivity() {
 
-    private var isDialogShowing: Boolean = false
     // uri for setting image content by setImageUri
     private var tempImageUri: Uri? = null
-    // path to photo for sending to db
-    private var tempImageFilePath = ""
 
     private lateinit var complaintViewModel: ComplaintViewModel
 
-    // permission for camera
-    @RequiresApi(Build.VERSION_CODES.M)
-    private val cameraPermission =
-        registerForActivityResult(ActivityResultContracts.RequestPermission()) { granted ->
-            when {
-                granted -> {
-                    // user granted permission
-                    cameraLauncher.launch(tempImageUri)
-                }
-                !shouldShowRequestPermissionRationale(Manifest.permission.CAMERA) -> {
-                    // do something if user denied permission and set Don't ask again
-                }
-                else -> {
-                    // do something if permission for camera denied
-                    requestPermissions(Array(1) { CAMERA_SERVICE }, 0)
-                }
-            }
-        }
+    private lateinit var binding: CreateComplaintActivityBinding
 
-    private val cameraLauncher =
-        registerForActivityResult(ActivityResultContracts.TakePicture()) { success ->
-            if (success) {
-                binding.Image.setImageURI(tempImageUri)
+    private val takePhotoLauncher =
+        registerForActivityResult(TakePhotoContract()) {
+            tempImageUri = it
+            if (it.toString() != "null") {
+                binding.Image.setImageURI(it)
                 binding.deleteImage.visibility = View.VISIBLE
             }
         }
-
-    private val galleryLauncher = registerForActivityResult(ActivityResultContracts.GetContent()) {
-        if (it != null) {
-            binding.Image.setImageURI(it)
-            tempImageUri = it
-            val file = createImageFile()
-            tempImageFilePath = file.absolutePath
-            binding.deleteImage.visibility = View.VISIBLE
-        }
-    }
-
-    private lateinit var binding: CreateComplaintActivityBinding
 
     @RequiresApi(Build.VERSION_CODES.M)
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -94,9 +58,7 @@ class CreateComplaintActivity : AppCompatActivity() {
         }
 
         binding.AddPhotoButton.setOnClickListener {
-            if (!isDialogShowing) {
-                showDialog()
-            }
+            takePhotoLauncher.launch("")
         }
 
         binding.RootFrame.foreground.alpha = 0
@@ -120,51 +82,8 @@ class CreateComplaintActivity : AppCompatActivity() {
 
         binding.deleteImage.setOnClickListener {
             tempImageUri = null
-            tempImageFilePath = ""
             binding.Image.setImageResource(R.drawable.default_placeholder)
             binding.deleteImage.visibility = View.INVISIBLE
-        }
-    }
-
-    @RequiresApi(Build.VERSION_CODES.M)
-    private fun showDialog() {
-        isDialogShowing = true
-        val rootLayout: ViewGroup = findViewById(R.id.root_layout)
-        val inflater: LayoutInflater =
-            getSystemService(Context.LAYOUT_INFLATER_SERVICE) as LayoutInflater
-        val view = inflater.inflate(R.layout.take_photo_dialog, null)
-        val popupWindow = PopupWindow(view)
-
-        popupWindow.height = WindowManager.LayoutParams.WRAP_CONTENT
-        popupWindow.width = WindowManager.LayoutParams.WRAP_CONTENT
-
-        val camera: FrameLayout = view.findViewById(R.id.camera_btn)
-        val gallery: FrameLayout = view.findViewById(R.id.gallery_btn)
-
-        camera.setOnClickListener {
-            tempImageUri = FileProvider.getUriForFile(
-                baseContext,
-                "com.example.complamap.provider",
-                createImageFile().also {
-                    tempImageFilePath = it.absolutePath
-                }
-            )
-            if (shouldShowRequestPermissionRationale(Manifest.permission.CAMERA)) {
-                // do something in this case
-            } else {
-                cameraPermission.launch(Manifest.permission.CAMERA)
-            }
-        }
-
-        gallery.setOnClickListener {
-            galleryLauncher.launch("image/*")
-        }
-
-        popupWindow.showAsDropDown(findViewById(R.id.AddPhotoButton))
-
-        rootLayout.setOnClickListener {
-            popupWindow.dismiss()
-            isDialogShowing = false
         }
     }
 
@@ -221,7 +140,6 @@ class CreateComplaintActivity : AppCompatActivity() {
                     intent.putExtra("FragmentMode", "Publish")
                     if (tempImageUri != null) {
                         intent.putExtra("uri", tempImageUri.toString())
-                        intent.putExtra("path", tempImageFilePath)
                     } else {
                         intent.putExtra("noPhoto", true)
                     }
@@ -239,10 +157,5 @@ class CreateComplaintActivity : AppCompatActivity() {
             binding.Description.isEnabled = true
             binding.AddPhotoButton.isEnabled = true
         }
-    }
-
-    private fun createImageFile(): File {
-        val storageDir = applicationContext?.getExternalFilesDir(Environment.DIRECTORY_PICTURES)
-        return File.createTempFile("temp_image", ".jpg", storageDir)
     }
 }
