@@ -31,6 +31,7 @@ class ViewerCompFragment : Fragment() {
     private var isFollowing = false
     private var isAppr = false
     private var isRej = false
+
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
@@ -40,10 +41,14 @@ class ViewerCompFragment : Fragment() {
         complaintViewModel = ViewModelProvider(this)[ComplaintViewModel::class.java]
         profileViewModel = ViewModelProvider(this)[ProfileViewModel::class.java]
         profileViewModel.getUser { currentUser = it }
+        isAppr = currentUser?.uid?.let { currentComplaint?.approvers?.contains(it) } == true
+        isRej = currentUser?.uid?.let { currentComplaint?.rejecters?.contains(it) } == true
         if (currentUser?.uid?.let { currentComplaint?.followers?.contains(it) } == true) {
             isFollowing = true
             binding.btnText.text = "отписаться"
         }
+        binding.approve.isEnabled = !isRej
+        binding.reject.isEnabled = !isAppr
         binding.complaint = currentComplaint
         return binding.root
     }
@@ -51,14 +56,7 @@ class ViewerCompFragment : Fragment() {
     @RequiresApi(Build.VERSION_CODES.M)
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        isAppr = currentUser?.uid?.let { currentComplaint?.approvers?.contains(it) } == true
-        isRej = currentUser?.uid?.let { currentComplaint?.rejecters?.contains(it) } == true
-        if (isAppr) {
-            binding.reject.isClickable = false
-        }
-        if (isRej) {
-            binding.approve.isClickable = false
-        }
+
         binding.follow.setOnClickListener {
             if (!isFollowing) {
                 currentUser?.uid?.let { it1 ->
@@ -92,14 +90,14 @@ class ViewerCompFragment : Fragment() {
             if (isAppr) {
                 currentComplaint?.approvals = currentComplaint?.approvals?.minus(1)
                 isAppr = false
-                binding.reject.isClickable = true
+                binding.reject.isEnabled = true
             } else {
                 currentComplaint?.approvals = currentComplaint?.approvals?.plus(1)
                 isAppr = true
-                binding.reject.isClickable = false
+                binding.reject.isEnabled = false
             }
             binding.apprNum.text = currentComplaint?.approvals.toString()
-            binding.approve.isClickable = true
+            binding.approve.isEnabled = true
             if (compId != null) {
                 currentComplaint?.approvals?.let { it1 ->
                     currentUser?.uid?.let { it2 ->
@@ -118,15 +116,15 @@ class ViewerCompFragment : Fragment() {
         binding.reject.setOnClickListener {
             if (isRej) {
                 currentComplaint?.rejections = currentComplaint?.rejections?.plus(1)
-                binding.approve.isClickable = true
+                binding.approve.isEnabled = true
                 isRej = false
             } else {
                 currentComplaint?.rejections = currentComplaint?.rejections?.minus(1)
-                binding.approve.isClickable = false
+                binding.approve.isEnabled = false
                 isRej = true
             }
             binding.rejNum.text = currentComplaint?.rejections.toString()
-            binding.reject.isClickable = true
+            binding.reject.isEnabled = true
             if (compId != null) {
                 currentComplaint?.rejections?.let { it1 ->
                     currentUser?.uid?.let { it2 ->
