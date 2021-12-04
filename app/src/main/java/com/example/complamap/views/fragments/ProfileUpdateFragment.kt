@@ -79,9 +79,7 @@ class ProfileUpdateFragment : Fragment() {
                         it,
                         Toast.LENGTH_SHORT
                     ).show()
-                    if (it == "имя пользователя не должно быть пустым") {
-                        rootBinding.username.setText(UserManager.getCurrentUser()?.username)
-                    }
+                    rootBinding.username.setText(UserManager.getCurrentUser()?.username)
                     binding.confirmButton.visibility = View.INVISIBLE
                     binding.updateProfile.visibility = View.VISIBLE
                     rootBinding.logOut.visibility = View.VISIBLE
