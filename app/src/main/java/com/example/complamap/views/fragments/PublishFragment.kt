@@ -44,11 +44,12 @@ class PublishFragment : Fragment(R.layout.fragment_publish) {
                 complaintViewModel.putComplaintToDatabase(
                     ComplaintManager.getCurrentComplaint()!!,
                     uri
-                )
-                confirmed = true
-                Toast.makeText(context, "Опубликовано", Toast.LENGTH_SHORT).show()
+                ) {
+                    confirmed = true
+                    Toast.makeText(activity, "Опубликовано", Toast.LENGTH_SHORT).show()
+                }
             } else {
-                Toast.makeText(context, "Жалоба уже опубликована", Toast.LENGTH_SHORT).show()
+                Toast.makeText(activity, "Жалоба уже опубликована", Toast.LENGTH_SHORT).show()
             }
         }
     }

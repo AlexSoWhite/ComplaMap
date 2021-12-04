@@ -72,10 +72,8 @@ class ComplaintActivity : AppCompatActivity() {
 
             "Publish" -> {
                 var uri: Uri? = null
-                var path: String? = null
                 if (!intent.hasExtra("noPhoto")) {
                     uri = intent.getStringExtra("uri")!!.toUri()
-                    path = intent.getStringExtra("path")!!
                 }
                 complaintViewModel.loadPhotoFromUri(
                     baseContext,
