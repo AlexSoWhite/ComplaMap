@@ -4,14 +4,19 @@ import android.content.Context
 import android.graphics.Bitmap
 import android.graphics.Canvas
 import android.os.Build
+import androidx.core.content.ContentProviderCompat.requireContext
 import androidx.core.content.ContextCompat
 import androidx.core.graphics.drawable.DrawableCompat
 import androidx.lifecycle.LifecycleOwner
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.Observer
+import com.example.complamap.R
 import com.google.firebase.firestore.GeoPoint
 import com.yandex.mapkit.geometry.Point
+import com.yandex.mapkit.map.MapObjectCollection
+import com.yandex.mapkit.map.PlacemarkMapObject
 import com.yandex.mapkit.map.VisibleRegion
+import com.yandex.runtime.image.ImageProvider
 
 fun VisibleRegion.contains(M: Point): Boolean {
     val AM = Point(
@@ -69,3 +74,4 @@ fun Context.getBitmapFromVectorDrawable(drawableId: Int): Bitmap? {
 
     return bitmap
 }
+

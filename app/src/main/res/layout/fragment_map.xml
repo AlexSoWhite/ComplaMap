@@ -10,16 +10,59 @@
             android:layout_width="match_parent" />
 
     <androidx.coordinatorlayout.widget.CoordinatorLayout
+            android:id="@+id/coordinator_view"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             app:layout_constraintBottom_toBottomOf="@+id/mapview">
 
+        <androidx.appcompat.widget.LinearLayoutCompat
+                android:id="@+id/complaint_info"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                app:layout_behavior="com.google.android.material.bottomsheet.BottomSheetBehavior"
+                android:orientation="vertical"
+                android:visibility="gone"
+                android:paddingBottom="?attr/actionBarSize"
+                app:layout_anchorGravity="bottom"
+                app:layout_insetEdge="bottom">
+        <include
+                android:id = "@+id/info_c"
+                android:layout_height="wrap_content"
+                android:layout_width="match_parent"
+                layout= "@layout/map_placemrak_info"
+                app:cardCornerRadius="4dp"
+                android:layout_marginEnd="8dp"
+                android:layout_marginStart="8dp"
+                android:layout_marginBottom="8dp"
+                app:cardElevation="5dp" />
+
+        </androidx.appcompat.widget.LinearLayoutCompat>
+        <androidx.appcompat.widget.LinearLayoutCompat
+                android:id="@+id/map_object_info"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                app:layout_behavior="com.google.android.material.bottomsheet.BottomSheetBehavior"
+                android:orientation="vertical"
+                android:visibility="gone"
+                android:paddingBottom="?attr/actionBarSize"
+                app:layout_anchorGravity="bottom"
+                app:layout_insetEdge="bottom">
+            <include
+                    android:id = "@+id/info"
+                    android:layout_height="wrap_content"
+                    android:layout_width="match_parent"
+                    layout= "@layout/map_object_info"
+                    app:cardCornerRadius="4dp"
+                    android:layout_marginEnd="8dp"
+                    android:layout_marginStart="8dp"
+                    android:layout_marginBottom="8dp"
+                    app:cardElevation="5dp" />
+        </androidx.appcompat.widget.LinearLayoutCompat>
         <include
                 android:id="@+id/bottom_sheet_parent"
                 layout="@layout/item_bottom_sheet_container"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:background="@color/purple_200"
                 android:paddingBottom="?attr/actionBarSize"
                 app:layout_insetEdge="bottom"
                 app:layout_anchorGravity="bottom"
@@ -37,5 +80,6 @@
                 android:layout_marginBottom="10dp"
                 app:layout_anchor="@id/bottom_sheet_parent"
                 app:layout_anchorGravity="bottom|end" />
+
     </androidx.coordinatorlayout.widget.CoordinatorLayout>
 </androidx.constraintlayout.widget.ConstraintLayout>

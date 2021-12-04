@@ -1,9 +1,13 @@
 package com.example.complamap.viewmodel
 
+import android.content.Context
+import android.widget.ImageView
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.bumptech.glide.Glide
+import com.example.complamap.R
 import com.example.complamap.model.Complaint
 import com.example.complamap.model.MapRepository
 import com.example.complamap.model.OnAddressFetchedListener
@@ -13,7 +17,10 @@ import com.yandex.mapkit.GeoObject
 import com.yandex.mapkit.geometry.Point
 import com.yandex.mapkit.layers.GeoObjectTapEvent
 import com.yandex.mapkit.map.GeoObjectSelectionMetadata
+import com.yandex.mapkit.search.Address
+import com.yandex.mapkit.search.BusinessObjectMetadata
 import com.yandex.mapkit.search.SearchType
+import com.yandex.mapkit.search.ToponymObjectMetadata
 import com.yandex.mapkit.search.search_layer.SearchResultItem
 import kotlinx.coroutines.launch
 
@@ -76,6 +83,14 @@ class MapViewModel : ViewModel() {
         updateCoordinates(item.point)
     }
 
+    fun loadPhoto(context: Context, complaint: Complaint, container: ImageView) {
+        viewModelScope.launch {
+            Glide.with(context)
+                .load(complaint.photo)
+                .placeholder(R.drawable.default_placeholder)
+                .into(container)
+        }
+    }
     fun addressFromPoint(p: Point, zoom: Int) {
         pointAddressConverter.addressFromPoint(p, zoom)
     }

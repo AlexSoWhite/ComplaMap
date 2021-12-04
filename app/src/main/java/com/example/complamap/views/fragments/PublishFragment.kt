@@ -2,6 +2,7 @@ package com.example.complamap.views.fragments
 
 import android.net.Uri
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -45,6 +46,10 @@ class PublishFragment(
             } else {
                 Toast.makeText(context, "Жалоба уже опубликована", Toast.LENGTH_SHORT).show()
             }
+            Log.e("onViewCreated", "wasPublished = $confirmed")
+            val bundle = Bundle()
+            bundle.putBoolean(MapFragment.WAS_PUBLISHED, confirmed)
+            parentFragmentManager.setFragmentResult(MapFragment.requestKey, Bundle())
         }
     }
 }
