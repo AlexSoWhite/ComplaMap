@@ -2,6 +2,7 @@ package com.example.complamap.model
 
 import android.annotation.SuppressLint
 import androidx.lifecycle.ViewModel
+import com.google.firebase.firestore.FieldValue
 import com.google.firebase.firestore.FirebaseFirestore
 
 object ComplaintRepository : ViewModel() {
@@ -52,6 +53,44 @@ object ComplaintRepository : ViewModel() {
                     "edit_date" to edit_date,
                     "edit_day" to edit_day
                 )
+            )
+        }
+    }
+
+    fun addFollowers(complaintId: String, follower: String) {
+        db.collection("complaint").document(complaintId).update(
+            "followers",
+            FieldValue.arrayUnion(follower)
+        )
+    }
+
+    fun removeFollowers(complaintId: String, follower: String) {
+        db.collection("complaint").document(complaintId).update(
+            "followers",
+            FieldValue.arrayRemove(follower)
+        )
+    }
+
+    fun editVotes(
+        complaintId: String,
+        field: String,
+        number: Long,
+        member: String,
+        userId: String,
+        flag: Boolean
+    ) {
+        db.collection("complaint").document(complaintId).update(
+            mapOf(field to number)
+        )
+        if (flag) {
+            db.collection("complaint").document(complaintId).update(
+                member,
+                FieldValue.arrayUnion(userId)
+            )
+        } else {
+            db.collection("complaint").document(complaintId).update(
+                member,
+                FieldValue.arrayRemove(userId)
             )
         }
     }

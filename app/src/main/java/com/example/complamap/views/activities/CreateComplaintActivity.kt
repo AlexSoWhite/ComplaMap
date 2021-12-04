@@ -208,6 +208,11 @@ class CreateComplaintActivity : AppCompatActivity() {
                             address = binding.Address.text.toString(),
                             creation_day = "",
                             status = "Принята",
+                            followers = mutableListOf(),
+                            approvals = 0,
+                            approvers = mutableListOf(),
+                            rejections = 0,
+                            rejecters = mutableListOf(),
                             creator = if (radioAnon.isChecked) null
                             else UserManager.getCurrentUser()?.uid
                         )

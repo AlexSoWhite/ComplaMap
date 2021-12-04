@@ -33,6 +33,7 @@ import com.example.complamap.viewmodel.ProfileViewModel
 import com.example.complamap.views.fragments.OwnerCompFragment
 import com.example.complamap.views.fragments.PublishFragment
 import com.example.complamap.views.fragments.SaveFragment
+import com.example.complamap.views.fragments.ViewerCompFragment
 import java.io.File
 import kotlinx.coroutines.launch
 
@@ -134,10 +135,14 @@ class ComplaintActivity : AppCompatActivity() {
             }
 
             "View" -> {
-                if (currentUser != "") {
+                if (currentUser != null) {
                     if (currentUser == creator) {
                         supportFragmentManager.beginTransaction()
                             .replace(binding.container.id, OwnerCompFragment())
+                            .commit()
+                    } else {
+                        supportFragmentManager.beginTransaction()
+                            .replace(binding.container.id, ViewerCompFragment())
                             .commit()
                     }
                 }

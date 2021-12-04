@@ -21,6 +21,12 @@ class ProfileViewModel : ViewModel() {
         }
     }
 
+    fun putUserToCache(user: User) {
+        viewModelScope.launch {
+            UserRepository.putUserToCache(user)
+        }
+    }
+
     fun deleteUserFromCache() {
         viewModelScope.launch {
             UserManager.deleteUserFromCache()
@@ -57,6 +63,18 @@ class ProfileViewModel : ViewModel() {
     fun setUser(user: User?) {
         viewModelScope.launch {
             UserManager.setUser(user)
+        }
+    }
+
+    fun addSubsToUser(userId: String, sub: String) {
+        viewModelScope.launch {
+            UserRepository.addSubsToUser(userId, sub)
+        }
+    }
+
+    fun removeSubsFromUser(userId: String, sub: String) {
+        viewModelScope.launch {
+            UserRepository.removeSubsFromUser(userId, sub)
         }
     }
 }

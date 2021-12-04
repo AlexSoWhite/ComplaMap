@@ -116,4 +116,9 @@ class ListFragment : Fragment(R.layout.fragment_list) {
             showFilters()
         }
     }
+
+    override fun onResume() {
+        super.onResume()
+        updateList(ListViewModel.Filter("default", "default"))
+    }
 }
