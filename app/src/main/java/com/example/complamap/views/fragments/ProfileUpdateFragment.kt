@@ -12,6 +12,7 @@ import androidx.fragment.app.Fragment
 import com.example.complamap.databinding.FragmentAuthorizedUserBinding
 import com.example.complamap.databinding.FragmentProfileUpdateButtonsBinding
 import com.example.complamap.model.TakePhotoContract
+import com.example.complamap.model.UserManager
 import com.example.complamap.viewmodel.ProfileViewModel
 
 class ProfileUpdateFragment : Fragment() {
@@ -78,6 +79,9 @@ class ProfileUpdateFragment : Fragment() {
                         it,
                         Toast.LENGTH_SHORT
                     ).show()
+                    if (it == "имя пользователя не должно быть пустым") {
+                        rootBinding.username.setText(UserManager.getCurrentUser()?.username)
+                    }
                     binding.confirmButton.visibility = View.INVISIBLE
                     binding.updateProfile.visibility = View.VISIBLE
                     rootBinding.logOut.visibility = View.VISIBLE
