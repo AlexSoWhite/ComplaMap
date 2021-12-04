@@ -18,8 +18,7 @@ class ComplaintViewModel : ViewModel() {
 
     fun putComplaintToDatabase(
         complaint: Complaint,
-        uri: Uri?,
-        path: String?
+        uri: Uri?
     ) {
         viewModelScope.launch {
             complaint.creation_date = Timestamp.now()
@@ -28,7 +27,7 @@ class ComplaintViewModel : ViewModel() {
                 complaint.creation_date!!.toDate()
             ).toString()
             if (uri != null) {
-                sendPhoto(uri, path!!) {
+                sendPhoto(uri, complaint.compId!!) {
                     complaint.photo = it
                     ComplaintRepository.addComplaintToDatabase(complaint)
                 }
@@ -41,12 +40,11 @@ class ComplaintViewModel : ViewModel() {
 
     private fun sendPhoto(
         uri: Uri,
-        path: String,
+        complaintId: String,
         callback: (String) -> Unit
     ) {
         val storageRef = FirebaseStorage.getInstance().reference
-        val file = Uri.fromFile(File(path))
-        val pictureRef = storageRef.child("images/${file.lastPathSegment}")
+        val pictureRef = storageRef.child("images/${complaintId}")
 
         val uploadTask = pictureRef.putFile(uri)
 
@@ -89,13 +87,12 @@ class ComplaintViewModel : ViewModel() {
         description: String,
         category: String,
         address: String,
-        uri: Uri?,
-        path: String?
+        uri: Uri?
     ) {
         viewModelScope.launch {
 
             if (uri != null) {
-                sendPhoto(uri, path!!) {
+                sendPhoto(uri, complaintId) {
                     ComplaintRepository.editComplaint(
                         complaintId,
                         it,
