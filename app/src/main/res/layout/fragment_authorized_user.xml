@@ -21,28 +21,45 @@
             app:layout_constraintStart_toStartOf="parent"
             >
 
-        <ImageView
-                android:id="@+id/profile_pic"
+        <FrameLayout
+                android:id="@+id/profile_photo_container"
                 android:layout_width="80dp"
                 android:layout_height="80dp"
-                tools:src="@drawable/photo"
-            />
+                android:clickable="true"
+                android:focusable="true">
 
-        <ImageView
-                android:id="@+id/edit_profile_photo"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:src="@drawable/ic_edit_24"
-                android:visibility="invisible"
-                tools:visibility="visible"
-            />
+            <com.google.android.material.imageview.ShapeableImageView
+                    app:shapeAppearanceOverlay="@style/circleImageView"
+                    android:adjustViewBounds="true"
+                    android:scaleType="centerCrop"
+                    android:id="@+id/profile_pic"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    tools:src="@drawable/default_placeholder"
+                    />
+
+            <ImageView
+                    android:id="@+id/edit_profile_photo"
+                    android:layout_width="24dp"
+                    android:layout_height="24dp"
+                    android:src="@drawable/photo_camera"
+                    android:visibility="invisible"
+                    android:layout_gravity="bottom"
+                    tools:visibility="visible"
+                    android:layout_marginStart="56dp"
+                    />
+
+        </FrameLayout>
 
         <FrameLayout
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content">
 
             <EditText
-                    android:padding="5dp"
+                    android:paddingTop="7dp"
+                    android:paddingBottom="7dp"
+                    android:paddingStart="10dp"
+                    android:paddingEnd="10dp"
                     android:id="@+id/username"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
@@ -63,9 +80,10 @@
                     android:id="@+id/rating"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="27dp"
+                    android:layout_marginTop="30dp"
                     android:layout_marginStart="5dp"
                     android:padding="5dp"
+                    android:paddingStart="10dp"
                     tools:text="рейтинг 0.0"
                     android:text='@{"рейтинг "+user.rating.toString()}'
                     android:textSize="18sp"

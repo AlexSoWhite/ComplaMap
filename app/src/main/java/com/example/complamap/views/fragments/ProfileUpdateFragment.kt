@@ -62,7 +62,7 @@ class ProfileUpdateFragment : Fragment() {
             rootBinding.username.isFocusable = true
             rootBinding.username.isFocusableInTouchMode = true
             rootBinding.username.isCursorVisible = true
-            rootBinding.editProfilePhoto.setOnClickListener {
+            rootBinding.profilePhotoContainer.setOnClickListener {
                 takePhotoLauncher.launch(null)
             }
             binding.updateProfile.visibility = View.INVISIBLE
