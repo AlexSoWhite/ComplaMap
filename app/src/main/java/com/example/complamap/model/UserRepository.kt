@@ -131,4 +131,8 @@ object UserRepository : ViewModel() {
     fun removeSubsFromUser(userId: String, sub: String) {
         db.collection("users").document(userId).update("subs", FieldValue.arrayRemove(sub))
     }
+
+    fun editRating(userId: String, rating: Double) {
+        db.collection("users").document(userId).update(mapOf("rating" to rating))
+    }
 }
