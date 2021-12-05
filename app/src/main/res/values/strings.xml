@@ -8,8 +8,8 @@
 
     <string name="MapKitApi_Key">e0449f31-d8b1-4265-8719-1411e95ea9ed</string>
     <string name="search_hint">Поиск места...</string>
-    <string name="camera">Камера</string>
-    <string name="gallery">Галерея</string>
+    <string name="camera">сделать фото</string>
+    <string name="gallery">загрузить с устройства</string>
     <string name="SignIn">Войти</string>
     <string name="SignUp">Регистрация</string>
     <string name="nMap">Карта</string>
@@ -39,5 +39,8 @@
     <string name="save">сохранить</string>
     <string name="status">статус:</string>
     <string name="description">Описание:</string>
+    <string name="update_profile">редактировать профиль</string>
+    <string name="delete_profile">удалить профиль</string>
+    <string name="logOut">Выход</string>
     <string name="follow">отслеживать</string>
 </resources>

@@ -38,7 +38,8 @@
         <activity android:name="com.example.complamap.views.activities.ComplaintActivity" />
         <activity android:name="com.example.complamap.views.activities.SignInActivity" />
         <activity android:name="com.example.complamap.views.activities.SignUpActivity" />
-
+        <activity android:name=".views.activities.TakePhotoActivity"
+                    android:theme="@style/Theme.MyDialog"/>
         <provider
                 android:authorities="${applicationId}.provider"
                 android:name="androidx.core.content.FileProvider"

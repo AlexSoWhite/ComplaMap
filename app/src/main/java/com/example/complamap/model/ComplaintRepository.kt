@@ -14,9 +14,16 @@ object ComplaintRepository : ViewModel() {
         db.collection("complaint").document(complaintId).get()
     }
 
-    fun addComplaintToDatabase(complaint: Complaint) {
+    fun addComplaintToDatabase(complaint: Complaint, callback: (String) -> Unit) {
         db.collection("complaint").add(complaint).addOnSuccessListener { docRef ->
             db.collection("complaint").document(docRef.id).update("compId", docRef.id)
+            callback(docRef.id)
+        }
+    }
+
+    fun addPhoto(compId: String, url: String, callback: (String) -> Unit) {
+        db.collection("complaint").document(compId).update("photo", url).addOnSuccessListener {
+            callback("Опубликовано")
         }
     }
 

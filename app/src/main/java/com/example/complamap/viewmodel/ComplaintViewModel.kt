@@ -11,7 +11,6 @@ import com.example.complamap.model.Complaint
 import com.example.complamap.model.ComplaintRepository
 import com.google.firebase.Timestamp
 import com.google.firebase.storage.FirebaseStorage
-import java.io.File
 import kotlinx.coroutines.launch
 
 class ComplaintViewModel : ViewModel() {
@@ -19,7 +18,7 @@ class ComplaintViewModel : ViewModel() {
     fun putComplaintToDatabase(
         complaint: Complaint,
         uri: Uri?,
-        path: String?
+        callback: (String) -> Unit
     ) {
         viewModelScope.launch {
             complaint.creation_date = Timestamp.now()
@@ -27,26 +26,26 @@ class ComplaintViewModel : ViewModel() {
                 "dd.MM.yyyy",
                 complaint.creation_date!!.toDate()
             ).toString()
-            if (uri != null) {
-                sendPhoto(uri, path!!) {
-                    complaint.photo = it
-                    ComplaintRepository.addComplaintToDatabase(complaint)
+            ComplaintRepository.addComplaintToDatabase(complaint) { compId ->
+                if (uri != null) {
+                    sendPhoto(uri, compId) {
+                        complaint.photo = it
+                        ComplaintRepository.addPhoto(compId, it, callback)
+                    }
+                } else {
+                    callback("Опубликовано")
                 }
-            } else {
-                ComplaintRepository.addComplaintToDatabase(complaint)
             }
-            return@launch
         }
     }
 
     private fun sendPhoto(
         uri: Uri,
-        path: String,
+        complaintId: String,
         callback: (String) -> Unit
     ) {
         val storageRef = FirebaseStorage.getInstance().reference
-        val file = Uri.fromFile(File(path))
-        val pictureRef = storageRef.child("images/${file.lastPathSegment}")
+        val pictureRef = storageRef.child("images/$complaintId")
 
         val uploadTask = pictureRef.putFile(uri)
 
@@ -89,13 +88,12 @@ class ComplaintViewModel : ViewModel() {
         description: String,
         category: String,
         address: String,
-        uri: Uri?,
-        path: String?
+        uri: Uri?
     ) {
         viewModelScope.launch {
 
             if (uri != null) {
-                sendPhoto(uri, path!!) {
+                sendPhoto(uri, complaintId) {
                     ComplaintRepository.editComplaint(
                         complaintId,
                         it,

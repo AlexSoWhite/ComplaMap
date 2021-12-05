@@ -13,11 +13,17 @@ import com.example.complamap.databinding.FragmentPublishBinding
 import com.example.complamap.model.ComplaintManager
 import com.example.complamap.viewmodel.ComplaintViewModel
 
-class PublishFragment(
-    private val uri: Uri?,
-    private val path: String?
-) : Fragment(R.layout.fragment_publish) {
+class PublishFragment : Fragment(R.layout.fragment_publish) {
     private lateinit var binding: FragmentPublishBinding
+
+    companion object {
+        private var uri: Uri? = null
+
+        fun getInstance(uri: Uri?): PublishFragment {
+            this.uri = uri
+            return PublishFragment()
+        }
+    }
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -37,13 +43,13 @@ class PublishFragment(
                 val complaintViewModel = ViewModelProvider(this)[ComplaintViewModel::class.java]
                 complaintViewModel.putComplaintToDatabase(
                     ComplaintManager.getCurrentComplaint()!!,
-                    uri,
-                    path
-                )
-                confirmed = true
-                Toast.makeText(context, "Опубликовано", Toast.LENGTH_SHORT).show()
+                    uri
+                ) {
+                    confirmed = true
+                    Toast.makeText(activity, "Опубликовано", Toast.LENGTH_SHORT).show()
+                }
             } else {
-                Toast.makeText(context, "Жалоба уже опубликована", Toast.LENGTH_SHORT).show()
+                Toast.makeText(activity, "Жалоба уже опубликована", Toast.LENGTH_SHORT).show()
             }
         }
     }

@@ -17,6 +17,7 @@ import androidx.fragment.app.commit
 import androidx.lifecycle.ViewModelProvider
 import com.example.complamap.R
 import com.example.complamap.databinding.FragmentProfileBinding
+import com.example.complamap.model.UserManager
 import com.example.complamap.viewmodel.ProfileViewModel
 
 class ProfileFragment : Fragment(R.layout.fragment_profile) {
@@ -39,8 +40,8 @@ class ProfileFragment : Fragment(R.layout.fragment_profile) {
         return binding.root
     }
 
-    override fun onStart() {
-        super.onStart()
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
         val profileViewModel = ViewModelProvider(this)[ProfileViewModel::class.java]
         // here we decide which page to show - authorized or not
         profileViewModel.getUser { user ->
@@ -50,11 +51,39 @@ class ProfileFragment : Fragment(R.layout.fragment_profile) {
                     childFragmentManager.commit {
                         replace(R.id.profile_container, NoAuthFragment())
                     }
+                    UserManager.setAuthorized(false)
                 }
 
                 else -> {
                     childFragmentManager.commit {
                         replace(R.id.profile_container, AuthorizedUserFragment())
+                    }
+                    UserManager.setAuthorized(true)
+                }
+            }
+        }
+    }
+
+    override fun onStart() {
+        super.onStart()
+        profileViewModel.getUser { user ->
+            when (user) {
+
+                null -> {
+                    if (UserManager.getAuthorized() == true) {
+                        childFragmentManager.commit {
+                            replace(R.id.profile_container, NoAuthFragment())
+                        }
+                        UserManager.setAuthorized(false)
+                    }
+                }
+
+                else -> {
+                    if (UserManager.getAuthorized() == false) {
+                        childFragmentManager.commit {
+                            replace(R.id.profile_container, AuthorizedUserFragment())
+                        }
+                        UserManager.setAuthorized(true)
                     }
                 }
             }
