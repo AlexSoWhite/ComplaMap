@@ -2,6 +2,7 @@ package com.example.complamap.views.fragments
 
 import android.os.Build
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -28,9 +29,11 @@ class ViewerCompFragment : Fragment() {
     private val currentComplaint = ComplaintManager.getCurrentComplaint()
     private val compId = currentComplaint?.compId
     private var currentUser: User? = null
+    private var rating: Double? = null
     private var isFollowing = false
     private var isAppr = false
     private var isRej = false
+    private var creatorId = ""
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -56,6 +59,7 @@ class ViewerCompFragment : Fragment() {
     @RequiresApi(Build.VERSION_CODES.M)
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        creatorId = arguments?.getString("creator").toString()
 
         binding.follow.setOnClickListener {
             if (!isFollowing) {
@@ -112,6 +116,7 @@ class ViewerCompFragment : Fragment() {
                     }
                 }
             }
+            editRating(isAppr)
         }
         binding.reject.setOnClickListener {
             if (isRej) {
@@ -138,6 +143,21 @@ class ViewerCompFragment : Fragment() {
                         )
                     }
                 }
+            }
+            editRating(!isRej)
+        }
+    }
+
+    private fun editRating(flag: Boolean) {
+        if (creatorId != "null") {
+            Log.d("This", "STRART WITH $creatorId")
+            profileViewModel.getUserFromDatabase(creatorId) { user ->
+                rating = if (flag) {
+                    user?.rating?.plus(0.2)
+                } else {
+                    user?.rating?.minus(0.2)
+                }
+                profileViewModel.editRating(creatorId, rating!!)
             }
         }
     }

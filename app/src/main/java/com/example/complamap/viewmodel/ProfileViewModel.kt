@@ -77,4 +77,18 @@ class ProfileViewModel : ViewModel() {
             UserRepository.removeSubsFromUser(userId, sub)
         }
     }
+
+    fun getUserFromDatabase(userId: String, callback: (User?) -> Unit) {
+        viewModelScope.launch {
+            val user = UserRepository.getUserFromDatabase(userId)
+            callback(user)
+            return@launch
+        }
+    }
+
+    fun editRating(userId: String, rating: Double) {
+        viewModelScope.launch {
+            UserRepository.editRating(userId, rating)
+        }
+    }
 }

@@ -11,6 +11,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.view.WindowManager
+import android.widget.ArrayAdapter
 import android.widget.Button
 import android.widget.ImageButton
 import android.widget.PopupWindow
@@ -21,6 +22,7 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.ViewModelProvider
 import com.example.complamap.R
 import com.example.complamap.databinding.CreateComplaintActivityBinding
+import com.example.complamap.model.Category
 import com.example.complamap.model.Complaint
 import com.example.complamap.model.ComplaintManager
 import com.example.complamap.model.TakePhotoContract
@@ -29,6 +31,9 @@ import com.example.complamap.viewmodel.ComplaintViewModel
 import com.example.complamap.views.fragments.AddPlacemarkDialog
 
 class CreateComplaintActivity : AppCompatActivity() {
+    companion object {
+        val categories = mutableListOf<String>()
+    }
 
     // uri for setting image content by setImageUri
     private var tempImageUri: Uri? = null
@@ -85,6 +90,18 @@ class CreateComplaintActivity : AppCompatActivity() {
             binding.Image.setImageResource(R.drawable.default_placeholder)
             binding.deleteImage.visibility = View.INVISIBLE
         }
+
+        for (it in Category.values()) {
+            categories.add(it.category)
+        }
+        val adapter: ArrayAdapter<String> = ArrayAdapter<String>(
+            this,
+            android.R.layout.simple_list_item_1,
+            categories
+        )
+        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
+        binding.Spinner.setSelection(0)
+        binding.Spinner.adapter = adapter
     }
 
     private fun showPopup() {
@@ -100,6 +117,14 @@ class CreateComplaintActivity : AppCompatActivity() {
         TransitionManager.beginDelayedTransition(rootLayout)
         popupWindow.isOutsideTouchable = false
         popupWindow.showAtLocation(rootLayout, Gravity.CENTER, 0, 0)
+        popupWindow.setOnDismissListener {
+            binding.RootFrame.foreground.alpha = 0
+            binding.ExitButton.isEnabled = true
+            binding.AddButton.isEnabled = true
+            binding.Address.isEnabled = true
+            binding.Description.isEnabled = true
+            binding.AddPhotoButton.isEnabled = true
+        }
         val publishButton: Button = view.findViewById(R.id.PublishButton) // опубликовать
         val closeButton = view.findViewById<ImageButton>(R.id.closePopup) // нажатие на крестик
         val radioAnon = view.findViewById<RadioButton>(R.id.Anon)
@@ -144,18 +169,13 @@ class CreateComplaintActivity : AppCompatActivity() {
                         intent.putExtra("noPhoto", true)
                     }
                     startActivity(intent)
+                    popupWindow.dismiss()
                 }
             }
         }
 
         closeButton.setOnClickListener {
             popupWindow.dismiss()
-            binding.RootFrame.foreground.alpha = 0
-            binding.ExitButton.isEnabled = true
-            binding.AddButton.isEnabled = true
-            binding.Address.isEnabled = true
-            binding.Description.isEnabled = true
-            binding.AddPhotoButton.isEnabled = true
         }
     }
 }

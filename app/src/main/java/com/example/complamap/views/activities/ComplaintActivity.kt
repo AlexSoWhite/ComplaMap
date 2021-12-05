@@ -14,6 +14,7 @@ import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.lifecycleScope
 import com.example.complamap.R
 import com.example.complamap.databinding.ActivityComplaintBinding
+import com.example.complamap.model.Category
 import com.example.complamap.model.Complaint
 import com.example.complamap.model.ComplaintManager
 import com.example.complamap.model.TakePhotoContract
@@ -28,14 +29,7 @@ import kotlinx.coroutines.launch
 
 class ComplaintActivity : AppCompatActivity() {
     companion object {
-        var categories = listOf(
-            "Транспорт",
-            "Категория 1",
-            "Категория 2",
-            "Общество",
-            "Другое",
-            "Категория длинная очень очень"
-        )
+        val categories = mutableListOf<String>()
     }
 
     private lateinit var complaintViewModel: ComplaintViewModel
@@ -58,6 +52,10 @@ class ComplaintActivity : AppCompatActivity() {
     @RequiresApi(Build.VERSION_CODES.M)
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        for (it in Category.values()) {
+            categories.add(it.category)
+        }
+
         supportActionBar?.hide()
         binding = DataBindingUtil.setContentView(
             this,
@@ -95,8 +93,12 @@ class ComplaintActivity : AppCompatActivity() {
                             .replace(binding.container.id, OwnerCompFragment())
                             .commit()
                     } else {
+                        val args = Bundle()
+                        args.putString("creator", creator)
+                        val fr = ViewerCompFragment()
+                        fr.arguments = args
                         supportFragmentManager.beginTransaction()
-                            .replace(binding.container.id, ViewerCompFragment())
+                            .replace(binding.container.id, fr)
                             .commit()
                     }
                 }
