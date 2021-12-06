@@ -126,7 +126,7 @@ class ComplaintActivity : AppCompatActivity() {
         val pos = categories.indexOf(currentComplaint?.category)
         pos.let { binding.category.setSelection(it) }
         binding.ExitButton.setOnClickListener {
-            exit()
+            finish()
         }
     }
 
@@ -176,9 +176,5 @@ class ComplaintActivity : AppCompatActivity() {
             binding.address.isFocusableInTouchMode = state
             binding.address.isCursorVisible = state
         }
-    }
-
-    fun exit() {
-        finish()
     }
 }
