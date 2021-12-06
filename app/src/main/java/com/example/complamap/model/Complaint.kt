@@ -21,5 +21,5 @@ data class Complaint(
     var creation_day: String? = null,
     var edit_date: Timestamp? = null,
     var edit_day: String? = null,
-    var comments: List<Comment>? = null
+    var comments: MutableList<Comment> = mutableListOf()
 )

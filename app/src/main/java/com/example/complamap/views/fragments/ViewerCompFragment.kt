@@ -5,12 +5,15 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.annotation.RequiresApi
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.commit
 import androidx.lifecycle.ViewModelProvider
+import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.complamap.R
 import com.example.complamap.databinding.FragmentViewerComplBarBinding
+import com.example.complamap.model.Comment
 import com.example.complamap.model.ComplaintManager
 import com.example.complamap.model.User
 import com.example.complamap.viewmodel.ComplaintViewModel
@@ -143,16 +146,30 @@ class ViewerCompFragment : Fragment() {
                 }
             }
         }
+
+        val testComment: Comment = Comment(
+            currentComplaint,
+            currentUser,
+            "sadasdsa",
+            "date",
+            currentUser!!.username!!,
+            currentUser!!.rating!!.toString(),
+
+        )
+
+        if(currentComplaint!!.comments.isEmpty())
+            Toast.makeText(context, "ПУсто", Toast.LENGTH_SHORT).show()
+       // currentComplaint!!.comments.add(testComment)
+
+
+        binding.commentsRecycler.adapter = CommentAdapter(currentComplaint!!.comments)
+        binding.commentsRecycler.layoutManager = LinearLayoutManager(context)
+
         binding.comment.setOnClickListener {
 
             childFragmentManager.beginTransaction()
                 .replace(R.id.commentsContainer, CommentAddFragment.getInstance(currentUser!!, currentComplaint!!))
                 .commit()
-
-            childFragmentManager.commit {
-                replace(R.id.commentsContainer, CommentAddFragment())
-            }
-
-        }
+                    }
     }
 }

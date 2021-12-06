@@ -10,7 +10,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.example.complamap.R
 import com.example.complamap.model.Comment
 
-class CommentAdapter (private val comments: List<Comment>):
+class CommentAdapter (private val comments: List<Comment>?):
     RecyclerView.Adapter<CommentAdapter.MyViewHolder>()
 {
     class MyViewHolder(itemView: View): RecyclerView.ViewHolder(itemView) {
@@ -27,6 +27,10 @@ class CommentAdapter (private val comments: List<Comment>):
             date = itemView.findViewById(R.id.creationDate)
             commentText = itemView.findViewById(R.id.commentText)
         }
+
+        fun bind(comment: Comment){
+
+        }
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): MyViewHolder {
@@ -37,10 +41,12 @@ class CommentAdapter (private val comments: List<Comment>):
     }
 
     override fun getItemCount(): Int {
-        return comments.size
+        if(comments?.isEmpty()!!)
+            return 0
+        return comments?.size
     }
 
     override fun onBindViewHolder(holder: MyViewHolder, position: Int) {
-        TODO("Not yet implemented")
+       // holder.bind(comments[position])
     }
 }

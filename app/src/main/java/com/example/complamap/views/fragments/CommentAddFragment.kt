@@ -5,6 +5,7 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.RecyclerView
 import com.example.complamap.R
@@ -39,16 +40,24 @@ class CommentAddFragment: Fragment(R.layout.fragment_add_comment) {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        val recycler: RecyclerView
         binding.commentButton.setOnClickListener {
-            var currentComment: Comment
-            = Comment(
-                complaint,
-                user,
-                binding.editText.text.toString(),
-                null,
-            )
+            if(binding.editText.length()!=0) {
+                val currentComment: Comment = Comment(
+                    complaint,
+                    user,
+                    binding.editText.text.toString(),
+                    null,
+                    user!!.username!!,
+                    user!!.rating.toString(),
+                    null
+                )
+                complaint!!.comments.add(currentComment)
+                Toast.makeText(context, complaint!!.comments.size.toString(), Toast.LENGTH_SHORT)
+                    .show()
+            }
+            else
+                Toast.makeText(context, "Ведите текст жалобы", Toast.LENGTH_SHORT).show()
         }
-            complaint!!.comments?.toMutableList()?.add(Comment(complaint, user))
+
         }
     }

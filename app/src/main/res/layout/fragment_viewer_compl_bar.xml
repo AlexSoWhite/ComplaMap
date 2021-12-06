@@ -107,7 +107,7 @@
                     android:layout_height="wrap_content"
                     app:layout_constraintTop_toBottomOf="@+id/comment"
                     tools:text="5"
-                    android:text="@{complaint.comments.listIterator().toString()}"
+                    android:text="@{complaint.comments.toString()}"
                     android:textAppearance="?attr/textAppearanceCaption"
                     app:layout_constraintStart_toStartOf="@+id/comment"
                     app:layout_constraintEnd_toEndOf="@+id/comment" />
@@ -146,7 +146,7 @@
         <androidx.recyclerview.widget.RecyclerView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:id="@+id/comments"
+                android:id="@+id/comments_recycler"
                 app:layout_constraintTop_toBottomOf="@+id/commentsContainer"
                 />
     </androidx.constraintlayout.widget.ConstraintLayout>
