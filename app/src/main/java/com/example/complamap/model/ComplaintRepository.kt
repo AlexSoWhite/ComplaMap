@@ -1,6 +1,7 @@
 package com.example.complamap.model
 
 import android.annotation.SuppressLint
+import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.ViewModel
 import com.google.firebase.firestore.FieldValue
 import com.google.firebase.firestore.FirebaseFirestore
@@ -21,9 +22,9 @@ object ComplaintRepository : ViewModel() {
         }
     }
 
-    fun addPhoto(compId: String, url: String, callback: (String) -> Unit) {
+    fun addPhoto(compId: String, url: String, callback: (Int) -> Unit) {
         db.collection("complaint").document(compId).update("photo", url).addOnSuccessListener {
-            callback("Опубликовано")
+            callback(AppCompatActivity.RESULT_OK)
         }
     }
 

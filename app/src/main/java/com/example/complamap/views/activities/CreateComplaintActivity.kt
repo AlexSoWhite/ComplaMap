@@ -1,5 +1,6 @@
 package com.example.complamap.views.activities
 
+import android.app.Activity
 import android.content.Context
 import android.content.Intent
 import android.net.Uri
@@ -17,6 +18,7 @@ import android.widget.ImageButton
 import android.widget.PopupWindow
 import android.widget.RadioButton
 import android.widget.Toast
+import androidx.activity.result.contract.ActivityResultContracts
 import androidx.annotation.RequiresApi
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.ViewModelProvider
@@ -50,6 +52,14 @@ class CreateComplaintActivity : AppCompatActivity() {
                 binding.deleteImage.visibility = View.VISIBLE
             }
         }
+
+    private var resultLauncher = registerForActivityResult(
+        ActivityResultContracts.StartActivityForResult()
+    ) { result ->
+        if (result.resultCode == Activity.RESULT_OK) {
+            finish()
+        }
+    }
 
     @RequiresApi(Build.VERSION_CODES.M)
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -168,7 +178,8 @@ class CreateComplaintActivity : AppCompatActivity() {
                     } else {
                         intent.putExtra("noPhoto", true)
                     }
-                    startActivity(intent)
+//                    startActivityForResult(intent, 1)
+                    resultLauncher.launch(intent)
                     popupWindow.dismiss()
                 }
             }
