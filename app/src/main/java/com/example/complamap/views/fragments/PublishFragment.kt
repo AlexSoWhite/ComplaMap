@@ -13,6 +13,8 @@ import com.example.complamap.R
 import com.example.complamap.databinding.FragmentPublishBinding
 import com.example.complamap.model.ComplaintManager
 import com.example.complamap.viewmodel.ComplaintViewModel
+import java.util.*
+import kotlin.concurrent.schedule
 
 class PublishFragment : Fragment(R.layout.fragment_publish) {
     private lateinit var binding: FragmentPublishBinding
@@ -47,13 +49,15 @@ class PublishFragment : Fragment(R.layout.fragment_publish) {
                     uri
                 ) {
                     confirmed = true
-                    Toast.makeText(activity, "Опубликовано", Toast.LENGTH_SHORT).show()
+                    Toast.makeText(activity, it, Toast.LENGTH_SHORT).show()
                 }
             } else {
                 Toast.makeText(activity, "Жалоба уже опубликована", Toast.LENGTH_SHORT).show()
             }
-            activity?.setResult(AppCompatActivity.RESULT_OK)
-            activity?.finish()
+            Timer().schedule(1000) {
+                activity?.setResult(AppCompatActivity.RESULT_OK)
+                activity?.finish()
+            }
         }
     }
 }

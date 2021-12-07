@@ -30,12 +30,11 @@ class ComplaintViewModel : ViewModel() {
                 if (uri != null) {
                     sendPhoto(uri, compId) {
                         complaint.photo = it
-                        ComplaintRepository.addPhoto(compId, it, callback)
+                        ComplaintRepository.addPhoto(compId, it)
                     }
-                } else {
-                    callback("Опубликовано")
                 }
             }
+            callback("Опубликовано")
         }
     }
 
