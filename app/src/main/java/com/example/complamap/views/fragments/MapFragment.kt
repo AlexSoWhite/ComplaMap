@@ -50,6 +50,7 @@ import com.yandex.mapkit.map.MapObjectCollection
 import com.yandex.mapkit.map.MapObjectDragListener
 import com.yandex.mapkit.map.MapObjectTapListener
 import com.yandex.mapkit.map.PlacemarkMapObject
+import com.yandex.mapkit.map.PlacemarksStyler
 import com.yandex.mapkit.mapview.MapView
 import com.yandex.mapkit.search.SearchFactory
 import com.yandex.mapkit.search.SearchOptions
@@ -75,6 +76,7 @@ class MapFragment() :
     private lateinit var searchLayer: SearchLayer
     private val sheetStack = ArrayDeque<Int>()
     private var currentPlacemark: PlacemarkMapObject? = null
+    private var currentComplaint: PlacemarkMapObject? = null
     private val cameraListener = object : CameraListener {
         override fun onCameraPositionChanged(
             p0: Map,
@@ -91,6 +93,7 @@ class MapFragment() :
         }
     }
     private lateinit var placemarkIcon: ImageProvider
+    private lateinit var placemarkPickedIcon: ImageProvider
     private var wasPublished = false
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -104,6 +107,11 @@ class MapFragment() :
                 R.drawable.ic_placemark
             )
         )
+        placemarkPickedIcon = ImageProvider.fromBitmap(
+            requireContext().getBitmapFromVectorDrawable(
+                R.drawable.ic_placemark_picked
+            )
+        )
         initializeFragment()
         initializeViewsListeners()
         return view
@@ -115,6 +123,15 @@ class MapFragment() :
     }
     override fun onMapObjectTap(p0: MapObject, p1: Point): Boolean {
         val data = p0.userData as Complaint
+        currentComplaint?.setIcon(placemarkIcon)
+        currentComplaint = (p0 as PlacemarkMapObject).apply {
+            setIcon(placemarkPickedIcon)
+        }
+        mapView.map.move(
+            CameraPosition(Point(p1.latitude, p1.longitude), 14F, 0F, 0F),
+            Animation(Animation.Type.SMOOTH, 1F),
+            null
+        )
         viewModel.loadPhoto(
             binding.infoC.complaint.image.context,
             data,
@@ -130,18 +147,21 @@ class MapFragment() :
 
     override fun onResume() {
         super.onResume()
-        Log.e("onResume", "wasPublished = $wasPublished")
-        if(wasPublished){
-            currentPlacemark = currentPlacemark?.let { mapView.map.mapObjects.addPlacemark(it.geometry, placemarkIcon).apply {
-                userData = ComplaintManager.getCurrentComplaint()!!
-                isVisible = true
-                addTapListener(this@MapFragment)
-            }; null}
-            sheetStack.clear()
-            sheetStack.push(R.id.bottom_sheet_parent)
-            moveToNextSheet(R.id.complaint_info)
-            binding.infoC.complaint.complaint = ComplaintManager.getCurrentComplaint()!!
+        Log.e("onResume", "wasPublished = ${viewModel.complaintWasPublished.value}")
+        viewModel.complaintWasPublished.observe(viewLifecycleOwner){
+            if(it){
+                currentPlacemark = currentPlacemark?.let { mapView.map.mapObjects.addPlacemark(it.geometry, placemarkIcon).apply {
+                    userData = ComplaintManager.getCurrentComplaint()!!
+                    isVisible = true
+                    addTapListener(this@MapFragment)
+                }; null}
+                sheetStack.clear()
+                sheetStack.push(R.id.bottom_sheet_parent)
+                moveToNextSheet(R.id.complaint_info)
+                binding.infoC.complaint.complaint = ComplaintManager.getCurrentComplaint()!!
+            }
         }
+        viewModel.complaintPublishingProcessed()
     }
 //    override fun onCreate(savedInstanceState: Bundle?) {
 //        super.onCreate(savedInstanceState)
@@ -332,6 +352,7 @@ class MapFragment() :
         binding.infoC.closeButton.setOnClickListener {
             binding.complaintInfo.visibility = View.GONE
             sheetStack.pop()
+            currentComplaint?.setIcon(placemarkIcon)
             makeVisibleFromStack()
         }
         binding.infoC.mapInfoCard.setOnClickListener {
@@ -359,6 +380,7 @@ class MapFragment() :
         when(sheetStack.peek()!!) {
             R.id.complaint_info -> {
                 binding.complaintInfo.visibility = View.GONE
+                currentComplaint?.setIcon(placemarkIcon)
             }
             R.id.map_object_info -> {
                 binding.mapObjectInfo.visibility = View.GONE
@@ -377,6 +399,7 @@ class MapFragment() :
             R.id.complaint_info ->{
                 changeFABAnchorTo(R.id.complaint_info)
                 binding.complaintInfo.visibility = View.VISIBLE
+                currentComplaint?.setIcon(placemarkPickedIcon)
 
             }
             R.id.map_object_info-> {

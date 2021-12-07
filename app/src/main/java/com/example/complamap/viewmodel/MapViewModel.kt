@@ -37,6 +37,8 @@ class MapViewModel : ViewModel() {
         get() = selectionMetadataMutable
     private val complaintsListMutable: MutableLiveData<List<Complaint>> = MutableLiveData()
     val complaintsList: LiveData<List<Complaint>> = complaintsListMutable
+    private val complaintWasPublishedMutable = MutableLiveData<Boolean>()
+    val complaintWasPublished: LiveData<Boolean> get() = complaintWasPublishedMutable
 
     private val pointAddressConverter = PointAddressConverter(searchType = SearchType.GEO.value)
         .apply {
@@ -101,6 +103,13 @@ class MapViewModel : ViewModel() {
         pointAddressConverter.addressFromPoint(p, zoom)
     }
 
+    fun complaintPublished(){
+        complaintWasPublishedMutable.value = true
+    }
+
+    fun complaintPublishingProcessed(){
+        complaintWasPublishedMutable.value = false
+    }
     override fun onCleared() {
         super.onCleared()
         pointAddressConverter.removeGeoObjectFetchedListener()
