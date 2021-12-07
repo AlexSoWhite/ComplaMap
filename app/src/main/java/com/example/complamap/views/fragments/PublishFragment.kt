@@ -6,7 +6,6 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
-import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import com.example.complamap.R
@@ -39,24 +38,19 @@ class PublishFragment : Fragment(R.layout.fragment_publish) {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        var confirmed = false
 
         binding.Confirm.setOnClickListener {
-            if (!confirmed) {
-                val complaintViewModel = ViewModelProvider(this)[ComplaintViewModel::class.java]
-                complaintViewModel.putComplaintToDatabase(
-                    ComplaintManager.getCurrentComplaint()!!,
-                    uri
-                ) {
-                    confirmed = true
-                    Toast.makeText(activity, it, Toast.LENGTH_SHORT).show()
+            binding.Confirm.isEnabled = false
+            val complaintViewModel = ViewModelProvider(this)[ComplaintViewModel::class.java]
+            complaintViewModel.putComplaintToDatabase(
+                ComplaintManager.getCurrentComplaint()!!,
+                uri
+            ) {
+                Toast.makeText(activity, "Опубликовано", Toast.LENGTH_SHORT).show()
+                Timer().schedule(1000) {
+                    activity?.setResult(it)
+                    activity?.finish()
                 }
-            } else {
-                Toast.makeText(activity, "Жалоба уже опубликована", Toast.LENGTH_SHORT).show()
-            }
-            Timer().schedule(1000) {
-                activity?.setResult(AppCompatActivity.RESULT_OK)
-                activity?.finish()
             }
         }
     }

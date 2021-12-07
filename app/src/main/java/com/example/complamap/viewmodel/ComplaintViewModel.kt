@@ -3,6 +3,7 @@ package com.example.complamap.viewmodel
 import android.content.Context
 import android.net.Uri
 import android.widget.ImageView
+import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.bumptech.glide.Glide
@@ -18,7 +19,7 @@ class ComplaintViewModel : ViewModel() {
     fun putComplaintToDatabase(
         complaint: Complaint,
         uri: Uri?,
-        callback: (String) -> Unit
+        callback: (Int) -> Unit
     ) {
         viewModelScope.launch {
             complaint.creation_date = Timestamp.now()
@@ -30,11 +31,12 @@ class ComplaintViewModel : ViewModel() {
                 if (uri != null) {
                     sendPhoto(uri, compId) {
                         complaint.photo = it
-                        ComplaintRepository.addPhoto(compId, it)
+                        ComplaintRepository.addPhoto(compId, it, callback)
                     }
+                } else {
+                    callback(AppCompatActivity.RESULT_OK)
                 }
             }
-            callback("Опубликовано")
         }
     }
 
