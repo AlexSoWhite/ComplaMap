@@ -46,6 +46,7 @@
                 app:layout_constraintVertical_chainStyle="packed"
                 app:dynamicText='@{complaint.address.toString()}'
                 app:specialText="@{&quot;Адрес&quot;}"
+                android:textColor="#000000"
                 tools:text="Адрес: Алтуфьевевское шоссе дом 28, за деревянной лавкой возле 3 подъезда" />
 
         <TextView
@@ -67,6 +68,7 @@
                 app:layout_constraintVertical_chainStyle="packed"
                 app:dynamicText='@{complaint.status.toString()}'
                 app:specialText="@{&quot;Статус&quot;}"
+                android:textColor="#000000"
                 tools:text="Статус: не подтверждена">
         </TextView>
 
@@ -87,6 +89,7 @@
                 app:layout_constraintVertical_chainStyle="packed"
                 app:dynamicText='@{complaint.description.toString()}'
                 app:specialText="@{&quot;Описание&quot;}"
+                android:textColor="#000000"
                 tools:text="Описание: нет люка на колодце" />
 
         <TextView

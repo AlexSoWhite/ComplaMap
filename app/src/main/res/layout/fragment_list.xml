@@ -12,7 +12,8 @@
         android:layout_height="wrap_content"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintEnd_toStartOf="@id/mySubscriptions"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintBottom_toBottomOf="@id/separator"
         android:layout_marginStart="12dp"
         android:layout_marginTop="12dp">
 
@@ -29,7 +30,7 @@
             android:id="@+id/input"
             android:inputType="text"
             android:layout_marginStart="40dp"
-            android:layout_width="260dp"
+            android:layout_width="300dp"
             android:layout_height="wrap_content"
             android:hint="Поиск жалобы"
             android:backgroundTint="@android:color/transparent"
@@ -53,33 +54,19 @@
             android:background="@color/black"
             android:layout_marginTop="5dp"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintStart_toEndOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toBottomOf="@id/search_bar"
             app:layout_constraintBottom_toTopOf="@id/recycler"
-            />
-
-    <ImageView
-            android:id="@+id/mySubscriptions"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginEnd="12dp"
-            android:src="@drawable/subscriptions"
-            android:layout_marginTop="12dp"
-            android:layout_marginStart="1dp"
-            app:layout_constraintStart_toEndOf="@id/search_bar"
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintBottom_toTopOf="@id/mySubscriptions"
             />
 
     <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/recycler"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintStart_toEndOf="@id/separator"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toBottomOf="@id/separator"
-            android:paddingBottom="100dp"
+            android:paddingBottom="130dp"
             android:clipToPadding="false"
          >
 
