@@ -1,4 +1,6 @@
 package com.example.complamap.model
+import android.util.TypedValue
+import com.example.complamap.R
 import com.yandex.mapkit.Animation
 import com.yandex.mapkit.map.CircleMapObject
 import com.yandex.mapkit.map.ClusterizedPlacemarkCollection
@@ -14,7 +16,12 @@ class PlacemarkVisitor(
     private val focusRegion: VisibleRegion,
     private val zoom: Float
 ) : MapObjectVisitor {
-    private val minZoom: Float = 13.168125F
+    private val minZoom: Float
+    init {
+        val outValue = TypedValue()
+        ContextContainer.getContext().resources.getValue(R.dimen.zoom_value, outValue, true)
+        minZoom = outValue.float
+    }
     override fun onPlacemarkVisited(p0: PlacemarkMapObject) {
         if (zoom < minZoom) {
             p0.setVisible(false, Animation(Animation.Type.SMOOTH, 1F)) { }
