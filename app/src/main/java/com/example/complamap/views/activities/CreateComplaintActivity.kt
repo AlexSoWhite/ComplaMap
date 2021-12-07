@@ -31,6 +31,8 @@ import com.example.complamap.model.TakePhotoContract
 import com.example.complamap.model.UserManager
 import com.example.complamap.viewmodel.ComplaintViewModel
 import com.example.complamap.views.fragments.AddPlacemarkDialog
+import com.example.complamap.views.fragments.MapFragment
+import com.google.firebase.firestore.GeoPoint
 
 class CreateComplaintActivity : AppCompatActivity() {
     companion object {
@@ -160,6 +162,10 @@ class CreateComplaintActivity : AppCompatActivity() {
                             category = binding.Spinner.selectedItem.toString(),
                             description = binding.Description.text.toString(),
                             address = binding.Address.text.toString(),
+                            location = GeoPoint(
+                                intent.getDoubleExtra(AddPlacemarkDialog.EXTRA_LATITUDE, 0.0),
+                                intent.getDoubleExtra(AddPlacemarkDialog.EXTRA_LONGITUDE, 0.0)
+                            ),
                             creation_day = "",
                             status = "Принята",
                             followers = mutableListOf(),
