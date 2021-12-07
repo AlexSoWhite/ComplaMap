@@ -49,7 +49,7 @@ class PublishFragment(
             Log.e("onViewCreated", "wasPublished = $confirmed")
             val bundle = Bundle()
             bundle.putBoolean(MapFragment.WAS_PUBLISHED, confirmed)
-            parentFragmentManager.setFragmentResult(MapFragment.requestKey, Bundle())
+            childFragmentManager.setFragmentResult(MapFragment.requestKey, bundle)
         }
     }
 }

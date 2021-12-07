@@ -152,9 +152,9 @@ class MapFragment() :
 //    }
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-    parentFragmentManager.setFragmentResultListener(requestKey, viewLifecycleOwner){key, bundle ->
-        wasPublished= bundle.getBoolean(WAS_PUBLISHED)
-    }
+        childFragmentManager.setFragmentResultListener(requestKey, viewLifecycleOwner){key, bundle ->
+            wasPublished= bundle.getBoolean(WAS_PUBLISHED)
+        }
         viewModel.apply {
             address.observe(viewLifecycleOwner) {
                 binding.bottomSheetParent.addressView.text = it
