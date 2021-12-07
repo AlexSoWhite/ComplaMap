@@ -27,13 +27,12 @@ import com.example.complamap.R
 import com.example.complamap.databinding.ActivityComplaintBinding
 import com.example.complamap.model.Complaint
 import com.example.complamap.model.ComplaintManager
+import com.example.complamap.model.UserManager
 import com.example.complamap.model.UserRepository
+import com.example.complamap.viewmodel.CommentViewModel
 import com.example.complamap.viewmodel.ComplaintViewModel
 import com.example.complamap.viewmodel.ProfileViewModel
-import com.example.complamap.views.fragments.OwnerCompFragment
-import com.example.complamap.views.fragments.PublishFragment
-import com.example.complamap.views.fragments.SaveFragment
-import com.example.complamap.views.fragments.ViewerCompFragment
+import com.example.complamap.views.fragments.*
 import java.io.File
 import kotlinx.coroutines.launch
 
@@ -50,6 +49,7 @@ class ComplaintActivity : AppCompatActivity() {
     }
 
     private lateinit var complaintViewModel: ComplaintViewModel
+    private lateinit var commentViewModel: CommentViewModel
     private lateinit var profileViewModel: ProfileViewModel
 
     private lateinit var binding: ActivityComplaintBinding
@@ -109,6 +109,9 @@ class ComplaintActivity : AppCompatActivity() {
         )
         binding.complaintActivity.foreground.alpha = 0
         complaintViewModel = ViewModelProvider(this)[ComplaintViewModel::class.java]
+
+        commentViewModel = ViewModelProvider(this)[CommentViewModel::class.java]
+
         profileViewModel = ViewModelProvider(this)[ProfileViewModel::class.java]
         profileViewModel.getUser { user ->
             currentUser = user?.uid
@@ -146,6 +149,10 @@ class ComplaintActivity : AppCompatActivity() {
                             .commit()
                     }
                 }
+
+                supportFragmentManager.beginTransaction()
+                    .replace(binding.containerForComments.id, CommentsFragment.getInstance(UserManager.getCurrentUser()!!,currentComplaint!!))
+                    .commit()
 
                 complaintViewModel.loadPhotoFromServer(
                     baseContext,

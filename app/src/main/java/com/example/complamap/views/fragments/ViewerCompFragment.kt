@@ -146,30 +146,5 @@ class ViewerCompFragment : Fragment() {
                 }
             }
         }
-
-        val testComment: Comment = Comment(
-            currentComplaint,
-            currentUser,
-            "sadasdsa",
-            "date",
-            currentUser!!.username!!,
-            currentUser!!.rating!!.toString(),
-
-        )
-
-        if(currentComplaint!!.comments.isEmpty())
-            Toast.makeText(context, "ПУсто", Toast.LENGTH_SHORT).show()
-       // currentComplaint!!.comments.add(testComment)
-
-
-        binding.commentsRecycler.adapter = CommentAdapter(currentComplaint!!.comments)
-        binding.commentsRecycler.layoutManager = LinearLayoutManager(context)
-
-        binding.comment.setOnClickListener {
-
-            childFragmentManager.beginTransaction()
-                .replace(R.id.commentsContainer, CommentAddFragment.getInstance(currentUser!!, currentComplaint!!))
-                .commit()
-                    }
     }
 }

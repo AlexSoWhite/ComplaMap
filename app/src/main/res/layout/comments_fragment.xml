@@ -7,6 +7,7 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             app:layout_constraintTop_toTopOf="parent"
+            android:hint="Комментарий..."
             android:id="@+id/commentEditText"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintEnd_toStartOf="@+id/addCommentButton" />
@@ -14,7 +15,7 @@
     <Button
             android:id="@+id/addCommentButton"
             android:layout_width="wrap_content"
-            android:layout_height="0dp"
+            android:layout_height="45dp"
             app:backgroundTint="@null"
             android:backgroundTint="@color/light_green"
             app:icon="@drawable/ic_check_24"
@@ -22,8 +23,13 @@
             app:iconTint="@color/icon"
             app:cornerRadius="5dp"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintBottom_toBottomOf="@+id/commentEditText"
             app:layout_constraintTop_toTopOf="@+id/commentEditText" />
 
 
+    <androidx.recyclerview.widget.RecyclerView
+            android:layout_marginTop="10dp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/comments_recycler"
+            app:layout_constraintTop_toBottomOf="@+id/commentEditText" />
 </androidx.constraintlayout.widget.ConstraintLayout>
