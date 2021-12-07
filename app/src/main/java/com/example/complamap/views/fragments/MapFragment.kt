@@ -158,7 +158,7 @@ class MapFragment() :
         viewModel.apply {
             address.observe(viewLifecycleOwner) {
                 binding.bottomSheetParent.addressView.text = it
-                binding.info.addressInfo.text = it
+                binding.info.fullAddress.text = it
             }
             coordinates.observe(viewLifecycleOwner) {
                 binding.bottomSheetParent.coordinatesView.text = it
@@ -166,6 +166,9 @@ class MapFragment() :
             }
             selectionMetadata.observe(viewLifecycleOwner) {
                 mapView.map.selectGeoObject(it.id, it.layerId)
+            }
+            shortAddress.observe(viewLifecycleOwner){
+                binding.info.shortAddress.text = it
             }
             complaintsList.observeOnce(viewLifecycleOwner) { list ->
                 viewLifecycleOwner.lifecycleScope.launch {

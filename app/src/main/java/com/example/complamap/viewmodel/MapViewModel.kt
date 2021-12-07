@@ -1,6 +1,7 @@
 package com.example.complamap.viewmodel
 
 import android.content.Context
+import android.util.Log
 import android.widget.ImageView
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
@@ -27,6 +28,8 @@ import kotlinx.coroutines.launch
 class MapViewModel : ViewModel() {
     private val addressMutable = MutableLiveData<String>()
     val address: LiveData<String> get() = addressMutable
+    private val shortAddressMutable = MutableLiveData<String>()
+    val shortAddress: LiveData<String> get() = shortAddressMutable
     private val coordinatesMutable: MutableLiveData<String> = MutableLiveData()
     val coordinates: LiveData<String> = coordinatesMutable
     private val selectionMetadataMutable = MutableLiveData<GeoObjectSelectionMetadata>()
@@ -48,6 +51,7 @@ class MapViewModel : ViewModel() {
                 object : OnGeoObjectFetchedListener {
                     override fun onSuccess(obj: GeoObject?) {
                         obj?.geometry?.get(0)?.point?.let { updateCoordinates(it) }
+                        obj?.name?.let { updateShortAddress(it) }?: updateShortAddress("")
                     }
                 }
             )
@@ -70,7 +74,9 @@ class MapViewModel : ViewModel() {
             selectionMetadataMutable.value = it
         }
     }
-
+    private fun updateShortAddress(type: String){
+        shortAddressMutable.value = type
+    }
     private fun updateCoordinates(point: Point) {
         coordinatesMutable.value = "${point.latitude} ${point.longitude}"
     }
