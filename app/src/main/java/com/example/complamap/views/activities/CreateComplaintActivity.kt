@@ -31,7 +31,6 @@ import com.example.complamap.model.TakePhotoContract
 import com.example.complamap.model.UserManager
 import com.example.complamap.viewmodel.ComplaintViewModel
 import com.example.complamap.views.fragments.AddPlacemarkDialog
-import com.example.complamap.views.fragments.MapFragment
 import com.google.firebase.firestore.GeoPoint
 
 class CreateComplaintActivity : AppCompatActivity() {
