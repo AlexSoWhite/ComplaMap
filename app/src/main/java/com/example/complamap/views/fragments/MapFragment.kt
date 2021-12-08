@@ -2,7 +2,6 @@ package com.example.complamap.views.fragments
 
 import android.content.Intent
 import android.os.Bundle
-import android.util.Log
 import android.util.TypedValue
 import android.view.Gravity
 import android.view.LayoutInflater
@@ -22,13 +21,14 @@ import com.example.complamap.model.Complaint
 import com.example.complamap.model.ComplaintManager
 import com.example.complamap.model.PlacemarkVisitor
 import com.example.complamap.model.getBitmapFromVectorDrawable
+import com.example.complamap.model.moveIfNotGreater
+import com.example.complamap.model.moveTo
 import com.example.complamap.model.observeOnce
 import com.example.complamap.model.toPoint
 import com.example.complamap.viewmodel.MapViewModel
 import com.example.complamap.views.activities.ComplaintActivity
 import com.example.complamap.views.activities.CreateComplaintActivity
 import com.google.android.material.bottomsheet.BottomSheetBehavior
-import com.yandex.mapkit.Animation
 import com.yandex.mapkit.MapKitFactory
 import com.yandex.mapkit.geometry.Point
 import com.yandex.mapkit.layers.GeoObjectTapEvent
@@ -65,7 +65,7 @@ class MapFragment() :
     private val binding get() = _binding!!
     private lateinit var mapView: MapView
     private lateinit var searchView: EditText
-    private lateinit var viewModel: MapViewModel
+    lateinit var viewModel: MapViewModel
     private lateinit var searchLayer: SearchLayer
     private val sheetStack = ArrayDeque<Int>()
     private var currentPlacemark: PlacemarkMapObject? = null
@@ -110,20 +110,17 @@ class MapFragment() :
         return view
     }
 
-    companion object {
-        const val requestKey = "IS_PUBLISHED"
-        const val WAS_PUBLISHED = "WAS_PUBLISHED"
-    }
     override fun onMapObjectTap(p0: MapObject, p1: Point): Boolean {
         val data = p0.userData as Complaint
         currentComplaint?.setIcon(placemarkIcon)
         currentComplaint = (p0 as PlacemarkMapObject).apply {
             setIcon(placemarkPickedIcon)
         }
-        mapView.map.move(
-            CameraPosition(Point(p1.latitude, p1.longitude), 14F, 0F, 0F),
-            Animation(Animation.Type.SMOOTH, 1F),
-            null
+        mapView.map.moveIfNotGreater(
+            Point(
+                currentComplaint!!.geometry.latitude,
+                currentComplaint!!.geometry.longitude
+            )
         )
         viewModel.loadPhoto(
             binding.infoC.complaint.image.context,
@@ -140,26 +137,29 @@ class MapFragment() :
 
     override fun onResume() {
         super.onResume()
-        Log.e("onResume", "wasPublished = ${viewModel.complaintWasPublished.value}")
-        viewModel.complaintWasPublished.observe(viewLifecycleOwner) {
-            if (it) {
-                currentPlacemark = currentPlacemark?.let {
-                    mapView.map.mapObjects.addPlacemark(
-                        it.geometry,
-                        placemarkIcon
-                    ).apply {
-                        userData = ComplaintManager.getCurrentComplaint()!!
-                        isVisible = true
-                        addTapListener(this@MapFragment)
-                    }; null
-                }
-                sheetStack.clear()
-                sheetStack.push(R.id.bottom_sheet_parent)
-                moveToNextSheet(R.id.complaint_info)
-                binding.infoC.complaint.complaint = ComplaintManager.getCurrentComplaint()!!
+        if (ComplaintManager.justPublished) {
+            currentPlacemark = currentPlacemark?.let {
+                currentComplaint = mapView.map.mapObjects.addPlacemark(
+                    it.geometry,
+                    placemarkPickedIcon
+                ).apply {
+                    userData = ComplaintManager.getCurrentComplaint()!!
+                    isVisible = true
+                    addTapListener(this@MapFragment)
+                }; null
             }
+            mapView.map.moveIfNotGreater(
+                Point(
+                    currentComplaint!!.geometry.latitude,
+                    currentComplaint!!.geometry.longitude
+                )
+            )
+            sheetStack.clear()
+            sheetStack.push(R.id.bottom_sheet_parent)
+            binding.info.root.visibility = View.GONE
+            moveToNextSheet(R.id.complaint_info)
+            binding.infoC.complaint.complaint = ComplaintManager.getCurrentComplaint()!!
         }
-        viewModel.complaintPublishingProcessed()
     }
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
@@ -217,7 +217,6 @@ class MapFragment() :
             mapView.map.mapObjects.remove(it)
             mapView.map.mapObjects.addPlacemark(p1, placemarkIcon)
         } ?: let {
-//             setBottomSheetPeekHeight(binding.mapObjectInfo)
             if (binding.mapObjectInfo.visibility == View.GONE)
                 moveToNextSheet(R.id.map_object_info)
             mapView.map.mapObjects.addPlacemark(p1, placemarkIcon)
@@ -228,26 +227,7 @@ class MapFragment() :
         )
     }
 
-    override fun onMapLongTap(p0: Map, p1: Point) {
-//        mapView.map.mapObjects.addPlacemark(p1, placemarkIcon)
-//        viewModel.addressFromPoint(
-//            p1,
-//            mapView.map.cameraPosition.zoom.toInt()
-//        )
-//        val converter = PointAddressConverter(SearchType.GEO.value)
-//        converter.addOnAddressFetchedListener(
-//            object : OnAddressFetchedListener {
-//                override fun onSuccess(address: String?) {
-//                    val dialogFragment = AddPlacemarkDialog(address ?: "", p1)
-//                    dialogFragment.show(requireActivity().supportFragmentManager, "dialog")
-//                }
-//            }
-//        )
-//        converter.addressFromPoint(
-//            p = p1,
-//            zoom = mapView.map.cameraPosition.zoom.toInt()
-//        )
-    }
+    override fun onMapLongTap(p0: Map, p1: Point) {}
 
     override fun onTap(p0: SearchResultItem): Boolean {
         viewModel.processResultItem(p0)
@@ -287,17 +267,12 @@ class MapFragment() :
         sheetStack.push(R.id.bottom_sheet_parent)
         mapView = binding.mapview
         viewModel = ViewModelProvider(this)[MapViewModel::class.java]
-        mapView.map.move(
-            CameraPosition(Point(55.751574, 37.573856), 11F, 0F, 0F),
-            Animation(Animation.Type.SMOOTH, 0F),
-            null
-        )
+        mapView.map.moveTo(Point(55.751574, 37.573856), 11F)
         setBottomSheetPeekHeight(binding.bottomSheetParent.root)
         mapView.map.logo.apply {
             this.setAlignment(Alignment(HorizontalAlignment.RIGHT, VerticalAlignment.TOP))
         }
         binding.infoC.complaint.listItemSeparator.visibility = View.GONE
-
         searchView = binding.bottomSheetParent.searchView
         searchLayer = SearchFactory.getInstance().createSearchLayer(mapView.mapWindow)
     }
@@ -319,7 +294,7 @@ class MapFragment() :
         }
         binding.fab.setOnClickListener {
             binding.bottomSheetParent.addressView.text.let {
-                if (it.isNotEmpty() && it.isNotBlank()) {
+                if (it.isNotEmpty() && it.isNotBlank() && sheetStack.peek()!! == R.id.map_object_info) {
                     val intent = Intent(requireContext(), CreateComplaintActivity::class.java)
                     intent.apply {
                         putExtra(AddPlacemarkDialog.EXTRA_ADDRESS, it)
@@ -330,7 +305,7 @@ class MapFragment() :
                     }
                     startActivity(intent)
                 } else {
-                    Toast.makeText(requireContext(), "Поле адреса пусто", Toast.LENGTH_SHORT).show()
+                    Toast.makeText(requireContext(), "Поставьте метку", Toast.LENGTH_SHORT).show()
                 }
             }
         }
@@ -396,7 +371,6 @@ class MapFragment() :
             }
             R.id.map_object_info -> {
                 changeFABAnchorTo(R.id.map_object_info)
-//                currentPlacemark = currentPlacemark?.let { mapView.map.mapObjects.addPlacemark(it.geometry, placemarkIcon) }
                 binding.mapObjectInfo.visibility = View.VISIBLE
             }
             R.id.bottom_sheet_parent -> {
