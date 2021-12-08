@@ -93,7 +93,7 @@
                 app:layout_constraintTop_toBottomOf="@+id/Description" />
 
         <Spinner
-                android:entries="@array/SpinnerItems"
+
                 android:id="@+id/Spinner"
                 android:layout_height="40dp"
                 android:layout_marginTop="10dp"

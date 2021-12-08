@@ -3,13 +3,19 @@ package com.example.complamap.model
 import android.util.Log
 import com.yandex.mapkit.GeoObject
 import com.yandex.mapkit.geometry.Point
-import com.yandex.mapkit.search.*
+import com.yandex.mapkit.search.BusinessObjectMetadata
+import com.yandex.mapkit.search.Response
+import com.yandex.mapkit.search.SearchFactory
+import com.yandex.mapkit.search.SearchManager
+import com.yandex.mapkit.search.SearchManagerType
+import com.yandex.mapkit.search.SearchOptions
+import com.yandex.mapkit.search.Session
+import com.yandex.mapkit.search.ToponymObjectMetadata
 import com.yandex.runtime.Error
 
 class PointAddressConverter(
-    searchType: Int
+    private val searchType: Int // Либо GEO(топоним), либо BIZ(организация)
 ) { // На момент создания SearchFactory должна быть инициализирована
-    private val searchType: Int = searchType // Либо GEO(топоним), либо BIZ(организация)
     private var searchSession: Session? = null
     private val searchListener: Session.SearchListener = object : Session.SearchListener {
         override fun onSearchResponse(p0: Response) {

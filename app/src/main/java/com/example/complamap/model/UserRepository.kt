@@ -1,6 +1,7 @@
 package com.example.complamap.model
 
 import android.annotation.SuppressLint
+import android.net.Uri
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.google.firebase.auth.FirebaseAuth
@@ -9,8 +10,10 @@ import com.google.firebase.auth.FirebaseAuthUserCollisionException
 import com.google.firebase.auth.FirebaseAuthWeakPasswordException
 import com.google.firebase.auth.ktx.auth
 import com.google.firebase.firestore.DocumentSnapshot
+import com.google.firebase.firestore.FieldValue
 import com.google.firebase.firestore.FirebaseFirestore
 import com.google.firebase.ktx.Firebase
+import com.google.firebase.storage.FirebaseStorage
 import com.orhanobut.hawk.Hawk
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.tasks.await
@@ -36,7 +39,7 @@ object UserRepository : ViewModel() {
                             email = email,
                             profilePic = null,
                             rating = 0.0,
-                            subs = null,
+                            subs = mutableListOf<String>(),
                             uid = auth.currentUser?.uid
                         )
                         viewModelScope.launch {
@@ -91,7 +94,7 @@ object UserRepository : ViewModel() {
         db.collection("users").document(auth.currentUser!!.uid).set(user)
     }
 
-    private fun putUserToCache(user: User) {
+    fun putUserToCache(user: User) {
         Hawk.put("user", user)
     }
 
@@ -121,5 +124,74 @@ object UserRepository : ViewModel() {
     suspend fun getUserFromDatabase(userId: String): User? {
         val userData = db.collection("users").document(userId).get().await()
         return userData.toObject(User::class.java)
+    }
+
+    fun updateUser(
+        uri: Uri?,
+        username: String,
+        callback: (String) -> Unit
+    ) {
+        val user = UserManager.getCurrentUser()
+        if (uri != null) {
+            val storageRef = FirebaseStorage.getInstance().reference
+            val pictureRef = storageRef.child("profilePics/${user?.uid}")
+
+            val uploadTask = pictureRef.putFile(uri)
+
+            uploadTask.addOnSuccessListener {
+                pictureRef.downloadUrl.addOnSuccessListener {
+                    deleteUserFromCache()
+                    user?.profilePic = it.toString()
+                    user?.username = username
+                    db.collection("users")
+                        .document(user?.uid!!)
+                        .update(
+                            mapOf(
+                                "username" to user.username,
+                                "email" to user.email,
+                                "profilePic" to user.profilePic,
+                                "rating" to user.rating,
+                                "subs" to user.subs,
+                                "uid" to user.uid
+                            )
+                        )
+                    UserManager.setUser(user)
+                    putUserToCache(user)
+                    callback("данные обновлены")
+                }
+            }.addOnFailureListener {
+                callback("ошибка")
+            }
+        } else {
+            deleteUserFromCache()
+            user?.username = username
+            db.collection("users")
+                .document(user?.uid!!)
+                .update(
+                    mapOf(
+                        "username" to user.username,
+                        "email" to user.email,
+                        "profilePic" to user.profilePic,
+                        "rating" to user.rating,
+                        "subs" to user.subs,
+                        "uid" to user.uid
+                    )
+                )
+            UserManager.setUser(user)
+            putUserToCache(user)
+            callback("данные обновлены")
+        }
+    }
+
+    fun addSubsToUser(userId: String, sub: String) {
+        db.collection("users").document(userId).update("subs", FieldValue.arrayUnion(sub))
+    }
+
+    fun removeSubsFromUser(userId: String, sub: String) {
+        db.collection("users").document(userId).update("subs", FieldValue.arrayRemove(sub))
+    }
+
+    fun editRating(userId: String, rating: Double) {
+        db.collection("users").document(userId).update(mapOf("rating" to rating))
     }
 }

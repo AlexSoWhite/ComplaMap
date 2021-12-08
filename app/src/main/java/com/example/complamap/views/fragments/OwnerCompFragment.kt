@@ -35,7 +35,7 @@ class OwnerCompFragment : Fragment() {
             if (currentComplaint != null) {
                 currentComplaint.compId?.let { it -> complaintViewModel.deleteComplaint(it) }
                 Toast.makeText(context, "Удалено", Toast.LENGTH_SHORT).show()
-                (activity as ComplaintActivity).exit()
+                activity?.finish()
             }
         }
         binding.edit.setOnClickListener {

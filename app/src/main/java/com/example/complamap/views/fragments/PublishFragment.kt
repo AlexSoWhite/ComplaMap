@@ -12,12 +12,20 @@ import com.example.complamap.R
 import com.example.complamap.databinding.FragmentPublishBinding
 import com.example.complamap.model.ComplaintManager
 import com.example.complamap.viewmodel.ComplaintViewModel
+import java.util.*
+import kotlin.concurrent.schedule
 
-class PublishFragment(
-    private val uri: Uri?,
-    private val path: String?
-) : Fragment(R.layout.fragment_publish) {
+class PublishFragment : Fragment(R.layout.fragment_publish) {
     private lateinit var binding: FragmentPublishBinding
+
+    companion object {
+        private var uri: Uri? = null
+
+        fun getInstance(uri: Uri?): PublishFragment {
+            this.uri = uri
+            return PublishFragment()
+        }
+    }
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -30,20 +38,19 @@ class PublishFragment(
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        var confirmed = false
 
         binding.Confirm.setOnClickListener {
-            if (!confirmed) {
-                val complaintViewModel = ViewModelProvider(this)[ComplaintViewModel::class.java]
-                complaintViewModel.putComplaintToDatabase(
-                    ComplaintManager.getCurrentComplaint()!!,
-                    uri,
-                    path
-                )
-                confirmed = true
-                Toast.makeText(context, "Опубликовано", Toast.LENGTH_SHORT).show()
-            } else {
-                Toast.makeText(context, "Жалоба уже опубликована", Toast.LENGTH_SHORT).show()
+            binding.Confirm.isEnabled = false
+            val complaintViewModel = ViewModelProvider(this)[ComplaintViewModel::class.java]
+            complaintViewModel.putComplaintToDatabase(
+                ComplaintManager.getCurrentComplaint()!!,
+                uri
+            ) {
+                Toast.makeText(activity, "Опубликовано", Toast.LENGTH_SHORT).show()
+                Timer().schedule(1000) {
+                    activity?.setResult(it)
+                    activity?.finish()
+                }
             }
         }
     }
