@@ -7,6 +7,7 @@ import androidx.lifecycle.viewModelScope
 import com.bumptech.glide.Glide
 import com.example.complamap.R
 import com.example.complamap.model.Comment
+import com.example.complamap.model.ComplaintRepository
 import kotlinx.coroutines.launch
 
 class CommentViewModel: ViewModel() {
@@ -17,6 +18,14 @@ class CommentViewModel: ViewModel() {
                 .load(comment.author!!.profilePic)
                 .placeholder(R.drawable.default_placeholder)
                 .into(container)
+        }
+    }
+    fun addComment(
+        complaintId: String,
+        comment: Comment
+    ) {
+        viewModelScope.launch {
+            ComplaintRepository.addComment(complaintId, comment)
         }
     }
 }

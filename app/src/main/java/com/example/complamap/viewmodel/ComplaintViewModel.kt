@@ -7,6 +7,7 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.bumptech.glide.Glide
 import com.example.complamap.R
+import com.example.complamap.model.Comment
 import com.example.complamap.model.Complaint
 import com.example.complamap.model.ComplaintRepository
 import com.google.firebase.Timestamp
@@ -150,4 +151,5 @@ class ComplaintViewModel : ViewModel() {
             ComplaintRepository.editVotes(complaintId, field, number, member, userId, flag)
         }
     }
+
 }

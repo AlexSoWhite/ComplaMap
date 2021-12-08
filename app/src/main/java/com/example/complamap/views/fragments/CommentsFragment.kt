@@ -48,11 +48,12 @@ class CommentsFragment: Fragment(R.layout.comments_fragment) {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        //TODO забирать комменты из бд
         commentViewModel = ViewModelProvider(this)[CommentViewModel::class.java]
-
         binding.addCommentButton.setOnClickListener {
             if(binding.commentEditText.length() != 0) {
                 val currentComment = Comment(
+                    null,
                     currentComplaint,
                     user,
                     binding.commentEditText.text.toString(),
@@ -61,13 +62,13 @@ class CommentsFragment: Fragment(R.layout.comments_fragment) {
                         Timestamp.now()!!.toDate()
                     ).toString()
                 )
-                currentComplaint!!.comments.add(currentComment)
+                currentComplaint!!.comments.add(currentComment) //хз нужно ли это будет
+                commentViewModel.addComment(currentComplaint.compId.toString(), currentComment)
                 Toast.makeText(context, complaint!!.comments.size.toString(), Toast.LENGTH_SHORT)
                     .show()
             }
             else
                 Toast.makeText(context, "Ведите комментарий", Toast.LENGTH_SHORT).show()
-
             binding.commentEditText.text = null
         }
         binding.commentsRecycler.adapter = CommentAdapter(currentComplaint!!.comments, commentViewModel)
