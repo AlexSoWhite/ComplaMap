@@ -33,10 +33,7 @@ import com.example.complamap.viewmodel.ComplaintViewModel
 import com.example.complamap.views.fragments.AddPlacemarkDialog
 
 class CreateComplaintActivity : AppCompatActivity() {
-    companion object {
-        val categories = mutableListOf<String>()
-    }
-
+    private val categories = mutableListOf<String>()
     // uri for setting image content by setImageUri
     private var tempImageUri: Uri? = null
 
@@ -104,10 +101,11 @@ class CreateComplaintActivity : AppCompatActivity() {
         for (it in Category.values()) {
             categories.add(it.category)
         }
+        val cat: ArrayList<String> = categories as ArrayList<String>
         val adapter: ArrayAdapter<String> = ArrayAdapter<String>(
             this,
             android.R.layout.simple_list_item_1,
-            categories
+            cat
         )
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
         binding.Spinner.setSelection(0)

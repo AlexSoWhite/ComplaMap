@@ -28,13 +28,9 @@ import com.example.complamap.views.fragments.ViewerCompFragment
 import kotlinx.coroutines.launch
 
 class ComplaintActivity : AppCompatActivity() {
-    companion object {
-        val categories = mutableListOf<String>()
-    }
-
+    private val categories = mutableListOf<String>()
     private lateinit var complaintViewModel: ComplaintViewModel
     private lateinit var profileViewModel: ProfileViewModel
-
     private lateinit var binding: ActivityComplaintBinding
     private var currentUser: String? = ""
     private var creator: String = ""
@@ -55,7 +51,7 @@ class ComplaintActivity : AppCompatActivity() {
         for (it in Category.values()) {
             categories.add(it.category)
         }
-
+        val cat: ArrayList<String> = categories as ArrayList<String>
         supportActionBar?.hide()
         binding = DataBindingUtil.setContentView(
             this,
@@ -119,7 +115,7 @@ class ComplaintActivity : AppCompatActivity() {
         val adapter: ArrayAdapter<String> = ArrayAdapter<String>(
             this,
             android.R.layout.simple_list_item_1,
-            categories
+            cat
         )
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
         binding.category.adapter = adapter
