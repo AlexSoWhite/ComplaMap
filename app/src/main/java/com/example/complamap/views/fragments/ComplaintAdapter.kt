@@ -7,6 +7,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
+import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.example.complamap.R
 import com.example.complamap.databinding.ListItemBinding
@@ -60,11 +61,6 @@ class ComplaintAdapter(
                 complaint,
                 imageView
             )
-            if (isLast) {
-                val params = binding.listItem.layoutParams as RecyclerView.LayoutParams
-                params.bottomMargin = 70
-                binding.listItem.layoutParams = params
-            }
             binding.listItem.setOnClickListener {
                 val intent = Intent(context, ComplaintActivity::class.java)
                 ComplaintManager.setComplaint(complaint)
