@@ -19,7 +19,7 @@ class PlacemarkVisitor(
     private val minZoom: Float
     init {
         val outValue = TypedValue()
-        ContextContainer.getContext().resources.getValue(R.dimen.zoom_value, outValue, true)
+        ContextContainer.getContext().resources.getValue(R.dimen.min_zoom, outValue, true)
         minZoom = outValue.float
     }
     override fun onPlacemarkVisited(p0: PlacemarkMapObject) {
