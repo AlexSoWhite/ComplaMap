@@ -8,6 +8,9 @@
                 name="comment"
                 type="com.example.complamap.model.Comment"
                 />
+        <variable
+                name="author"
+                type="com.example.complamap.model.User" />
     </data>
 <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
@@ -31,7 +34,7 @@
             android:textStyle="bold"
             android:textColor="@color/black"
             android:textSize="15sp"
-            android:text='@{"Автор: " + comment.author.username.toString() }'
+            android:text='@{"Автор: " + author.username.toString() }'
             android:layout_marginStart="20dp"
             app:layout_constraintStart_toEndOf="@+id/profilePicture"
             app:layout_constraintTop_toTopOf="parent"
@@ -46,7 +49,7 @@
             android:textStyle="bold"
             android:textColor="@color/black"
             tools:text="(0.0)"
-            android:text='@{"(" + comment.author.rating.toString() +")"}'
+            android:text='@{"(" + author.rating.toString() +")"}'
             app:layout_constraintStart_toEndOf="@+id/userName"
             app:layout_constraintTop_toTopOf="parent" />
 

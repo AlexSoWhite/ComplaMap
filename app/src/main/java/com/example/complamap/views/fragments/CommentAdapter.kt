@@ -11,6 +11,7 @@ import com.example.complamap.R
 import com.example.complamap.databinding.CommentBinding
 import com.example.complamap.model.Comment
 import com.example.complamap.model.ContextContainer
+import com.example.complamap.model.UserRepository
 import com.example.complamap.viewmodel.CommentViewModel
 import com.example.complamap.views.activities.ComplaintActivity
 
@@ -19,15 +20,12 @@ class CommentAdapter (
     private val commentViewModel: CommentViewModel
     ): RecyclerView.Adapter<CommentAdapter.CommentViewHolder>() {
 
-
-
     class CommentViewHolder(
         itemView: View,
         private val commentViewModel: CommentViewModel
     ): RecyclerView.ViewHolder(itemView) {
 
         val binding = CommentBinding.bind(itemView)
-
 
         var profilePicture: ImageView? = null
         var userName: TextView? = null
@@ -50,6 +48,9 @@ class CommentAdapter (
                 binding.profilePicture
             )
             binding.comment = comment
+            commentViewModel.loadUserInfo(comment.authorId!!) {
+                binding.author = it
+            }
         }
     }
 

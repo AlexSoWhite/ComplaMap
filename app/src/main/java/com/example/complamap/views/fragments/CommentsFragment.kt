@@ -53,10 +53,10 @@ class CommentsFragment: Fragment(R.layout.comments_fragment) {
         binding.addCommentButton.setOnClickListener {
             if(binding.commentEditText.length() != 0) {
                 val currentComment = Comment(
-                    null,
-                    user,
-                    binding.commentEditText.text.toString(),
-                    android.text.format.DateFormat.format(
+                    complaint?.compId,
+                    authorId = user?.uid,
+                    comment_text = binding.commentEditText.text.toString(),
+                    date = android.text.format.DateFormat.format(
                         "dd.MM.yyyy",
                         Timestamp.now()!!.toDate()
                     ).toString()
@@ -70,7 +70,9 @@ class CommentsFragment: Fragment(R.layout.comments_fragment) {
                 Toast.makeText(context, "Ведите комментарий", Toast.LENGTH_SHORT).show()
             binding.commentEditText.text = null
         }
-        binding.commentsRecycler.adapter = CommentAdapter(currentComplaint!!.comments, commentViewModel)
+        commentViewModel.getComments { list ->
+            binding.commentsRecycler.adapter = CommentAdapter(list, commentViewModel)
+        }
         binding.commentsRecycler.layoutManager = LinearLayoutManager(this.context)
     }
 }

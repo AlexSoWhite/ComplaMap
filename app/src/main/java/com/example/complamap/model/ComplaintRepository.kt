@@ -2,8 +2,13 @@ package com.example.complamap.model
 
 import android.annotation.SuppressLint
 import androidx.lifecycle.ViewModel
+import androidx.lifecycle.viewModelScope
+import com.google.android.gms.tasks.Task
+import com.google.firebase.firestore.CollectionReference
 import com.google.firebase.firestore.FieldValue
 import com.google.firebase.firestore.FirebaseFirestore
+import com.google.firebase.firestore.QuerySnapshot
+import kotlinx.coroutines.launch
 
 object ComplaintRepository : ViewModel() {
 
@@ -101,12 +106,48 @@ object ComplaintRepository : ViewModel() {
             )
         }
     }
+
     fun addComment(
         complaintId: String,
         comment: Comment
     ) {
         db.collection("comment").add(comment).addOnSuccessListener { docRef ->
-            db.collection("comment").document(docRef.id).update("author", complaintId)
+            db.collection("complaint")
+                .document(complaintId)
+                .update("comments",FieldValue.arrayUnion(docRef.id))
+        }
+    }
+
+    fun getComments(callback: (List<Comment>) -> Unit) {
+        val list: List<Comment> = listOf()
+        val ids = ComplaintManager.getCurrentComplaint().co
+        viewModelScope.launch {
+            getCommentCollection()
+                .get("")
+                .addOnCompleteListener {
+                    completeListener(it, callback)
+                }
+        }
+        db.collection("complaint")
+            .get
+        db.collection("comment")
+            .orderBy("date")
+    }
+
+    fun getCommentCollection() : CollectionReference {
+        return db.collection("comment")
+    }
+
+    private fun completeListener(
+        task: Task<QuerySnapshot>,
+        callback: (List<Comment>) -> Unit
+    ) {
+        if (task.isSuccessful) {
+            val list: List<Comment> = task
+                .result
+                ?.toObjects(Comment::class.java)
+                    as List<Comment>
+            callback(list)
         }
     }
 }
