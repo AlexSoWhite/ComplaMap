@@ -1,19 +1,34 @@
 package com.example.complamap.views.fragments
 
-import android.media.Image
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.TextView
+import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.RecyclerView
 import com.example.complamap.R
+import com.example.complamap.databinding.CommentBinding
 import com.example.complamap.model.Comment
+import com.example.complamap.model.ContextContainer
+import com.example.complamap.viewmodel.CommentViewModel
+import com.example.complamap.views.activities.ComplaintActivity
 
-class CommentAdapter (private val comments: List<Comment>?):
-    RecyclerView.Adapter<CommentAdapter.MyViewHolder>()
-{
-    class MyViewHolder(itemView: View): RecyclerView.ViewHolder(itemView) {
+class CommentAdapter (
+    private val comments: List<Comment>?,
+    private val commentViewModel: CommentViewModel
+    ): RecyclerView.Adapter<CommentAdapter.CommentViewHolder>() {
+
+
+
+    class CommentViewHolder(
+        itemView: View,
+        private val commentViewModel: CommentViewModel
+    ): RecyclerView.ViewHolder(itemView) {
+
+        val binding = CommentBinding.bind(itemView)
+
+
         var profilePicture: ImageView? = null
         var userName: TextView? = null
         var rating: TextView? = null
@@ -29,24 +44,29 @@ class CommentAdapter (private val comments: List<Comment>?):
         }
 
         fun bind(comment: Comment){
-
+            commentViewModel.loadAuthorProfilePic(
+                ContextContainer.getContext(),
+                comment,
+                binding.profilePicture
+            )
+            binding.comment = comment
         }
     }
 
-    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): MyViewHolder {
-    val itemView =
-        LayoutInflater.from(parent.context)
+    override fun onCreateViewHolder(
+        parent: ViewGroup,
+        viewType: Int): CommentViewHolder {
+        val itemView =
+            LayoutInflater.from(parent.context)
             .inflate(R.layout.comment, parent, false)
-        return MyViewHolder(itemView)
+        return CommentViewHolder(itemView, commentViewModel)
     }
 
     override fun getItemCount(): Int {
-        if(comments?.isEmpty()!!)
-            return 0
-        return comments?.size
+        return comments!!.size
     }
 
-    override fun onBindViewHolder(holder: MyViewHolder, position: Int) {
-       // holder.bind(comments[position])
+    override fun onBindViewHolder(holder: CommentViewHolder, position: Int) {
+        holder.bind(comments!![position])
     }
 }

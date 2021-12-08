@@ -101,4 +101,12 @@ object ComplaintRepository : ViewModel() {
             )
         }
     }
+    fun addComment(
+        complaintId: String,
+        comment: Comment
+    ) {
+        db.collection("comment").add(comment).addOnSuccessListener { docRef ->
+            db.collection("comment").document(docRef.id).update("author", complaintId)
+        }
+    }
 }
