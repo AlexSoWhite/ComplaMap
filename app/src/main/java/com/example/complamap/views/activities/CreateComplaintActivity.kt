@@ -30,6 +30,7 @@ import com.example.complamap.model.ComplaintManager
 import com.example.complamap.model.TakePhotoContract
 import com.example.complamap.model.UserManager
 import com.example.complamap.viewmodel.ComplaintViewModel
+import com.example.complamap.viewmodel.MapViewModel
 import com.example.complamap.views.fragments.AddPlacemarkDialog
 import com.google.firebase.firestore.GeoPoint
 

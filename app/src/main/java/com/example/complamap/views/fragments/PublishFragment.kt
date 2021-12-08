@@ -47,6 +47,7 @@ class PublishFragment : Fragment(R.layout.fragment_publish) {
                 uri
             ) {
                 Toast.makeText(activity, "Опубликовано", Toast.LENGTH_SHORT).show()
+                ComplaintManager.justPublished = true
                 Timer().schedule(1000) {
                     activity?.setResult(it)
                     activity?.finish()
