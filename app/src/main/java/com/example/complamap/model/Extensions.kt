@@ -11,7 +11,6 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.Observer
 import com.google.firebase.firestore.GeoPoint
 import com.yandex.mapkit.geometry.Point
-import com.yandex.mapkit.map.VisibleRegion
 
 fun <T> LiveData<T>.observeOnce(lifecycleOwner: LifecycleOwner, observer: Observer<T>) {
     observe(

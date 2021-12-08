@@ -2,7 +2,6 @@ package com.example.complamap.views.fragments
 
 import android.content.Intent
 import android.os.Bundle
-import android.util.Log
 import android.util.TypedValue
 import android.view.Gravity
 import android.view.LayoutInflater
@@ -30,7 +29,6 @@ import com.example.complamap.viewmodel.MapViewModel
 import com.example.complamap.views.activities.ComplaintActivity
 import com.example.complamap.views.activities.CreateComplaintActivity
 import com.google.android.material.bottomsheet.BottomSheetBehavior
-import com.yandex.mapkit.Animation
 import com.yandex.mapkit.MapKitFactory
 import com.yandex.mapkit.geometry.Point
 import com.yandex.mapkit.layers.GeoObjectTapEvent
@@ -150,9 +148,12 @@ class MapFragment() :
                     addTapListener(this@MapFragment)
                 }; null
             }
-            mapView.map.moveIfNotGreater(Point(
-                currentComplaint!!.geometry.latitude,
-                currentComplaint!!.geometry.longitude))
+            mapView.map.moveIfNotGreater(
+                Point(
+                    currentComplaint!!.geometry.latitude,
+                    currentComplaint!!.geometry.longitude
+                )
+            )
             sheetStack.clear()
             sheetStack.push(R.id.bottom_sheet_parent)
             binding.info.root.visibility = View.GONE
@@ -243,8 +244,8 @@ class MapFragment() :
         }
         if (binding.mapObjectInfo.visibility == View.GONE)
             moveToNextSheet(R.id.map_object_info)
-            currentPlacemark = currentPlacemark?.let { mapView.map.mapObjects.remove(it); null }
-            currentPlacemark = mapView.map.mapObjects.addPlacemark(
+        currentPlacemark = currentPlacemark?.let { mapView.map.mapObjects.remove(it); null }
+        currentPlacemark = mapView.map.mapObjects.addPlacemark(
             p0.geoObject.geometry[0].point!!,
             placemarkIcon
         )
