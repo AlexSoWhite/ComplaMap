@@ -16,7 +16,7 @@ import com.example.complamap.viewmodel.CommentViewModel
 import com.example.complamap.views.activities.ComplaintActivity
 
 class CommentAdapter (
-    private val comments: List<Comment>?,
+    private val comments: List<Comment>,
     private val commentViewModel: CommentViewModel
     ): RecyclerView.Adapter<CommentAdapter.CommentViewHolder>() {
 

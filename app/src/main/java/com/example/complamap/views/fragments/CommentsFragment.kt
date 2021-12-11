@@ -50,6 +50,7 @@ class CommentsFragment: Fragment(R.layout.comments_fragment) {
         super.onViewCreated(view, savedInstanceState)
         //TODO забирать комменты из бд
         commentViewModel = ViewModelProvider(this)[CommentViewModel::class.java]
+        updateComments(currentComplaint!!.compId!!)
         binding.addCommentButton.setOnClickListener {
             if(binding.commentEditText.length() != 0) {
                 val currentComment = Comment(
@@ -59,20 +60,23 @@ class CommentsFragment: Fragment(R.layout.comments_fragment) {
                     date = android.text.format.DateFormat.format(
                         "dd.MM.yyyy",
                         Timestamp.now()!!.toDate()
-                    ).toString()
+                    ).toString(),
+                   // Timestamp.now()
                 )
-                currentComplaint!!.comments.add(currentComment) //хз нужно ли это будет
-                commentViewModel.addComment(currentComplaint.compId.toString(), currentComment)
-                Toast.makeText(context, complaint!!.comments.size.toString(), Toast.LENGTH_SHORT)
-                    .show()
+                commentViewModel.addComment(currentComplaint!!.compId!!, currentComment)
+
             }
             else
                 Toast.makeText(context, "Ведите комментарий", Toast.LENGTH_SHORT).show()
             binding.commentEditText.text = null
-        }
-        commentViewModel.getComments { list ->
-            binding.commentsRecycler.adapter = CommentAdapter(list, commentViewModel)
+            updateComments(currentComplaint!!.compId!!)
         }
         binding.commentsRecycler.layoutManager = LinearLayoutManager(this.context)
+    }
+
+    private fun updateComments(complaintId: String){
+        commentViewModel.getComments(complaintId){ list->
+            binding.commentsRecycler.adapter = CommentAdapter(list, commentViewModel)
+        }
     }
 }

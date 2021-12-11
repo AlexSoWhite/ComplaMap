@@ -40,12 +40,11 @@ class CommentViewModel: ViewModel() {
     }
 
     fun getComments(
+        complaintId: String,
         callback: (List<Comment>) -> Unit
     ) {
         viewModelScope.launch {
-            ComplaintRepository.getComments {
-                callback(it)
-            }
+            ComplaintRepository.getComments(complaintId, callback)
         }
     }
 }

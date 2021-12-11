@@ -70,7 +70,8 @@
             android:hint="введите комментарий..."
             tools:text="Comment Comment Comment Comment Comment Comment Comment Comment Comment Comment Comment Comment Comment Comment Comment Comment"
             android:layout_height="wrap_content"
-            android:textSize="15sp"
+            android:textSize="20sp"
+            android:textColor="@color/black"
             android:text='@{comment.comment_text}'
             app:layout_constraintTop_toBottomOf="@+id/profilePicture"
             app:layout_constraintEnd_toEndOf="parent"

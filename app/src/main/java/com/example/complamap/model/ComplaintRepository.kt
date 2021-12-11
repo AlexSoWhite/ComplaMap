@@ -111,30 +111,38 @@ object ComplaintRepository : ViewModel() {
         complaintId: String,
         comment: Comment
     ) {
-        db.collection("comment").add(comment).addOnSuccessListener { docRef ->
-            db.collection("complaint")
-                .document(complaintId)
-                .update("comments",FieldValue.arrayUnion(docRef.id))
-        }
+        db.collection("comment").add(comment)
+            .addOnSuccessListener { docRef ->
+                db.collection("comment").document(docRef.id).update("complaintId", complaintId)
+            }
     }
 
-    fun getComments(callback: (List<Comment>) -> Unit) {
-        val list: List<Comment> = listOf()
-        val ids = ComplaintManager.getCurrentComplaint().co
+
+    fun sortByTimestamp(
+       list: List<Comment>
+    ){
+        list.sortedBy { it.timestamp }
+    }
+
+    fun getComments(
+        complaintId: String,
+        callback: (List<Comment>) -> Unit
+    ) {
+
         viewModelScope.launch {
+           lateinit var commentsList: List<Comment>
             getCommentCollection()
-                .get("")
-                .addOnCompleteListener {
-                    completeListener(it, callback)
-                }
+                .whereEqualTo("complaintId", complaintId)
+                //.orderBy("timestamp")
+                .get()
+                   .addOnCompleteListener {
+                       completeListener(it, callback)
+                  }
+            //callback(commentsList.sortedBy { it.timestamp })
         }
-        db.collection("complaint")
-            .get
-        db.collection("comment")
-            .orderBy("date")
     }
 
-    fun getCommentCollection() : CollectionReference {
+    fun getCommentCollection(): CollectionReference {
         return db.collection("comment")
     }
 
@@ -147,7 +155,7 @@ object ComplaintRepository : ViewModel() {
                 .result
                 ?.toObjects(Comment::class.java)
                     as List<Comment>
-            callback(list)
+            callback(list.sortedBy { it.timestamp }) //колбэкаем сортированный здесь
         }
     }
 }
