@@ -34,7 +34,9 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toBottomOf="@id/filter_header"
-            android:id="@+id/filter_list"/>
+            android:id="@+id/filter_list"
+            android:paddingBottom="100dp"
+            android:clipToPadding="false"/>
 
 </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>
