@@ -4,7 +4,6 @@ import android.app.Activity
 import android.content.Context
 import android.content.Intent
 import android.net.Uri
-import android.os.Build
 import android.os.Bundle
 import android.transition.TransitionManager
 import android.view.Gravity
@@ -19,7 +18,6 @@ import android.widget.PopupWindow
 import android.widget.RadioButton
 import android.widget.Toast
 import androidx.activity.result.contract.ActivityResultContracts
-import androidx.annotation.RequiresApi
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.ViewModelProvider
 import com.example.complamap.R
@@ -62,7 +60,6 @@ class CreateComplaintActivity : AppCompatActivity() {
         }
     }
 
-    @RequiresApi(Build.VERSION_CODES.M)
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         supportActionBar?.hide()
@@ -80,8 +77,10 @@ class CreateComplaintActivity : AppCompatActivity() {
         binding.RootFrame.foreground.alpha = 0
 
         binding.AddButton.setOnClickListener { // обработка нажатия на кнопку внизу
-            if (binding.Address.length() == 0) {
+            if (binding.Address.text.isEmpty() || binding.Address.text.isBlank()) {
                 Toast.makeText(applicationContext, "Введите адрес", Toast.LENGTH_SHORT).show()
+            } else if (binding.Description.text.isEmpty() || binding.Description.text.isBlank()) {
+                Toast.makeText(applicationContext, "Введите описание", Toast.LENGTH_SHORT).show()
             } else {
                 binding.RootFrame.foreground.alpha = 50
                 binding.Address.isEnabled = false
@@ -183,7 +182,6 @@ class CreateComplaintActivity : AppCompatActivity() {
                     } else {
                         intent.putExtra("noPhoto", true)
                     }
-//                    startActivityForResult(intent, 1)
                     resultLauncher.launch(intent)
                     popupWindow.dismiss()
                 }
