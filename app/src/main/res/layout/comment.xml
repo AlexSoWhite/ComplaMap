@@ -19,13 +19,17 @@
         android:padding="10dp"
         >
 
-    <ImageView
+    <com.google.android.material.imageview.ShapeableImageView
+            app:shapeAppearanceOverlay="@style/circleImageView"
+            android:adjustViewBounds="true"
+            android:scaleType="centerCrop"
             android:layout_width="50dp"
             android:layout_height="50dp"
             tools:src="@drawable/photo"
             app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            android:id="@+id/profilePicture" />
+            android:id="@+id/profilePicture"
+            />
 
     <TextView
             android:layout_width="wrap_content"
@@ -34,7 +38,7 @@
             android:textStyle="bold"
             android:textColor="@color/black"
             android:textSize="15sp"
-            android:text='@{"Автор: " + author.username.toString() }'
+            android:text='@{author.username.toString()}'
             android:layout_marginStart="20dp"
             app:layout_constraintStart_toEndOf="@+id/profilePicture"
             app:layout_constraintTop_toTopOf="parent"
