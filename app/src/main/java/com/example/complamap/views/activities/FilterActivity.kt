@@ -29,7 +29,8 @@ class FilterActivity : AppCompatActivity() {
         filters.layoutManager = LinearLayoutManager(this)
         val list = mutableListOf(
             "Сбросить фильтры",
-            "Мои жалобы"
+            "Мои жалобы",
+            "Мои подписки"
         )
 
         enumValues<Category>().forEach {
@@ -38,15 +39,21 @@ class FilterActivity : AppCompatActivity() {
 
         filters.adapter = FilterAdapter(list) {
             when (it) {
-                "Мои жалобы" -> {
-                    val data = Intent()
-                    data.putExtra("category", "")
-                    setResult(Activity.RESULT_OK, data)
-                    finish()
-                }
                 "Сбросить фильтры" -> {
                     val data = Intent()
                     data.putExtra("category", "drop")
+                    setResult(Activity.RESULT_OK, data)
+                    finish()
+                }
+                "Мои жалобы" -> {
+                    val data = Intent()
+                    data.putExtra("category", "mine")
+                    setResult(Activity.RESULT_OK, data)
+                    finish()
+                }
+                "Мои подписки" -> {
+                    val data = Intent()
+                    data.putExtra("category", "followers")
                     setResult(Activity.RESULT_OK, data)
                     finish()
                 }

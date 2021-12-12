@@ -1,7 +1,10 @@
 package com.example.complamap.views.fragments
 
 import android.os.Bundle
-import android.view.*
+import android.view.KeyEvent
+import android.view.LayoutInflater
+import android.view.View
+import android.view.ViewGroup
 import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
@@ -10,6 +13,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.example.complamap.R
 import com.example.complamap.databinding.FragmentListBinding
 import com.example.complamap.model.FilterContract
+import com.example.complamap.model.UserManager
 import com.example.complamap.viewmodel.ListViewModel
 
 class ListFragment : Fragment(R.layout.fragment_list) {
@@ -33,6 +37,10 @@ class ListFragment : Fragment(R.layout.fragment_list) {
         if (it != null) {
             if (it.toString() == "drop") {
                 updateList(null)
+            } else if (it.toString() == "mine") {
+                updateList(ListViewModel.Filter("creator", UserManager.getCurrentUser()?.uid))
+            } else if (it.toString() == "followers") {
+                updateList(ListViewModel.Filter("followers", UserManager.getCurrentUser()?.uid))
             } else {
                 updateList(ListViewModel.Filter("category", it.toString()))
             }

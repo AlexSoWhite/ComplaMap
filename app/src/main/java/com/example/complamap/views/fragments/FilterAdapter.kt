@@ -13,7 +13,6 @@ class FilterAdapter(
     private val callback: (String) -> Unit
 ) : RecyclerView.Adapter<FilterAdapter.FilterViewHolder>() {
 
-
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): FilterViewHolder {
         val view = LayoutInflater.from(parent.context).inflate(R.layout.filter_item, parent, false)
         return FilterViewHolder(view)

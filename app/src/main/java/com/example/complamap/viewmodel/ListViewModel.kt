@@ -18,6 +18,13 @@ class ListViewModel : ViewModel() {
         when {
             filter == null -> ListRepository.getComplaintsWithNoFilter(callback)
 
+            filter!!.value == null -> callback(listOf())
+
+            filter!!.key == "followers" -> ListRepository.getComplaintsWithArrayContainsFilter(
+                this.filter!!,
+                callback
+            )
+
             filter!!.value == "default" -> ListRepository.getComplaintsWithDefaultFilter(callback)
 
             else -> ListRepository.getComplaintsWithEqualFilter(this.filter!!, callback)
@@ -41,5 +48,5 @@ class ListViewModel : ViewModel() {
         return this.filter
     }
 
-    data class Filter(val key: String, val value: Any)
+    data class Filter(val key: String, val value: Any?)
 }

@@ -44,6 +44,20 @@ object ListRepository : ViewModel() {
         }
     }
 
+    fun getComplaintsWithArrayContainsFilter(
+        filter: ListViewModel.Filter,
+        callback: (List<Complaint>) -> Unit
+    ) {
+        viewModelScope.launch {
+            getComplaintCollection()
+                .whereArrayContains(filter.key, filter.value!!)
+                .get()
+                .addOnCompleteListener {
+                    completeListener(it, callback)
+                }
+        }
+    }
+
     fun getComplaintsWithNoFilter(
         callback: (List<Complaint>) -> Unit
     ) {
@@ -69,7 +83,7 @@ object ListRepository : ViewModel() {
                 .result
                 ?.toObjects(Complaint::class.java)
                 as List<Complaint>
-            callback(list)
+            callback(list.sortedByDescending { it.creation_date })
         }
     }
 }
