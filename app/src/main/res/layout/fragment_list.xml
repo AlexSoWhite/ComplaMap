@@ -35,7 +35,7 @@
                     android:layout_marginStart="40dp"
                     android:layout_width="260dp"
                     android:layout_height="wrap_content"
-                    android:hint="Поиск жалобы"
+                    android:hint="@string/complaintSearch"
                     android:backgroundTint="@android:color/transparent" />
 
             <ImageView

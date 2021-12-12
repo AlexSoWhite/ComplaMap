@@ -29,8 +29,6 @@ class ListFragment : Fragment(R.layout.fragment_list) {
     private lateinit var recycler: RecyclerView
     private var isFilterShowing = false
     private var searchFL = true
-    private val currFilterKey: MutableMap<String, String> = mutableMapOf("key" to "default")
-    private val currFilterValue: MutableMap<String, Any> = mutableMapOf("value" to "default")
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -112,8 +110,6 @@ class ListFragment : Fragment(R.layout.fragment_list) {
 
         bindingFilter.dismissFilters.setOnClickListener {
             updateList(null)
-            currFilterKey["key"] = "default"
-            currFilterValue["value"] = "default"
             popupWindow.dismiss()
         }
 
@@ -152,8 +148,6 @@ class ListFragment : Fragment(R.layout.fragment_list) {
 
     private fun search(key: String, value: Any, flag: Boolean) {
         updateList(ListViewModel.Filter(key, value))
-        currFilterKey["key"] = key
-        currFilterValue["value"] = value
         if (flag) {
             binding.searchButton.setImageResource(R.drawable.ic_baseline_search_off_24)
         } else {
@@ -166,20 +160,5 @@ class ListFragment : Fragment(R.layout.fragment_list) {
         val inputMethodManager = getSystemService(Activity.INPUT_METHOD_SERVICE)
             as InputMethodManager
         inputMethodManager.hideSoftInputFromWindow(view.windowToken, 0)
-    }
-
-    override fun onResume() {
-        super.onResume()
-        updateList(
-            currFilterValue["value"]
-                ?.let {
-                    currFilterKey["key"]?.let { it1 ->
-                        ListViewModel.Filter(
-                            it1,
-                            it
-                        )
-                    }
-                }
-        )
     }
 }

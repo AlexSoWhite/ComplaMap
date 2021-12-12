@@ -20,25 +20,28 @@ object ListRepository : ViewModel() {
         filter: ListViewModel.Filter,
         callback: (List<Complaint>) -> Unit
     ) {
-        if (filter.key == "address") {
-            viewModelScope.launch {
-                getComplaintCollection()
-                    .whereGreaterThanOrEqualTo(filter.key, filter.value)
-                    .whereLessThanOrEqualTo(filter.key, filter.value.toString() + "\uf8ff")
-                    .get()
-                    .addOnCompleteListener {
-                        completeListener(it, callback)
-                    }
-            }
-        } else {
-            viewModelScope.launch {
-                getComplaintCollection()
-                    .whereEqualTo(filter.key, filter.value)
-                    .get()
-                    .addOnCompleteListener {
-                        completeListener(it, callback)
-                    }
-            }
+        viewModelScope.launch {
+            getComplaintCollection()
+                .whereEqualTo(filter.key, filter.value)
+                .get()
+                .addOnCompleteListener {
+                    completeListener(it, callback)
+                }
+        }
+    }
+
+    fun getComplaintsWithAddressFilter(
+        filter: ListViewModel.Filter,
+        callback: (List<Complaint>) -> Unit
+    ) {
+        viewModelScope.launch {
+            getComplaintCollection()
+                .whereGreaterThanOrEqualTo(filter.key, filter.value)
+                .whereLessThanOrEqualTo(filter.key, filter.value.toString() + "\uf8ff")
+                .get()
+                .addOnCompleteListener {
+                    completeListener(it, callback)
+                }
         }
     }
 

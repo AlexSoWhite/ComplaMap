@@ -1,10 +1,5 @@
 <resources>
     <string name="app_name">ComplaMap</string>
-    <string-array name="SpinnerItems">
-        <item>Транспорт</item>
-        <item>Категория 2</item>
-        <item>Категория 3</item>
-    </string-array>
 
     <string name="MapKitApi_Key">e0449f31-d8b1-4265-8719-1411e95ea9ed</string>
     <string name="search_hint">Поиск места...</string>
@@ -18,13 +13,6 @@
     <string name="nProfile">Профиль</string>
     <string name="helpStr">Как я могу помочь?</string>
     <string name="send">отправить</string>
-    <string-array name="sampleComplains">
-        <item name = "Жалоба 1"/>
-        <item name = "Жалоба 2"/>
-        <item name = "Жалоба 3"/>
-        <item name = "Жалоба 4"/>
-        <item name = "Жалоба 5"/>
-    </string-array>
     <string name="creator_info">%1$s (%2$s)</string>
     <string name="author">"автор: "</string>
     <string name="anon">Анонимно</string>
@@ -43,6 +31,7 @@
     <string name="delete_profile">удалить профиль</string>
     <string name="logOut">Выход</string>
     <string name="follow">отслеживать</string>
+    <string name="complaintSearch">Поиск жалобы</string>
 
     <string-array name="address_hints">
         <item>Россия, </item>
