@@ -52,19 +52,17 @@
                 android:layout_height="wrap_content"
                 app:layout_constraintStart_toEndOf="@+id/appr_wrap"
                 app:layout_constraintTop_toTopOf="parent"
-                android:layout_marginStart="30dp"
+                android:layout_marginStart="40dp"
                 android:id="@+id/rej_wrap">
 
             <Button
                     android:id="@+id/reject"
                     android:layout_height="30dp"
                     android:layout_width="wrap_content"
-
                     app:backgroundTint="@null"
                     android:backgroundTint="@color/warning"
                     app:layout_constraintTop_toTopOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
-
                     app:icon="@drawable/ic_baseline_arrow_downward_24"
                     style="@style/Widget.App.Button.OutlinedButton.IconOnly"
                     app:iconTint="@color/icon"
@@ -88,9 +86,11 @@
                 android:focusable="true"
                 android:id="@+id/follow"
                 android:layout_height="30dp"
-                android:layout_width="wrap_content"
+                android:layout_width="0dp"
+                android:layout_marginStart="40dp"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintTop_toTopOf="parent">
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintStart_toEndOf="@+id/rej_wrap">
 
             <TextView
                     android:id="@+id/btn_text"
