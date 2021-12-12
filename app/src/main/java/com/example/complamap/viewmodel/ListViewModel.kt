@@ -27,6 +27,11 @@ class ListViewModel : ViewModel() {
 
             filter!!.value == "default" -> ListRepository.getComplaintsWithDefaultFilter(callback)
 
+            filter!!.key == "address" -> ListRepository.getComplaintsWithAddressFilter(
+                this.filter!!,
+                callback
+            )
+
             else -> ListRepository.getComplaintsWithEqualFilter(this.filter!!, callback)
         }
     }

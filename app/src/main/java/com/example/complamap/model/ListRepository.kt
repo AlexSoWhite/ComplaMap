@@ -30,6 +30,21 @@ object ListRepository : ViewModel() {
         }
     }
 
+    fun getComplaintsWithAddressFilter(
+        filter: ListViewModel.Filter,
+        callback: (List<Complaint>) -> Unit
+    ) {
+        viewModelScope.launch {
+            getComplaintCollection()
+                .whereGreaterThanOrEqualTo(filter.key, filter.value!!)
+                .whereLessThanOrEqualTo(filter.key, filter.value.toString() + "\uf8ff")
+                .get()
+                .addOnCompleteListener {
+                    completeListener(it, callback)
+                }
+        }
+    }
+
     fun getComplaintsWithDefaultFilter(
         callback: (List<Complaint>) -> Unit
     ) {
