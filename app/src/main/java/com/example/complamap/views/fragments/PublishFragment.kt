@@ -12,6 +12,8 @@ import com.example.complamap.R
 import com.example.complamap.databinding.FragmentPublishBinding
 import com.example.complamap.model.ComplaintManager
 import com.example.complamap.viewmodel.ComplaintViewModel
+import java.util.*
+import kotlin.concurrent.schedule
 
 class PublishFragment : Fragment(R.layout.fragment_publish) {
     private lateinit var binding: FragmentPublishBinding
@@ -36,20 +38,20 @@ class PublishFragment : Fragment(R.layout.fragment_publish) {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        var confirmed = false
 
         binding.Confirm.setOnClickListener {
-            if (!confirmed) {
-                val complaintViewModel = ViewModelProvider(this)[ComplaintViewModel::class.java]
-                complaintViewModel.putComplaintToDatabase(
-                    ComplaintManager.getCurrentComplaint()!!,
-                    uri
-                ) {
-                    confirmed = true
-                    Toast.makeText(activity, "Опубликовано", Toast.LENGTH_SHORT).show()
+            binding.Confirm.isEnabled = false
+            val complaintViewModel = ViewModelProvider(this)[ComplaintViewModel::class.java]
+            complaintViewModel.putComplaintToDatabase(
+                ComplaintManager.getCurrentComplaint()!!,
+                uri
+            ) {
+                Toast.makeText(activity, "Опубликовано", Toast.LENGTH_SHORT).show()
+                ComplaintManager.justPublished = true
+                Timer().schedule(1000) {
+                    activity?.setResult(it)
+                    activity?.finish()
                 }
-            } else {
-                Toast.makeText(activity, "Жалоба уже опубликована", Toast.LENGTH_SHORT).show()
             }
         }
     }

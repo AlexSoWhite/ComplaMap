@@ -1,5 +1,6 @@
 package com.example.complamap.views.activities
 
+import android.app.Activity
 import android.content.Context
 import android.content.Intent
 import android.net.Uri
@@ -17,6 +18,7 @@ import android.widget.ImageButton
 import android.widget.PopupWindow
 import android.widget.RadioButton
 import android.widget.Toast
+import androidx.activity.result.contract.ActivityResultContracts
 import androidx.annotation.RequiresApi
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.ViewModelProvider
@@ -29,6 +31,7 @@ import com.example.complamap.model.TakePhotoContract
 import com.example.complamap.model.UserManager
 import com.example.complamap.viewmodel.ComplaintViewModel
 import com.example.complamap.views.fragments.AddPlacemarkDialog
+import com.google.firebase.firestore.GeoPoint
 
 class CreateComplaintActivity : AppCompatActivity() {
     companion object {
@@ -50,6 +53,14 @@ class CreateComplaintActivity : AppCompatActivity() {
                 binding.deleteImage.visibility = View.VISIBLE
             }
         }
+
+    private var resultLauncher = registerForActivityResult(
+        ActivityResultContracts.StartActivityForResult()
+    ) { result ->
+        if (result.resultCode == Activity.RESULT_OK) {
+            finish()
+        }
+    }
 
     @RequiresApi(Build.VERSION_CODES.M)
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -150,6 +161,10 @@ class CreateComplaintActivity : AppCompatActivity() {
                             category = binding.Spinner.selectedItem.toString(),
                             description = binding.Description.text.toString(),
                             address = binding.Address.text.toString(),
+                            location = GeoPoint(
+                                intent.getDoubleExtra(AddPlacemarkDialog.EXTRA_LATITUDE, 0.0),
+                                intent.getDoubleExtra(AddPlacemarkDialog.EXTRA_LONGITUDE, 0.0)
+                            ),
                             creation_day = "",
                             status = "Принята",
                             followers = mutableListOf(),
@@ -168,7 +183,8 @@ class CreateComplaintActivity : AppCompatActivity() {
                     } else {
                         intent.putExtra("noPhoto", true)
                     }
-                    startActivity(intent)
+//                    startActivityForResult(intent, 1)
+                    resultLauncher.launch(intent)
                     popupWindow.dismiss()
                 }
             }

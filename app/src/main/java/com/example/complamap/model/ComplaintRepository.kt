@@ -1,6 +1,7 @@
 package com.example.complamap.model
 
 import android.annotation.SuppressLint
+import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.google.android.gms.tasks.Task
@@ -26,9 +27,9 @@ object ComplaintRepository : ViewModel() {
         }
     }
 
-    fun addPhoto(compId: String, url: String, callback: (String) -> Unit) {
+    fun addPhoto(compId: String, url: String, callback: (Int) -> Unit) {
         db.collection("complaint").document(compId).update("photo", url).addOnSuccessListener {
-            callback("Опубликовано")
+            callback(AppCompatActivity.RESULT_OK)
         }
     }
 
