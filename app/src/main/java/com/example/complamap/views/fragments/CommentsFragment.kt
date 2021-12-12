@@ -27,7 +27,7 @@ class CommentsFragment : Fragment(R.layout.comments_fragment) {
         private var user: User? = null
         private var complaint: Complaint? = null
 
-        fun getInstance(user: User, complaint: Complaint): CommentsFragment {
+        fun getInstance(user: User?, complaint: Complaint?): CommentsFragment {
             this.user = user
             this.complaint = complaint
             return CommentsFragment()
@@ -45,30 +45,40 @@ class CommentsFragment : Fragment(R.layout.comments_fragment) {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        // TODO забирать комменты из бд
         commentViewModel = ViewModelProvider(this)[CommentViewModel::class.java]
         updateComments(currentComplaint!!.compId!!)
         binding.addCommentButton.setOnClickListener {
-            if (binding.commentEditText.length() != 0) {
-                val currentComment = Comment(
-                    complaint?.compId,
-                    authorId = user?.uid,
-                    comment_text = binding.commentEditText.text.toString(),
-                    date = android.text.format.DateFormat.format(
-                        "dd.MM.yyyy",
-                        Timestamp.now().toDate()
-                    ).toString()
-                )
-                commentViewModel.addComment(currentComplaint.compId!!, currentComment)
+            if (user != null) {
+                if (
+                    binding.commentEditText.text.isNotBlank() &&
+                    binding.commentEditText.text.isNotEmpty()
+                ) {
+                    val currentComment = Comment(
+                        complaint?.compId,
+                        authorId = user?.uid,
+                        comment_text = binding.commentEditText.text.toString(),
+                        date = android.text.format.DateFormat.format(
+                            "dd.MM.yyyy",
+                            Timestamp.now().toDate()
+                        ).toString()
+                    )
+                    commentViewModel.addComment(currentComplaint.compId!!, currentComment)
+                } else {
+                    Toast.makeText(
+                        context,
+                        "Ведите комментарий",
+                        Toast.LENGTH_SHORT
+                    ).show()
+                }
+                binding.commentEditText.text = null
+                updateComments(currentComplaint.compId!!)
             } else {
                 Toast.makeText(
                     context,
-                    "Ведите комментарий",
+                    "Необходима авторизация",
                     Toast.LENGTH_SHORT
                 ).show()
             }
-            binding.commentEditText.text = null
-            updateComments(currentComplaint.compId!!)
         }
         binding.commentsRecycler.layoutManager = LinearLayoutManager(this.context)
     }

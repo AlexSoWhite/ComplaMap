@@ -114,7 +114,7 @@ class ComplaintActivity : AppCompatActivity() {
                     .replace(
                         binding.containerForComments.id,
                         CommentsFragment.getInstance(
-                            UserManager.getCurrentUser()!!,
+                            UserManager.getCurrentUser(),
                             currentComplaint!!
                         )
                     ).commit()

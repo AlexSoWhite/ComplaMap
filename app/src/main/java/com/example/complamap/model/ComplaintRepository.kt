@@ -122,7 +122,6 @@ object ComplaintRepository : ViewModel() {
         complaintId: String,
         callback: (List<Comment>) -> Unit
     ) {
-
         viewModelScope.launch {
             getCommentCollection()
                 .whereEqualTo("complaintId", complaintId)
