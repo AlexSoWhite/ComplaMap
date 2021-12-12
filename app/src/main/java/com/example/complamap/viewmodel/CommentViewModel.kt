@@ -12,7 +12,7 @@ import com.example.complamap.model.User
 import com.example.complamap.model.UserRepository
 import kotlinx.coroutines.launch
 
-class CommentViewModel: ViewModel() {
+class CommentViewModel : ViewModel() {
 
     fun loadAuthorProfilePic(context: Context, comment: Comment, container: ImageView) {
         viewModelScope.launch {

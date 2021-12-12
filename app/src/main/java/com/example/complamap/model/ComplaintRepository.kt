@@ -118,28 +118,18 @@ object ComplaintRepository : ViewModel() {
             }
     }
 
-
-    fun sortByTimestamp(
-       list: List<Comment>
-    ){
-        list.sortedBy { it.timestamp }
-    }
-
     fun getComments(
         complaintId: String,
         callback: (List<Comment>) -> Unit
     ) {
 
         viewModelScope.launch {
-           lateinit var commentsList: List<Comment>
             getCommentCollection()
                 .whereEqualTo("complaintId", complaintId)
-                //.orderBy("timestamp")
                 .get()
-                   .addOnCompleteListener {
-                       completeListener(it, callback)
-                  }
-            //callback(commentsList.sortedBy { it.timestamp })
+                .addOnCompleteListener {
+                    completeListener(it, callback)
+                }
         }
     }
 
@@ -154,9 +144,8 @@ object ComplaintRepository : ViewModel() {
         if (task.isSuccessful) {
             val list: List<Comment> = task
                 .result
-                ?.toObjects(Comment::class.java)
-                    as List<Comment>
-            callback(list.sortedBy { it.timestamp }) //колбэкаем сортированный здесь
+                ?.toObjects(Comment::class.java) as List<Comment>
+            callback(list.sortedBy { it.timestamp }) // колбэкаем сортированный здесь
         }
     }
 }

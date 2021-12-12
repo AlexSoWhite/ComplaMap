@@ -14,11 +14,20 @@ import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.lifecycleScope
 import com.example.complamap.R
 import com.example.complamap.databinding.ActivityComplaintBinding
-import com.example.complamap.model.*
+import com.example.complamap.model.Category
+import com.example.complamap.model.Complaint
+import com.example.complamap.model.ComplaintManager
+import com.example.complamap.model.TakePhotoContract
+import com.example.complamap.model.UserManager
+import com.example.complamap.model.UserRepository
 import com.example.complamap.viewmodel.CommentViewModel
 import com.example.complamap.viewmodel.ComplaintViewModel
 import com.example.complamap.viewmodel.ProfileViewModel
-import com.example.complamap.views.fragments.*
+import com.example.complamap.views.fragments.CommentsFragment
+import com.example.complamap.views.fragments.OwnerCompFragment
+import com.example.complamap.views.fragments.PublishFragment
+import com.example.complamap.views.fragments.SaveFragment
+import com.example.complamap.views.fragments.ViewerCompFragment
 import kotlinx.coroutines.launch
 
 class ComplaintActivity : AppCompatActivity() {
@@ -102,9 +111,13 @@ class ComplaintActivity : AppCompatActivity() {
                 }
 
                 supportFragmentManager.beginTransaction()
-                    .replace(binding.containerForComments.id, CommentsFragment.getInstance(
-                        UserManager.getCurrentUser()!!,currentComplaint!!))
-                    .commit()
+                    .replace(
+                        binding.containerForComments.id,
+                        CommentsFragment.getInstance(
+                            UserManager.getCurrentUser()!!,
+                            currentComplaint!!
+                        )
+                    ).commit()
 
                 complaintViewModel.loadPhotoFromServer(
                     baseContext,

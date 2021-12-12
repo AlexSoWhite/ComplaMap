@@ -5,25 +5,22 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.TextView
-import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.RecyclerView
 import com.example.complamap.R
 import com.example.complamap.databinding.CommentBinding
 import com.example.complamap.model.Comment
 import com.example.complamap.model.ContextContainer
-import com.example.complamap.model.UserRepository
 import com.example.complamap.viewmodel.CommentViewModel
-import com.example.complamap.views.activities.ComplaintActivity
 
-class CommentAdapter (
+class CommentAdapter(
     private val comments: List<Comment>,
     private val commentViewModel: CommentViewModel
-    ): RecyclerView.Adapter<CommentAdapter.CommentViewHolder>() {
+) : RecyclerView.Adapter<CommentAdapter.CommentViewHolder>() {
 
     class CommentViewHolder(
         itemView: View,
         private val commentViewModel: CommentViewModel
-    ): RecyclerView.ViewHolder(itemView) {
+    ) : RecyclerView.ViewHolder(itemView) {
 
         val binding = CommentBinding.bind(itemView)
 
@@ -41,7 +38,7 @@ class CommentAdapter (
             commentText = itemView.findViewById(R.id.commentText)
         }
 
-        fun bind(comment: Comment){
+        fun bind(comment: Comment) {
             commentViewModel.loadAuthorProfilePic(
                 ContextContainer.getContext(),
                 comment,
@@ -56,15 +53,16 @@ class CommentAdapter (
 
     override fun onCreateViewHolder(
         parent: ViewGroup,
-        viewType: Int): CommentViewHolder {
-        val itemView =
-            LayoutInflater.from(parent.context)
+        viewType: Int
+    ): CommentViewHolder {
+        val itemView = LayoutInflater
+            .from(parent.context)
             .inflate(R.layout.comment, parent, false)
         return CommentViewHolder(itemView, commentViewModel)
     }
 
     override fun getItemCount(): Int {
-        return comments!!.size
+        return comments.size
     }
 
     override fun onBindViewHolder(holder: CommentViewHolder, position: Int) {

@@ -6,15 +6,10 @@ import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Toast
 import androidx.annotation.RequiresApi
 import androidx.fragment.app.Fragment
-import androidx.fragment.app.commit
 import androidx.lifecycle.ViewModelProvider
-import androidx.recyclerview.widget.LinearLayoutManager
-import com.example.complamap.R
 import com.example.complamap.databinding.FragmentViewerComplBarBinding
-import com.example.complamap.model.Comment
 import com.example.complamap.model.ComplaintManager
 import com.example.complamap.model.User
 import com.example.complamap.viewmodel.ComplaintViewModel
