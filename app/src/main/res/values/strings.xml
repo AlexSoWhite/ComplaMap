@@ -43,4 +43,12 @@
     <string name="delete_profile">удалить профиль</string>
     <string name="logOut">Выход</string>
     <string name="follow">отслеживать</string>
+
+    <string-array name="address_hints">
+        <item>Россия, </item>
+        <item>Россия, Москва,</item>
+        <item>Россия, Москва, улица </item>
+        <item>Россия, Санкт-Петербург, </item>
+        <item>Россия, Санкт-Петербург, улица </item>
+    </string-array>
 </resources>

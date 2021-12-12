@@ -5,6 +5,8 @@
             xmlns:app="http://schemas.android.com/apk/res-auto"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
+            android:focusable="true"
+            android:focusableInTouchMode="true"
             android:id="@+id/root_list_layout">
 
         <FrameLayout
@@ -15,22 +17,23 @@
                 app:layout_constraintTop_toTopOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintBottom_toBottomOf="@id/separator"
-                android:layout_marginStart="12dp"
-                android:layout_marginTop="12dp">
+                android:layout_marginStart="10dp"
+                android:layout_marginTop="10dp">
 
             <ImageView
                     android:layout_width="30dp"
+                    android:id="@+id/search_button"
                     android:layout_height="30dp"
                     android:src="@drawable/ic_baseline_search_24"
                     android:layout_gravity="center_vertical" />
 
-            <EditText
+            <AutoCompleteTextView
                     android:paddingStart="5dp"
                     android:paddingEnd="5dp"
                     android:id="@+id/input"
                     android:inputType="text"
                     android:layout_marginStart="40dp"
-                    android:layout_width="300dp"
+                    android:layout_width="260dp"
                     android:layout_height="wrap_content"
                     android:hint="Поиск жалобы"
                     android:backgroundTint="@android:color/transparent" />
@@ -40,9 +43,9 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:src="@drawable/filter"
-                    android:layout_gravity="end"
                     android:layout_marginTop="2dp"
-                    android:layout_marginStart="1dp" />
+                    android:layout_marginStart="300dp"
+                    android:layout_gravity="center_vertical" />
         </FrameLayout>
 
         <View

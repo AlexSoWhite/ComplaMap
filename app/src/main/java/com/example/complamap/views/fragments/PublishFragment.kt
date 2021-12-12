@@ -12,7 +12,7 @@ import com.example.complamap.R
 import com.example.complamap.databinding.FragmentPublishBinding
 import com.example.complamap.model.ComplaintManager
 import com.example.complamap.viewmodel.ComplaintViewModel
-import java.util.*
+import java.util.Timer
 import kotlin.concurrent.schedule
 
 class PublishFragment : Fragment(R.layout.fragment_publish) {

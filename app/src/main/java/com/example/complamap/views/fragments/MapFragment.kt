@@ -294,7 +294,9 @@ class MapFragment() :
         }
         binding.fab.setOnClickListener {
             binding.bottomSheetParent.addressView.text.let {
-                if (it.isNotEmpty() && it.isNotBlank() && sheetStack.peek()!! == R.id.map_object_info) {
+                if (it.isNotEmpty() && it.isNotBlank() &&
+                    sheetStack.peek()!! == R.id.map_object_info
+                ) {
                     val intent = Intent(requireContext(), CreateComplaintActivity::class.java)
                     intent.apply {
                         putExtra(AddPlacemarkDialog.EXTRA_ADDRESS, it)
