@@ -301,8 +301,14 @@ class MapFragment() :
                     intent.apply {
                         putExtra(AddPlacemarkDialog.EXTRA_ADDRESS, it)
                         binding.bottomSheetParent.coordinatesView.text.split(" ").let {
-                            putExtra(AddPlacemarkDialog.EXTRA_LATITUDE, currentPlacemark!!.geometry.latitude)
-                            putExtra(AddPlacemarkDialog.EXTRA_LONGITUDE, currentPlacemark!!.geometry.longitude)
+                            putExtra(
+                                AddPlacemarkDialog.EXTRA_LATITUDE,
+                                currentPlacemark!!.geometry.latitude
+                            )
+                            putExtra(
+                                AddPlacemarkDialog.EXTRA_LONGITUDE,
+                                currentPlacemark!!.geometry.longitude
+                            )
                         }
                     }
                     startActivity(intent)
