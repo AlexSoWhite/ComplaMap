@@ -7,7 +7,6 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
-import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.example.complamap.R
 import com.example.complamap.databinding.ListItemBinding
@@ -32,8 +31,7 @@ class ComplaintAdapter(
         holder.imageView.setImageResource(android.R.color.transparent)
         holder.bind(
             complaints[position],
-            context,
-            position == complaints.lastIndex
+            context
         )
     }
 
@@ -52,8 +50,7 @@ class ComplaintAdapter(
         @SuppressLint("SetTextI18n")
         fun bind(
             complaint: Complaint,
-            context: Context,
-            isLast: Boolean
+            context: Context
         ) {
             binding.complaint = complaint
             listViewModel.loadPhoto(

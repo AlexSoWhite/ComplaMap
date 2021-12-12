@@ -37,5 +37,9 @@ class ListViewModel : ViewModel() {
         this.filter = filter
     }
 
+    fun getFilter(): Filter? {
+        return this.filter
+    }
+
     data class Filter(val key: String, val value: Any)
 }

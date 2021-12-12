@@ -1,23 +1,15 @@
 package com.example.complamap.views.fragments
 
 import android.os.Bundle
-import android.text.SpannableStringBuilder
-import android.view.KeyEvent
-import android.view.LayoutInflater
-import android.view.View
-import android.view.ViewGroup
-import android.view.WindowManager
-import android.widget.PopupWindow
+import android.view.*
 import android.widget.Toast
-import androidx.core.text.bold
-import androidx.core.text.underline
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.complamap.R
-import com.example.complamap.databinding.CategoryFiltersListBinding
 import com.example.complamap.databinding.FragmentListBinding
+import com.example.complamap.model.FilterContract
 import com.example.complamap.viewmodel.ListViewModel
 
 class ListFragment : Fragment(R.layout.fragment_list) {
@@ -25,7 +17,7 @@ class ListFragment : Fragment(R.layout.fragment_list) {
     private lateinit var binding: FragmentListBinding
     private lateinit var listViewModel: ListViewModel
     private lateinit var recycler: RecyclerView
-    private var isFilterShowing = false
+    private var fromFilter: Boolean = false
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -34,6 +26,17 @@ class ListFragment : Fragment(R.layout.fragment_list) {
     ): View {
         binding = FragmentListBinding.inflate(inflater)
         return binding.root
+    }
+
+    private val filterContract = registerForActivityResult(FilterContract()) {
+        fromFilter = true
+        if (it != null) {
+            if (it.toString() == "drop") {
+                updateList(null)
+            } else {
+                updateList(ListViewModel.Filter("category", it.toString()))
+            }
+        }
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -55,51 +58,13 @@ class ListFragment : Fragment(R.layout.fragment_list) {
                 false
             }
         )
+        binding.filter.setOnClickListener {
+            showFilters()
+        }
     }
 
     private fun showFilters() {
-        isFilterShowing = true
-        val rootLayout: ViewGroup? = view?.findViewById(R.id.root_list_layout)
-        val bindingFilter = CategoryFiltersListBinding.inflate(layoutInflater)
-        val popupWindow = PopupWindow(bindingFilter.root)
-
-        popupWindow.height = WindowManager.LayoutParams.WRAP_CONTENT
-        popupWindow.width = WindowManager.LayoutParams.WRAP_CONTENT
-
-        bindingFilter.transport.setOnClickListener {
-            updateList(ListViewModel.Filter("category", "Транспорт"))
-            popupWindow.dismiss()
-        }
-
-        bindingFilter.category2.setOnClickListener {
-            updateList(ListViewModel.Filter("category", "Категория 2"))
-            popupWindow.dismiss()
-        }
-
-        bindingFilter.category3.setOnClickListener {
-            updateList(ListViewModel.Filter("category", "Категория 3"))
-            popupWindow.dismiss()
-        }
-
-        bindingFilter.dismissFilters.setOnClickListener {
-            updateList(null)
-            popupWindow.dismiss()
-        }
-
-        rootLayout?.setOnClickListener {
-            isFilterShowing = false
-            popupWindow.dismiss()
-        }
-
-        binding.filter.setOnClickListener {
-            isFilterShowing = false
-            popupWindow.dismiss()
-            binding.filter.setOnClickListener {
-                showFilters()
-            }
-        }
-
-        popupWindow.showAsDropDown(binding.filter)
+        filterContract.launch("")
     }
 
     private fun updateList(filter: ListViewModel.Filter?) {
@@ -114,14 +79,14 @@ class ListFragment : Fragment(R.layout.fragment_list) {
             }
             recycler.adapter = ComplaintAdapter(list, listViewModel)
         }
-        isFilterShowing = false
-        binding.filter.setOnClickListener {
-            showFilters()
-        }
     }
 
     override fun onResume() {
         super.onResume()
-        updateList(ListViewModel.Filter("default", "default"))
+        if (!fromFilter) {
+            updateList(listViewModel.getFilter())
+        } else {
+            fromFilter = false
+        }
     }
 }
