@@ -29,14 +29,24 @@ class CreateComplaintPopUpActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         binding = DataBindingUtil.setContentView(this, R.layout.create_complaint_pop_up)
 
+        binding.anonText.setOnClickListener {
+            binding.anon.isChecked = true
+            binding.neAnon.isChecked = false
+        }
+
+        binding.neAnonText.setOnClickListener {
+            binding.neAnon.isChecked = true
+            binding.anon.isChecked = false
+        }
+
         binding.PublishButton.setOnClickListener {
-            if (!(binding.Anon.isChecked) && !(binding.NeAnon.isChecked)) {
+            if (!(binding.anon.isChecked) && !(binding.neAnon.isChecked)) {
                 Toast.makeText(
                     applicationContext,
                     "Выберите тип публикации",
                     Toast.LENGTH_SHORT
                 ).show()
-            } else if ((binding.NeAnon.isChecked) && (UserManager.getCurrentUser() == null)) {
+            } else if ((binding.neAnon.isChecked) && (UserManager.getCurrentUser() == null)) {
                 Toast.makeText(
                     applicationContext,
                     "Требуется авторизация",
@@ -44,7 +54,7 @@ class CreateComplaintPopUpActivity : AppCompatActivity() {
                 ).show()
             } else {
                 ComplaintManager.getCurrentComplaint()?.creator =
-                    if (binding.Anon.isChecked) null
+                    if (binding.anon.isChecked) null
                     else UserManager.getCurrentUser()?.uid
                 val preview = Intent(this, ComplaintActivity::class.java)
                 preview.putExtra("FragmentMode", "Publish")
