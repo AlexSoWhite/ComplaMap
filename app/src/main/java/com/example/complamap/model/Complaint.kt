@@ -16,7 +16,7 @@ data class Complaint(
     val rejecters: MutableList<String>? = null,
     val status: String? = null,
     val followers: MutableList<String>? = null,
-    val creator: String? = null,
+    final var creator: String? = null,
     var address: String? = null,
     var creationDay: String? = null,
     var editTimestamp: Timestamp? = null,
