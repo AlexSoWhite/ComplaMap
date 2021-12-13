@@ -16,6 +16,8 @@ object ListRepository : ViewModel() {
     @SuppressLint("StaticFieldLeak")
     private val db = FirebaseFirestore.getInstance()
 
+    private const val maxComplaintCountDefault: Long = 10
+
     fun getComplaintsWithEqualFilter(
         filter: ListViewModel.Filter,
         callback: (List<Complaint>) -> Unit
@@ -51,7 +53,7 @@ object ListRepository : ViewModel() {
         viewModelScope.launch {
             getComplaintCollection()
                 .orderBy("creation_date", Query.Direction.DESCENDING)
-                .limit(10)
+                .limit(maxComplaintCountDefault)
                 .get()
                 .addOnCompleteListener {
                     completeListener(it, callback)
@@ -98,7 +100,7 @@ object ListRepository : ViewModel() {
                 .result
                 ?.toObjects(Complaint::class.java)
                 as List<Complaint>
-            callback(list.sortedByDescending { it.creation_date })
+            callback(list.sortedByDescending { it.creationTimestamp })
         }
     }
 }

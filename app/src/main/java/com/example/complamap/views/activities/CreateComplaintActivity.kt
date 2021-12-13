@@ -164,7 +164,7 @@ class CreateComplaintActivity : AppCompatActivity() {
                                 intent.getDoubleExtra(AddPlacemarkDialog.EXTRA_LATITUDE, 0.0),
                                 intent.getDoubleExtra(AddPlacemarkDialog.EXTRA_LONGITUDE, 0.0)
                             ),
-                            creation_day = "",
+                            creationDay = "",
                             status = "Принята",
                             followers = mutableListOf(),
                             approvals = 0,

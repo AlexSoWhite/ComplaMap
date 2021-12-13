@@ -7,7 +7,7 @@ import androidx.lifecycle.viewModelScope
 import com.bumptech.glide.Glide
 import com.example.complamap.R
 import com.example.complamap.model.Comment
-import com.example.complamap.model.ComplaintRepository
+import com.example.complamap.model.CommentRepository
 import com.example.complamap.model.User
 import com.example.complamap.model.UserRepository
 import kotlinx.coroutines.launch
@@ -35,7 +35,7 @@ class CommentViewModel : ViewModel() {
         comment: Comment
     ) {
         viewModelScope.launch {
-            ComplaintRepository.addComment(complaintId, comment)
+            CommentRepository.addComment(complaintId, comment)
         }
     }
 
@@ -44,7 +44,7 @@ class CommentViewModel : ViewModel() {
         callback: (List<Comment>) -> Unit
     ) {
         viewModelScope.launch {
-            ComplaintRepository.getComments(complaintId, callback)
+            CommentRepository.getComments(complaintId, callback)
         }
     }
 }
