@@ -35,9 +35,7 @@ object ComplaintRepository : ViewModel() {
     fun editComplaint(
         complaintId: String,
         uri: String,
-        description: String,
-        address: String,
-        category: String,
+        complaint: Complaint,
         editTimestamp: com.google.firebase.Timestamp,
         editDay: String
     ) {
@@ -46,35 +44,37 @@ object ComplaintRepository : ViewModel() {
             db.collection("complaint").document(complaintId).update(
                 mapOf(
                     "photo" to uri,
-                    "description" to description,
-                    "address" to address,
-                    "category" to category,
+                    "description" to complaint.description,
+                    "address" to complaint.address,
+                    "category" to complaint.category,
                     "editTimestamp" to editTimestamp,
                     "editDay" to editDay
                 )
-            ).addOnCompleteListener {
-                viewModelScope.launch {
-                    ComplaintManager.setComplaint(
-                        getComplaintFromDatabase(complaintId)
-                    )
-                }
-            }
+            )
+//                .addOnCompleteListener {
+//                viewModelScope.launch {
+//                    ComplaintManager.setComplaint(
+//                        getComplaintFromDatabase(complaintId)
+//                    )
+//                }
+//            }
         } else {
             db.collection("complaint").document(complaintId).update(
                 mapOf(
-                    "description" to description,
-                    "address" to address,
-                    "category" to category,
+                    "description" to complaint.description,
+                    "address" to complaint.address,
+                    "category" to complaint.category,
                     "editTimestamp" to editTimestamp,
                     "editDay" to editDay
                 )
-            ).addOnCompleteListener {
-                viewModelScope.launch {
-                    ComplaintManager.setComplaint(
-                        getComplaintFromDatabase(complaintId)
-                    )
-                }
-            }
+            )
+//                .addOnCompleteListener {
+//                viewModelScope.launch {
+//                    ComplaintManager.setComplaint(
+//                        getComplaintFromDatabase(complaintId)
+//                    )
+//                }
+//            }
         }
     }
 
@@ -94,14 +94,13 @@ object ComplaintRepository : ViewModel() {
 
     fun editVotes(
         complaintId: String,
-        field: String,
-        number: Long,
+        votePair: Pair<String, Long>,
         member: String,
         userId: String,
         flag: Boolean
     ) {
         db.collection("complaint").document(complaintId).update(
-            mapOf(field to number)
+            mapOf(votePair.first to votePair.second)
         )
         if (flag) {
             db.collection("complaint").document(complaintId).update(

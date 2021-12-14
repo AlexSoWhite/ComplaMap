@@ -5,11 +5,11 @@ import com.google.firebase.firestore.GeoPoint
 
 data class Complaint(
     var compId: String? = null,
-    val category: String? = null,
+    var category: String? = null,
     var photo: String? = null,
     var creationTimestamp: Timestamp? = null,
     val location: GeoPoint? = null,
-    val description: String? = null,
+    var description: String? = null,
     var approvals: Long? = null,
     val approvers: MutableList<String>? = null,
     var rejections: Long? = null,

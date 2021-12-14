@@ -38,7 +38,6 @@ class ComplaintActivity : AppCompatActivity() {
     private lateinit var complaintViewModel: ComplaintViewModel
     private lateinit var commentViewModel: CommentViewModel
     private lateinit var profileViewModel: ProfileViewModel
-
     private lateinit var binding: ActivityComplaintBinding
     private var currentUser: String? = ""
     private var creator: String = ""
@@ -76,6 +75,77 @@ class ComplaintActivity : AppCompatActivity() {
         }
         creator = ComplaintManager.getCurrentComplaint()?.creator.toString()
         currentComplaint = ComplaintManager.getCurrentComplaint()
+        chooseFragment()
+
+        binding.complaint = currentComplaint
+        lifecycleScope.launch {
+            binding.creator = UserRepository.getUserFromDatabase(creator)
+        }
+
+        val adapter: ArrayAdapter<String> = ArrayAdapter<String>(
+            this,
+            android.R.layout.simple_list_item_1,
+            categories
+        )
+        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
+        binding.category.adapter = adapter
+        val pos = categories.indexOf(currentComplaint?.category)
+        pos.let { binding.category.setSelection(it) }
+        binding.ExitButton.setOnClickListener {
+            finish()
+        }
+    }
+
+    @RequiresApi(Build.VERSION_CODES.M)
+    fun makeEditable() {
+        isEditableMode = true
+        editOptions(isEditableMode)
+        binding.categoryTextView.visibility = View.INVISIBLE
+        binding.category.visibility = View.VISIBLE
+        binding.photo.setOnClickListener {
+            if (isEditableMode) {
+                takePhotoLauncher.launch("")
+            }
+        }
+        supportFragmentManager.beginTransaction()
+            .replace(binding.container.id, SaveFragment())
+            .commit()
+    }
+
+    fun edit() {
+        currentComplaint?.compId?.let {
+            currentComplaint!!.category = binding.category.selectedItem.toString()
+            currentComplaint!!.description = binding.description.text.toString()
+            currentComplaint!!.address = binding.address.text.toString()
+            complaintViewModel.editComplaint(
+                it,
+                currentComplaint!!,
+                imageUri
+            )
+        }
+        Toast.makeText(this, "Изменено", Toast.LENGTH_SHORT).show()
+        isEditableMode = false
+        binding.categoryTextView.text = binding.category.selectedItem.toString()
+        binding.categoryTextView.visibility = View.VISIBLE
+        binding.category.visibility = View.INVISIBLE
+        editOptions(isEditableMode)
+        supportFragmentManager.beginTransaction()
+            .replace(binding.container.id, OwnerCompFragment())
+            .commit()
+    }
+
+    private fun editOptions(state: Boolean) {
+        binding.description.isFocusable = state
+        binding.description.isFocusableInTouchMode = state
+        binding.description.isCursorVisible = state
+        if (currentComplaint?.status != "В работе") {
+            binding.address.isFocusable = state
+            binding.address.isFocusableInTouchMode = state
+            binding.address.isCursorVisible = state
+        }
+    }
+
+    private fun chooseFragment() {
         when (intent.getStringExtra("FragmentMode")) {
 
             "Publish" -> {
@@ -125,72 +195,6 @@ class ComplaintActivity : AppCompatActivity() {
                     binding.photo
                 )
             }
-        }
-
-        binding.complaint = currentComplaint
-        lifecycleScope.launch {
-            binding.creator = UserRepository.getUserFromDatabase(creator)
-        }
-
-        val adapter: ArrayAdapter<String> = ArrayAdapter<String>(
-            this,
-            android.R.layout.simple_list_item_1,
-            categories
-        )
-        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
-        binding.category.adapter = adapter
-        val pos = categories.indexOf(currentComplaint?.category)
-        pos.let { binding.category.setSelection(it) }
-        binding.ExitButton.setOnClickListener {
-            finish()
-        }
-    }
-
-    @RequiresApi(Build.VERSION_CODES.M)
-    fun makeEditable() {
-        isEditableMode = true
-        editOptions(isEditableMode)
-        binding.categoryTextView.visibility = View.INVISIBLE
-        binding.category.visibility = View.VISIBLE
-        binding.photo.setOnClickListener {
-            if (isEditableMode) {
-                takePhotoLauncher.launch("")
-            }
-        }
-        supportFragmentManager.beginTransaction()
-            .replace(binding.container.id, SaveFragment())
-            .commit()
-    }
-
-    fun edit() {
-        currentComplaint?.compId?.let {
-            complaintViewModel.editComplaint(
-                it,
-                binding.description.text.toString(),
-                binding.category.selectedItem.toString(),
-                binding.address.text.toString(),
-                imageUri
-            )
-        }
-        Toast.makeText(this, "Изменено", Toast.LENGTH_SHORT).show()
-        isEditableMode = false
-        binding.categoryTextView.text = binding.category.selectedItem.toString()
-        binding.categoryTextView.visibility = View.VISIBLE
-        binding.category.visibility = View.INVISIBLE
-        editOptions(isEditableMode)
-        supportFragmentManager.beginTransaction()
-            .replace(binding.container.id, OwnerCompFragment())
-            .commit()
-    }
-
-    private fun editOptions(state: Boolean) {
-        binding.description.isFocusable = state
-        binding.description.isFocusableInTouchMode = state
-        binding.description.isCursorVisible = state
-        if (currentComplaint?.status != "В работе") {
-            binding.address.isFocusable = state
-            binding.address.isFocusableInTouchMode = state
-            binding.address.isCursorVisible = state
         }
     }
 }
