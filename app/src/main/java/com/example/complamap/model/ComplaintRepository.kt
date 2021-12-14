@@ -35,7 +35,7 @@ object ComplaintRepository : ViewModel() {
         uri: String,
         complaint: Complaint,
         editTimestamp: com.google.firebase.Timestamp,
-        editDay: String
+        editDay: String,
         callback: (String) -> Unit
     ) {
         complaint.compId?.let {
