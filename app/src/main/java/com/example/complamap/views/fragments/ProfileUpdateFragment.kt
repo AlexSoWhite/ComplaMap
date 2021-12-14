@@ -9,6 +9,7 @@ import android.view.ViewGroup
 import android.widget.Toast
 import androidx.annotation.RequiresApi
 import androidx.fragment.app.Fragment
+import com.example.complamap.R
 import com.example.complamap.databinding.FragmentAuthorizedUserBinding
 import com.example.complamap.databinding.FragmentProfileUpdateButtonsBinding
 import com.example.complamap.model.TakePhotoContract
@@ -71,6 +72,8 @@ class ProfileUpdateFragment : Fragment() {
             rootBinding.logOut.visibility = View.INVISIBLE
             binding.confirmButton.visibility = View.VISIBLE
             binding.confirmButton.setOnClickListener {
+                val loader: View? = activity?.findViewById(R.id.profile_update_loader)
+                loader?.visibility = View.VISIBLE
                 profileViewModel.updateUser(
                     uri,
                     rootBinding.username.text.toString()
@@ -81,6 +84,7 @@ class ProfileUpdateFragment : Fragment() {
                         Toast.LENGTH_SHORT
                     ).show()
                     rootBinding.username.setText(UserManager.getCurrentUser()?.username)
+                    loader?.visibility = View.INVISIBLE
                     binding.confirmButton.visibility = View.INVISIBLE
                     binding.updateProfile.visibility = View.VISIBLE
                     rootBinding.logOut.visibility = View.VISIBLE

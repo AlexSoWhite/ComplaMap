@@ -39,15 +39,18 @@ class PublishFragment : Fragment(R.layout.fragment_publish) {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-
+        val loader: View? = activity?.findViewById(R.id.complaint_create_loader)
+        loader?.visibility = View.INVISIBLE
         binding.Confirm.setOnClickListener {
             binding.Confirm.isEnabled = false
             val complaintViewModel = ViewModelProvider(this)[ComplaintViewModel::class.java]
+            loader?.visibility = View.VISIBLE
             complaintViewModel.putComplaintToDatabase(
                 ComplaintManager.getCurrentComplaint()!!,
                 uri
             ) {
                 Toast.makeText(activity, "Опубликовано", Toast.LENGTH_SHORT).show()
+                loader?.visibility = View.INVISIBLE
                 ComplaintManager.justPublished = true
                 Timer().schedule(DELAY) {
                     activity?.setResult(it)
