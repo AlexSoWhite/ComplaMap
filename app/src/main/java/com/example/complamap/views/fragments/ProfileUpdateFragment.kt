@@ -20,6 +20,7 @@ class ProfileUpdateFragment : Fragment() {
     companion object {
         private lateinit var profileViewModel: ProfileViewModel
         private lateinit var rootBinding: FragmentAuthorizedUserBinding
+        private const val maxBackgroundAlpha = 100
 
         fun newInstance(
             profileViewModel: ProfileViewModel,
@@ -58,7 +59,7 @@ class ProfileUpdateFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
 
         binding.updateProfile.setOnClickListener {
-            rootBinding.username.background.alpha = 100
+            rootBinding.username.background.alpha = maxBackgroundAlpha
             rootBinding.editProfilePhoto.visibility = View.VISIBLE
             rootBinding.username.isFocusable = true
             rootBinding.username.isFocusableInTouchMode = true

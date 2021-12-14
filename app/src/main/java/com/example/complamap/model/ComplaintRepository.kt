@@ -8,9 +8,6 @@ import com.google.firebase.firestore.FieldValue
 import com.google.firebase.firestore.FirebaseFirestore
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.tasks.await
-import com.google.android.gms.tasks.Task
-import com.google.firebase.firestore.CollectionReference
-import com.google.firebase.firestore.QuerySnapshot
 
 object ComplaintRepository : ViewModel() {
 
@@ -25,6 +22,7 @@ object ComplaintRepository : ViewModel() {
     }
 
     fun addPhoto(compId: String, url: String, callback: (Int) -> Unit) {
+        ComplaintManager.getCurrentComplaint()?.photo = url
         db.collection("complaint").document(compId).update("photo", url).addOnSuccessListener {
             callback(AppCompatActivity.RESULT_OK)
         }
@@ -37,45 +35,46 @@ object ComplaintRepository : ViewModel() {
     fun editComplaint(
         complaintId: String,
         uri: String,
-        description: String,
-        address: String,
-        category: String,
-        edit_date: com.google.firebase.Timestamp,
-        edit_day: String
+        complaint: Complaint,
+        editTimestamp: com.google.firebase.Timestamp,
+        editDay: String
     ) {
         if (uri != "") {
+            ComplaintManager.getCurrentComplaint()?.photo = uri
             db.collection("complaint").document(complaintId).update(
                 mapOf(
                     "photo" to uri,
-                    "description" to description,
-                    "address" to address,
-                    "category" to category,
-                    "edit_date" to edit_date,
-                    "edit_day" to edit_day
+                    "description" to complaint.description,
+                    "address" to complaint.address,
+                    "category" to complaint.category,
+                    "editTimestamp" to editTimestamp,
+                    "editDay" to editDay
                 )
-            ).addOnCompleteListener {
-                viewModelScope.launch {
-                    ComplaintManager.setComplaint(
-                        getComplaintFromDatabase(complaintId)
-                    )
-                }
-            }
+            )
+//                .addOnCompleteListener {
+//                viewModelScope.launch {
+//                    ComplaintManager.setComplaint(
+//                        getComplaintFromDatabase(complaintId)
+//                    )
+//                }
+//            }
         } else {
             db.collection("complaint").document(complaintId).update(
                 mapOf(
-                    "description" to description,
-                    "address" to address,
-                    "category" to category,
-                    "edit_date" to edit_date,
-                    "edit_day" to edit_day
+                    "description" to complaint.description,
+                    "address" to complaint.address,
+                    "category" to complaint.category,
+                    "editTimestamp" to editTimestamp,
+                    "editDay" to editDay
                 )
-            ).addOnCompleteListener {
-                viewModelScope.launch {
-                    ComplaintManager.setComplaint(
-                        getComplaintFromDatabase(complaintId)
-                    )
-                }
-            }
+            )
+//                .addOnCompleteListener {
+//                viewModelScope.launch {
+//                    ComplaintManager.setComplaint(
+//                        getComplaintFromDatabase(complaintId)
+//                    )
+//                }
+//            }
         }
     }
 
@@ -95,14 +94,13 @@ object ComplaintRepository : ViewModel() {
 
     fun editVotes(
         complaintId: String,
-        field: String,
-        number: Long,
+        votePair: Pair<String, Long>,
         member: String,
         userId: String,
         flag: Boolean
     ) {
         db.collection("complaint").document(complaintId).update(
-            mapOf(field to number)
+            mapOf(votePair.first to votePair.second)
         )
         if (flag) {
             db.collection("complaint").document(complaintId).update(
@@ -120,44 +118,5 @@ object ComplaintRepository : ViewModel() {
     suspend fun getComplaintFromDatabase(complaintId: String): Complaint? {
         val complData = db.collection("complaint").document(complaintId).get().await()
         return complData.toObject(Complaint::class.java)
-    }
-    fun addComment(
-        complaintId: String,
-        comment: Comment
-    ) {
-        db.collection("comment").add(comment)
-            .addOnSuccessListener { docRef ->
-                db.collection("comment").document(docRef.id).update("complaintId", complaintId)
-            }
-    }
-
-    fun getComments(
-        complaintId: String,
-        callback: (List<Comment>) -> Unit
-    ) {
-        viewModelScope.launch {
-            getCommentCollection()
-                .whereEqualTo("complaintId", complaintId)
-                .get()
-                .addOnCompleteListener {
-                    completeListener(it, callback)
-                }
-        }
-    }
-
-    fun getCommentCollection(): CollectionReference {
-        return db.collection("comment")
-    }
-
-    private fun completeListener(
-        task: Task<QuerySnapshot>,
-        callback: (List<Comment>) -> Unit
-    ) {
-        if (task.isSuccessful) {
-            val list: List<Comment> = task
-                .result
-                ?.toObjects(Comment::class.java) as List<Comment>
-            callback(list.sortedBy { it.timestamp }) // колбэкаем сортированный здесь
-        }
     }
 }

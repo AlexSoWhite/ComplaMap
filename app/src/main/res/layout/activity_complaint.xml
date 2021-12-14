@@ -18,6 +18,8 @@
             android:id="@+id/complaint_activity"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
+            android:focusable="true"
+            android:focusableInTouchMode="true"
             android:padding="5dp"
             android:foreground="@drawable/shape_window_dim"
             >
@@ -83,7 +85,7 @@
                     android:id="@+id/date"
                     android:layout_height="wrap_content"
                     android:layout_width="wrap_content"
-                    android:text="@{complaint.creation_day}"
+                    android:text="@{complaint.creationDay}"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@+id/photoCont"
                     app:layout_constraintEnd_toEndOf="parent"
@@ -215,7 +217,7 @@
                     android:enabled="false"
                     app:layout_constraintEnd_toEndOf="parent"
                     android:layout_marginTop="5dp"
-                    android:text="@{complaint.edit_day!= null ? @string/edited(complaint.edit_day) : @string/space}"
+                    android:text="@{complaint.editDay!= null ? @string/edited(complaint.editDay) : @string/space}"
                     app:layout_constraintTop_toBottomOf="@+id/description"
                     tools:text="ред. 04.01.2000" />
 

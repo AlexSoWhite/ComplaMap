@@ -9,7 +9,6 @@ import com.google.firebase.auth.FirebaseAuthInvalidCredentialsException
 import com.google.firebase.auth.FirebaseAuthUserCollisionException
 import com.google.firebase.auth.FirebaseAuthWeakPasswordException
 import com.google.firebase.auth.ktx.auth
-import com.google.firebase.firestore.DocumentSnapshot
 import com.google.firebase.firestore.FieldValue
 import com.google.firebase.firestore.FirebaseFirestore
 import com.google.firebase.ktx.Firebase
@@ -39,11 +38,11 @@ object UserRepository : ViewModel() {
                             email = email,
                             profilePic = null,
                             rating = 0.0,
-                            subs = mutableListOf<String>(),
+                            subs = mutableListOf(),
                             uid = auth.currentUser?.uid
                         )
                         viewModelScope.launch {
-                            addUserToDatabase(user)
+                            db.collection("users").document(auth.currentUser!!.uid).set(user)
                             putUserToCache(user)
                             UserManager.setUser(user)
                             val res = LoginResult.Success
@@ -75,7 +74,7 @@ object UserRepository : ViewModel() {
                 when {
                     task.isSuccessful -> {
                         viewModelScope.launch {
-                            val user: User = convertReferenceToUser()
+                            val user: User = getUserFromDatabase(auth.currentUser!!.uid)!!
                             putUserToCache(user)
                             UserManager.setUser(user)
                             val res = LoginResult.Success
@@ -88,10 +87,6 @@ object UserRepository : ViewModel() {
                     }
                 }
             }
-    }
-
-    private fun addUserToDatabase(user: User) {
-        db.collection("users").document(auth.currentUser!!.uid).set(user)
     }
 
     fun putUserToCache(user: User) {
@@ -109,16 +104,6 @@ object UserRepository : ViewModel() {
         if (Hawk.isBuilt()) {
             Hawk.delete("user")
         }
-    }
-
-    private suspend fun getUserFromServer(): DocumentSnapshot {
-        val userRef = db.collection("users").document(auth.currentUser!!.uid)
-        return userRef.get().await()
-    }
-
-    private suspend fun convertReferenceToUser(): User {
-        val userData = getUserFromServer()
-        return userData.toObject(User::class.java)!!
     }
 
     suspend fun getUserFromDatabase(userId: String): User? {

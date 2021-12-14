@@ -9,6 +9,7 @@ import androidx.lifecycle.viewModelScope
 import com.bumptech.glide.Glide
 import com.example.complamap.R
 import com.example.complamap.model.Complaint
+import com.example.complamap.model.ComplaintManager
 import com.example.complamap.model.ComplaintRepository
 import com.google.firebase.Timestamp
 import com.google.firebase.storage.FirebaseStorage
@@ -22,12 +23,14 @@ class ComplaintViewModel : ViewModel() {
         callback: (Int) -> Unit
     ) {
         viewModelScope.launch {
-            complaint.creation_date = Timestamp.now()
-            complaint.creation_day = android.text.format.DateFormat.format(
+            complaint.creationTimestamp = Timestamp.now()
+            complaint.creationDay = android.text.format.DateFormat.format(
                 "dd.MM.yyyy",
-                complaint.creation_date!!.toDate()
+                complaint.creationTimestamp!!.toDate()
             ).toString()
             ComplaintRepository.addComplaintToDatabase(complaint) { compId ->
+                complaint.compId = compId
+                ComplaintManager.setComplaint(complaint)
                 if (uri != null) {
                     sendPhoto(uri, compId) {
                         complaint.photo = it
@@ -86,9 +89,7 @@ class ComplaintViewModel : ViewModel() {
 
     fun editComplaint(
         complaintId: String,
-        description: String,
-        category: String,
-        address: String,
+        complaint: Complaint,
         uri: Uri?
     ) {
         viewModelScope.launch {
@@ -98,9 +99,7 @@ class ComplaintViewModel : ViewModel() {
                     ComplaintRepository.editComplaint(
                         complaintId,
                         it,
-                        description,
-                        address,
-                        category,
+                        complaint,
                         Timestamp.now(),
                         android.text.format.DateFormat.format(
                             "dd.MM.yyyy",
@@ -112,9 +111,7 @@ class ComplaintViewModel : ViewModel() {
                 ComplaintRepository.editComplaint(
                     complaintId,
                     "",
-                    description,
-                    address,
-                    category,
+                    complaint,
                     Timestamp.now(),
                     android.text.format.DateFormat.format(
                         "dd.MM.yyyy",
@@ -139,14 +136,13 @@ class ComplaintViewModel : ViewModel() {
 
     fun editVotes(
         complaintId: String,
-        field: String,
-        number: Long,
+        votePair: Pair<String, Long>,
         member: String,
         userId: String,
         flag: Boolean
     ) {
         viewModelScope.launch {
-            ComplaintRepository.editVotes(complaintId, field, number, member, userId, flag)
+            ComplaintRepository.editVotes(complaintId, votePair, member, userId, flag)
         }
     }
 }

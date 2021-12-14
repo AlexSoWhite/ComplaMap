@@ -108,7 +108,7 @@
                 app:layout_constraintStart_toStartOf="@id/image"
                 app:layout_constraintTop_toBottomOf="@id/image"
                 app:layout_constraintVertical_chainStyle="packed"
-                android:text='@{complaint.creation_day.toString()}'
+                android:text="@{complaint.creationDay.toString()}"
                 tools:text="3 дня назад" />
 
         <View
