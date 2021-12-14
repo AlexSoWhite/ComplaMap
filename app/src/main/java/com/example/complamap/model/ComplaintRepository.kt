@@ -38,9 +38,7 @@ object ComplaintRepository : ViewModel() {
     fun editComplaint(
         complaintId: String,
         uri: String,
-        description: String,
-        address: String,
-        category: String,
+        complaint: Complaint,
         edit_date: com.google.firebase.Timestamp,
         edit_day: String
     ) {
@@ -49,9 +47,9 @@ object ComplaintRepository : ViewModel() {
             db.collection("complaint").document(complaintId).update(
                 mapOf(
                     "photo" to uri,
-                    "description" to description,
-                    "address" to address,
-                    "category" to category,
+                    "description" to complaint.description,
+                    "address" to complaint.address,
+                    "category" to complaint.category,
                     "edit_date" to edit_date,
                     "edit_day" to edit_day
                 )
@@ -65,9 +63,9 @@ object ComplaintRepository : ViewModel() {
         } else {
             db.collection("complaint").document(complaintId).update(
                 mapOf(
-                    "description" to description,
-                    "address" to address,
-                    "category" to category,
+                    "description" to complaint.description,
+                    "address" to complaint.address,
+                    "category" to complaint.category,
                     "edit_date" to edit_date,
                     "edit_day" to edit_day
                 )
@@ -97,14 +95,13 @@ object ComplaintRepository : ViewModel() {
 
     fun editVotes(
         complaintId: String,
-        field: String,
-        number: Long,
+        votePair: Pair<String, Long>,
         member: String,
         userId: String,
         flag: Boolean
     ) {
         db.collection("complaint").document(complaintId).update(
-            mapOf(field to number)
+            mapOf(votePair.first to votePair.second)
         )
         if (flag) {
             db.collection("complaint").document(complaintId).update(

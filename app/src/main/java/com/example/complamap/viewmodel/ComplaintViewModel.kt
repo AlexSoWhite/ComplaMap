@@ -89,9 +89,7 @@ class ComplaintViewModel : ViewModel() {
 
     fun editComplaint(
         complaintId: String,
-        description: String,
-        category: String,
-        address: String,
+        complaint: Complaint,
         uri: Uri?
     ) {
         viewModelScope.launch {
@@ -101,9 +99,7 @@ class ComplaintViewModel : ViewModel() {
                     ComplaintRepository.editComplaint(
                         complaintId,
                         it,
-                        description,
-                        address,
-                        category,
+                        complaint,
                         Timestamp.now(),
                         android.text.format.DateFormat.format(
                             "dd.MM.yyyy",
@@ -115,9 +111,7 @@ class ComplaintViewModel : ViewModel() {
                 ComplaintRepository.editComplaint(
                     complaintId,
                     "",
-                    description,
-                    address,
-                    category,
+                    complaint,
                     Timestamp.now(),
                     android.text.format.DateFormat.format(
                         "dd.MM.yyyy",
@@ -142,14 +136,13 @@ class ComplaintViewModel : ViewModel() {
 
     fun editVotes(
         complaintId: String,
-        field: String,
-        number: Long,
+        votePair: Pair<String, Long>,
         member: String,
         userId: String,
         flag: Boolean
     ) {
         viewModelScope.launch {
-            ComplaintRepository.editVotes(complaintId, field, number, member, userId, flag)
+            ComplaintRepository.editVotes(complaintId, votePair, member, userId, flag)
         }
     }
 }
