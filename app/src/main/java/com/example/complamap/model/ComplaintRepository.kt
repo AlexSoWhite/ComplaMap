@@ -4,6 +4,10 @@ import android.annotation.SuppressLint
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.google.firebase.firestore.FieldValue
+import com.google.firebase.firestore.FirebaseFirestore
+import kotlinx.coroutines.launch
+import kotlinx.coroutines.tasks.await
 import com.google.android.gms.tasks.Task
 import com.google.firebase.firestore.CollectionReference
 import com.google.firebase.firestore.FieldValue
@@ -15,10 +19,6 @@ object ComplaintRepository : ViewModel() {
 
     @SuppressLint("StaticFieldLeak")
     private val db = FirebaseFirestore.getInstance()
-
-    fun getComplaintFromDatabase(complaintId: String) {
-        db.collection("complaint").document(complaintId).get()
-    }
 
     fun addComplaintToDatabase(complaint: Complaint, callback: (String) -> Unit) {
         db.collection("complaint").add(complaint).addOnSuccessListener { docRef ->
@@ -56,7 +56,13 @@ object ComplaintRepository : ViewModel() {
                     "edit_date" to edit_date,
                     "edit_day" to edit_day
                 )
-            )
+            ).addOnCompleteListener {
+                viewModelScope.launch {
+                    ComplaintManager.setComplaint(
+                        getComplaintFromDatabase(complaintId)
+                    )
+                }
+            }
         } else {
             db.collection("complaint").document(complaintId).update(
                 mapOf(
@@ -66,7 +72,13 @@ object ComplaintRepository : ViewModel() {
                     "edit_date" to edit_date,
                     "edit_day" to edit_day
                 )
-            )
+            ).addOnCompleteListener {
+                viewModelScope.launch {
+                    ComplaintManager.setComplaint(
+                        getComplaintFromDatabase(complaintId)
+                    )
+                }
+            }
         }
     }
 
@@ -108,6 +120,10 @@ object ComplaintRepository : ViewModel() {
         }
     }
 
+    suspend fun getComplaintFromDatabase(complaintId: String): Complaint? {
+        val complData = db.collection("complaint").document(complaintId).get().await()
+        return complData.toObject(Complaint::class.java)
+        
     fun addComment(
         complaintId: String,
         comment: Comment
