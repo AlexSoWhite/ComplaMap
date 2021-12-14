@@ -161,7 +161,7 @@ class MapFragment() :
             binding.infoC.complaint.complaint = ComplaintManager.getCurrentComplaint()!!
         }
         currentComplaint?.apply {
-            ComplaintManager.getCurrentComplaint()!!.let{
+            ComplaintManager.getCurrentComplaint()!!.let {
                 userData = it
                 binding.infoC.complaint.complaint = it
             }
