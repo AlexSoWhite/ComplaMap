@@ -112,6 +112,7 @@ class MapFragment :
 
     override fun onMapObjectTap(p0: MapObject, p1: Point): Boolean {
         val data = p0.userData as Complaint
+        currentComplaint?.setIcon(placemarkIcon)
         currentComplaint = (p0 as PlacemarkMapObject).apply {
             setIcon(placemarkPickedIcon)
         }
@@ -139,6 +140,13 @@ class MapFragment :
 
     override fun onResume() {
         super.onResume()
+        ComplaintManager.getCurrentComplaint()?.let {
+            viewModel.loadPhoto(
+                binding.infoC.complaint.image.context,
+                it,
+                binding.infoC.complaint.image
+            )
+        }
         if (ComplaintManager.justPublished) {
             currentPlacemark = currentPlacemark?.let {
                 currentComplaint = mapView.map.mapObjects.addPlacemark(
