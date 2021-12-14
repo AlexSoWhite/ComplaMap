@@ -4,7 +4,7 @@ import com.google.firebase.Timestamp
 import com.google.firebase.firestore.GeoPoint
 
 data class Complaint(
-    val compId: String? = null,
+    var compId: String? = null,
     val category: String? = null,
     var photo: String? = null,
     var creationTimestamp: Timestamp? = null,

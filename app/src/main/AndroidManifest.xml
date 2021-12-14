@@ -49,7 +49,6 @@
                 android:screenOrientation="portrait" />
         <activity
                 android:name=".views.activities.TakePhotoActivity"
-                android:screenOrientation="portrait"
                 android:theme="@style/Theme.MyDialog" />
         <activity
                 android:name=".views.activities.FilterActivity"

@@ -3,8 +3,11 @@ package com.example.complamap.model
 import android.annotation.SuppressLint
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.ViewModel
+import androidx.lifecycle.viewModelScope
 import com.google.firebase.firestore.FieldValue
 import com.google.firebase.firestore.FirebaseFirestore
+import kotlinx.coroutines.launch
+import kotlinx.coroutines.tasks.await
 
 object ComplaintRepository : ViewModel() {
 
@@ -19,6 +22,7 @@ object ComplaintRepository : ViewModel() {
     }
 
     fun addPhoto(compId: String, url: String, callback: (Int) -> Unit) {
+        ComplaintManager.getCurrentComplaint()?.photo = url
         db.collection("complaint").document(compId).update("photo", url).addOnSuccessListener {
             callback(AppCompatActivity.RESULT_OK)
         }
@@ -38,6 +42,7 @@ object ComplaintRepository : ViewModel() {
         editDay: String
     ) {
         if (uri != "") {
+            ComplaintManager.getCurrentComplaint()?.photo = uri
             db.collection("complaint").document(complaintId).update(
                 mapOf(
                     "photo" to uri,
@@ -47,7 +52,13 @@ object ComplaintRepository : ViewModel() {
                     "editTimestamp" to editTimestamp,
                     "editDay" to editDay
                 )
-            )
+            ).addOnCompleteListener {
+                viewModelScope.launch {
+                    ComplaintManager.setComplaint(
+                        getComplaintFromDatabase(complaintId)
+                    )
+                }
+            }
         } else {
             db.collection("complaint").document(complaintId).update(
                 mapOf(
@@ -57,7 +68,13 @@ object ComplaintRepository : ViewModel() {
                     "editTimestamp" to editTimestamp,
                     "editDay" to editDay
                 )
-            )
+            ).addOnCompleteListener {
+                viewModelScope.launch {
+                    ComplaintManager.setComplaint(
+                        getComplaintFromDatabase(complaintId)
+                    )
+                }
+            }
         }
     }
 
@@ -97,5 +114,10 @@ object ComplaintRepository : ViewModel() {
                 FieldValue.arrayRemove(userId)
             )
         }
+    }
+
+    suspend fun getComplaintFromDatabase(complaintId: String): Complaint? {
+        val complData = db.collection("complaint").document(complaintId).get().await()
+        return complData.toObject(Complaint::class.java)
     }
 }

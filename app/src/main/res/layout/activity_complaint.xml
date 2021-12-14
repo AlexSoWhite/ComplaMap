@@ -18,6 +18,8 @@
             android:id="@+id/complaint_activity"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
+            android:focusable="true"
+            android:focusableInTouchMode="true"
             android:padding="5dp"
             android:foreground="@drawable/shape_window_dim"
             >
