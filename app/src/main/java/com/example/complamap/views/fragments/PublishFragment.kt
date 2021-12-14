@@ -20,6 +20,7 @@ class PublishFragment : Fragment(R.layout.fragment_publish) {
 
     companion object {
         private var uri: Uri? = null
+        private const val delay: Long = 1000
 
         fun getInstance(uri: Uri?): PublishFragment {
             this.uri = uri
@@ -48,7 +49,7 @@ class PublishFragment : Fragment(R.layout.fragment_publish) {
             ) {
                 Toast.makeText(activity, "Опубликовано", Toast.LENGTH_SHORT).show()
                 ComplaintManager.justPublished = true
-                Timer().schedule(1000) {
+                Timer().schedule(delay) {
                     activity?.setResult(it)
                     activity?.finish()
                 }
