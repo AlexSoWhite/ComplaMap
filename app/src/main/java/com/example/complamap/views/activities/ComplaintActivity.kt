@@ -147,7 +147,7 @@ class ComplaintActivity : AppCompatActivity() {
     }
 
     fun edit() {
-        ComplaintManager.getCurrentComplaint()?.compId?.let {
+        currentComplaint?.compId?.let {
             complaintViewModel.editComplaint(
                 it,
                 binding.description.text.toString(),
