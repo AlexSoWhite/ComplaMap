@@ -3,14 +3,12 @@ package com.example.complamap.views.fragments
 import android.content.Intent
 import android.os.Bundle
 import android.util.TypedValue
-import android.view.Gravity
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.view.inputmethod.EditorInfo
 import android.widget.EditText
 import android.widget.Toast
-import androidx.coordinatorlayout.widget.CoordinatorLayout
 import androidx.core.content.ContentProviderCompat.requireContext
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
@@ -52,7 +50,6 @@ import com.yandex.mapkit.search.search_layer.PlacemarkListener
 import com.yandex.mapkit.search.search_layer.SearchLayer
 import com.yandex.mapkit.search.search_layer.SearchResultItem
 import com.yandex.runtime.image.ImageProvider
-import java.util.ArrayDeque
 import kotlinx.coroutines.launch
 
 class MapFragment :
@@ -86,7 +83,7 @@ class MapFragment :
     }
     private lateinit var placemarkIcon: ImageProvider
     private lateinit var placemarkPickedIcon: ImageProvider
-    companion object{
+    companion object {
         private val defaultMapPosition = Point(55.751574, 37.573856)
         private const val defaultMapZoom = 11F
     }
@@ -164,11 +161,11 @@ class MapFragment :
             BottomSheetManager.visibleBottomSheet = R.id.complaint_info
             binding.infoC.complaint.complaint = ComplaintManager.getCurrentComplaint()!!
         }
-        if(currentComplaint != null){
+        if (currentComplaint != null) {
             ComplaintManager.getCurrentComplaint()?.let {
                 currentComplaint!!.userData = it
                 binding.infoC.complaint.complaint = it
-            }?:let {
+            } ?: let {
                 mapView.map.mapObjects.remove(currentComplaint!!)
                 BottomSheetManager.toStandardSheet()
                 currentComplaint = null
