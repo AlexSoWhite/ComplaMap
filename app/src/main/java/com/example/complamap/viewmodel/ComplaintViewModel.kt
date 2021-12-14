@@ -23,10 +23,10 @@ class ComplaintViewModel : ViewModel() {
         callback: (Int) -> Unit
     ) {
         viewModelScope.launch {
-            complaint.creation_date = Timestamp.now()
-            complaint.creation_day = android.text.format.DateFormat.format(
+            complaint.creationTimestamp = Timestamp.now()
+            complaint.creationDay = android.text.format.DateFormat.format(
                 "dd.MM.yyyy",
-                complaint.creation_date!!.toDate()
+                complaint.creationTimestamp!!.toDate()
             ).toString()
             ComplaintRepository.addComplaintToDatabase(complaint) { compId ->
                 complaint.compId = compId
