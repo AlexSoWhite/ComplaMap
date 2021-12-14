@@ -140,20 +140,19 @@ class MapFragment :
 
     override fun onResume() {
         super.onResume()
-        ComplaintManager.getCurrentComplaint()?.let {
-            viewModel.loadPhoto(
-                binding.infoC.complaint.image.context,
-                it,
-                binding.infoC.complaint.image
-            )
-        }
         if (ComplaintManager.justPublished) {
+            val data = ComplaintManager.getCurrentComplaint()!!
             currentPlacemark = currentPlacemark?.let {
+                viewModel.loadPhoto(
+                    binding.infoC.complaint.image.context,
+                    data,
+                    binding.infoC.complaint.image
+                )
                 currentComplaint = mapView.map.mapObjects.addPlacemark(
                     it.geometry,
                     placemarkPickedIcon
                 ).apply {
-                    userData = ComplaintManager.getCurrentComplaint()!!
+                    userData = data
                     isVisible = true
                     addTapListener(this@MapFragment)
                 }

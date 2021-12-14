@@ -45,6 +45,7 @@ object ComplaintRepository : ViewModel() {
         edit_day: String
     ) {
         if (uri != "") {
+            ComplaintManager.getCurrentComplaint()?.photo = uri
             db.collection("complaint").document(complaintId).update(
                 mapOf(
                     "photo" to uri,
