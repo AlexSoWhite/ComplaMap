@@ -31,8 +31,7 @@ class ComplaintAdapter(
         holder.imageView.setImageResource(android.R.color.transparent)
         holder.bind(
             complaints[position],
-            context,
-            position == complaints.lastIndex
+            context
         )
     }
 
@@ -51,8 +50,7 @@ class ComplaintAdapter(
         @SuppressLint("SetTextI18n")
         fun bind(
             complaint: Complaint,
-            context: Context,
-            isLast: Boolean
+            context: Context
         ) {
             binding.complaint = complaint
             listViewModel.loadPhoto(

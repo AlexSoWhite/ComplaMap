@@ -36,7 +36,7 @@ object ListRepository : ViewModel() {
     ) {
         viewModelScope.launch {
             getComplaintCollection()
-                .whereGreaterThanOrEqualTo(filter.key, filter.value)
+                .whereGreaterThanOrEqualTo(filter.key, filter.value!!)
                 .whereLessThanOrEqualTo(filter.key, filter.value.toString() + "\uf8ff")
                 .get()
                 .addOnCompleteListener {
@@ -52,6 +52,20 @@ object ListRepository : ViewModel() {
             getComplaintCollection()
                 .orderBy("creation_date", Query.Direction.DESCENDING)
                 .limit(10)
+                .get()
+                .addOnCompleteListener {
+                    completeListener(it, callback)
+                }
+        }
+    }
+
+    fun getComplaintsWithArrayContainsFilter(
+        filter: ListViewModel.Filter,
+        callback: (List<Complaint>) -> Unit
+    ) {
+        viewModelScope.launch {
+            getComplaintCollection()
+                .whereArrayContains(filter.key, filter.value!!)
                 .get()
                 .addOnCompleteListener {
                     completeListener(it, callback)
@@ -84,7 +98,7 @@ object ListRepository : ViewModel() {
                 .result
                 ?.toObjects(Complaint::class.java)
                 as List<Complaint>
-            callback(list)
+            callback(list.sortedByDescending { it.creation_date })
         }
     }
 }
