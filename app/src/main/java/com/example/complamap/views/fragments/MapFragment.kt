@@ -55,7 +55,7 @@ import com.yandex.runtime.image.ImageProvider
 import java.util.ArrayDeque
 import kotlinx.coroutines.launch
 
-class MapFragment() :
+class MapFragment :
     Fragment(),
     GeoObjectTapListener,
     InputListener,
@@ -67,7 +67,6 @@ class MapFragment() :
     private lateinit var searchView: EditText
     lateinit var viewModel: MapViewModel
     private lateinit var searchLayer: SearchLayer
-    private val sheetStack = ArrayDeque<Int>()
     private var currentPlacemark: PlacemarkMapObject? = null
     private var currentComplaint: PlacemarkMapObject? = null
     private val cameraListener = object : CameraListener {
@@ -87,7 +86,10 @@ class MapFragment() :
     }
     private lateinit var placemarkIcon: ImageProvider
     private lateinit var placemarkPickedIcon: ImageProvider
-    private var wasPublished = false
+    companion object{
+        private val defaultMapPosition = Point(55.751574, 37.573856)
+        private const val defaultMapZoom = 11F
+    }
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
@@ -105,6 +107,7 @@ class MapFragment() :
                 R.drawable.ic_placemark_picked
             )
         )
+        BottomSheetManager.binding = binding
         initializeFragment()
         initializeViewsListeners()
         return view
@@ -112,7 +115,6 @@ class MapFragment() :
 
     override fun onMapObjectTap(p0: MapObject, p1: Point): Boolean {
         val data = p0.userData as Complaint
-        currentComplaint?.setIcon(placemarkIcon)
         currentComplaint = (p0 as PlacemarkMapObject).apply {
             setIcon(placemarkPickedIcon)
         }
@@ -128,9 +130,12 @@ class MapFragment() :
             binding.infoC.complaint.image
         )
         ComplaintManager.setComplaint(data)
-        if (binding.complaintInfo.visibility == View.GONE) {
-            moveToNextSheet(R.id.complaint_info)
+        currentPlacemark = currentPlacemark?.let {
+            mapView.map.mapObjects.remove(it)
+            mapView.map.deselectGeoObject()
+            null
         }
+        BottomSheetManager.visibleBottomSheet = R.id.complaint_info
         binding.infoC.complaint.complaint = data
         return true
     }
@@ -146,7 +151,9 @@ class MapFragment() :
                     userData = ComplaintManager.getCurrentComplaint()!!
                     isVisible = true
                     addTapListener(this@MapFragment)
-                }; null
+                }
+                mapView.map.mapObjects.remove(it)
+                null
             }
             mapView.map.moveIfNotGreater(
                 Point(
@@ -154,16 +161,17 @@ class MapFragment() :
                     currentComplaint!!.geometry.longitude
                 )
             )
-            sheetStack.clear()
-            sheetStack.push(R.id.bottom_sheet_parent)
-            binding.info.root.visibility = View.GONE
-            moveToNextSheet(R.id.complaint_info)
+            BottomSheetManager.visibleBottomSheet = R.id.complaint_info
             binding.infoC.complaint.complaint = ComplaintManager.getCurrentComplaint()!!
         }
-        currentComplaint?.apply {
-            ComplaintManager.getCurrentComplaint()!!.let {
-                userData = it
+        if(currentComplaint != null){
+            ComplaintManager.getCurrentComplaint()?.let {
+                currentComplaint!!.userData = it
                 binding.infoC.complaint.complaint = it
+            }?:let {
+                mapView.map.mapObjects.remove(currentComplaint!!)
+                BottomSheetManager.toStandardSheet()
+                currentComplaint = null
             }
         }
     }
@@ -223,8 +231,11 @@ class MapFragment() :
             mapView.map.mapObjects.remove(it)
             mapView.map.mapObjects.addPlacemark(p1, placemarkIcon)
         } ?: let {
-            if (binding.mapObjectInfo.visibility == View.GONE)
-                moveToNextSheet(R.id.map_object_info)
+            currentComplaint = currentComplaint?.let {
+                it.setIcon(placemarkIcon)
+                null
+            }
+            BottomSheetManager.visibleBottomSheet = R.id.map_object_info
             mapView.map.mapObjects.addPlacemark(p1, placemarkIcon)
         }
         viewModel.addressFromPoint(
@@ -248,16 +259,18 @@ class MapFragment() :
                 mapView.map.maxZoom.toInt()
             )
         }
-        if (binding.mapObjectInfo.visibility == View.GONE)
-            moveToNextSheet(R.id.map_object_info)
+        currentComplaint = currentComplaint?.let {
+            it.setIcon(placemarkIcon)
+            null
+        }
         currentPlacemark = currentPlacemark?.let { mapView.map.mapObjects.remove(it); null }
+        BottomSheetManager.visibleBottomSheet = R.id.map_object_info
         currentPlacemark = mapView.map.mapObjects.addPlacemark(
             p0.geoObject.geometry[0].point!!,
             placemarkIcon
         )
         return true
     }
-
     private fun setBottomSheetPeekHeight(view: View) {
         val bottomSheetBehavior = BottomSheetBehavior.from(view)
         val tv = TypedValue()
@@ -270,10 +283,9 @@ class MapFragment() :
         }
     }
     private fun initializeFragment() {
-        sheetStack.push(R.id.bottom_sheet_parent)
         mapView = binding.mapview
         viewModel = ViewModelProvider(this)[MapViewModel::class.java]
-        mapView.map.moveTo(Point(55.751574, 37.573856), 11F)
+        mapView.map.moveTo(defaultMapPosition, defaultMapZoom)
         setBottomSheetPeekHeight(binding.bottomSheetParent.root)
         mapView.map.logo.apply {
             this.setAlignment(Alignment(HorizontalAlignment.RIGHT, VerticalAlignment.TOP))
@@ -301,7 +313,7 @@ class MapFragment() :
         binding.fab.setOnClickListener {
             binding.bottomSheetParent.addressView.text.let {
                 if (it.isNotEmpty() && it.isNotBlank() &&
-                    sheetStack.peek()!! == R.id.map_object_info
+                    BottomSheetManager.visibleBottomSheet == R.id.map_object_info
                 ) {
                     val intent = Intent(requireContext(), CreateComplaintActivity::class.java)
                     intent.apply {
@@ -324,18 +336,14 @@ class MapFragment() :
             }
         }
         binding.info.closeButton.setOnClickListener {
-            binding.mapObjectInfo.visibility = View.GONE
             currentPlacemark?.let { mapView.map.mapObjects.remove(it) }
             mapView.map.deselectGeoObject()
             currentPlacemark = null
-            sheetStack.pop()
-            makeVisibleFromStack()
+            BottomSheetManager.toStandardSheet()
         }
         binding.infoC.closeButton.setOnClickListener {
-            binding.complaintInfo.visibility = View.GONE
-            sheetStack.pop()
+            BottomSheetManager.toStandardSheet()
             currentComplaint?.setIcon(placemarkIcon)
-            makeVisibleFromStack()
         }
         binding.infoC.mapInfoCard.setOnClickListener {
             val intent = Intent(context, ComplaintActivity::class.java)
@@ -349,48 +357,5 @@ class MapFragment() :
         mapView.map.addInputListener(this)
         searchLayer.addPlacemarkListener(this)
         mapView.map.addCameraListener(cameraListener)
-    }
-
-    private fun changeFABAnchorTo(id: Int) {
-        val params = binding.fab.layoutParams as CoordinatorLayout.LayoutParams
-        params.anchorId = id
-        params.anchorGravity = Gravity.BOTTOM or Gravity.END
-        binding.fab.layoutParams = params
-    }
-
-    private fun moveToNextSheet(idNext: Int) {
-        when (sheetStack.peek()!!) {
-            R.id.complaint_info -> {
-                binding.complaintInfo.visibility = View.GONE
-                currentComplaint?.setIcon(placemarkIcon)
-            }
-            R.id.map_object_info -> {
-                binding.mapObjectInfo.visibility = View.GONE
-                currentPlacemark?.let { mapView.map.mapObjects.remove(it) }
-                currentPlacemark = null
-            }
-            R.id.bottom_sheet_parent -> {
-                binding.bottomSheetParent.root.visibility = View.GONE
-            }
-        }
-        sheetStack.push(idNext)
-        makeVisibleFromStack()
-    }
-    private fun makeVisibleFromStack() {
-        when (sheetStack.peek()!!) {
-            R.id.complaint_info -> {
-                changeFABAnchorTo(R.id.complaint_info)
-                binding.complaintInfo.visibility = View.VISIBLE
-                currentComplaint?.setIcon(placemarkPickedIcon)
-            }
-            R.id.map_object_info -> {
-                changeFABAnchorTo(R.id.map_object_info)
-                binding.mapObjectInfo.visibility = View.VISIBLE
-            }
-            R.id.bottom_sheet_parent -> {
-                changeFABAnchorTo(R.id.bottom_sheet_parent)
-                binding.bottomSheetParent.root.visibility = View.VISIBLE
-            }
-        }
     }
 }

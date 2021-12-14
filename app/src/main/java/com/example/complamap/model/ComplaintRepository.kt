@@ -25,6 +25,7 @@ object ComplaintRepository : ViewModel() {
     }
 
     fun addPhoto(compId: String, url: String, callback: (Int) -> Unit) {
+        ComplaintManager.getCurrentComplaint()?.photo = url
         db.collection("complaint").document(compId).update("photo", url).addOnSuccessListener {
             callback(AppCompatActivity.RESULT_OK)
         }
