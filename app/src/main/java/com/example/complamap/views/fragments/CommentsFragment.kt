@@ -56,7 +56,7 @@ class CommentsFragment : Fragment(R.layout.comments_fragment) {
                     val currentComment = Comment(
                         complaint?.compId,
                         authorId = user?.uid,
-                        comment_text = binding.commentEditText.text.toString(),
+                        commentText = binding.commentEditText.text.toString(),
                         date = android.text.format.DateFormat.format(
                             "dd.MM.yyyy",
                             Timestamp.now().toDate()

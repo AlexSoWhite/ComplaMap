@@ -35,6 +35,8 @@
         <activity
                 android:name="com.example.complamap.views.activities.CreateComplaintActivity"
                 android:screenOrientation="portrait" />
+        <activity android:name=".views.activities.CreateComplaintPopUpActivity"
+                android:theme="@style/Theme.MyDialog" />
         <activity
                 android:name="com.example.complamap.views.activities.ComplaintActivity"
                 android:screenOrientation="portrait" />

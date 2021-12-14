@@ -4,11 +4,8 @@ import android.annotation.SuppressLint
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.google.android.gms.tasks.Task
-import com.google.firebase.firestore.CollectionReference
 import com.google.firebase.firestore.FieldValue
 import com.google.firebase.firestore.FirebaseFirestore
-import com.google.firebase.firestore.QuerySnapshot
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.tasks.await
 
@@ -39,8 +36,8 @@ object ComplaintRepository : ViewModel() {
         complaintId: String,
         uri: String,
         complaint: Complaint,
-        edit_date: com.google.firebase.Timestamp,
-        edit_day: String
+        editTimestamp: com.google.firebase.Timestamp,
+        editDay: String
     ) {
         if (uri != "") {
             ComplaintManager.getCurrentComplaint()?.photo = uri
@@ -50,32 +47,34 @@ object ComplaintRepository : ViewModel() {
                     "description" to complaint.description,
                     "address" to complaint.address,
                     "category" to complaint.category,
-                    "edit_date" to edit_date,
-                    "edit_day" to edit_day
+                    "editTimestamp" to editTimestamp,
+                    "editDay" to editDay
                 )
-            ).addOnCompleteListener {
-                viewModelScope.launch {
-                    ComplaintManager.setComplaint(
-                        getComplaintFromDatabase(complaintId)
-                    )
-                }
-            }
+            )
+//                .addOnCompleteListener {
+//                viewModelScope.launch {
+//                    ComplaintManager.setComplaint(
+//                        getComplaintFromDatabase(complaintId)
+//                    )
+//                }
+//            }
         } else {
             db.collection("complaint").document(complaintId).update(
                 mapOf(
                     "description" to complaint.description,
                     "address" to complaint.address,
                     "category" to complaint.category,
-                    "edit_date" to edit_date,
-                    "edit_day" to edit_day
+                    "editTimestamp" to editTimestamp,
+                    "editDay" to editDay
                 )
-            ).addOnCompleteListener {
-                viewModelScope.launch {
-                    ComplaintManager.setComplaint(
-                        getComplaintFromDatabase(complaintId)
-                    )
-                }
-            }
+            )
+//                .addOnCompleteListener {
+//                viewModelScope.launch {
+//                    ComplaintManager.setComplaint(
+//                        getComplaintFromDatabase(complaintId)
+//                    )
+//                }
+//            }
         }
     }
 
@@ -119,44 +118,5 @@ object ComplaintRepository : ViewModel() {
     suspend fun getComplaintFromDatabase(complaintId: String): Complaint? {
         val complData = db.collection("complaint").document(complaintId).get().await()
         return complData.toObject(Complaint::class.java)
-    }
-    fun addComment(
-        complaintId: String,
-        comment: Comment
-    ) {
-        db.collection("comment").add(comment)
-            .addOnSuccessListener { docRef ->
-                db.collection("comment").document(docRef.id).update("complaintId", complaintId)
-            }
-    }
-
-    fun getComments(
-        complaintId: String,
-        callback: (List<Comment>) -> Unit
-    ) {
-        viewModelScope.launch {
-            getCommentCollection()
-                .whereEqualTo("complaintId", complaintId)
-                .get()
-                .addOnCompleteListener {
-                    completeListener(it, callback)
-                }
-        }
-    }
-
-    fun getCommentCollection(): CollectionReference {
-        return db.collection("comment")
-    }
-
-    private fun completeListener(
-        task: Task<QuerySnapshot>,
-        callback: (List<Comment>) -> Unit
-    ) {
-        if (task.isSuccessful) {
-            val list: List<Comment> = task
-                .result
-                ?.toObjects(Comment::class.java) as List<Comment>
-            callback(list.sortedBy { it.timestamp }) // колбэкаем сортированный здесь
-        }
     }
 }
