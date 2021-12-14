@@ -3,11 +3,8 @@ package com.example.complamap.model
 import android.annotation.SuppressLint
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.ViewModel
-import androidx.lifecycle.viewModelScope
 import com.google.firebase.firestore.FieldValue
 import com.google.firebase.firestore.FirebaseFirestore
-import kotlinx.coroutines.launch
-import kotlinx.coroutines.tasks.await
 
 object ComplaintRepository : ViewModel() {
 
@@ -33,48 +30,36 @@ object ComplaintRepository : ViewModel() {
     }
 
     fun editComplaint(
-        complaintId: String,
         uri: String,
         complaint: Complaint,
         editTimestamp: com.google.firebase.Timestamp,
-        editDay: String
+        editDay: String,
+        callback: (String) -> Unit
     ) {
-        if (uri != "") {
-            ComplaintManager.getCurrentComplaint()?.photo = uri
-            db.collection("complaint").document(complaintId).update(
-                mapOf(
-                    "photo" to uri,
-                    "description" to complaint.description,
-                    "address" to complaint.address,
-                    "category" to complaint.category,
-                    "editTimestamp" to editTimestamp,
-                    "editDay" to editDay
-                )
-            )
-//                .addOnCompleteListener {
-//                viewModelScope.launch {
-//                    ComplaintManager.setComplaint(
-//                        getComplaintFromDatabase(complaintId)
-//                    )
-//                }
-//            }
-        } else {
-            db.collection("complaint").document(complaintId).update(
-                mapOf(
-                    "description" to complaint.description,
-                    "address" to complaint.address,
-                    "category" to complaint.category,
-                    "editTimestamp" to editTimestamp,
-                    "editDay" to editDay
-                )
-            )
-//                .addOnCompleteListener {
-//                viewModelScope.launch {
-//                    ComplaintManager.setComplaint(
-//                        getComplaintFromDatabase(complaintId)
-//                    )
-//                }
-//            }
+        complaint.compId?.let {
+            if (uri != "") {
+                ComplaintManager.getCurrentComplaint()?.photo = uri
+                db.collection("complaint").document(it).update(
+                    mapOf(
+                        "photo" to uri,
+                        "description" to complaint.description,
+                        "address" to complaint.address,
+                        "category" to complaint.category,
+                        "editTimestamp" to editTimestamp,
+                        "editDay" to editDay
+                    )
+                ).addOnSuccessListener { callback("Изменено") }
+            } else {
+                db.collection("complaint").document(it).update(
+                    mapOf(
+                        "description" to complaint.description,
+                        "address" to complaint.address,
+                        "category" to complaint.category,
+                        "editTimestamp" to editTimestamp,
+                        "editDay" to editDay
+                    )
+                ).addOnSuccessListener { callback("Изменено") }
+            }
         }
     }
 
@@ -113,10 +98,5 @@ object ComplaintRepository : ViewModel() {
                 FieldValue.arrayRemove(userId)
             )
         }
-    }
-
-    suspend fun getComplaintFromDatabase(complaintId: String): Complaint? {
-        val complData = db.collection("complaint").document(complaintId).get().await()
-        return complData.toObject(Complaint::class.java)
     }
 }
