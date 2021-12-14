@@ -9,6 +9,7 @@ import android.net.Uri
 import android.os.Build
 import android.os.Bundle
 import android.os.Environment
+import android.widget.Toast
 import androidx.activity.result.ActivityResultLauncher
 import androidx.activity.result.contract.ActivityResultContract
 import androidx.activity.result.contract.ActivityResultContracts
@@ -84,6 +85,16 @@ class TakePhotoActivity : AppCompatActivity() {
                 }
                 !shouldShowRequestPermissionRationale(Manifest.permission.CAMERA) -> {
                     // do something if user denied permission and set Don't ask again
+                    Toast.makeText(
+                        this,
+                        "вы запретили доступ к камере",
+                        Toast.LENGTH_SHORT
+                    ).show()
+                    Toast.makeText(
+                        this,
+                        "чтобы предоставить приложению доступ к камере, сбросьте данные приложения в настройках",
+                        Toast.LENGTH_LONG
+                    ).show()
                 }
                 else -> {
                     // do something if permission for camera denied
@@ -122,16 +133,22 @@ class TakePhotoActivity : AppCompatActivity() {
                 // Show an explanation to the user *asynchronously* -- don't block
                 // this thread waiting for the user's response! After the user
                 // sees the explanation, try again to request the permission.
+                Toast.makeText(
+                    this,
+                    "вы запретили доступ к хранилищу",
+                    Toast.LENGTH_SHORT
+                ).show()
+                Toast.makeText(
+                    this,
+                    "чтобы предоставить приложению доступ к хранилищу, сбросьте данные приложения в настройках",
+                    Toast.LENGTH_LONG
+                ).show()
             } else {
                 // No explanation needed; request the permission
                 requestPermissions(
                     Array(size = 1) { Manifest.permission.WRITE_EXTERNAL_STORAGE },
                     0
                 )
-
-                // MY_PERMISSIONS_REQUEST_READ_CONTACTS is an
-                // app-defined int constant. The callback method gets the
-                // result of the request.
             }
         } else {
             // Permission has already been granted

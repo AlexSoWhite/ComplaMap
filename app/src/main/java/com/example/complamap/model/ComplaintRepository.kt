@@ -10,10 +10,7 @@ import kotlinx.coroutines.launch
 import kotlinx.coroutines.tasks.await
 import com.google.android.gms.tasks.Task
 import com.google.firebase.firestore.CollectionReference
-import com.google.firebase.firestore.FieldValue
-import com.google.firebase.firestore.FirebaseFirestore
 import com.google.firebase.firestore.QuerySnapshot
-import kotlinx.coroutines.launch
 
 object ComplaintRepository : ViewModel() {
 
@@ -123,7 +120,7 @@ object ComplaintRepository : ViewModel() {
     suspend fun getComplaintFromDatabase(complaintId: String): Complaint? {
         val complData = db.collection("complaint").document(complaintId).get().await()
         return complData.toObject(Complaint::class.java)
-        
+    }
     fun addComment(
         complaintId: String,
         comment: Comment
