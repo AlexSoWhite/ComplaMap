@@ -4,16 +4,13 @@ import android.annotation.SuppressLint
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.google.firebase.firestore.FieldValue
-import com.google.firebase.firestore.FirebaseFirestore
-import kotlinx.coroutines.launch
-import kotlinx.coroutines.tasks.await
 import com.google.android.gms.tasks.Task
 import com.google.firebase.firestore.CollectionReference
 import com.google.firebase.firestore.FieldValue
 import com.google.firebase.firestore.FirebaseFirestore
 import com.google.firebase.firestore.QuerySnapshot
 import kotlinx.coroutines.launch
+import kotlinx.coroutines.tasks.await
 
 object ComplaintRepository : ViewModel() {
 
@@ -28,6 +25,7 @@ object ComplaintRepository : ViewModel() {
     }
 
     fun addPhoto(compId: String, url: String, callback: (Int) -> Unit) {
+        ComplaintManager.getCurrentComplaint()?.photo = url
         db.collection("complaint").document(compId).update("photo", url).addOnSuccessListener {
             callback(AppCompatActivity.RESULT_OK)
         }
@@ -47,6 +45,7 @@ object ComplaintRepository : ViewModel() {
         edit_day: String
     ) {
         if (uri != "") {
+            ComplaintManager.getCurrentComplaint()?.photo = uri
             db.collection("complaint").document(complaintId).update(
                 mapOf(
                     "photo" to uri,
@@ -123,7 +122,7 @@ object ComplaintRepository : ViewModel() {
     suspend fun getComplaintFromDatabase(complaintId: String): Complaint? {
         val complData = db.collection("complaint").document(complaintId).get().await()
         return complData.toObject(Complaint::class.java)
-        
+    }
     fun addComment(
         complaintId: String,
         comment: Comment

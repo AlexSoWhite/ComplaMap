@@ -9,6 +9,7 @@ import androidx.lifecycle.viewModelScope
 import com.bumptech.glide.Glide
 import com.example.complamap.R
 import com.example.complamap.model.Complaint
+import com.example.complamap.model.ComplaintManager
 import com.example.complamap.model.ComplaintRepository
 import com.google.firebase.Timestamp
 import com.google.firebase.storage.FirebaseStorage
@@ -28,6 +29,8 @@ class ComplaintViewModel : ViewModel() {
                 complaint.creation_date!!.toDate()
             ).toString()
             ComplaintRepository.addComplaintToDatabase(complaint) { compId ->
+                complaint.compId = compId
+                ComplaintManager.setComplaint(complaint)
                 if (uri != null) {
                     sendPhoto(uri, compId) {
                         complaint.photo = it
