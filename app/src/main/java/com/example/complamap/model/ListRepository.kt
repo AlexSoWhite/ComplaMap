@@ -52,7 +52,7 @@ object ListRepository : ViewModel() {
     ) {
         viewModelScope.launch {
             getComplaintCollection()
-                .orderBy("creation_date", Query.Direction.DESCENDING)
+                .orderBy("creationTimestamp", Query.Direction.DESCENDING)
                 .limit(maxComplaintCountDefault)
                 .get()
                 .addOnCompleteListener {
