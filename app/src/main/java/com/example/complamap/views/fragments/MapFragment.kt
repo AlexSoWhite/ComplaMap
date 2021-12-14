@@ -160,6 +160,12 @@ class MapFragment() :
             moveToNextSheet(R.id.complaint_info)
             binding.infoC.complaint.complaint = ComplaintManager.getCurrentComplaint()!!
         }
+        currentComplaint?.apply {
+            ComplaintManager.getCurrentComplaint()!!.let{
+                userData = it
+                binding.infoC.complaint.complaint = it
+            }
+        }
     }
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
