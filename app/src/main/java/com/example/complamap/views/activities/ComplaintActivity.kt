@@ -122,16 +122,15 @@ class ComplaintActivity : AppCompatActivity() {
             imageUri
         ) { str ->
             Toast.makeText(this, str, Toast.LENGTH_SHORT).show()
+            binding.categoryTextView.visibility = View.VISIBLE
+            binding.category.visibility = View.INVISIBLE
+            supportFragmentManager.beginTransaction()
+                .replace(binding.container.id, OwnerCompFragment())
+                .commit()
         }
         isEditableMode = false
         binding.categoryTextView.text = binding.category.selectedItem.toString()
-        binding.categoryTextView.visibility = View.VISIBLE
-        binding.category.visibility = View.INVISIBLE
         editOptions(isEditableMode)
-
-        supportFragmentManager.beginTransaction()
-            .replace(binding.container.id, OwnerCompFragment())
-            .commit()
     }
 
     private fun editOptions(state: Boolean) {
