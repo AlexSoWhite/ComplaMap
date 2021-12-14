@@ -3,10 +3,8 @@ package com.example.complamap.model
 import android.annotation.SuppressLint
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.ViewModel
-import androidx.lifecycle.viewModelScope
 import com.google.firebase.firestore.FieldValue
 import com.google.firebase.firestore.FirebaseFirestore
-import kotlinx.coroutines.launch
 
 object ComplaintRepository : ViewModel() {
 
@@ -100,5 +98,5 @@ object ComplaintRepository : ViewModel() {
                 FieldValue.arrayRemove(userId)
             )
         }
-    }    
+    }
 }
