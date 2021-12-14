@@ -113,22 +113,22 @@ class ComplaintActivity : AppCompatActivity() {
     }
 
     fun edit() {
-        currentComplaint?.compId?.let {
-            currentComplaint!!.category = binding.category.selectedItem.toString()
-            currentComplaint!!.description = binding.description.text.toString()
-            currentComplaint!!.address = binding.address.text.toString()
-            complaintViewModel.editComplaint(
-                it,
-                currentComplaint!!,
-                imageUri
-            )
+        currentComplaint!!.category = binding.category.selectedItem.toString()
+        currentComplaint!!.description = binding.description.text.toString()
+        currentComplaint!!.address = binding.address.text.toString()
+        ComplaintManager.setComplaint(currentComplaint)
+        complaintViewModel.editComplaint(
+            currentComplaint!!,
+            imageUri
+        ) { str ->
+            Toast.makeText(this, str, Toast.LENGTH_SHORT).show()
         }
-        Toast.makeText(this, "Изменено", Toast.LENGTH_SHORT).show()
         isEditableMode = false
         binding.categoryTextView.text = binding.category.selectedItem.toString()
         binding.categoryTextView.visibility = View.VISIBLE
         binding.category.visibility = View.INVISIBLE
         editOptions(isEditableMode)
+
         supportFragmentManager.beginTransaction()
             .replace(binding.container.id, OwnerCompFragment())
             .commit()

@@ -88,35 +88,37 @@ class ComplaintViewModel : ViewModel() {
     }
 
     fun editComplaint(
-        complaintId: String,
         complaint: Complaint,
-        uri: Uri?
+        uri: Uri?,
+        callback: (String) -> Unit
     ) {
         viewModelScope.launch {
 
             if (uri != null) {
-                sendPhoto(uri, complaintId) {
-                    ComplaintRepository.editComplaint(
-                        complaintId,
-                        it,
-                        complaint,
-                        Timestamp.now(),
-                        android.text.format.DateFormat.format(
-                            "dd.MM.yyyy",
-                            Timestamp.now().toDate()
-                        ).toString()
-                    )
+                complaint.compId?.let { id ->
+                    sendPhoto(uri, id) {
+                        ComplaintRepository.editComplaint(
+                            it,
+                            complaint,
+                            Timestamp.now(),
+                            android.text.format.DateFormat.format(
+                                "dd.MM.yyyy",
+                                Timestamp.now().toDate()
+                            ).toString(),
+                            callback
+                        )
+                    }
                 }
             } else {
                 ComplaintRepository.editComplaint(
-                    complaintId,
                     "",
                     complaint,
                     Timestamp.now(),
                     android.text.format.DateFormat.format(
                         "dd.MM.yyyy",
                         Timestamp.now().toDate()
-                    ).toString()
+                    ).toString(),
+                    callback
                 )
             }
         }
