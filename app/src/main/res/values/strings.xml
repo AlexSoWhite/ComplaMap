@@ -41,4 +41,75 @@
         <item>Россия, Санкт-Петербург, </item>
         <item>Россия, Санкт-Петербург, улица </item>
     </string-array>
+
+    <string name="sc_find_complaint_title">Поиск жалоб по карте</string>
+    <string name="sc_find_complaint_description">Приложение ComplaMap создано для просмотра и
+        оставления жалоб. Выбрав "Карта" в меню навигации снизу вы можете увидеть на карте жалобы,
+        оставленные ранее. При нажатии на метку вам представится краткое описание выбранной жалобы
+    </string>
+    <string name="sc_view_complaint_title">Просмотр жалобы</string>
+    <string name="sc_view_complaint_description">Нажав на жалобу вы можете увидеть её полноценное
+        описание, а также оставленные к ней комментарии
+    </string>
+    <string name="sc_leave_my_complaint_title">Оставление собственной жалобы</string>
+    <string name="sc_leave_my_complaint_description">Пожелав оставить собсвтенную жалобу, вам
+        придется набрать адрес её местонахождения и нажать кнопку "плюс"
+    </string>
+    <string name="sc_edit_my_complaint_title">Подготовка к публикации</string>
+    <string name="sc_edit_my_complaint_description">Теперь вы можете добавить фото и описание к
+        жалобе. По завершении следует нажать галочку
+    </string>
+    <string name="sc_publish_anonym_title">Анонимная публикация</string>
+    <string name="sc_publish_anonym_description">Сейчас у вас есть возможность опубликовать
+        жалобу лишь анономно. Для неанонимной публикации следует авторизироваться. Нажав
+        предпросмотр вы сможете увидеть, как ваша жалоба будет выглядеть после добавления
+        и опубликовать её
+    </string>
+    <string name="sc_view_list_title">Список жалоб</string>
+    <string name="sc_view_list_description">Выбрав "Список" в меню навигации снизу вы можете увидеть
+        список всех оставленных жалоб. Для удобства поиска можете воспользоваться фильтром,
+        находящимся в правом верхнем углу
+    </string>
+    <string name="sc_view_profile_anonym_title">Профиль без авторизации</string>
+    <string name="sc_view_profile_anonym_description"> Выбрав "Профиль" в меню навигации снизу вы
+        сможете войти в аккаунт или создать его, а также вспомнить о функционале приложения
+    </string>
+    <string name="sc_registration_title">Регистрация</string>
+    <string name="sc_registration_description">Для авторизиции слудет выбрать регистрацию и зполнить
+        поля
+    </string>
+    <string name="sc_profile_not_anonym_title">Профиль с авторизацией</string>
+    <string name="sc_profile_not_anonym_description">Так выглядит профиль авторизированного
+        пользователя. Ваш рейтинг будет расти при одобрении ваших жалоб другими пользователями.
+        При желании профиль можно отредактировать
+    </string>
+    <string name="sc_edit_profile_title">Редактирование профиля</string>
+    <string name="sc_edit_profile_description">При редактировании профиля можно установить или
+        изменить фото профиля, а также поменять ник. Затем следует нажать сохранить
+    </string>
+    <string name="sc_leave_complaint_label_title">Добавление жалобы</string>
+    <string name="sc_leave_complaint_label_description">Для добавления жалобы можно не вбивать
+        адрес, а нажать на карту в место, где находится проблема, после чего на карте появится
+        метка. Далее следует нажать на плюс
+    </string>
+    <string name="sc_publish_not_anonym_title">Неанонимная публикация</string>
+    <string name="sc_publish_not_anonym_description">После авторизации вы можете публиковать жалобы
+        неанонимно
+    </string>
+    <string name="sc_prelook_title">Предпросмотр</string>
+    <string name="sc_prelook_description"> Предпросмотр выглядит подобным образом. В случае успешной
+        публикации после нажатия на кнопку "опубликовать" вы увидите подобное сообщение
+    </string>
+    <string name="sc_view_my_complaint_title">Просмотр своей жалобы</string>
+    <string name="sc_view_my_complaint_description"> При просмотре своей жалобы вы можете удалить
+        либо отредактировать её
+    </string>
+    <string name="sc_view_not_my_complaint_title">Просмотр не своей жалобы</string>
+    <string name="sc_view_not_my_complaint_description"> При просмотре чужой жалобы вы можете
+        подтвердить её нажатием зелёной стрелки вверх либо заявить об её отсутствии нажатием
+        красной стрелки вниз. При нажатии на кнопку "отслеживать" вы сможете просматривать жалобу
+        в списке, выбрав в меню фильтра "мои подписки". Кроме того, можете прокомментировать жалобу
+    </string>
+    <string name="sc_finish">Поехали</string>
+    <string name="sc_forward">Далее</string>
 </resources>
