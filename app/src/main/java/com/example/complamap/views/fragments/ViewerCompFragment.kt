@@ -13,8 +13,6 @@ import com.example.complamap.model.ComplaintManager
 import com.example.complamap.model.User
 import com.example.complamap.viewmodel.ComplaintViewModel
 import com.example.complamap.viewmodel.ProfileViewModel
-import java.math.RoundingMode
-import java.text.DecimalFormat
 
 class ViewerCompFragment : Fragment() {
     companion object {
@@ -22,7 +20,7 @@ class ViewerCompFragment : Fragment() {
         const val APPROVERS = "approvers"
         const val REJECTIONS = "rejections"
         const val REJECTERS = "rejecters"
-        const val RATING = 0.2
+        const val RATING = 1
     }
 
     private lateinit var binding: FragmentViewerComplBarBinding
@@ -31,7 +29,7 @@ class ViewerCompFragment : Fragment() {
     private val currentComplaint = ComplaintManager.getCurrentComplaint()
     private val compId = currentComplaint?.compId
     private var currentUser: User? = null
-    private var rating: Double? = null
+    private var rating: Int? = null
     private var isFollowing = false
     private var isAppr = false
     private var isRej = false
@@ -126,9 +124,9 @@ class ViewerCompFragment : Fragment() {
         if (creatorId != "null") {
             profileViewModel.getUserFromDatabase(creatorId) { user ->
                 rating = if (flag) {
-                    user?.rating?.plus(RATING)?.let { roundOffDecimal(it) }
+                    user?.rating?.plus(RATING)
                 } else {
-                    user?.rating?.minus(RATING)?.let { roundOffDecimal(it) }
+                    user?.rating?.minus(RATING)
                 }
                 profileViewModel.editRating(creatorId, rating!!)
             }
@@ -172,11 +170,5 @@ class ViewerCompFragment : Fragment() {
     private fun setRejOptions(flag: Boolean) {
         isRej = flag
         binding.approve.isEnabled = !flag
-    }
-
-    private fun roundOffDecimal(number: Double): Double? {
-        val df = DecimalFormat("#.###")
-        df.roundingMode = RoundingMode.CEILING
-        return df.format(number).toDouble()
     }
 }

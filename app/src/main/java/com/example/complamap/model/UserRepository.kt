@@ -37,7 +37,7 @@ object UserRepository : ViewModel() {
                             username = username,
                             email = email,
                             profilePic = null,
-                            rating = 0.0,
+                            rating = 0,
                             subs = mutableListOf(),
                             uid = auth.currentUser?.uid
                         )
@@ -176,7 +176,7 @@ object UserRepository : ViewModel() {
         db.collection("users").document(userId).update("subs", FieldValue.arrayRemove(sub))
     }
 
-    fun editRating(userId: String, rating: Double) {
+    fun editRating(userId: String, rating: Int) {
         db.collection("users").document(userId).update(mapOf("rating" to rating))
     }
 }

@@ -86,7 +86,7 @@ class ProfileViewModel : ViewModel() {
         }
     }
 
-    fun editRating(userId: String, rating: Double) {
+    fun editRating(userId: String, rating: Int) {
         viewModelScope.launch {
             UserRepository.editRating(userId, rating)
         }
