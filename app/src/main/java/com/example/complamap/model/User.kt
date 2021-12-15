@@ -4,7 +4,7 @@ data class User(
     var username: String? = null,
     val email: String? = null,
     var profilePic: String? = null,
-    val rating: Double? = null,
+    val rating: Int? = null,
     val subs: MutableList<String>? = null,
     val uid: String? = null
 )
