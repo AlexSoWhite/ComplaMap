@@ -175,6 +175,7 @@ class MapFragment :
             mapView.map.deselectGeoObject()
             null
         }
+        BottomSheetManager.visibleBottomSheet = R.id.bottom_sheet_parent
         BottomSheetManager.visibleBottomSheet = R.id.complaint_info
         binding.infoC.complaint.complaint = data
         return true

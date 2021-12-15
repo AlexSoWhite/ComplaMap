@@ -12,10 +12,6 @@ object BottomSheetManager {
         set(value) {
             makeGone(field)
             makeVisible(value)
-//            if (value != field) {
-//                makeGone(field)
-//                makeVisible(value)
-//            }
             field = value
         }
     lateinit var binding: FragmentMapBinding
