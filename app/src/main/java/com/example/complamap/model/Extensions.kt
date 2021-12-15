@@ -29,20 +29,28 @@ fun GeoPoint.toPoint(): Point {
 }
 
 fun Context.getBitmapFromVectorDrawable(drawableId: Int): Bitmap? {
-    var drawable = ContextCompat.getDrawable(this, drawableId) ?: return null
+    var drawable = ContextCompat.getDrawable(this, drawableId)
 
     if (Build.VERSION.SDK_INT < Build.VERSION_CODES.LOLLIPOP) {
-        drawable = DrawableCompat.wrap(drawable).mutate()
+        drawable = drawable?.let {
+            DrawableCompat.wrap(it).mutate()
+        }
     }
 
-    val bitmap = Bitmap.createBitmap(
-        drawable.intrinsicWidth,
-        drawable.intrinsicHeight,
-        Bitmap.Config.ARGB_8888
-    ) ?: return null
-    val canvas = Canvas(bitmap)
-    drawable.setBounds(0, 0, canvas.width, canvas.height)
-    drawable.draw(canvas)
+    val bitmap = drawable?.let {
+        Bitmap.createBitmap(
+            it.intrinsicWidth,
+            it.intrinsicHeight,
+            Bitmap.Config.ARGB_8888
+        )
+    }
+    val canvas = bitmap?.let {
+        Canvas(it)
+    }
+    canvas?.let {
+        drawable?.setBounds(0, 0, it.width, it.height)
+        drawable?.draw(it)
+    }
 
     return bitmap
 }

@@ -29,7 +29,6 @@ import com.example.complamap.views.activities.CreateComplaintActivity
 import com.google.android.material.bottomsheet.BottomSheetBehavior
 import com.yandex.mapkit.MapKitFactory
 import com.yandex.mapkit.geometry.Point
-import com.yandex.mapkit.layers.GeoObjectTapEvent
 import com.yandex.mapkit.layers.GeoObjectTapListener
 import com.yandex.mapkit.logo.Alignment
 import com.yandex.mapkit.logo.HorizontalAlignment
@@ -48,15 +47,11 @@ import com.yandex.mapkit.search.SearchOptions
 import com.yandex.mapkit.search.SearchType
 import com.yandex.mapkit.search.search_layer.PlacemarkListener
 import com.yandex.mapkit.search.search_layer.SearchLayer
-import com.yandex.mapkit.search.search_layer.SearchResultItem
 import com.yandex.runtime.image.ImageProvider
 import kotlinx.coroutines.launch
 
 class MapFragment :
     Fragment(),
-    GeoObjectTapListener,
-    InputListener,
-    PlacemarkListener,
     MapObjectTapListener {
     private var _binding: FragmentMapBinding? = null
     private val binding get() = _binding!!
@@ -80,6 +75,54 @@ class MapFragment :
                 )
             )
         }
+    }
+    private val placemarkListener = PlacemarkListener { p0 ->
+        viewModel.processResultItem(p0)
+        true
+    }
+    private val inputListener = object : InputListener {
+        override fun onMapTap(p0: Map, p1: Point) {
+            mapView.map.deselectGeoObject()
+            currentPlacemark = currentPlacemark?.let {
+                mapView.map.mapObjects.remove(it)
+                mapView.map.mapObjects.addPlacemark(p1, placemarkIcon)
+            } ?: let {
+                currentComplaint = currentComplaint?.let {
+                    it.setIcon(placemarkIcon)
+                    null
+                }
+                BottomSheetManager.visibleBottomSheet = R.id.map_object_info
+                mapView.map.mapObjects.addPlacemark(p1, placemarkIcon)
+            }
+            viewModel.addressFromPoint(
+                p1,
+                mapView.map.cameraPosition.zoom.toInt()
+            )
+        }
+
+        override fun onMapLongTap(p0: Map, p1: Point) {
+            // Функционала для длинного нажатия на карту в проекте нет
+        }
+    }
+    private val geoObjectTapListener = GeoObjectTapListener { p0 ->
+        viewModel.apply {
+            processSelectedObject(p0)
+            addressFromPoint(
+                p0.geoObject.geometry[0].point!!,
+                mapView.map.maxZoom.toInt()
+            )
+        }
+        currentComplaint = currentComplaint?.let {
+            it.setIcon(placemarkIcon)
+            null
+        }
+        currentPlacemark = currentPlacemark?.let { mapView.map.mapObjects.remove(it); null }
+        BottomSheetManager.visibleBottomSheet = R.id.map_object_info
+        currentPlacemark = mapView.map.mapObjects.addPlacemark(
+            p0.geoObject.geometry[0].point!!,
+            placemarkIcon
+        )
+        true
     }
     private lateinit var placemarkIcon: ImageProvider
     private lateinit var placemarkPickedIcon: ImageProvider
@@ -228,64 +271,6 @@ class MapFragment :
         mapView.onStart()
         MapKitFactory.getInstance().onStart()
     }
-
-    override fun onMapTap(p0: Map, p1: Point) {
-        mapView.map.deselectGeoObject()
-        currentPlacemark = currentPlacemark?.let {
-            mapView.map.mapObjects.remove(it)
-            mapView.map.mapObjects.addPlacemark(p1, placemarkIcon)
-        } ?: let {
-            currentComplaint = currentComplaint?.let {
-                it.setIcon(placemarkIcon)
-                null
-            }
-            BottomSheetManager.visibleBottomSheet = R.id.map_object_info
-            mapView.map.mapObjects.addPlacemark(p1, placemarkIcon)
-        }
-        viewModel.addressFromPoint(
-            p1,
-            mapView.map.cameraPosition.zoom.toInt()
-        )
-    }
-
-    override fun onMapLongTap(p0: Map, p1: Point) {}
-
-    override fun onTap(p0: SearchResultItem): Boolean {
-        viewModel.processResultItem(p0)
-        return true
-    }
-
-    override fun onObjectTap(p0: GeoObjectTapEvent): Boolean {
-        viewModel.apply {
-            processSelectedObject(p0)
-            addressFromPoint(
-                p0.geoObject.geometry[0].point!!,
-                mapView.map.maxZoom.toInt()
-            )
-        }
-        currentComplaint = currentComplaint?.let {
-            it.setIcon(placemarkIcon)
-            null
-        }
-        currentPlacemark = currentPlacemark?.let { mapView.map.mapObjects.remove(it); null }
-        BottomSheetManager.visibleBottomSheet = R.id.map_object_info
-        currentPlacemark = mapView.map.mapObjects.addPlacemark(
-            p0.geoObject.geometry[0].point!!,
-            placemarkIcon
-        )
-        return true
-    }
-    private fun setBottomSheetPeekHeight(view: View) {
-        val bottomSheetBehavior = BottomSheetBehavior.from(view)
-        val tv = TypedValue()
-        if (requireActivity().theme.resolveAttribute(R.attr.actionBarSize, tv, true)) {
-            val actionBarHeight = TypedValue.complexToDimensionPixelSize(
-                tv.data,
-                resources.displayMetrics
-            )
-            bottomSheetBehavior.peekHeight = actionBarHeight * 2
-        }
-    }
     private fun initializeFragment() {
         mapView = binding.mapview
         viewModel = ViewModelProvider(this)[MapViewModel::class.java]
@@ -302,17 +287,15 @@ class MapFragment :
         searchView.setOnEditorActionListener { textView, actionId, keyEvent ->
             val searchType = SearchType.GEO.value or SearchType.BIZ.value
             if (actionId == EditorInfo.IME_ACTION_SEARCH) {
-                if (searchView.text.toString().isNotBlank() && searchView.text.toString()
-                    .isNotEmpty()
+                if (searchView.text.toString().isNotBlank() &&
+                    searchView.text.toString().isNotEmpty()
                 ) {
                     searchLayer.submitQuery(
                         searchView.text.toString(),
                         SearchOptions().setSearchTypes(searchType)
                     )
-                } else
-                    searchLayer.clear()
-            }
-            false
+                } else searchLayer.clear()
+            }; false
         }
         binding.fab.setOnClickListener {
             binding.bottomSheetParent.addressView.text.let {
@@ -332,8 +315,7 @@ class MapFragment :
                                 currentPlacemark!!.geometry.longitude
                             )
                         }
-                    }
-                    startActivity(intent)
+                    }; startActivity(intent)
                 } else {
                     Toast.makeText(requireContext(), "Поставьте метку", Toast.LENGTH_SHORT).show()
                 }
@@ -351,15 +333,24 @@ class MapFragment :
         }
         binding.infoC.mapInfoCard.setOnClickListener {
             val intent = Intent(context, ComplaintActivity::class.java)
-            ComplaintManager.setComplaint(
-                binding.infoC.complaint.complaint
-            )
+            ComplaintManager.setComplaint(binding.infoC.complaint.complaint)
             intent.putExtra("FragmentMode", "View")
             startActivity(intent)
         }
-        mapView.map.addTapListener(this)
-        mapView.map.addInputListener(this)
-        searchLayer.addPlacemarkListener(this)
+        mapView.map.addTapListener(geoObjectTapListener)
+        mapView.map.addInputListener(inputListener)
+        searchLayer.addPlacemarkListener(placemarkListener)
         mapView.map.addCameraListener(cameraListener)
+    }
+    private fun setBottomSheetPeekHeight(view: View) {
+        val bottomSheetBehavior = BottomSheetBehavior.from(view)
+        val tv = TypedValue()
+        if (requireActivity().theme.resolveAttribute(R.attr.actionBarSize, tv, true)) {
+            val actionBarHeight = TypedValue.complexToDimensionPixelSize(
+                tv.data,
+                resources.displayMetrics
+            )
+            bottomSheetBehavior.peekHeight = actionBarHeight * 2
+        }
     }
 }
