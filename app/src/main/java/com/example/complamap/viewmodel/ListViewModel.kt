@@ -18,7 +18,19 @@ class ListViewModel : ViewModel() {
         when {
             filter == null -> ListRepository.getComplaintsWithNoFilter(callback)
 
+            filter!!.value == null -> callback(listOf())
+
+            filter!!.key == "followers" -> ListRepository.getComplaintsWithArrayContainsFilter(
+                this.filter!!,
+                callback
+            )
+
             filter!!.value == "default" -> ListRepository.getComplaintsWithDefaultFilter(callback)
+
+            filter!!.key == "address" -> ListRepository.getComplaintsWithAddressFilter(
+                this.filter!!,
+                callback
+            )
 
             else -> ListRepository.getComplaintsWithEqualFilter(this.filter!!, callback)
         }
@@ -37,5 +49,9 @@ class ListViewModel : ViewModel() {
         this.filter = filter
     }
 
-    data class Filter(val key: String, val value: Any)
+    fun getFilter(): Filter? {
+        return this.filter
+    }
+
+    data class Filter(val key: String, val value: Any?)
 }

@@ -1,6 +1,7 @@
 package com.example.complamap.views.activities
 
 import android.os.Bundle
+import android.view.View
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.databinding.DataBindingUtil
@@ -27,6 +28,8 @@ class SignUpActivity : AppCompatActivity() {
         super.onStart()
         signUpViewModel = ViewModelProvider(this)[SignUpViewModel::class.java]
         binding.register.setOnClickListener {
+            val loader: View? = findViewById(R.id.sign_up_loader)
+            loader?.visibility = View.VISIBLE
             signUpViewModel.register(
                 binding.email.text.toString(),
                 binding.username.text.toString(),
@@ -50,6 +53,7 @@ class SignUpActivity : AppCompatActivity() {
                         finish()
                     }
                 }
+                loader?.visibility = View.INVISIBLE
             }
         }
     }

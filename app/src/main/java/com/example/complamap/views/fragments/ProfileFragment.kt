@@ -100,7 +100,7 @@ class ProfileFragment : Fragment(R.layout.fragment_profile) {
             LinearLayout.LayoutParams.WRAP_CONTENT // Window height
         )
         popupWindow.isOutsideTouchable = true
-        popupWindow.elevation = 10.0F
+        popupWindow.elevation = elevation
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
             val slideIn = Slide()
             slideIn.slideEdge = Gravity.TOP
@@ -117,6 +117,11 @@ class ProfileFragment : Fragment(R.layout.fragment_profile) {
             0,
             0
         )
-        mainLayout?.foreground?.alpha = 50
+        mainLayout?.foreground?.alpha = alpha
+    }
+
+    companion object {
+        private const val alpha = 50
+        private const val elevation = 10.0F
     }
 }

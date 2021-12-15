@@ -11,10 +11,6 @@ object ComplaintRepository : ViewModel() {
     @SuppressLint("StaticFieldLeak")
     private val db = FirebaseFirestore.getInstance()
 
-    fun getComplaintFromDatabase(complaintId: String) {
-        db.collection("complaint").document(complaintId).get()
-    }
-
     fun addComplaintToDatabase(complaint: Complaint, callback: (String) -> Unit) {
         db.collection("complaint").add(complaint).addOnSuccessListener { docRef ->
             db.collection("complaint").document(docRef.id).update("compId", docRef.id)
@@ -23,6 +19,7 @@ object ComplaintRepository : ViewModel() {
     }
 
     fun addPhoto(compId: String, url: String, callback: (Int) -> Unit) {
+        ComplaintManager.getCurrentComplaint()?.photo = url
         db.collection("complaint").document(compId).update("photo", url).addOnSuccessListener {
             callback(AppCompatActivity.RESULT_OK)
         }
@@ -33,35 +30,36 @@ object ComplaintRepository : ViewModel() {
     }
 
     fun editComplaint(
-        complaintId: String,
         uri: String,
-        description: String,
-        address: String,
-        category: String,
-        edit_date: com.google.firebase.Timestamp,
-        edit_day: String
+        complaint: Complaint,
+        editTimestamp: com.google.firebase.Timestamp,
+        editDay: String,
+        callback: (String) -> Unit
     ) {
-        if (uri != "") {
-            db.collection("complaint").document(complaintId).update(
-                mapOf(
-                    "photo" to uri,
-                    "description" to description,
-                    "address" to address,
-                    "category" to category,
-                    "edit_date" to edit_date,
-                    "edit_day" to edit_day
-                )
-            )
-        } else {
-            db.collection("complaint").document(complaintId).update(
-                mapOf(
-                    "description" to description,
-                    "address" to address,
-                    "category" to category,
-                    "edit_date" to edit_date,
-                    "edit_day" to edit_day
-                )
-            )
+        complaint.compId?.let {
+            if (uri != "") {
+                ComplaintManager.getCurrentComplaint()?.photo = uri
+                db.collection("complaint").document(it).update(
+                    mapOf(
+                        "photo" to uri,
+                        "description" to complaint.description,
+                        "address" to complaint.address,
+                        "category" to complaint.category,
+                        "editTimestamp" to editTimestamp,
+                        "editDay" to editDay
+                    )
+                ).addOnSuccessListener { callback("Изменено") }
+            } else {
+                db.collection("complaint").document(it).update(
+                    mapOf(
+                        "description" to complaint.description,
+                        "address" to complaint.address,
+                        "category" to complaint.category,
+                        "editTimestamp" to editTimestamp,
+                        "editDay" to editDay
+                    )
+                ).addOnSuccessListener { callback("Изменено") }
+            }
         }
     }
 
@@ -81,14 +79,13 @@ object ComplaintRepository : ViewModel() {
 
     fun editVotes(
         complaintId: String,
-        field: String,
-        number: Long,
+        votePair: Pair<String, Long>,
         member: String,
         userId: String,
         flag: Boolean
     ) {
         db.collection("complaint").document(complaintId).update(
-            mapOf(field to number)
+            mapOf(votePair.first to votePair.second)
         )
         if (flag) {
             db.collection("complaint").document(complaintId).update(

@@ -2,6 +2,7 @@ package com.example.complamap.views.activities
 
 import android.content.Intent
 import android.os.Bundle
+import android.view.View
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.databinding.DataBindingUtil
@@ -25,6 +26,8 @@ class SignInActivity : AppCompatActivity() {
         super.onStart()
         val signInViewModel = ViewModelProvider(this)[SignInViewModel::class.java]
         binding.login.setOnClickListener {
+            val loader: View? = findViewById(R.id.sign_in_loader)
+            loader?.visibility = View.VISIBLE
             signInViewModel.login(
                 binding.email.text.toString(),
                 binding.password.text.toString()
@@ -46,6 +49,7 @@ class SignInActivity : AppCompatActivity() {
                         finish()
                     }
                 }
+                loader?.visibility = View.INVISIBLE
             }
         }
 

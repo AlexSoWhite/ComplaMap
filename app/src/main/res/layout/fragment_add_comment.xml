@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        android:layout_width="match_parent"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        android:layout_height="wrap_content">
+    <EditText
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            app:layout_constraintTop_toTopOf="parent"
+            android:id="@+id/commentEditText"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toStartOf="@+id/addCommentButton" />
+
+    <Button
+            android:id="@+id/addCommentButton"
+            android:layout_width="wrap_content"
+            android:layout_height="0dp"
+            app:backgroundTint="@null"
+            android:backgroundTint="@color/light_green"
+            app:icon="@drawable/ic_check_24"
+            style="@style/Widget.App.Button.OutlinedButton.IconOnly"
+            app:iconTint="@color/icon"
+            app:cornerRadius="5dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintBottom_toBottomOf="@+id/commentEditText"
+            app:layout_constraintTop_toTopOf="@+id/commentEditText" />
+
+
+</androidx.constraintlayout.widget.ConstraintLayout>

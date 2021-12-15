@@ -126,5 +126,18 @@
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@id/buttons" />
 
+        <include
+                app:layout_constraintTop_toBottomOf="@+id/forgot_password"
+                app:layout_constraintEnd_toEndOf="parent"
+                layout="@layout/loader_auth"
+                android:id="@+id/sign_in_loader"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                app:layout_constraintStart_toStartOf="parent"
+                android:layout_marginTop="10dp"
+                android:visibility="invisible"
+                tools:visibility="visible"
+            />
+
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

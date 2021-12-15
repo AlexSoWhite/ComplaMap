@@ -9,7 +9,7 @@ import com.example.complamap.R
 import com.example.complamap.databinding.FragmentSaveBinding
 import com.example.complamap.views.activities.ComplaintActivity
 
-class SaveFragment() : Fragment(R.layout.fragment_save) {
+class SaveFragment : Fragment(R.layout.fragment_save) {
     private lateinit var binding: FragmentSaveBinding
 
     override fun onCreateView(

@@ -3,7 +3,8 @@
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        xmlns:app="http://schemas.android.com/apk/res-auto">
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        xmlns:tools="http://schemas.android.com/tools">
 
     <LinearLayout
             android:id="@+id/update_profile"
@@ -55,6 +56,19 @@
                 />
 
     </FrameLayout>
+
+    <include
+            app:layout_constraintTop_toBottomOf="@+id/confirm_button"
+            app:layout_constraintEnd_toEndOf="parent"
+            layout="@layout/loader_upload"
+            android:id="@+id/profile_update_loader"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:layout_constraintStart_toStartOf="parent"
+            android:layout_marginTop="10dp"
+            android:visibility="invisible"
+            tools:visibility="visible"
+            />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

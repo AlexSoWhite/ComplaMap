@@ -15,7 +15,7 @@
     <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
 
     <application
-            android:allowBackup="true"
+            android:allowBackup="false"
             android:icon="@mipmap/ic_launcher"
             android:label="@string/app_name"
             android:roundIcon="@mipmap/ic_launcher_round"
@@ -35,11 +35,23 @@
         <activity
                 android:name="com.example.complamap.views.activities.CreateComplaintActivity"
                 android:screenOrientation="portrait" />
-        <activity android:name="com.example.complamap.views.activities.ComplaintActivity" />
-        <activity android:name="com.example.complamap.views.activities.SignInActivity" />
-        <activity android:name="com.example.complamap.views.activities.SignUpActivity" />
-        <activity android:name=".views.activities.TakePhotoActivity"
-                    android:theme="@style/Theme.MyDialog"/>
+        <activity android:name=".views.activities.CreateComplaintPopUpActivity"
+                android:theme="@style/Theme.MyDialog" />
+        <activity
+                android:name="com.example.complamap.views.activities.ComplaintActivity"
+                android:screenOrientation="portrait" />
+        <activity
+                android:name="com.example.complamap.views.activities.SignInActivity"
+                android:screenOrientation="portrait" />
+        <activity
+                android:name="com.example.complamap.views.activities.SignUpActivity"
+                android:screenOrientation="portrait" />
+        <activity
+                android:name=".views.activities.TakePhotoActivity"
+                android:theme="@style/Theme.MyDialog" />
+        <activity
+                android:name=".views.activities.FilterActivity"
+                android:screenOrientation="portrait" />
         <provider
                 android:authorities="${applicationId}.provider"
                 android:name="androidx.core.content.FileProvider"

@@ -16,6 +16,8 @@ object ListRepository : ViewModel() {
     @SuppressLint("StaticFieldLeak")
     private val db = FirebaseFirestore.getInstance()
 
+    private const val maxComplaintCountDefault: Long = 10
+
     fun getComplaintsWithEqualFilter(
         filter: ListViewModel.Filter,
         callback: (List<Complaint>) -> Unit
@@ -30,13 +32,42 @@ object ListRepository : ViewModel() {
         }
     }
 
+    fun getComplaintsWithAddressFilter(
+        filter: ListViewModel.Filter,
+        callback: (List<Complaint>) -> Unit
+    ) {
+        viewModelScope.launch {
+            getComplaintCollection()
+                .whereGreaterThanOrEqualTo(filter.key, filter.value!!)
+                .whereLessThanOrEqualTo(filter.key, filter.value.toString() + "\uf8ff")
+                .get()
+                .addOnCompleteListener {
+                    completeListener(it, callback)
+                }
+        }
+    }
+
     fun getComplaintsWithDefaultFilter(
         callback: (List<Complaint>) -> Unit
     ) {
         viewModelScope.launch {
             getComplaintCollection()
-                .orderBy("creation_date", Query.Direction.DESCENDING)
-                .limit(10)
+                .orderBy("creationTimestamp", Query.Direction.DESCENDING)
+                .limit(maxComplaintCountDefault)
+                .get()
+                .addOnCompleteListener {
+                    completeListener(it, callback)
+                }
+        }
+    }
+
+    fun getComplaintsWithArrayContainsFilter(
+        filter: ListViewModel.Filter,
+        callback: (List<Complaint>) -> Unit
+    ) {
+        viewModelScope.launch {
+            getComplaintCollection()
+                .whereArrayContains(filter.key, filter.value!!)
                 .get()
                 .addOnCompleteListener {
                     completeListener(it, callback)
@@ -69,7 +100,7 @@ object ListRepository : ViewModel() {
                 .result
                 ?.toObjects(Complaint::class.java)
                 as List<Complaint>
-            callback(list)
+            callback(list.sortedByDescending { it.creationTimestamp })
         }
     }
 }
