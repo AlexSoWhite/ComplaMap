@@ -117,10 +117,13 @@ class ComplaintActivity : AppCompatActivity() {
         currentComplaint!!.description = binding.description.text.toString()
         currentComplaint!!.address = binding.address.text.toString()
         ComplaintManager.setComplaint(currentComplaint)
+        val loader: View? = findViewById(R.id.complaint_update_loader)
+        loader?.visibility = View.VISIBLE
         complaintViewModel.editComplaint(
             currentComplaint!!,
             imageUri
         ) { str ->
+            loader?.visibility = View.INVISIBLE
             Toast.makeText(this, str, Toast.LENGTH_SHORT).show()
             binding.categoryTextView.visibility = View.VISIBLE
             binding.category.visibility = View.INVISIBLE

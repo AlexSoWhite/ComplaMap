@@ -107,6 +107,8 @@ class ListFragment : Fragment(R.layout.fragment_list) {
 
     private fun updateList(filter: ListViewModel.Filter?) {
         listViewModel.setFilter(filter)
+        val loader: View? = activity?.findViewById(R.id.list_loader)
+        loader?.visibility = View.VISIBLE
         listViewModel.getComplaints { list ->
             if (list.isEmpty()) {
                 Toast.makeText(
@@ -115,6 +117,7 @@ class ListFragment : Fragment(R.layout.fragment_list) {
                     Toast.LENGTH_SHORT
                 ).show()
             }
+            loader?.visibility = View.INVISIBLE
             recycler.adapter = ComplaintAdapter(list, listViewModel)
         }
     }
