@@ -22,21 +22,21 @@
 
         <androidx.constraintlayout.widget.ConstraintLayout
                 android:id="@+id/background_container"
-                android:layout_width="310dp"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_centerInParent="true"
+                android:layout_marginHorizontal="6dp"
                 android:minHeight="410dp">
 
             <androidx.appcompat.widget.AppCompatTextView
                     android:id="@+id/text"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginStart="26dp"
                     android:layout_marginTop="70dp"
                     android:gravity="center"
                     android:scrollbars="vertical"
                     android:textAppearance="?attr/textAppearanceSubtitle1"
-                    android:text="Это гид по приложению"
+                    android:text="@string/guideText"
                     android:textAlignment="center"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="parent" />
