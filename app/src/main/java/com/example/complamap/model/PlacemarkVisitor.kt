@@ -31,12 +31,23 @@ class PlacemarkVisitor(
         val result = focusRegion.contains(point)
         p0.setVisible(result, Animation(Animation.Type.SMOOTH, 1F)) { }
     }
-    override fun onPolylineVisited(p0: PolylineMapObject) {}
-    override fun onColoredPolylineVisited(p0: ColoredPolylineMapObject) {}
-    override fun onPolygonVisited(p0: PolygonMapObject) {}
-    override fun onCircleVisited(p0: CircleMapObject) {}
+    override fun onPolylineVisited(p0: PolylineMapObject) { // Polyline в проекте не используется
+    }
+    override fun onColoredPolylineVisited(p0: ColoredPolylineMapObject) {
+        // ColoredPolyline в проекте не используется
+    }
+    override fun onPolygonVisited(p0: PolygonMapObject) {
+        // Polygon в проекте не используется
+    }
+    override fun onCircleVisited(p0: CircleMapObject) {
+        // Circle в проекте не используется
+    }
     override fun onCollectionVisitStart(p0: MapObjectCollection) = true
-    override fun onCollectionVisitEnd(p0: MapObjectCollection) {}
+    override fun onCollectionVisitEnd(p0: MapObjectCollection) {
+        // В переопределении этого медота нет надобности
+    }
     override fun onClusterizedCollectionVisitStart(p0: ClusterizedPlacemarkCollection) = false
-    override fun onClusterizedCollectionVisitEnd(p0: ClusterizedPlacemarkCollection) {}
+    override fun onClusterizedCollectionVisitEnd(p0: ClusterizedPlacemarkCollection) {
+        // ClusterizedCollection в проекте не используется
+    }
 }
