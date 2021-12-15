@@ -10,10 +10,8 @@ import java.security.InvalidParameterException
 object BottomSheetManager {
     var visibleBottomSheet = R.id.bottom_sheet_parent
         set(value) {
-            if (value != field) {
-                makeGone(field)
-                makeVisible(value)
-            }
+            makeGone(field)
+            makeVisible(value)
             field = value
         }
     lateinit var binding: FragmentMapBinding
