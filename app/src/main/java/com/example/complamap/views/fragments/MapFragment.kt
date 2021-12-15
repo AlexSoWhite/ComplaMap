@@ -53,8 +53,7 @@ import kotlinx.coroutines.launch
 class MapFragment :
     Fragment(),
     MapObjectTapListener {
-    private var _binding: FragmentMapBinding? = null
-    private val binding get() = _binding!!
+    private lateinit var binding: FragmentMapBinding
     private lateinit var mapView: MapView
     private lateinit var searchView: EditText
     lateinit var viewModel: MapViewModel
@@ -135,7 +134,7 @@ class MapFragment :
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
-        _binding = FragmentMapBinding.inflate(inflater, container, false)
+        binding = FragmentMapBinding.inflate(inflater, container, false)
         val view = binding.root
         placemarkIcon = ImageProvider.fromBitmap(
             requireContext().getBitmapFromVectorDrawable(
@@ -176,8 +175,9 @@ class MapFragment :
             mapView.map.deselectGeoObject()
             null
         }
-        BottomSheetManager.visibleBottomSheet = R.id.complaint_info
         binding.infoC.complaint.complaint = data
+        BottomSheetManager.visibleBottomSheet = R.id.bottom_sheet_parent
+        BottomSheetManager.visibleBottomSheet = R.id.complaint_info
         return true
     }
 
@@ -257,7 +257,6 @@ class MapFragment :
     }
     override fun onDestroyView() {
         super.onDestroyView()
-        _binding = null
     }
 
     override fun onStop() {
