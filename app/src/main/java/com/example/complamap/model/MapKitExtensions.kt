@@ -15,26 +15,26 @@ private val standartZoom: Float
         return outValue.float
     }
 
-fun VisibleRegion.contains(M: Point): Boolean {
-    val AM = Point(
-        M.latitude - topLeft.latitude,
-        M.longitude - topLeft.longitude
+fun VisibleRegion.contains(vecM: Point): Boolean {
+    val vecAM = Point(
+        vecM.latitude - topLeft.latitude,
+        vecM.longitude - topLeft.longitude
     )
-    val AB = Point(
+    val vecAB = Point(
         topRight.latitude - topLeft.latitude,
         topRight.longitude - topLeft.longitude
     )
-    val AD = Point(
+    val vecAD = Point(
         bottomLeft.latitude - topLeft.latitude,
         bottomLeft.longitude - topLeft.longitude
     )
-    val AMprodAB = AM.latitude * AB.latitude + AM.longitude * AB.longitude
-    val ABprodAB = AB.latitude * AB.latitude + AB.longitude * AB.longitude
-    val AMprodAD = AM.latitude * AD.latitude + AM.longitude * AD.longitude
-    val ADprodAD = AD.latitude * AD.latitude + AD.longitude * AD.longitude
+    val vecAMprodAB = vecAM.latitude * vecAB.latitude + vecAM.longitude * vecAB.longitude
+    val vecABprodAB = vecAB.latitude * vecAB.latitude + vecAB.longitude * vecAB.longitude
+    val vecAMprodAD = vecAM.latitude * vecAD.latitude + vecAM.longitude * vecAD.longitude
+    val vecADprodAD = vecAD.latitude * vecAD.latitude + vecAD.longitude * vecAD.longitude
 
-    return ((0 < AMprodAB) && (AMprodAB < ABprodAB)) &&
-        ((0 < AMprodAD) && (AMprodAD < ADprodAD))
+    return ((0 < vecAMprodAB) && (vecAMprodAB < vecABprodAB)) &&
+        ((0 < vecAMprodAD) && (vecAMprodAD < vecADprodAD))
 }
 
 fun Map.moveIfNotGreater(point: Point) {

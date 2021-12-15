@@ -18,9 +18,12 @@ import com.example.complamap.model.Category
 import com.example.complamap.model.Complaint
 import com.example.complamap.model.ComplaintManager
 import com.example.complamap.model.TakePhotoContract
+import com.example.complamap.model.UserManager
 import com.example.complamap.model.UserRepository
+import com.example.complamap.viewmodel.CommentViewModel
 import com.example.complamap.viewmodel.ComplaintViewModel
 import com.example.complamap.viewmodel.ProfileViewModel
+import com.example.complamap.views.fragments.CommentsFragment
 import com.example.complamap.views.fragments.OwnerCompFragment
 import com.example.complamap.views.fragments.PublishFragment
 import com.example.complamap.views.fragments.SaveFragment
@@ -33,8 +36,8 @@ class ComplaintActivity : AppCompatActivity() {
     }
 
     private lateinit var complaintViewModel: ComplaintViewModel
+    private lateinit var commentViewModel: CommentViewModel
     private lateinit var profileViewModel: ProfileViewModel
-
     private lateinit var binding: ActivityComplaintBinding
     private var currentUser: String? = ""
     private var creator: String = ""
@@ -63,53 +66,16 @@ class ComplaintActivity : AppCompatActivity() {
         )
         binding.complaintActivity.foreground.alpha = 0
         complaintViewModel = ViewModelProvider(this)[ComplaintViewModel::class.java]
+
+        commentViewModel = ViewModelProvider(this)[CommentViewModel::class.java]
+
         profileViewModel = ViewModelProvider(this)[ProfileViewModel::class.java]
         profileViewModel.getUser { user ->
             currentUser = user?.uid
         }
         creator = ComplaintManager.getCurrentComplaint()?.creator.toString()
         currentComplaint = ComplaintManager.getCurrentComplaint()
-        when (intent.getStringExtra("FragmentMode")) {
-
-            "Publish" -> {
-                var uri: Uri? = null
-                if (!intent.hasExtra("noPhoto")) {
-                    uri = intent.getStringExtra("uri")!!.toUri()
-                }
-                complaintViewModel.loadPhotoFromUri(
-                    baseContext,
-                    uri,
-                    binding.photo
-                )
-                supportFragmentManager.beginTransaction()
-                    .replace(binding.container.id, PublishFragment.getInstance(uri))
-                    .commit()
-            }
-
-            "View" -> {
-                if (currentUser != null) {
-                    if (currentUser == creator) {
-                        supportFragmentManager.beginTransaction()
-                            .replace(binding.container.id, OwnerCompFragment())
-                            .commit()
-                    } else {
-                        val args = Bundle()
-                        args.putString("creator", creator)
-                        val fr = ViewerCompFragment()
-                        fr.arguments = args
-                        supportFragmentManager.beginTransaction()
-                            .replace(binding.container.id, fr)
-                            .commit()
-                    }
-                }
-
-                complaintViewModel.loadPhotoFromServer(
-                    baseContext,
-                    currentComplaint!!,
-                    binding.photo
-                )
-            }
-        }
+        chooseFragment()
 
         binding.complaint = currentComplaint
         lifecycleScope.launch {
@@ -147,24 +113,27 @@ class ComplaintActivity : AppCompatActivity() {
     }
 
     fun edit() {
-        ComplaintManager.getCurrentComplaint()?.compId?.let {
-            complaintViewModel.editComplaint(
-                it,
-                binding.description.text.toString(),
-                binding.category.selectedItem.toString(),
-                binding.address.text.toString(),
-                imageUri
-            )
+        currentComplaint!!.category = binding.category.selectedItem.toString()
+        currentComplaint!!.description = binding.description.text.toString()
+        currentComplaint!!.address = binding.address.text.toString()
+        ComplaintManager.setComplaint(currentComplaint)
+        val loader: View? = findViewById(R.id.complaint_update_loader)
+        loader?.visibility = View.VISIBLE
+        complaintViewModel.editComplaint(
+            currentComplaint!!,
+            imageUri
+        ) { str ->
+            loader?.visibility = View.INVISIBLE
+            Toast.makeText(this, str, Toast.LENGTH_SHORT).show()
+            binding.categoryTextView.visibility = View.VISIBLE
+            binding.category.visibility = View.INVISIBLE
+            supportFragmentManager.beginTransaction()
+                .replace(binding.container.id, OwnerCompFragment())
+                .commit()
         }
-        Toast.makeText(this, "Изменено", Toast.LENGTH_SHORT).show()
         isEditableMode = false
         binding.categoryTextView.text = binding.category.selectedItem.toString()
-        binding.categoryTextView.visibility = View.VISIBLE
-        binding.category.visibility = View.INVISIBLE
         editOptions(isEditableMode)
-        supportFragmentManager.beginTransaction()
-            .replace(binding.container.id, OwnerCompFragment())
-            .commit()
     }
 
     private fun editOptions(state: Boolean) {
@@ -175,6 +144,59 @@ class ComplaintActivity : AppCompatActivity() {
             binding.address.isFocusable = state
             binding.address.isFocusableInTouchMode = state
             binding.address.isCursorVisible = state
+        }
+    }
+
+    private fun chooseFragment() {
+        when (intent.getStringExtra("FragmentMode")) {
+
+            "Publish" -> {
+                var uri: Uri? = null
+                if (!intent.hasExtra("noPhoto")) {
+                    uri = intent.getStringExtra("uri")!!.toUri()
+                }
+                complaintViewModel.loadPhotoFromUri(
+                    baseContext,
+                    uri,
+                    binding.photo
+                )
+                supportFragmentManager.beginTransaction()
+                    .replace(binding.container.id, PublishFragment.getInstance(uri))
+                    .commit()
+            }
+
+            "View" -> {
+                if (currentUser != null) {
+                    if (currentUser == creator) {
+                        supportFragmentManager.beginTransaction()
+                            .replace(binding.container.id, OwnerCompFragment())
+                            .commit()
+                    } else {
+                        val args = Bundle()
+                        args.putString("creator", creator)
+                        val fr = ViewerCompFragment()
+                        fr.arguments = args
+                        supportFragmentManager.beginTransaction()
+                            .replace(binding.container.id, fr)
+                            .commit()
+                    }
+                }
+
+                supportFragmentManager.beginTransaction()
+                    .replace(
+                        binding.containerForComments.id,
+                        CommentsFragment.getInstance(
+                            UserManager.getCurrentUser(),
+                            currentComplaint!!
+                        )
+                    ).commit()
+
+                complaintViewModel.loadPhotoFromServer(
+                    baseContext,
+                    currentComplaint!!,
+                    binding.photo
+                )
+            }
         }
     }
 }

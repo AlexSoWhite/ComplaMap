@@ -1,34 +1,19 @@
 package com.example.complamap.views.activities
 
-import android.app.Activity
-import android.content.Context
-import android.content.Intent
 import android.net.Uri
-import android.os.Build
 import android.os.Bundle
-import android.transition.TransitionManager
-import android.view.Gravity
-import android.view.LayoutInflater
 import android.view.View
-import android.view.ViewGroup
-import android.view.WindowManager
 import android.widget.ArrayAdapter
-import android.widget.Button
-import android.widget.ImageButton
-import android.widget.PopupWindow
-import android.widget.RadioButton
 import android.widget.Toast
-import androidx.activity.result.contract.ActivityResultContracts
-import androidx.annotation.RequiresApi
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.ViewModelProvider
 import com.example.complamap.R
-import com.example.complamap.databinding.CreateComplaintActivityBinding
+import com.example.complamap.databinding.ActivityCreateComplaintBinding
 import com.example.complamap.model.Category
 import com.example.complamap.model.Complaint
 import com.example.complamap.model.ComplaintManager
+import com.example.complamap.model.CreateComplaintDialogContract
 import com.example.complamap.model.TakePhotoContract
-import com.example.complamap.model.UserManager
 import com.example.complamap.viewmodel.ComplaintViewModel
 import com.example.complamap.views.fragments.AddPlacemarkDialog
 import com.google.firebase.firestore.GeoPoint
@@ -43,7 +28,7 @@ class CreateComplaintActivity : AppCompatActivity() {
 
     private lateinit var complaintViewModel: ComplaintViewModel
 
-    private lateinit var binding: CreateComplaintActivityBinding
+    private lateinit var binding: ActivityCreateComplaintBinding
 
     private val takePhotoLauncher =
         registerForActivityResult(TakePhotoContract()) {
@@ -54,19 +39,17 @@ class CreateComplaintActivity : AppCompatActivity() {
             }
         }
 
-    private var resultLauncher = registerForActivityResult(
-        ActivityResultContracts.StartActivityForResult()
-    ) { result ->
-        if (result.resultCode == Activity.RESULT_OK) {
-            finish()
+    private val dialogLauncher =
+        registerForActivityResult(CreateComplaintDialogContract()) {
+            if (it != null) {
+                finish()
+            }
         }
-    }
 
-    @RequiresApi(Build.VERSION_CODES.M)
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         supportActionBar?.hide()
-        binding = CreateComplaintActivityBinding.inflate(layoutInflater)
+        binding = ActivityCreateComplaintBinding.inflate(layoutInflater)
         setContentView(binding.root)
         complaintViewModel = ViewModelProvider(this)[ComplaintViewModel::class.java]
         binding.ExitButton.setOnClickListener {
@@ -77,21 +60,16 @@ class CreateComplaintActivity : AppCompatActivity() {
             takePhotoLauncher.launch("")
         }
 
-        binding.RootFrame.foreground.alpha = 0
-
         binding.AddButton.setOnClickListener { // обработка нажатия на кнопку внизу
-            if (binding.Address.length() == 0) {
+            if (binding.Address.text.isEmpty() || binding.Address.text.isBlank()) {
                 Toast.makeText(applicationContext, "Введите адрес", Toast.LENGTH_SHORT).show()
+            } else if (binding.Description.text.isEmpty() || binding.Description.text.isBlank()) {
+                Toast.makeText(applicationContext, "Введите описание", Toast.LENGTH_SHORT).show()
             } else {
-                binding.RootFrame.foreground.alpha = 50
-                binding.Address.isEnabled = false
-                binding.AddButton.isEnabled = false
-                binding.Description.isEnabled = false
-                binding.ExitButton.isEnabled = false
-                binding.AddPhotoButton.isEnabled = false
                 showPopup()
             }
         }
+
         intent.getStringExtra(AddPlacemarkDialog.EXTRA_ADDRESS)?.let {
             binding.Address.text.append(it)
         }
@@ -105,6 +83,7 @@ class CreateComplaintActivity : AppCompatActivity() {
         for (it in Category.values()) {
             categories.add(it.category)
         }
+
         val adapter: ArrayAdapter<String> = ArrayAdapter<String>(
             this,
             android.R.layout.simple_list_item_1,
@@ -116,82 +95,29 @@ class CreateComplaintActivity : AppCompatActivity() {
     }
 
     private fun showPopup() {
-        val rootLayout: ViewGroup = findViewById(R.id.root_layout)
-        val inflater: LayoutInflater =
-            getSystemService(Context.LAYOUT_INFLATER_SERVICE) as LayoutInflater
-        val view = inflater.inflate(R.layout.create_complaint_popup_menu, null)
-        val popupWindow = PopupWindow(view)
 
-        popupWindow.height = WindowManager.LayoutParams.WRAP_CONTENT
-        popupWindow.width = WindowManager.LayoutParams.MATCH_PARENT
-
-        TransitionManager.beginDelayedTransition(rootLayout)
-        popupWindow.isOutsideTouchable = false
-        popupWindow.showAtLocation(rootLayout, Gravity.CENTER, 0, 0)
-        popupWindow.setOnDismissListener {
-            binding.RootFrame.foreground.alpha = 0
-            binding.ExitButton.isEnabled = true
-            binding.AddButton.isEnabled = true
-            binding.Address.isEnabled = true
-            binding.Description.isEnabled = true
-            binding.AddPhotoButton.isEnabled = true
-        }
-        val publishButton: Button = view.findViewById(R.id.PublishButton) // опубликовать
-        val closeButton = view.findViewById<ImageButton>(R.id.closePopup) // нажатие на крестик
-        val radioAnon = view.findViewById<RadioButton>(R.id.Anon)
-        val radioNeAnon = view.findViewById<RadioButton>(R.id.NeAnon)
-
-        publishButton.setOnClickListener {
-            if (!(radioAnon.isChecked) && !(radioNeAnon.isChecked)) {
-                Toast.makeText(
-                    applicationContext,
-                    "Выберите тип публикации",
-                    Toast.LENGTH_SHORT
-                ).show()
-            } else {
-                if ((radioNeAnon.isChecked) && (UserManager.getCurrentUser() == null)) {
-                    Toast.makeText(
-                        applicationContext,
-                        "Требуется авторизация",
-                        Toast.LENGTH_SHORT
-                    ).show()
-                } else {
-                    ComplaintManager.setComplaint(
-                        Complaint(
-                            category = binding.Spinner.selectedItem.toString(),
-                            description = binding.Description.text.toString(),
-                            address = binding.Address.text.toString(),
-                            location = GeoPoint(
-                                intent.getDoubleExtra(AddPlacemarkDialog.EXTRA_LATITUDE, 0.0),
-                                intent.getDoubleExtra(AddPlacemarkDialog.EXTRA_LONGITUDE, 0.0)
-                            ),
-                            creation_day = "",
-                            status = "Принята",
-                            followers = mutableListOf(),
-                            approvals = 0,
-                            approvers = mutableListOf(),
-                            rejections = 0,
-                            rejecters = mutableListOf(),
-                            creator = if (radioAnon.isChecked) null
-                            else UserManager.getCurrentUser()?.uid
-                        )
-                    )
-                    val intent = Intent(this, ComplaintActivity::class.java)
-                    intent.putExtra("FragmentMode", "Publish")
-                    if (tempImageUri != null) {
-                        intent.putExtra("uri", tempImageUri.toString())
-                    } else {
-                        intent.putExtra("noPhoto", true)
-                    }
-//                    startActivityForResult(intent, 1)
-                    resultLauncher.launch(intent)
-                    popupWindow.dismiss()
-                }
-            }
-        }
-
-        closeButton.setOnClickListener {
-            popupWindow.dismiss()
+        ComplaintManager.setComplaint(
+            Complaint(
+                category = binding.Spinner.selectedItem.toString(),
+                description = binding.Description.text.toString(),
+                address = binding.Address.text.toString(),
+                location = GeoPoint(
+                    intent.getDoubleExtra(AddPlacemarkDialog.EXTRA_LATITUDE, 0.0),
+                    intent.getDoubleExtra(AddPlacemarkDialog.EXTRA_LONGITUDE, 0.0)
+                ),
+                creationDay = "",
+                status = "Принята",
+                followers = mutableListOf(),
+                approvals = 0,
+                approvers = mutableListOf(),
+                rejections = 0,
+                rejecters = mutableListOf()
+            )
+        )
+        if (tempImageUri != null) {
+            dialogLauncher.launch(tempImageUri.toString())
+        } else {
+            dialogLauncher.launch(null)
         }
     }
 }
